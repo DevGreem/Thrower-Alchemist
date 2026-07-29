@@ -1,4 +1,4 @@
-extends ItemList
+extends VBoxContainer
 
 class_name GraphicInventory
 
@@ -33,8 +33,6 @@ func _on_set_inventory_component() -> void:
 	if not inventory_component:
 		return
 	
-	self.max_columns = inventory_component.columns
-	
 	if not inventory_component.item_added.is_connected(_on_item_added):
 		inventory_component.item_added.connect(_on_item_added)
 	
@@ -49,7 +47,6 @@ func _on_item_added(_pos: Vector2, _value: Resource) -> void:
 	
 	var placeholder: PlaceholderTexture2D = PlaceholderTexture2D.new()
 	placeholder.size = Vector2(8, 8)
-	self.add_item("", placeholder)
 
 func _on_item_removed(pos: Vector2) -> void:
 	#self.remove_item(pos)
@@ -57,3 +54,14 @@ func _on_item_removed(pos: Vector2) -> void:
 
 func _on_item_setted(pos: Vector2, value: Resource) -> void:
 	pass
+
+func _init_slots() -> void:
+	
+	var columns: int = inventory_component.columns
+	var rows: int = inventory_component.rows
+	
+	for row: int in range(rows):
+		var container: HBoxContainer = HBoxContainer.new()
+		
+		for column: int in range(columns):
+			pass
