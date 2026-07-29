@@ -1,9 +1,9 @@
 [gd_scene format=3 uid="uid://dmr3imp88ys2"]
 
-[ext_resource type="Script" uid="uid://fey7uq0vedbb" path="res://scripts/potion_node.gd" id="1_bctwa"]
+[ext_resource type="Script" uid="uid://fey7uq0vedbb" path="res://content/potions/potion_node.gd" id="1_bctwa"]
 [ext_resource type="Texture2D" uid="uid://dfgj4org13j6b" path="res://content/potions/potion.png" id="2_j0gsx"]
+[ext_resource type="Script" uid="uid://b7vd0ofxx6q5p" path="res://components/reach_distance_component.gd" id="5_63a6k"]
 [ext_resource type="Script" uid="uid://cixn3eduqvftn" path="res://components/move_component_2d.gd" id="6_s3gvr"]
-[ext_resource type="Script" uid="uid://76hfggre2bev" path="res://components/reach_range_component.gd" id="7_p4w1y"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_s3gvr"]
 radius = 2.0
@@ -19,15 +19,14 @@ texture = ExtResource("2_j0gsx")
 unique_name_in_owner = true
 script = ExtResource("6_s3gvr")
 actor = NodePath("..")
-speed = Vector2(2000, 2000)
+speed = 175.0
 metadata/_custom_type_script = "uid://cixn3eduqvftn"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=640434666]
 shape = SubResource("CircleShape2D_s3gvr")
 
-[node name="ReachRangeComponent" type="Node" parent="." unique_id=947733853 node_paths=PackedStringArray("actor")]
+[node name="ReachDistanceComponent2D" type="Node" parent="." unique_id=768853802 node_paths=PackedStringArray("move_component")]
 unique_name_in_owner = true
-script = ExtResource("7_p4w1y")
-actor = NodePath("..")
-max_reach_range = 2.5
-free_parent_on_reach = false
+script = ExtResource("5_63a6k")
+move_component = NodePath("../MoveComponent2D")
+reach_distance = 150.0

@@ -11,6 +11,6 @@ metadata/_custom_type_script = "uid://bqo6ldsmwtpak"
 
 [resource]
 script = ExtResource("2_bqqku")
-weight = 3.0
+weight = 1.5
 effects = Array[ExtResource("1_yf3ll")]([SubResource("Resource_s3gvr")])
 metadata/_custom_type_script = "uid://sc48cbyclvc1"

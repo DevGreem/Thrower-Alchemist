@@ -13,13 +13,13 @@ var id: String:
 func drink_effect(actor: Node2D) -> void
 
 @abstract
-func throw_effect(actor: Node2D) -> void
+func throw_effect(actor: Node2D, potion: PotionNode) -> void
 
 static func is_joinable(left: PotionEffect, right: PotionEffect) -> bool:
 	
 	var ids: Array[StringName] = Databases.EFFECT_CONNECTIONS.where({
-		"left": left.id,
-		"right": right.id
+		"left": PotionEffectConnection.is_any.bind(left, right),
+		"right": PotionEffectConnection.is_any.bind(left, right)
 	})
 	
 	return not ids.is_empty()

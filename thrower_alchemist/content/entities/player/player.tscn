@@ -5,7 +5,6 @@
 [ext_resource type="Script" uid="uid://drdxj65bd6jak" path="res://components/move_input_component_2d.gd" id="3_lwocm"]
 [ext_resource type="Script" uid="uid://ditbeykj0vfd4" path="res://components/health_component.gd" id="4_t4ell"]
 [ext_resource type="Script" uid="uid://bqx8hyj121gcl" path="res://components/hurtbox_component_2d.gd" id="5_55yfw"]
-[ext_resource type="Script" uid="uid://b2bjub0wy06yg" path="res://components/input_component.gd" id="6_r5tfu"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_obaep"]
 size = Vector2(12, 24)
@@ -14,6 +13,7 @@ size = Vector2(12, 24)
 radius = 4.0
 
 [node name="Player" type="CharacterBody2D" unique_id=1606296388 groups=["player"]]
+collision_layer = 64
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1511677485]
 y_sort_enabled = true
@@ -29,7 +29,7 @@ health = 25.0
 [node name="MoveComponent2D" type="Node" parent="." unique_id=1338874261 node_paths=PackedStringArray("actor")]
 script = ExtResource("2_cp3qr")
 actor = NodePath("..")
-speed = Vector2(1000, 1000)
+speed = 100.0
 
 [node name="MoveInputComponent2D" type="Node" parent="." unique_id=603199798 node_paths=PackedStringArray("move_component")]
 script = ExtResource("3_lwocm")
@@ -50,9 +50,3 @@ debug_color = Color(0.8294658, 0.3909105, 0.14149457, 0.41960785)
 [node name="Collision" type="CollisionShape2D" parent="." unique_id=1053479339]
 position = Vector2(0, -4)
 shape = SubResource("CircleShape2D_obaep")
-
-[node name="InputComponent" type="Node" parent="." unique_id=1728003754 node_paths=PackedStringArray("actor")]
-script = ExtResource("6_r5tfu")
-actor = NodePath("..")
-action = "throw"
-metadata/_custom_type_script = "uid://b2bjub0wy06yg"

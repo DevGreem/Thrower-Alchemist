@@ -1,6 +1,6 @@
 extends Node
 
-class_name ReachRangeComponent
+class_name ReachTimeComponent
 
 signal reached
 
@@ -11,7 +11,7 @@ enum ComponentMode {
 
 @export var actor: Node
 ## In seconds
-@export var max_reach_range: float
+@export var max_time_range: float
 @export var activated: bool = true
 @export var free_parent_on_reach: bool = true
 
@@ -22,7 +22,7 @@ func _physics_process(delta: float) -> void:
 
 func _update_distance(delta: float) -> void:
 	
-	if current_reached > max_reach_range:
+	if current_reached > max_time_range:
 		_on_reach()
 		return
 	
