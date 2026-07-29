@@ -5,6 +5,8 @@
 [ext_resource type="Script" uid="uid://drdxj65bd6jak" path="res://components/move_input_component_2d.gd" id="3_lwocm"]
 [ext_resource type="Script" uid="uid://ditbeykj0vfd4" path="res://components/health_component.gd" id="4_t4ell"]
 [ext_resource type="Script" uid="uid://bqx8hyj121gcl" path="res://components/hurtbox_component_2d.gd" id="5_55yfw"]
+[ext_resource type="Script" uid="uid://yeaja8p4wyux" path="res://components/inventory_system/inventory_component_2d.gd" id="6_r5tfu"]
+[ext_resource type="Script" uid="uid://bbmbnjuagm1l4" path="res://components/inventory_system/hotbar_component_1d.gd" id="7_t2p4e"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_obaep"]
 size = Vector2(12, 24)
@@ -50,3 +52,10 @@ debug_color = Color(0.8294658, 0.3909105, 0.14149457, 0.41960785)
 [node name="Collision" type="CollisionShape2D" parent="." unique_id=1053479339]
 position = Vector2(0, -4)
 shape = SubResource("CircleShape2D_obaep")
+
+[node name="InventoryComponent" type="Node" parent="." unique_id=600584459]
+script = ExtResource("6_r5tfu")
+
+[node name="HotbarComponent" type="Node" parent="." unique_id=147460662]
+script = ExtResource("7_t2p4e")
+metadata/_custom_type_script = "uid://bbmbnjuagm1l4"
