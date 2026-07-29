@@ -14,6 +14,10 @@ config/name="Thrower Alchemist"
 config/features=PackedStringArray("4.7", "Forward Plus")
 config/icon="res://icon.svg"
 
+[autoload]
+
+GameDebugger="*uid://xodsxgpsskk2"
+
 [debug]
 
 gdscript/warnings/directory_rules={
