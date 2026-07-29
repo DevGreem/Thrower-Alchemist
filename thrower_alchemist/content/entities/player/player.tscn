@@ -2,11 +2,14 @@
 
 [ext_resource type="Texture2D" uid="uid://b81roki8jflh3" path="res://content/entities/player/player.png" id="1_e50yv"]
 [ext_resource type="Script" uid="uid://cixn3eduqvftn" path="res://components/move_component_2d.gd" id="2_cp3qr"]
-[ext_resource type="Script" uid="uid://drdxj65bd6jak" path="res://components/move_input_component_2d.gd" id="3_lwocm"]
+[ext_resource type="Script" uid="uid://drdxj65bd6jak" path="res://components/input_system/move_input_component_2d.gd" id="3_lwocm"]
 [ext_resource type="Script" uid="uid://ditbeykj0vfd4" path="res://components/health_component.gd" id="4_t4ell"]
 [ext_resource type="Script" uid="uid://bqx8hyj121gcl" path="res://components/hurtbox_component_2d.gd" id="5_55yfw"]
-[ext_resource type="Script" uid="uid://yeaja8p4wyux" path="res://components/inventory_system/inventory_component.gd" id="6_r5tfu"]
-[ext_resource type="Script" uid="uid://bbmbnjuagm1l4" path="res://components/inventory_system/hotbar_component.gd" id="7_t2p4e"]
+[ext_resource type="Script" uid="uid://yeaja8p4wyux" path="res://components/inventory_system/scripts/inventory_component.gd" id="6_r5tfu"]
+[ext_resource type="Script" uid="uid://bbmbnjuagm1l4" path="res://components/inventory_system/scripts/hotbar_component.gd" id="7_t2p4e"]
+[ext_resource type="Script" uid="uid://on0qe3w8pxeo" path="res://components/inventory_system/resources/inventory_item_data.gd" id="8_1umn6"]
+[ext_resource type="Script" uid="uid://hlljrud6lsx3" path="res://components/input_system/use_item_input.gd" id="9_i83cd"]
+[ext_resource type="Script" uid="uid://b1y8nxmuj8nk1" path="res://components/input_system/interact_item_input.gd" id="10_iakl4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_obaep"]
 size = Vector2(12, 24)
@@ -33,11 +36,6 @@ script = ExtResource("2_cp3qr")
 actor = NodePath("..")
 speed = 100.0
 
-[node name="MoveInputComponent2D" type="Node" parent="." unique_id=603199798 node_paths=PackedStringArray("move_component")]
-script = ExtResource("3_lwocm")
-move_component = NodePath("../MoveComponent2D")
-action_vector = Array[StringName]([&"left", &"right", &"up", &"down"])
-
 [node name="HurtboxComponent2D" type="Area2D" parent="." unique_id=1236442513 node_paths=PackedStringArray("health_component")]
 collision_layer = 2
 collision_mask = 0
@@ -59,4 +57,24 @@ script = ExtResource("6_r5tfu")
 [node name="HotbarComponent" type="Node" parent="." unique_id=147460662]
 script = ExtResource("7_t2p4e")
 spaces = 4
+_items = Array[ExtResource("8_1umn6")]([null, null, null, null])
 metadata/_custom_type_script = "uid://bbmbnjuagm1l4"
+
+[node name="Inputs" type="Node" parent="." unique_id=209227326]
+
+[node name="MoveInputComponent2D" type="Node" parent="Inputs" unique_id=603199798 node_paths=PackedStringArray("move_component")]
+script = ExtResource("3_lwocm")
+move_component = NodePath("../../MoveComponent2D")
+action_vector = Array[StringName]([&"left", &"right", &"up", &"down"])
+
+[node name="UseItemInput" type="Node" parent="Inputs" unique_id=1172783860 node_paths=PackedStringArray("hotbar_component", "actor")]
+script = ExtResource("9_i83cd")
+hotbar_component = NodePath("../../HotbarComponent")
+actor = NodePath("../..")
+metadata/_custom_type_script = "uid://hlljrud6lsx3"
+
+[node name="InteractItemInput" type="Node" parent="Inputs" unique_id=99728740 node_paths=PackedStringArray("hotbar_component", "actor")]
+script = ExtResource("10_iakl4")
+hotbar_component = NodePath("../../HotbarComponent")
+actor = NodePath("../..")
+metadata/_custom_type_script = "uid://b1y8nxmuj8nk1"

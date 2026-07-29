@@ -13,9 +13,14 @@ class_name GraphicHotbar
 		default_slot_scene = value
 		_init_slots()
 
+var slots: Array[InventorySlot] = []
+
 func _ready() -> void:
 	
 	_init_slots()
+	
+	if not hotbar_component.item_selected_changed.is_connected(_on_select_new_item):
+		hotbar_component.item_selected_changed.connect(_on_select_new_item)
 
 func _init_slots() -> void:
 	
@@ -30,4 +35,14 @@ func _init_slots() -> void:
 		
 		var slot: InventorySlot = InventorySlot.generate(default_slot_scene, item)
 		
+		slots.append(slot)
 		add_child(slot)
+	
+	_on_select_new_item(-1, hotbar_component.item_selected)
+
+func _on_select_new_item(before: int, after: int) -> void:
+	
+	if before != -1:
+		slots[before].unselect()
+	
+	slots[after].select()

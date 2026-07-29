@@ -1,0 +1,32 @@
+[gd_scene format=3 uid="uid://7tyq2l1kda1f"]
+
+[ext_resource type="Script" uid="uid://ch4x0cwb41b8e" path="res://components/inventory_system/ui/inventory_slot_content.gd" id="1_3jlg6"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xwbi6"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.1, 0.1, 0.1, 0.6)
+
+[node name="InventorySlotContent" type="PanelContainer" unique_id=196539339 node_paths=PackedStringArray("icon", "label")]
+custom_minimum_size = Vector2(10, 10)
+custom_maximum_size = Vector2(10, 10)
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_xwbi6")
+script = ExtResource("1_3jlg6")
+icon = NodePath("CenterContainer/IconNode")
+label = NodePath("CenterContainer/Label")
+const_size = Vector2(10, 10)
+
+[node name="CenterContainer" type="CenterContainer" parent="." unique_id=646950951]
+layout_mode = 2
+
+[node name="IconNode" type="TextureRect" parent="CenterContainer" unique_id=2021875063]
+custom_maximum_size = Vector2(8, 8)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CenterContainer" unique_id=1486759947]
+visible = false
+layout_mode = 2

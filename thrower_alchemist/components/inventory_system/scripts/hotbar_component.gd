@@ -43,6 +43,9 @@ func get_item(pos: int) -> InventoryItemData:
 	item_getted.emit(pos, value)
 	return value
 
+func get_item_selected() -> InventoryItemData:
+	return get_item(item_selected)
+
 func set_item(pos: int, new_value: InventoryItemData) -> bool:
 	
 	_exists_position(pos)
@@ -57,3 +60,13 @@ func set_item(pos: int, new_value: InventoryItemData) -> bool:
 
 func _exists_position(pos: int) -> void:
 	assert(pos >= 0 and pos < spaces, "The position " + str(pos) + " don't exists!")
+
+func _input(event: InputEvent) -> void:
+	
+	if event is InputEventKey:
+		
+		if not event.pressed:
+			return
+		
+		if event.keycode >= KEY_0 and event.keycode <= KEY_9:
+			item_selected = event.keycode - KEY_0 - 1

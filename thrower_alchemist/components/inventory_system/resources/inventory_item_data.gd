@@ -35,3 +35,9 @@ func get_tooltips_text() -> String:
 
 func join_method(lines: PackedStringArray) -> String:
 	return "\n".join(lines)
+
+@abstract
+func use(actor: Node) -> void
+
+@abstract
+func interact(actor: Node) -> void

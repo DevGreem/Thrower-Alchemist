@@ -1,10 +1,32 @@
 [gd_scene format=3 uid="uid://dl6qcrq8i5xm0"]
 
+[ext_resource type="PackedScene" uid="uid://i762gem8h1rt" path="res://scenes/inventory/inventory_ui.tscn" id="1_0sr1o"]
 [ext_resource type="PackedScene" uid="uid://b2spclcrcu1hs" path="res://content/entities/player/player.tscn" id="1_sul5r"]
+[ext_resource type="PackedScene" uid="uid://2w37kkfhsotc" path="res://components/inventory_system/ui/inventory_slot.tscn" id="2_lfrn8"]
+[ext_resource type="Script" uid="uid://on0qe3w8pxeo" path="res://components/inventory_system/resources/inventory_item_data.gd" id="4_kelw5"]
+[ext_resource type="Resource" uid="uid://cbndbhn3tf5bt" path="res://content/potions/fire_potion/fire_potion.tres" id="5_lfrn8"]
 
 [node name="Node2D" type="Node2D" unique_id=724420841]
+
+[node name="Projectiles" type="Node" parent="." unique_id=1828256675 groups=["container", "projectiles_container"]]
+
+[node name="Effects" type="Node" parent="." unique_id=628725578 groups=["container", "effects_container"]]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=743349263]
+
+[node name="InventoryUI" parent="CanvasLayer" unique_id=1800205673 instance=ExtResource("1_0sr1o")]
+
+[node name="Hotbar" parent="CanvasLayer/InventoryUI" index="1" unique_id=1822549158 node_paths=PackedStringArray("hotbar_component")]
+hotbar_component = NodePath("../../../Player/HotbarComponent")
+default_slot_scene = ExtResource("2_lfrn8")
 
 [node name="Player" parent="." unique_id=1606296388 instance=ExtResource("1_sul5r")]
 position = Vector2(40, 44)
 
+[node name="HotbarComponent" parent="Player" index="6" unique_id=147460662]
+_items = Array[ExtResource("4_kelw5")]([ExtResource("5_lfrn8"), null, null, null])
+
 [node name="Camera2D" type="Camera2D" parent="Player" unique_id=960320403]
+
+[editable path="CanvasLayer/InventoryUI"]
+[editable path="Player"]

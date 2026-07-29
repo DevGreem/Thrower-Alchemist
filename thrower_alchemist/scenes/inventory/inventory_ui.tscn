@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://i762gem8h1rt"]
 
-[ext_resource type="Script" uid="uid://r0iuasdmubh2" path="res://components/inventory_system/graphic_inventory.gd" id="1_qedko"]
+[ext_resource type="Script" uid="uid://c0auaxmg1ljbo" path="res://components/inventory_system/ui/graphic_hotbar.gd" id="2_3yj3k"]
 
 [node name="InventoryUI" type="Control" unique_id=1800205673]
 layout_mode = 3
@@ -11,6 +11,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="CenterContainer" type="CenterContainer" parent="." unique_id=1836238774]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -23,7 +24,6 @@ layout_mode = 2
 same_column_width = true
 fixed_column_width = 12
 fixed_icon_size = Vector2i(8, 8)
-script = ExtResource("1_qedko")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer" unique_id=1342138802]
 layout_mode = 2
@@ -41,3 +41,5 @@ anchor_right = 0.5
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 0
+alignment = 1
+script = ExtResource("2_3yj3k")

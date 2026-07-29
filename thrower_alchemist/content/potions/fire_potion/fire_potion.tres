@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://dj37bo78y6jpp" path="res://resources/potions/potion_effect.gd" id="1_yf3ll"]
 [ext_resource type="Script" uid="uid://sc48cbyclvc1" path="res://resources/potions/potion_data.gd" id="2_bqqku"]
 [ext_resource type="Script" uid="uid://bqo6ldsmwtpak" path="res://content/potion_effects/explossion/explossion_effect.gd" id="2_e2n8g"]
+[ext_resource type="Texture2D" uid="uid://dfgj4org13j6b" path="res://content/potions/potion.png" id="3_e2n8g"]
 
 [sub_resource type="Resource" id="Resource_s3gvr"]
 script = ExtResource("2_e2n8g")
@@ -13,4 +14,7 @@ metadata/_custom_type_script = "uid://bqo6ldsmwtpak"
 script = ExtResource("2_bqqku")
 weight = 1.5
 effects = Array[ExtResource("1_yf3ll")]([SubResource("Resource_s3gvr")])
+_ID = "fire_potion"
+icon = ExtResource("3_e2n8g")
+name = "Potion"
 metadata/_custom_type_script = "uid://sc48cbyclvc1"

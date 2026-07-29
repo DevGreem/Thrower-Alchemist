@@ -1,37 +1,20 @@
 @tool
-extends PanelContainer
+extends Control
 
 class_name InventorySlot
 
-@export var icon: TextureRect
-@export var label: Label
-
-@export var const_size: Vector2:
-	set(value):
-		
-		if const_size == value:
-			return
-		
-		const_size = value
+@export var content: InventorySlotContent
+@export var selection_border: TextureRect
 
 static func generate(scene: PackedScene, item: InventoryItemData) -> InventorySlot:
 	
-	var slot: InventorySlot = scene.instantiate()
+	var node: InventorySlot = scene.instantiate()
+	node.content.set_item(item)
 	
-	if item:
-		
-		if slot.label:
-			slot.label.text = item.get_item_name()
-			item.set_name_effect(slot.label)
-		
-		if slot.icon:
-			slot.icon.texture = item.get_item_icon()
-			item.set_icon_effect(slot.icon)
-		
-		slot.tooltip_text = item.get_tooltips_text()
-	
-	return slot
+	return node
 
-func _ready() -> void:
-	self.custom_minimum_size = const_size
-	self.custom_maximum_size = const_size
+func select() -> void:
+	selection_border.visible = true
+
+func unselect() -> void:
+	selection_border.visible = false
