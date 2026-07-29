@@ -7,6 +7,7 @@ signal health_changed(before: float, after: float)
 signal died
 
 @export var only_int: bool
+@export var free_parent_on_die: bool = false
 
 @export var max_health: float:
 	set(value):
@@ -38,5 +39,14 @@ signal died
 		health_changed.emit(health, value)
 		health = value
 		
-		if health <= 0:
-			died.emit()
+		_verify_die()
+
+func _verify_die() -> void:
+	
+	if health > 0:
+		return
+	
+	died.emit()
+	
+	if free_parent_on_die:
+		get_parent().queue_free()
