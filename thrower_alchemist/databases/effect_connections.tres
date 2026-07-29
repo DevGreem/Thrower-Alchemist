@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="Registry" format=3 uid="uid://c0kb513wnj2bj"]
+
+[ext_resource type="Script" uid="uid://dqtv77mng5dyh" path="res://addons/yard/registry.gd" id="1_3nl68"]
+
+[resource]
+script = ExtResource("1_3nl68")
+_version = 2
+_scan_rulesets = Array[Dictionary]([{
+&"allowed_file_extensions": Array[String]([]),
+&"class_restrictions": Array[StringName]([&"PotionEffectConnection"]),
+&"recursive_scan": true,
+&"scan_directories": Array[String](["res://content/effect_connections"]),
+&"scan_regex_exclude": "",
+&"scan_regex_include": ""
+}])
+_property_index = Dictionary[StringName, Dictionary]({
+&"left": {},
+&"right": {}
+})

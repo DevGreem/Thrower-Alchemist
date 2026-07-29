@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="PotionData" format=3 uid="uid://cbndbhn3tf5bt"]
+
+[ext_resource type="Script" uid="uid://dj37bo78y6jpp" path="res://resources/potions/potion_effect.gd" id="1_yf3ll"]
+[ext_resource type="Script" uid="uid://sc48cbyclvc1" path="res://resources/potions/potion_data.gd" id="2_bqqku"]
+[ext_resource type="Script" uid="uid://bqo6ldsmwtpak" path="res://content/potion_effects/explossion/explossion_effect.gd" id="2_e2n8g"]
+
+[sub_resource type="Resource" id="Resource_s3gvr"]
+script = ExtResource("2_e2n8g")
+color = Color(0.87486136, 0, 0, 1)
+metadata/_custom_type_script = "uid://bqo6ldsmwtpak"
+
+[resource]
+script = ExtResource("2_bqqku")
+weight = 3.0
+effects = Array[ExtResource("1_yf3ll")]([SubResource("Resource_s3gvr")])
+metadata/_custom_type_script = "uid://sc48cbyclvc1"

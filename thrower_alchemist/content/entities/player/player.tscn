@@ -4,8 +4,8 @@
 [ext_resource type="Script" uid="uid://cixn3eduqvftn" path="res://components/move_component_2d.gd" id="2_cp3qr"]
 [ext_resource type="Script" uid="uid://drdxj65bd6jak" path="res://components/move_input_component_2d.gd" id="3_lwocm"]
 [ext_resource type="Script" uid="uid://ditbeykj0vfd4" path="res://components/health_component.gd" id="4_t4ell"]
-[ext_resource type="Script" uid="uid://bqx8hyj121gcl" path="res://components/hurtbox_component.gd" id="5_55yfw"]
-[ext_resource type="Script" uid="uid://dolqe4hla1kxn" path="res://components/hitbox_component.gd" id="6_r5tfu"]
+[ext_resource type="Script" uid="uid://bqx8hyj121gcl" path="res://components/hurtbox_component_2d.gd" id="5_55yfw"]
+[ext_resource type="Script" uid="uid://b2bjub0wy06yg" path="res://components/input_component.gd" id="6_r5tfu"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_obaep"]
 size = Vector2(12, 24)
@@ -13,14 +13,18 @@ size = Vector2(12, 24)
 [sub_resource type="CircleShape2D" id="CircleShape2D_obaep"]
 radius = 4.0
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_g04yl"]
-
-[node name="Player" type="CharacterBody2D" unique_id=1606296388]
+[node name="Player" type="CharacterBody2D" unique_id=1606296388 groups=["player"]]
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1511677485]
 y_sort_enabled = true
 texture = ExtResource("1_e50yv")
 offset = Vector2(0, -12)
+
+[node name="HealthComponent" type="Node" parent="." unique_id=294361878]
+script = ExtResource("4_t4ell")
+free_parent_on_die = true
+max_health = 25.0
+health = 25.0
 
 [node name="MoveComponent2D" type="Node" parent="." unique_id=1338874261 node_paths=PackedStringArray("actor")]
 script = ExtResource("2_cp3qr")
@@ -31,11 +35,6 @@ speed = Vector2(1000, 1000)
 script = ExtResource("3_lwocm")
 move_component = NodePath("../MoveComponent2D")
 action_vector = Array[StringName]([&"left", &"right", &"up", &"down"])
-
-[node name="HealthComponent" type="Node" parent="." unique_id=294361878]
-script = ExtResource("4_t4ell")
-max_health = 25.0
-health = 25.0
 
 [node name="HurtboxComponent2D" type="Area2D" parent="." unique_id=1236442513 node_paths=PackedStringArray("health_component")]
 collision_layer = 2
@@ -52,16 +51,8 @@ debug_color = Color(0.8294658, 0.3909105, 0.14149457, 0.41960785)
 position = Vector2(0, -4)
 shape = SubResource("CircleShape2D_obaep")
 
-[node name="HitboxComponent2D" type="Area2D" parent="." unique_id=24523673 node_paths=PackedStringArray("actor")]
-collision_layer = 32
-collision_mask = 2
+[node name="InputComponent" type="Node" parent="." unique_id=1728003754 node_paths=PackedStringArray("actor")]
 script = ExtResource("6_r5tfu")
 actor = NodePath("..")
-can_damage_actor = true
-damage = 10.0
-metadata/_custom_type_script = "uid://dolqe4hla1kxn"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent2D" unique_id=76501358]
-position = Vector2(11, -12)
-shape = SubResource("RectangleShape2D_g04yl")
-debug_color = Color(0.89039445, 0, 0.06462912, 0.41960785)
+action = "throw"
+metadata/_custom_type_script = "uid://b2bjub0wy06yg"

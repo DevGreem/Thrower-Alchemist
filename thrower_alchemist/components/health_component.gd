@@ -38,6 +38,7 @@ signal died
 		
 		health_changed.emit(health, value)
 		health = value
+		GameDebugger.debug_log("HealthComponent: new health = " + str(health))
 		
 		_verify_die()
 

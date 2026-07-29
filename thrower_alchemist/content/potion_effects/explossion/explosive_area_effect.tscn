@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://41lqrvlsghmi"]
+
+[ext_resource type="Script" uid="uid://dolqe4hla1kxn" path="res://components/hitbox_component_2d.gd" id="1_c6aft"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_obaep"]
+radius = 45.0
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_obaep"]
+size = Vector2(64, 64)
+
+[node name="ExplosiveEffect" type="Node2D" unique_id=880179096]
+
+[node name="HitboxComponent2D" type="Area2D" parent="." unique_id=151151841 node_paths=PackedStringArray("actor")]
+collision_layer = 32
+collision_mask = 2
+script = ExtResource("1_c6aft")
+actor = NodePath("..")
+can_damage_actor = true
+damage = 30.0
+metadata/_custom_type_script = "uid://dolqe4hla1kxn"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent2D" unique_id=226495915]
+shape = SubResource("CircleShape2D_obaep")
+debug_color = Color(0.9594098, 0.20429203, 3.85046e-07, 0.41960785)
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=634345387]
+texture = SubResource("PlaceholderTexture2D_obaep")

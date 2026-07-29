@@ -2,6 +2,8 @@ extends Area2D
 
 class_name HitboxComponent2D
 
+signal damage_dealed
+
 @export var actor: Node2D
 @export var can_damage_actor: bool = false
 @export var damage: float
@@ -20,3 +22,4 @@ func _on_area_entered(area: Area2D) -> void:
 				return
 		
 		area.receive_damage(damage)
+		damage_dealed.emit()
