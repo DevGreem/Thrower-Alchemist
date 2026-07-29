@@ -2,22 +2,22 @@ extends BaseInventoryComponent
 
 class_name InventoryComponent
 
-signal item_added(pos: Variant, value: Resource)
-signal item_removed(pos: Variant, value: Resource)
+signal item_added(pos: Variant, value: InventoryItemData)
+signal item_removed(pos: Variant, value: InventoryItemData)
 
 @export var rows: int = 1
 @export var columns: int = 1
 
-@export var _items: Dictionary[Vector2, Resource] = {}
+@export var _items: Dictionary[Vector2, InventoryItemData] = {}
 
-func get_item(pos: Vector2, default: Resource = null) -> Resource:
+func get_item(pos: Vector2, default: InventoryItemData = null) -> InventoryItemData:
 	
-	var value: Resource = _items.get(pos, default)
+	var value: InventoryItemData = _items.get(pos, default)
 	
 	item_getted.emit(pos, value)
 	return value
 	
-func add_item(pos: Vector2, value: Resource) -> bool:
+func add_item(pos: Vector2, value: InventoryItemData) -> bool:
 	
 	_exists_position(pos)
 	var status: bool = _items.set(pos, value)
