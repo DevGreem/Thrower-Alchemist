@@ -14,6 +14,7 @@ class_name GraphicHotbar
 		_init_slots()
 
 var slots: Array[InventorySlot] = []
+var threads: Array[Thread] = []
 
 func _ready() -> void:
 	
