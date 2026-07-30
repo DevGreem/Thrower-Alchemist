@@ -16,7 +16,7 @@ signal item_selected_changed(before: int, after: int)
 		
 		spaces = value
 
-@export var _items: Array[InventoryItemData] = []
+@export var _items: Array[InventoryItemInstance] = []
 @export var item_selected: int = 0:
 	set(value):
 		
@@ -38,15 +38,20 @@ func _ready() -> void:
 		for i: int in range(_items.size() - spaces):
 			_items.remove_at(-1)
 
-func get_item(pos: int) -> InventoryItemData:
-	var value: InventoryItemData = _items.get(pos)
+func _process(delta: float) -> void:
+	
+	for item: InventoryItemInstance in _items:
+		item.remaining_cooldown -= delta
+
+func get_item(pos: int) -> InventoryItemInstance:
+	var value: InventoryItemInstance = _items.get(pos)
 	item_getted.emit(pos, value)
 	return value
 
-func get_item_selected() -> InventoryItemData:
+func get_item_selected() -> InventoryItemInstance:
 	return get_item(item_selected)
 
-func set_item(pos: int, new_value: InventoryItemData) -> bool:
+func set_item(pos: int, new_value: InventoryItemInstance) -> bool:
 	
 	_exists_position(pos)
 	
@@ -60,13 +65,3 @@ func set_item(pos: int, new_value: InventoryItemData) -> bool:
 
 func _exists_position(pos: int) -> void:
 	assert(pos >= 0 and pos < spaces, "The position " + str(pos) + " don't exists!")
-
-func _input(event: InputEvent) -> void:
-	
-	if event is InputEventKey:
-		
-		if not event.pressed:
-			return
-		
-		if event.keycode >= KEY_0 and event.keycode <= KEY_9:
-			item_selected = event.keycode - KEY_0 - 1

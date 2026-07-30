@@ -11,6 +11,8 @@ var id: String:
 @export var icon: Texture2D
 @export var name: String
 @export_multiline var description: String
+@export var cooldown: float = -1
+@export var max_stack: int = 1
 
 func get_item_name() -> String:
 	return self.name

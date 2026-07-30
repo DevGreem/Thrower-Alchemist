@@ -10,7 +10,13 @@ func _input(event: InputEvent) -> void:
 		return
 	
 	if event.is_action("use"):
-		var item: InventoryItemData = hotbar_component.get_item_selected()
+		var item: InventoryItemInstance = hotbar_component.get_item_selected()
 		
 		if item:
-			item.use(actor)
+			item.data.use(actor)
+
+func _use_item(item: InventoryItemData) -> void:
+	
+	if not item:
+		return
+	

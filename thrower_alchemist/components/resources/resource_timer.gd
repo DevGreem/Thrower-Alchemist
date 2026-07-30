@@ -33,7 +33,7 @@ var executed: int = 0
 
 func process(delta: float) -> void:
 	
-	if not started:
+	if not started or paused:
 		return
 	
 	_time_left -= delta

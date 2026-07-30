@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://2w37kkfhsotc" path="res://components/inventory_system/ui/inventory_slot.tscn" id="2_lfrn8"]
 [ext_resource type="Script" uid="uid://on0qe3w8pxeo" path="res://components/inventory_system/resources/inventory_item_data.gd" id="4_kelw5"]
 [ext_resource type="Resource" uid="uid://cbndbhn3tf5bt" path="res://content/potions/fire_potion/fire_potion.tres" id="5_lfrn8"]
+[ext_resource type="Script" uid="uid://bijinphfvi0l6" path="res://components/input_system/input_manager_component.gd" id="6_5i0tg"]
 
 [node name="Node2D" type="Node2D" unique_id=724420841]
 
@@ -25,6 +26,9 @@ position = Vector2(40, 44)
 
 [node name="HotbarComponent" parent="Player" index="6" unique_id=147460662]
 _items = Array[ExtResource("4_kelw5")]([ExtResource("5_lfrn8"), null, null, null])
+
+[node name="Inputs" parent="Player" index="7" unique_id=209227326]
+script = ExtResource("6_5i0tg")
 
 [node name="Camera2D" type="Camera2D" parent="Player" unique_id=960320403]
 
