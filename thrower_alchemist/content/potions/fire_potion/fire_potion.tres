@@ -7,6 +7,9 @@
 
 [sub_resource type="Resource" id="Resource_s3gvr"]
 script = ExtResource("2_e2n8g")
+damage = 3.0
+times = 5
+time_alive = 5.0
 color = Color(0.87486136, 0, 0, 1)
 metadata/_custom_type_script = "uid://bqo6ldsmwtpak"
 

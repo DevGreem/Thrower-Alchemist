@@ -25,9 +25,10 @@ height = 128
 fill = 1
 fill_from = Vector2(0.5, 0.5)
 
-[node name="BurnedEffect" type="Node2D" unique_id=880179096 node_paths=PackedStringArray("burn_area")]
+[node name="BurnedEffect" type="Node2D" unique_id=880179096 node_paths=PackedStringArray("burn_area", "reach_time_component")]
 script = ExtResource("1_6nqlh")
 burn_area = NodePath("BurnArea")
+reach_time_component = NodePath("ReachTimeComponent")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=634345387]
 scale = Vector2(10.25, 10.25)
@@ -53,7 +54,7 @@ actor = NodePath("..")
 max_time_range = 3.5
 metadata/_custom_type_script = "uid://76hfggre2bev"
 
-[node name="GPUParticles2D" type="GPUParticles2D" parent="." unique_id=143364575]
+[node name="Particles" type="GPUParticles2D" parent="." unique_id=143364575]
 amount = 1
 texture = ExtResource("5_r1di8")
 lifetime = 0.4
