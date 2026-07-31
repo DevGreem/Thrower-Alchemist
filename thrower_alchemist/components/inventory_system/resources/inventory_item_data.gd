@@ -13,6 +13,7 @@ var id: String:
 @export_multiline var description: String
 @export var cooldown: float = -1
 @export var max_stack: int = 1
+@export var actions: ItemActions
 
 func get_item_name() -> String:
 	return self.name
@@ -37,9 +38,3 @@ func get_tooltips_text() -> String:
 
 func join_method(lines: PackedStringArray) -> String:
 	return "\n".join(lines)
-
-@abstract
-func use(actor: Node) -> void
-
-@abstract
-func interact(actor: Node) -> void

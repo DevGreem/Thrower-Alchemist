@@ -6,10 +6,11 @@
 [ext_resource type="Script" uid="uid://ditbeykj0vfd4" path="res://components/health_component.gd" id="4_t4ell"]
 [ext_resource type="Script" uid="uid://bqx8hyj121gcl" path="res://components/hurtbox_component_2d.gd" id="5_55yfw"]
 [ext_resource type="Script" uid="uid://yeaja8p4wyux" path="res://components/inventory_system/scripts/inventory_component.gd" id="6_r5tfu"]
+[ext_resource type="Script" uid="uid://d1fyt18vlv7pq" path="res://components/inventory_system/resources/inventory_item_instance.gd" id="7_g15rv"]
 [ext_resource type="Script" uid="uid://bbmbnjuagm1l4" path="res://components/inventory_system/scripts/hotbar_component.gd" id="7_t2p4e"]
-[ext_resource type="Script" uid="uid://on0qe3w8pxeo" path="res://components/inventory_system/resources/inventory_item_data.gd" id="8_1umn6"]
-[ext_resource type="Script" uid="uid://hlljrud6lsx3" path="res://components/input_system/use_item_input.gd" id="9_i83cd"]
-[ext_resource type="Script" uid="uid://b1y8nxmuj8nk1" path="res://components/input_system/interact_item_input.gd" id="10_iakl4"]
+[ext_resource type="Script" uid="uid://hlljrud6lsx3" path="res://components/inventory_system/inputs/use_item_input.gd" id="9_i83cd"]
+[ext_resource type="Script" uid="uid://b1y8nxmuj8nk1" path="res://components/inventory_system/inputs/interact_item_input.gd" id="10_iakl4"]
+[ext_resource type="Script" uid="uid://bl4331iyoi3u2" path="res://components/inventory_system/inputs/select_item_input.gd" id="11_piw5s"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_obaep"]
 size = Vector2(12, 24)
@@ -57,7 +58,7 @@ script = ExtResource("6_r5tfu")
 [node name="HotbarComponent" type="Node" parent="." unique_id=147460662]
 script = ExtResource("7_t2p4e")
 spaces = 4
-_items = Array[ExtResource("8_1umn6")]([null, null, null, null])
+_items = Array[ExtResource("7_g15rv")]([null, null, null, null])
 metadata/_custom_type_script = "uid://bbmbnjuagm1l4"
 
 [node name="Inputs" type="Node" parent="." unique_id=209227326]
@@ -78,3 +79,9 @@ script = ExtResource("10_iakl4")
 hotbar_component = NodePath("../../HotbarComponent")
 actor = NodePath("../..")
 metadata/_custom_type_script = "uid://b1y8nxmuj8nk1"
+
+[node name="SelectItemInput" type="Node" parent="Inputs" unique_id=390628532 node_paths=PackedStringArray("hotbar_component", "actor")]
+script = ExtResource("11_piw5s")
+hotbar_component = NodePath("../../HotbarComponent")
+actor = NodePath("../..")
+metadata/_custom_type_script = "uid://bl4331iyoi3u2"

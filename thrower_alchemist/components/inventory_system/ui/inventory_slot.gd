@@ -6,10 +6,12 @@ class_name InventorySlot
 @export var content: InventorySlotContent
 @export var selection_border: TextureRect
 
-static func generate(scene: PackedScene, item: InventoryItemData) -> InventorySlot:
+static func generate(scene: PackedScene, item: InventoryItemInstance) -> InventorySlot:
 	
 	var node: InventorySlot = scene.instantiate()
-	node.content.set_item(item)
+	
+	if item and item.data:
+		node.content.set_item(item.data)
 	
 	return node
 

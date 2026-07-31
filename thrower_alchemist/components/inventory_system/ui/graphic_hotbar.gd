@@ -32,7 +32,7 @@ func _init_slots() -> void:
 		return
 	
 	for i: int in range(hotbar_component.spaces):
-		var item: InventoryItemData = hotbar_component.get_item(i)
+		var item: InventoryItemInstance = hotbar_component.get_item(i)
 		
 		var slot: InventorySlot = InventorySlot.generate(default_slot_scene, item)
 		

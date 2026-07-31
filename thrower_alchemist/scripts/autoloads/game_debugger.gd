@@ -1,25 +1,31 @@
 extends Node
 
-func debug(message: String, force_show: bool = false, type: DebugType.Enum = DebugType.Enum.LOG) -> void:
+func debug(title: Script, message: String, force_show: bool = false, type: DebugType.Enum = DebugType.Enum.LOG) -> void:
 	
 	if type == DebugType.Enum.LOG:
-		debug_log(message, force_show)
+		debug_log(title, message, force_show)
 	elif type == DebugType.Enum.WARNING:
-		debug_warning(message, force_show)
+		debug_warning(title, message, force_show)
 	elif type == DebugType.Enum.ERROR:
-		debug_error(message, force_show)
+		debug_error(title, message, force_show)
 
-func debug_log(message: String, force_show: bool = false) -> void:
+func debug_log(title: Script, message: String, force_show: bool = false) -> void:
 	
 	if OS.is_debug_build() or force_show:
-		print(message)
+		print(_format_message(title, message))
 
-func debug_warning(message: String, force_show: bool = false) -> void:
+func debug_warning(title: Script, message: String, force_show: bool = false) -> void:
 	
 	if OS.is_debug_build() or force_show:
-		push_warning(message)
+		push_warning(_format_message(title, message))
 
-func debug_error(message: String, force_show: bool = false) -> void:
+func debug_error(title: Script, message: String, force_show: bool = false) -> void:
 	
 	if OS.is_debug_build() or force_show:
-		push_error(message)
+		push_error(_format_message(title, message))
+
+func _format_message(title: Script, message: String) -> String:
+	return _get_name(title) + ": " + message
+
+func _get_name(script: Script) -> String:
+	return script.get_global_name()

@@ -41,6 +41,13 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	
 	for item: InventoryItemInstance in _items:
+		
+		if not item:
+			continue
+		
+		if item.remaining_cooldown == -1:
+			continue
+		
 		item.remaining_cooldown -= delta
 
 func get_item(pos: int) -> InventoryItemInstance:

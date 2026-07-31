@@ -7,7 +7,7 @@ class_name InteractItemInput
 func _input(event: InputEvent) -> void:
 	
 	if event.is_action_pressed("interact"):
-		var item: InventoryItemData = hotbar_component.get_item_selected()
+		var item: InventoryItemInstance = hotbar_component.get_item_selected()
 		
 		if item:
-			item.interact(actor)
+			item.data.interact(actor)

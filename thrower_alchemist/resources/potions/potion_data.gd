@@ -13,30 +13,20 @@ signal effect_removed
 
 func _init() -> void:
 	self.icon = preload("uid://dfgj4org13j6b")
+	
+	if not self.actions:
+		self.actions = ItemActions.new()
+	
+	self.actions.use = PotionUseAction.new()
+	self.actions.interact = PotionInteractAction.new()
 
 func _validate_property(property: Dictionary) -> void:
 	
 	if property.name == "icon":
 		property.usage |= PROPERTY_USAGE_READ_ONLY
-
-func use(actor: Node) -> void:
 	
-	if not can_throw:
-		return
-	
-	if actor is Node2D:
-		var potion: PotionNode = PotionNode.generate(actor as Node2D, self)
-		potion.global_position = actor.global_position
-		
-		EventBus.spawn_node(potion, ContainerType.Enum.PROJECTILES_CONTAINER)
-
-func interact(actor: Node) -> void:
-	
-	if not can_drink:
-		return
-	
-	if actor is Node2D:
-		drink_effects(actor as Node2D)
+	if property.name == "actions":
+		property.usage |= PROPERTY_USAGE_READ_ONLY
 
 func drink_effects(actor: Node2D) -> void:
 	
