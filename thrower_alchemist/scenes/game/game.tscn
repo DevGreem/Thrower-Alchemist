@@ -11,7 +11,7 @@
 script = ExtResource("4_5i0tg")
 data = ExtResource("5_lfrn8")
 amount = 1
-remaining_cooldown = -5556.526500447714
+remaining_cooldown = -5735.859981114857
 metadata/_custom_type_script = "uid://d1fyt18vlv7pq"
 
 [node name="Node2D" type="Node2D" unique_id=724420841]

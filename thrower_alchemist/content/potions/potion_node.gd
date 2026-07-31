@@ -44,5 +44,8 @@ func _make_effect(effect: PotionEffect) -> void:
 
 func throw() -> void:
 	
+	if not reach_distance_component.reached.is_connected(_on_reach):
+		reach_distance_component.reached.connect(_on_reach)
+	
 	var mouse_pos: Vector2 = get_global_mouse_position()
 	move_component.direction = self.global_position.direction_to(mouse_pos)
