@@ -54,10 +54,15 @@ static func join(left: PotionData, right: PotionData) -> PotionData:
 	return new_potion
 
 func get_potion_color() -> Color:
-	var color: Color = Color.WHITE
+	var color: Color = Color.BLACK
 	
 	for effect: PotionEffect in self.effects:
-		color *= effect.color
+		color += effect.color
+	
+	if not self.effects.is_empty():
+		color /= self.effects.size()
+	
+	color.a = 1
 	
 	return color
 

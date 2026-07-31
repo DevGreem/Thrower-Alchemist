@@ -5,13 +5,19 @@
 [ext_resource type="PackedScene" uid="uid://2w37kkfhsotc" path="res://components/inventory_system/ui/inventory_slot.tscn" id="2_lfrn8"]
 [ext_resource type="Script" uid="uid://d1fyt18vlv7pq" path="res://components/inventory_system/resources/inventory_item_instance.gd" id="4_5i0tg"]
 [ext_resource type="Resource" uid="uid://cbndbhn3tf5bt" path="res://content/potions/fire_potion/fire_potion.tres" id="5_lfrn8"]
-[ext_resource type="Script" uid="uid://bijinphfvi0l6" path="res://components/input_system/input_manager_component.gd" id="6_5i0tg"]
+[ext_resource type="Resource" uid="uid://1e8vvxipf2fv" path="res://content/potions/ice_potion/ice_potion.tres" id="6_bdhmt"]
 
 [sub_resource type="Resource" id="Resource_stg1e"]
 script = ExtResource("4_5i0tg")
 data = ExtResource("5_lfrn8")
 amount = 1
-remaining_cooldown = -11389.53775049912
+remaining_cooldown = -12130.623133303086
+metadata/_custom_type_script = "uid://d1fyt18vlv7pq"
+
+[sub_resource type="Resource" id="Resource_gc57s"]
+script = ExtResource("4_5i0tg")
+data = ExtResource("6_bdhmt")
+amount = 1
 metadata/_custom_type_script = "uid://d1fyt18vlv7pq"
 
 [node name="Node2D" type="Node2D" unique_id=724420841]
@@ -34,10 +40,7 @@ default_slot_scene = ExtResource("2_lfrn8")
 position = Vector2(40, 44)
 
 [node name="HotbarComponent" parent="Player" index="6" unique_id=147460662]
-_items = Array[ExtResource("4_5i0tg")]([SubResource("Resource_stg1e"), null, null, null])
-
-[node name="Inputs" parent="Player" index="7" unique_id=209227326]
-script = ExtResource("6_5i0tg")
+_items = Array[ExtResource("4_5i0tg")]([SubResource("Resource_stg1e"), SubResource("Resource_gc57s"), null, null])
 
 [node name="Camera2D" type="Camera2D" parent="Player" unique_id=960320403]
 

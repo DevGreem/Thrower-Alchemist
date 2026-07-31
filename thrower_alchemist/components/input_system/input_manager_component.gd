@@ -6,11 +6,19 @@ func activate_all() -> void:
 	for child: Node in get_children():
 		
 		if child is InputComponent:
-			child.active = true
+			
+			if child.ignore_manager:
+				continue
+			
+			child.activate()
 
 func deactivate_all() -> void:
 	
 	for child: Node in get_children():
 		
 		if child is InputComponent:
-			child.active = false
+			
+			if child.ignore_manager:
+				continue
+			
+			child.deactivate()

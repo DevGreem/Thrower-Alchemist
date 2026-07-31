@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://b2spclcrcu1hs"]
 
+[ext_resource type="Shader" uid="uid://dkec71qmxktfv" path="res://shaders/effects_shader.tres" id="1_4rie3"]
 [ext_resource type="Texture2D" uid="uid://b81roki8jflh3" path="res://content/entities/player/player.png" id="1_e50yv"]
 [ext_resource type="Script" uid="uid://bokowr37e42b3" path="res://content/entities/player/player.gd" id="1_piw5s"]
 [ext_resource type="Script" uid="uid://cixn3eduqvftn" path="res://components/move_component_2d.gd" id="2_cp3qr"]
@@ -11,7 +12,12 @@
 [ext_resource type="Script" uid="uid://bbmbnjuagm1l4" path="res://components/inventory_system/scripts/hotbar_component.gd" id="7_t2p4e"]
 [ext_resource type="Script" uid="uid://hlljrud6lsx3" path="res://components/inventory_system/inputs/use_item_input.gd" id="9_i83cd"]
 [ext_resource type="Script" uid="uid://b1y8nxmuj8nk1" path="res://components/inventory_system/inputs/interact_item_input.gd" id="10_iakl4"]
+[ext_resource type="Script" uid="uid://bijinphfvi0l6" path="res://components/input_system/input_manager_component.gd" id="10_twvcw"]
 [ext_resource type="Script" uid="uid://bl4331iyoi3u2" path="res://components/inventory_system/inputs/select_item_input.gd" id="11_piw5s"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_y5q02"]
+shader = ExtResource("1_4rie3")
+shader_parameter/EffectColor = Color(1, 1, 1, 1)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_obaep"]
 size = Vector2(12, 24)
@@ -23,10 +29,12 @@ radius = 4.0
 collision_layer = 64
 script = ExtResource("1_piw5s")
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1511677485]
+[node name="Sprite" type="Sprite2D" parent="." unique_id=1511677485]
 y_sort_enabled = true
+material = SubResource("ShaderMaterial_y5q02")
+position = Vector2(91, 2)
 texture = ExtResource("1_e50yv")
-offset = Vector2(0, -12)
+offset = Vector2(-91, -14)
 
 [node name="HealthComponent" type="Node" parent="." unique_id=294361878 node_paths=PackedStringArray("actor")]
 script = ExtResource("4_t4ell")
@@ -66,6 +74,7 @@ _items = Array[ExtResource("7_g15rv")]([null, null, null, null])
 metadata/_custom_type_script = "uid://bbmbnjuagm1l4"
 
 [node name="Inputs" type="Node" parent="." unique_id=209227326]
+script = ExtResource("10_twvcw")
 
 [node name="MoveInputComponent2D" type="Node" parent="Inputs" unique_id=603199798 node_paths=PackedStringArray("move_component")]
 script = ExtResource("3_lwocm")
@@ -88,4 +97,5 @@ metadata/_custom_type_script = "uid://b1y8nxmuj8nk1"
 script = ExtResource("11_piw5s")
 hotbar_component = NodePath("../../HotbarComponent")
 actor = NodePath("../..")
+ignore_manager = true
 metadata/_custom_type_script = "uid://bl4331iyoi3u2"

@@ -6,9 +6,6 @@ class_name UseItemInput
 
 func _input(event: InputEvent) -> void:
 	
-	if not active:
-		return
-	
 	if event.is_action_pressed("use"):
 		var item: InventoryItemInstance = hotbar_component.get_item_selected()
 		
