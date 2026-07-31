@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 GameDebugger="*uid://xodsxgpsskk2"
 Databases="*uid://4jbagjo2hsaa"
 EventBus="*uid://b5cjin2wx7txx"
+ComponentManager="*uid://dhg8bupj1ups7"
 
 [debug]
 

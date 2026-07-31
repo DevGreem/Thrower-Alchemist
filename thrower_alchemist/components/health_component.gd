@@ -6,8 +6,9 @@ signal max_health_changed(before: float, after: float)
 signal health_changed(before: float, after: float)
 signal died
 
+@export var actor: Node
 @export var only_int: bool
-@export var free_parent_on_die: bool = false
+@export var free_actor_on_die: bool = false
 
 @export var max_health: float:
 	set(value):
@@ -49,5 +50,5 @@ func _verify_die() -> void:
 	
 	died.emit()
 	
-	if free_parent_on_die:
-		get_parent().queue_free()
+	if free_actor_on_die:
+		actor.queue_free()

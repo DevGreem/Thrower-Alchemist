@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dveba1yoyt1tm" path="res://content/potion_effects/burn/burned_area_effect.gd" id="1_6nqlh"]
 [ext_resource type="Texture2D" uid="uid://c8rd6c18awaw6" path="res://content/potion_effects/burn/burned_area.png" id="2_h3u2l"]
-[ext_resource type="Script" uid="uid://dolqe4hla1kxn" path="res://components/hitbox_system/hitbox_component_2d.gd" id="3_6dmjo"]
+[ext_resource type="Script" uid="uid://dikmkfyvbtmds" path="res://components/hitbox_system/time_hitbox_component_2d.gd" id="3_6nqlh"]
 [ext_resource type="Script" uid="uid://76hfggre2bev" path="res://components/destination_system/reach_range_component.gd" id="4_1d2ir"]
 [ext_resource type="Texture2D" uid="uid://dqej7tw6iwfb" path="res://assets/particles/fire/fire.png" id="5_r1di8"]
 
@@ -37,9 +37,10 @@ texture = ExtResource("2_h3u2l")
 unique_name_in_owner = true
 collision_layer = 32
 collision_mask = 2
-script = ExtResource("3_6dmjo")
+script = ExtResource("3_6nqlh")
+cooldown = 0.33
 can_damage_actor = true
-damage = 30.0
+damage = 3.0
 metadata/_custom_type_script = "uid://dolqe4hla1kxn"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BurnArea" unique_id=226495915]
