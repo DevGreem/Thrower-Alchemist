@@ -1,0 +1,63 @@
+[gd_scene format=3 uid="uid://41lqrvlsghmi"]
+
+[ext_resource type="Script" uid="uid://dveba1yoyt1tm" path="res://content/potion_effects/burn/burned_area_effect.gd" id="1_6nqlh"]
+[ext_resource type="Texture2D" uid="uid://c8rd6c18awaw6" path="res://content/potion_effects/burn/burned_area.png" id="2_h3u2l"]
+[ext_resource type="Script" uid="uid://dolqe4hla1kxn" path="res://components/hitbox_system/hitbox_component_2d.gd" id="3_6dmjo"]
+[ext_resource type="Script" uid="uid://76hfggre2bev" path="res://components/destination_system/reach_range_component.gd" id="4_1d2ir"]
+[ext_resource type="Texture2D" uid="uid://dqej7tw6iwfb" path="res://assets/particles/fire/fire.png" id="5_r1di8"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_obaep"]
+radius = 40.012497
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_7ukwx"]
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 40.48
+direction = Vector3(0, 1, 0)
+initial_velocity_min = -10.0
+
+[sub_resource type="Gradient" id="Gradient_5cgax"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_obaep"]
+gradient = SubResource("Gradient_5cgax")
+width = 128
+height = 128
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[node name="BurnedEffect" type="Node2D" unique_id=880179096 node_paths=PackedStringArray("burn_area")]
+script = ExtResource("1_6nqlh")
+burn_area = NodePath("BurnArea")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=634345387]
+scale = Vector2(10.25, 10.25)
+texture = ExtResource("2_h3u2l")
+
+[node name="BurnArea" type="Area2D" parent="." unique_id=151151841]
+unique_name_in_owner = true
+collision_layer = 32
+collision_mask = 2
+script = ExtResource("3_6dmjo")
+can_damage_actor = true
+damage = 30.0
+metadata/_custom_type_script = "uid://dolqe4hla1kxn"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BurnArea" unique_id=226495915]
+shape = SubResource("CircleShape2D_obaep")
+debug_color = Color(0.9594098, 0.20429203, 3.85046e-07, 0.41960785)
+
+[node name="ReachTimeComponent" type="Node" parent="." unique_id=1667541287 node_paths=PackedStringArray("actor")]
+script = ExtResource("4_1d2ir")
+actor = NodePath("..")
+max_time_range = 3.5
+metadata/_custom_type_script = "uid://76hfggre2bev"
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="." unique_id=143364575]
+amount = 1
+texture = ExtResource("5_r1di8")
+lifetime = 0.4
+process_material = SubResource("ParticleProcessMaterial_7ukwx")
+
+[node name="PointLight2D" type="PointLight2D" parent="." unique_id=2070410470]
+color = Color(1, 0.32099015, 0.072526634, 1)
+texture = SubResource("GradientTexture2D_obaep")

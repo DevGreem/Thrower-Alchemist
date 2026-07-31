@@ -9,10 +9,12 @@
 radius = 2.0
 
 [node name="Potion" type="CharacterBody2D" unique_id=1241958563]
+y_sort_enabled = true
 collision_layer = 0
 script = ExtResource("1_bctwa")
 
 [node name="Sprite" type="Sprite2D" parent="." unique_id=201296664]
+position = Vector2(0, -4)
 texture = ExtResource("2_j0gsx")
 
 [node name="MoveComponent2D" type="Node" parent="." unique_id=1730887930 node_paths=PackedStringArray("actor")]
@@ -23,10 +25,12 @@ speed = 175.0
 metadata/_custom_type_script = "uid://cixn3eduqvftn"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=640434666]
+position = Vector2(0, -4)
 shape = SubResource("CircleShape2D_s3gvr")
 
-[node name="ReachDistanceComponent2D" type="Node" parent="." unique_id=768853802 node_paths=PackedStringArray("move_component")]
+[node name="ReachDistanceComponent2D" type="Node" parent="." unique_id=768853802 node_paths=PackedStringArray("actor", "move_component")]
 unique_name_in_owner = true
 script = ExtResource("5_63a6k")
+actor = NodePath("..")
 move_component = NodePath("../MoveComponent2D")
 reach_distance = 150.0

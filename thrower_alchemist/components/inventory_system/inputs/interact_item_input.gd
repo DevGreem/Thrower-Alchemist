@@ -10,4 +10,4 @@ func _input(event: InputEvent) -> void:
 		var item: InventoryItemInstance = hotbar_component.get_item_selected()
 		
 		if item:
-			item.data.interact(actor)
+			item.interact(actor)

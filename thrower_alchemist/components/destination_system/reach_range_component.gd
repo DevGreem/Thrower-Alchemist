@@ -13,7 +13,7 @@ enum ComponentMode {
 ## In seconds
 @export var max_time_range: float
 @export var activated: bool = true
-@export var free_parent_on_reach: bool = true
+@export var free_actor_on_reach: bool = true
 
 var current_reached: float = 0
 
@@ -32,5 +32,5 @@ func _on_reach() -> void:
 	
 	reached.emit()
 	
-	if free_parent_on_reach:
-		get_parent().queue_free()
+	if free_actor_on_reach:
+		actor.queue_free()

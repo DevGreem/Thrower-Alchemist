@@ -29,10 +29,11 @@ func _refreshed_cooldown() -> void:
 		refreshed.emit()
 
 func use(actor: Node) -> bool:
-	GameDebugger.debug_log(InventoryItemInstance, "trying to use item")
+	GameDebugger.debug_log(InventoryItemInstance, "Trying to use item")
 	return _can_execute_action(data.actions.use.execute.bind(self.data, actor))
 	
 func interact(actor: Node) -> bool:
+	GameDebugger.debug_log(InventoryItemInstance, "Trying to interact with item")
 	return _can_execute_action(data.actions.interact.execute.bind(self.data, actor))
 
 func _can_execute_action(callable: Callable) -> bool:

@@ -37,11 +37,12 @@ script = ExtResource("2_cp3qr")
 actor = NodePath("..")
 speed = 100.0
 
-[node name="HurtboxComponent2D" type="Area2D" parent="." unique_id=1236442513 node_paths=PackedStringArray("health_component")]
+[node name="HurtboxComponent2D" type="Area2D" parent="." unique_id=1236442513 node_paths=PackedStringArray("health_component", "actor")]
 collision_layer = 2
 collision_mask = 0
 script = ExtResource("5_55yfw")
 health_component = NodePath("../HealthComponent")
+actor = NodePath("..")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent2D" unique_id=304227575]
 position = Vector2(0, -12)

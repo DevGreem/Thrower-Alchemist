@@ -4,11 +4,12 @@ class_name ReachDistanceComponent2D
 
 signal reached
 
+@export var actor: Node
 @export var move_component: MoveComponent2D
 @export var activated: bool = true
 
 @export var reach_distance: float
-@export var free_parent_on_reach: bool = true
+@export var free_actor_on_reach: bool = true
 
 var traveled_distance: float = 0.0
 
@@ -24,5 +25,5 @@ func _verify_reached() -> void:
 	
 	reached.emit()
 	
-	if free_parent_on_reach:
-		get_parent().queue_free()
+	if free_actor_on_reach:
+		actor.queue_free()
