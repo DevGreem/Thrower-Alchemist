@@ -29,8 +29,7 @@ func _update_data() -> void:
 	if not data:
 		return
 	
-	for effect: PotionEffect in data.effects:
-		sprite.self_modulate *= effect.color
+	sprite.self_modulate = data.get_potion_color()
 	
 	reach_distance_component.reach_distance /= data.weight
 

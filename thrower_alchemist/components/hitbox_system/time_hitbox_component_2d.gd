@@ -25,6 +25,6 @@ func _process(delta: float) -> void:
 	for area: HurtboxComponent2D in areas_timers:
 		areas_timers[area] -= delta
 		
-		if areas_timers[area] <= 0:
-			area.receive_damage(damage)
+		if areas_timers[area] <= 0.0:
+			_make_damage(area)
 			areas_timers[area] = cooldown

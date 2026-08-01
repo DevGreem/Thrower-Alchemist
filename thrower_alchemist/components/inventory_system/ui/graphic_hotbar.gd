@@ -3,6 +3,7 @@ extends HBoxContainer
 
 class_name GraphicHotbar
 
+@export var auto_detect_player_hotbar: bool = false
 @export var hotbar_component: HotbarComponent
 @export var default_slot_scene: PackedScene:
 	set(value):
@@ -17,6 +18,9 @@ var slots: Array[InventorySlot] = []
 var threads: Array[Thread] = []
 
 func _ready() -> void:
+	
+	if auto_detect_player_hotbar:
+		pass
 	
 	_init_slots()
 	
