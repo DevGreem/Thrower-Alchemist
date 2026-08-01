@@ -6,12 +6,27 @@
 [ext_resource type="Script" uid="uid://d1fyt18vlv7pq" path="res://components/inventory_system/resources/inventory_item_instance.gd" id="4_5i0tg"]
 [ext_resource type="Resource" uid="uid://cbndbhn3tf5bt" path="res://content/potions/fire_potion/fire_potion.tres" id="5_lfrn8"]
 [ext_resource type="Resource" uid="uid://1e8vvxipf2fv" path="res://content/potions/ice_potion/ice_potion.tres" id="6_bdhmt"]
+[ext_resource type="Script" uid="uid://cw2wgk8wru3aj" path="res://resources/potions/actions/interact.gd" id="7_ftsea"]
+[ext_resource type="Script" uid="uid://0y56gtmy1e3h" path="res://components/inventory_system/resources/item_actions.gd" id="8_otnwt"]
+[ext_resource type="Shader" uid="uid://dkec71qmxktfv" path="res://shaders/effects_shader.tres" id="8_pg2xm"]
+[ext_resource type="Script" uid="uid://bljs478apt4sc" path="res://resources/potions/actions/use.gd" id="9_3xj4h"]
+[ext_resource type="Texture2D" uid="uid://b81roki8jflh3" path="res://content/entities/player/player.png" id="9_gc57s"]
+[ext_resource type="Script" uid="uid://dj37bo78y6jpp" path="res://resources/potions/potion_effect.gd" id="10_5v6r0"]
+[ext_resource type="Script" uid="uid://ditbeykj0vfd4" path="res://components/health_component.gd" id="10_8b66f"]
+[ext_resource type="Script" uid="uid://cixn3eduqvftn" path="res://components/move_component_2d.gd" id="11_3jaai"]
+[ext_resource type="Script" uid="uid://bqo6ldsmwtpak" path="res://content/potion_effects/burn/burn_effect.gd" id="11_uyinl"]
+[ext_resource type="Script" uid="uid://bqx8hyj121gcl" path="res://components/hurtbox_component_2d.gd" id="12_1iff4"]
+[ext_resource type="Script" uid="uid://mwbdvayb2afl" path="res://content/potion_effects/ice/ice_effect.gd" id="12_10c2w"]
+[ext_resource type="Script" uid="uid://yeaja8p4wyux" path="res://components/inventory_system/scripts/inventory_component.gd" id="13_4vuph"]
+[ext_resource type="Texture2D" uid="uid://dfgj4org13j6b" path="res://content/potions/potion.png" id="13_pg2xm"]
+[ext_resource type="Script" uid="uid://sc48cbyclvc1" path="res://resources/potions/potion_data.gd" id="14_gc57s"]
+[ext_resource type="Script" uid="uid://bbmbnjuagm1l4" path="res://components/inventory_system/scripts/hotbar_component.gd" id="14_wdnak"]
 
 [sub_resource type="Resource" id="Resource_stg1e"]
 script = ExtResource("4_5i0tg")
 data = ExtResource("5_lfrn8")
 amount = 1
-remaining_cooldown = -15096.50776300756
+remaining_cooldown = -16582.626800377562
 metadata/_custom_type_script = "uid://d1fyt18vlv7pq"
 
 [sub_resource type="Resource" id="Resource_gc57s"]
@@ -19,6 +34,57 @@ script = ExtResource("4_5i0tg")
 data = ExtResource("6_bdhmt")
 amount = 1
 metadata/_custom_type_script = "uid://d1fyt18vlv7pq"
+
+[sub_resource type="Resource" id="Resource_8b66f"]
+script = ExtResource("7_ftsea")
+
+[sub_resource type="Resource" id="Resource_3jaai"]
+script = ExtResource("9_3xj4h")
+
+[sub_resource type="Resource" id="Resource_1iff4"]
+script = ExtResource("8_otnwt")
+use = SubResource("Resource_3jaai")
+interact = SubResource("Resource_8b66f")
+
+[sub_resource type="Resource" id="Resource_p4w1y"]
+script = ExtResource("11_uyinl")
+damage = 3.0
+time_alive = 4.0
+color = Color(0.96693254, 0.006537848, 0.006537848, 1)
+metadata/_custom_type_script = "uid://bqo6ldsmwtpak"
+
+[sub_resource type="Resource" id="Resource_gb8pu"]
+script = ExtResource("12_10c2w")
+freeze_time = 2.0
+color = Color(0.40600693, 0.39477575, 1, 1)
+metadata/_custom_type_script = "uid://mwbdvayb2afl"
+
+[sub_resource type="Resource" id="Resource_s3gvr"]
+script = ExtResource("14_gc57s")
+weight = 1.0
+effects = Array[ExtResource("10_5v6r0")]([SubResource("Resource_p4w1y"), SubResource("Resource_gb8pu")])
+_ID = "combined_potion"
+icon = ExtResource("13_pg2xm")
+name = "Combined Potion"
+cooldown = 1.0
+actions = SubResource("Resource_1iff4")
+metadata/_custom_type_script = "uid://sc48cbyclvc1"
+
+[sub_resource type="Resource" id="Resource_63a6k"]
+script = ExtResource("4_5i0tg")
+data = SubResource("Resource_s3gvr")
+amount = 1
+metadata/_custom_type_script = "uid://d1fyt18vlv7pq"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_y5q02"]
+shader = ExtResource("8_pg2xm")
+shader_parameter/EffectColor = Color(1, 1, 1, 1)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_obaep"]
+size = Vector2(12, 24)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_obaep"]
+radius = 4.0
 
 [node name="Node2D" type="Node2D" unique_id=724420841]
 
@@ -40,9 +106,57 @@ default_slot_scene = ExtResource("2_lfrn8")
 position = Vector2(40, 44)
 
 [node name="HotbarComponent" parent="Player" index="6" unique_id=147460662]
-_items = Array[ExtResource("4_5i0tg")]([SubResource("Resource_stg1e"), SubResource("Resource_gc57s"), null, null])
+_items = Array[ExtResource("4_5i0tg")]([SubResource("Resource_stg1e"), SubResource("Resource_gc57s"), SubResource("Resource_63a6k"), null])
 
 [node name="Camera2D" type="Camera2D" parent="Player" unique_id=960320403]
+
+[node name="Player2" type="CharacterBody2D" parent="." unique_id=277445788 groups=["player"]]
+position = Vector2(115, 45)
+collision_layer = 64
+
+[node name="Sprite" type="Sprite2D" parent="Player2" unique_id=1511677485]
+y_sort_enabled = true
+material = SubResource("ShaderMaterial_y5q02")
+position = Vector2(91, 2)
+texture = ExtResource("9_gc57s")
+offset = Vector2(-91, -14)
+
+[node name="HealthComponent" type="Node" parent="Player2" unique_id=294361878 node_paths=PackedStringArray("actor")]
+script = ExtResource("10_8b66f")
+actor = NodePath("..")
+free_actor_on_die = true
+max_health = 25.0
+health = 25.0
+
+[node name="MoveComponent2D" type="Node" parent="Player2" unique_id=1338874261 node_paths=PackedStringArray("actor")]
+script = ExtResource("11_3jaai")
+actor = NodePath("..")
+speed = 100.0
+
+[node name="HurtboxComponent2D" type="Area2D" parent="Player2" unique_id=1236442513 node_paths=PackedStringArray("health_component", "actor")]
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("12_1iff4")
+health_component = NodePath("../HealthComponent")
+actor = NodePath("..")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player2/HurtboxComponent2D" unique_id=304227575]
+position = Vector2(0, -12)
+shape = SubResource("RectangleShape2D_obaep")
+debug_color = Color(0.8294658, 0.3909105, 0.14149457, 0.41960785)
+
+[node name="Collision" type="CollisionShape2D" parent="Player2" unique_id=1053479339]
+position = Vector2(0, -4)
+shape = SubResource("CircleShape2D_obaep")
+
+[node name="InventoryComponent" type="Node" parent="Player2" unique_id=600584459]
+script = ExtResource("13_4vuph")
+
+[node name="HotbarComponent" type="Node" parent="Player2" unique_id=785747610]
+script = ExtResource("14_wdnak")
+spaces = 4
+_items = Array[ExtResource("4_5i0tg")]([null, null, null, null])
+metadata/_custom_type_script = "uid://bbmbnjuagm1l4"
 
 [editable path="CanvasLayer/InventoryUI"]
 [editable path="Player"]

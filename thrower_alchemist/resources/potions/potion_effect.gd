@@ -21,7 +21,9 @@ func collision_effect(actor: Node2D, potion: PotionNode, collider: Node2D) -> vo
 	
 	if collider:
 		throw_effect(actor, potion)
-		potion.queue_free()
+		
+		if potion:
+			potion.queue_free()
 
 static func is_joinable(left: PotionEffect, right: PotionEffect) -> bool:
 	
