@@ -39,13 +39,23 @@ func _on_reach() -> void:
 	
 	self.queue_free()
 
+## TODO: make effect when the potion collide with an enemy (or a wall)
 func _make_effect(effect: PotionEffect) -> void:
 	effect.throw_effect(actor, self)
 
-func throw() -> void:
+func _make_collision_effect(collider: KinematicCollision2D) -> void:
+	
+	GameDebugger.debug_log(PotionNode, "Making Collision Effects")
+	
+	for effect: PotionEffect in data.effects:
+		effect.collision_effect(actor, self, collider)
+
+func throw(direction: Vector2) -> void:
 	
 	if not reach_distance_component.reached.is_connected(_on_reach):
 		reach_distance_component.reached.connect(_on_reach)
 	
-	var mouse_pos: Vector2 = get_global_mouse_position()
-	move_component.direction = self.global_position.direction_to(mouse_pos)
+	if not move_component.collision_detected.is_connected(_make_collision_effect):
+		move_component.collision_detected.connect(_make_collision_effect)
+	
+	move_component.direction = self.global_position.direction_to(direction)

@@ -19,4 +19,4 @@ func execute(executer: Object, actor: Object) -> void:
 		GameDebugger.debug_log(PotionUseAction, "New potion throwed = " + str(potion))
 		
 		EventBus.spawn_node(potion, ContainerType.Enum.PROJECTILES_CONTAINER)
-		potion.throw()
+		potion.throw(actor.get_global_mouse_position() as Vector2)
