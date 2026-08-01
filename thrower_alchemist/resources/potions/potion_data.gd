@@ -9,7 +9,14 @@ signal effect_removed
 @export var can_drink: bool = true
 @export var can_throw: bool = true
 @export var weight: float
-@export var effects: Array[PotionEffect] = []
+@export var effects: Array[PotionEffect] = []:
+	set(value):
+		
+		effects = value
+		
+		if effects:
+			for effect: PotionEffect in effects:
+				effect = effect.duplicate(true)
 
 func _init() -> void:
 	self.icon = preload("uid://dfgj4org13j6b")

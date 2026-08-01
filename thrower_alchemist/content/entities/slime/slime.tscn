@@ -1,0 +1,62 @@
+[gd_scene format=3 uid="uid://bxwnq63ta4kfx"]
+
+[ext_resource type="Texture2D" uid="uid://duxq0apcd0cy4" path="res://content/entities/slime/slime.png" id="1_3ihxs"]
+[ext_resource type="Script" uid="uid://ditbeykj0vfd4" path="res://components/health_component.gd" id="2_bfsad"]
+[ext_resource type="Script" uid="uid://bqx8hyj121gcl" path="res://components/hurtbox_component_2d.gd" id="3_sc8da"]
+[ext_resource type="Script" uid="uid://dolqe4hla1kxn" path="res://components/hitbox_system/hitbox_component_2d.gd" id="4_bfsad"]
+[ext_resource type="Script" uid="uid://ds58twerpuwx3" path="res://components/vision_component_2d.gd" id="5_sc8da"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_obaep"]
+radius = 3.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_g04yl"]
+radius = 6.0
+
+[node name="Slime" type="CharacterBody2D" unique_id=1014770967]
+collision_layer = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1466704479]
+y_sort_enabled = true
+texture = ExtResource("1_3ihxs")
+offset = Vector2(0, -6)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2141144880]
+position = Vector2(0, -3)
+shape = SubResource("CircleShape2D_obaep")
+
+[node name="HealthComponent" type="Node" parent="." unique_id=120707199 node_paths=PackedStringArray("actor")]
+script = ExtResource("2_bfsad")
+actor = NodePath("..")
+free_actor_on_die = true
+max_health = 30.0
+health = 30.0
+metadata/_custom_type_script = "uid://ditbeykj0vfd4"
+
+[node name="HurtboxComponent2D" type="Area2D" parent="." unique_id=32309046 node_paths=PackedStringArray("health_component", "actor")]
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("3_sc8da")
+health_component = NodePath("../HealthComponent")
+actor = NodePath("..")
+metadata/_custom_type_script = "uid://bqx8hyj121gcl"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent2D" unique_id=1430556046]
+position = Vector2(0, -6)
+shape = SubResource("CircleShape2D_g04yl")
+debug_color = Color(0.73675454, 0.24448738, 0, 0.41960785)
+
+[node name="HitboxComponent2D" type="Area2D" parent="." unique_id=1560326532 node_paths=PackedStringArray("actor")]
+collision_layer = 32
+collision_mask = 64
+script = ExtResource("4_bfsad")
+actor = NodePath("..")
+damage = 10.0
+metadata/_custom_type_script = "uid://dolqe4hla1kxn"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent2D" unique_id=1283394483]
+position = Vector2(0, -6)
+shape = SubResource("CircleShape2D_g04yl")
+debug_color = Color(0.70196074, 0.027014535, 0, 0.41960785)
+
+[node name="VisionComponent2D" type="Area2D" parent="." unique_id=380082686]
+script = ExtResource("5_sc8da")

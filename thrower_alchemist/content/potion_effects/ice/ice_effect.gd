@@ -4,6 +4,8 @@ class_name IceEffect
 
 @export var freeze_time: float
 
+const META_ID: String = "freeze_counter"
+
 func drink_effect(actor: Node2D) -> void:
 	_freeze_actor(actor)
 
@@ -11,13 +13,11 @@ func throw_effect(_actor: Node2D, _potion: PotionNode) -> void:
 	return
 
 func collision_effect(_actor: Node2D, potion: PotionNode, collider: Node2D) -> void:
-	
-	var delete: bool = false
-	
+
 	if collider:
-		delete = await _freeze_actor(collider as Node2D)
+		_freeze_actor(collider as Node2D)
 	
-	if delete and potion:
+	if potion:
 		potion.queue_free()
 
 func _set_sprite_effect(actor: Node, _color: Color = Color.BLUE) -> void:
@@ -57,16 +57,27 @@ func _freeze_player(player: PlayerNode) -> bool:
 
 func _start_freeze(actor: Node2D) -> bool:
 	var move_component: MoveComponent2D = ComponentManager.get_component(actor, MoveComponent2D)
+	GameDebugger.debug_log(IceEffect, "Starting freezing")
 	
 	if not move_component:
 		return false
+	
+	var _counter: int = actor.get_meta(META_ID, 0)
+	_counter += 1
+	
+	actor.set_meta(META_ID, _counter)
 	
 	move_component.can_move = false
 	_set_sprite_effect(actor, Color.BLUE)
 	
 	await actor.get_tree().create_timer(freeze_time).timeout
 	
+	if _counter != actor.get_meta(META_ID, null):
+		return false
+	
 	move_component.can_move = true
 	_set_sprite_effect(actor, Color.WHITE)
+	
+	GameDebugger.debug_log(IceEffect, "Finished freezing")
 	
 	return true

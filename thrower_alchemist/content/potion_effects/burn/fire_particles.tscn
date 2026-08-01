@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://bbhuukstueh6y"]
+
+[ext_resource type="Texture2D" uid="uid://dqej7tw6iwfb" path="res://assets/particles/fire/fire.png" id="1_ygoe4"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_7ukwx"]
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 40.48
+direction = Vector3(0, 1, 0)
+initial_velocity_min = -10.0
+
+[node name="FireParticles" type="GPUParticles2D" unique_id=514629607]
+amount = 1
+texture = ExtResource("1_ygoe4")
+lifetime = 0.4
+process_material = SubResource("ParticleProcessMaterial_7ukwx")
