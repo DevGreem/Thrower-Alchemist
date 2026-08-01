@@ -3,6 +3,7 @@ extends Area2D
 class_name HurtboxComponent2D
 
 signal damage_received(cantity: float)
+signal heal_received(cantity: float)
 
 @export var health_component: HealthComponent
 @export var actor: Node
@@ -33,3 +34,8 @@ func receive_damage(cantity: float, activate_inmunity: bool = true, ignore_inmun
 	
 	if activate_inmunity:
 		inmunity_remaining = inmunity_time
+
+func receive_heal(cantity: float) -> void:
+	
+	health_component.health += cantity
+	heal_received.emit(cantity)

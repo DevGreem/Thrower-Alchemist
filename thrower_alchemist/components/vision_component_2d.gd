@@ -5,7 +5,7 @@ class_name VisionComponent2D
 signal entity_entered(entity: Node2D)
 signal entity_exited(entity: Node2D)
 
-@export var groups_to_detect: Array[StringName] = []
+@export var required_tags: Array[TagData] = []
 @export var detect_bodies: bool = true
 @export var detect_hurtboxes: bool = false
 
@@ -18,4 +18,16 @@ func _ready() -> void:
 			body_entered.connect(_on_body_entered)
 
 func _on_body_entered(body: Node2D) -> void:
+	
 	pass
+
+func _is_valid_node(body: Node) -> bool:
+	
+	if required_tags.is_empty():
+		return true
+	
+	for tag: TagData in required_tags:
+		if TagsManager.has_tag(tag, body):
+			return true
+	
+	return false
