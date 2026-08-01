@@ -2,17 +2,20 @@
 
 [ext_resource type="Script" uid="uid://fey7uq0vedbb" path="res://content/potions/potion_node.gd" id="1_bctwa"]
 [ext_resource type="Texture2D" uid="uid://dfgj4org13j6b" path="res://content/potions/potion.png" id="2_j0gsx"]
-[ext_resource type="Script" uid="uid://b7vd0ofxx6q5p" path="res://components/reach_distance_component.gd" id="5_63a6k"]
+[ext_resource type="Script" uid="uid://b7vd0ofxx6q5p" path="res://components/destination_system/reach_distance_component.gd" id="5_63a6k"]
+[ext_resource type="Script" uid="uid://bkloujx624lh4" path="res://components/collision_detector_component_2d.gd" id="5_s3gvr"]
 [ext_resource type="Script" uid="uid://cixn3eduqvftn" path="res://components/move_component_2d.gd" id="6_s3gvr"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_s3gvr"]
 radius = 2.0
 
 [node name="Potion" type="CharacterBody2D" unique_id=1241958563]
+y_sort_enabled = true
 collision_layer = 0
 script = ExtResource("1_bctwa")
 
 [node name="Sprite" type="Sprite2D" parent="." unique_id=201296664]
+position = Vector2(0, -4)
 texture = ExtResource("2_j0gsx")
 
 [node name="MoveComponent2D" type="Node" parent="." unique_id=1730887930 node_paths=PackedStringArray("actor")]
@@ -23,10 +26,23 @@ speed = 175.0
 metadata/_custom_type_script = "uid://cixn3eduqvftn"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=640434666]
+position = Vector2(0, -4)
 shape = SubResource("CircleShape2D_s3gvr")
 
-[node name="ReachDistanceComponent2D" type="Node" parent="." unique_id=768853802 node_paths=PackedStringArray("move_component")]
+[node name="ReachDistanceComponent2D" type="Node" parent="." unique_id=768853802 node_paths=PackedStringArray("actor", "move_component")]
 unique_name_in_owner = true
 script = ExtResource("5_63a6k")
+actor = NodePath("..")
 move_component = NodePath("../MoveComponent2D")
 reach_distance = 150.0
+
+[node name="CollisionDetectorComponent2D" type="Area2D" parent="." unique_id=1085547622]
+collision_layer = 0
+collision_mask = 67
+script = ExtResource("5_s3gvr")
+detect_hurtboxes = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CollisionDetectorComponent2D" unique_id=162318279]
+position = Vector2(0, -4)
+shape = SubResource("CircleShape2D_s3gvr")
+debug_color = Color(0.03284751, 0.70196074, 0, 0.41960785)

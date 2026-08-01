@@ -15,6 +15,16 @@ func drink_effect(actor: Node2D) -> void
 @abstract
 func throw_effect(actor: Node2D, potion: PotionNode) -> void
 
+@warning_ignore("unused_parameter")
+func collision_effect(actor: Node2D, potion: PotionNode, collider: Node2D) -> void:
+	GameDebugger.debug_log(PotionEffect, "Detected collision = " + str(collider))
+	
+	if collider:
+		throw_effect(actor, potion)
+		
+		if potion:
+			potion.queue_free()
+
 static func is_joinable(left: PotionEffect, right: PotionEffect) -> bool:
 	
 	var ids: Array[StringName] = Databases.EFFECT_CONNECTIONS.where({

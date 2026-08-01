@@ -17,7 +17,7 @@ func _on_area_entered(area: Area2D) -> void:
 	
 	if area is HurtboxComponent2D:
 		
-		if area.get_parent() == self.actor:
+		if area.actor == self.actor:
 			if not can_damage_actor:
 				return
 		

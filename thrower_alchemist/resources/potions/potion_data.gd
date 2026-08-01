@@ -1,4 +1,5 @@
-extends ShareableResource
+@tool
+extends InventoryItemData
 
 class_name PotionData
 
@@ -9,6 +10,28 @@ signal effect_removed
 @export var can_throw: bool = true
 @export var weight: float
 @export var effects: Array[PotionEffect] = []
+
+func _init() -> void:
+	self.icon = preload("uid://dfgj4org13j6b")
+	
+	if not self.actions:
+		self.actions = ItemActions.new()
+	
+	self.actions.use = PotionUseAction.new()
+	self.actions.interact = PotionInteractAction.new()
+
+func _validate_property(property: Dictionary) -> void:
+	
+	if property.name == "icon":
+		property.usage |= PROPERTY_USAGE_READ_ONLY
+	
+	if property.name == "actions":
+		property.usage |= PROPERTY_USAGE_READ_ONLY
+
+func drink_effects(actor: Node2D) -> void:
+	
+	for effect: PotionEffect in effects:
+		effect.drink_effect(actor)
 
 static func join(left: PotionData, right: PotionData) -> PotionData:
 	
@@ -30,6 +53,19 @@ static func join(left: PotionData, right: PotionData) -> PotionData:
 	
 	return new_potion
 
+func get_potion_color() -> Color:
+	var color: Color = Color.BLACK
+	
+	for effect: PotionEffect in self.effects:
+		color += effect.color
+	
+	if not self.effects.is_empty():
+		color /= self.effects.size()
+	
+	color.a = 1
+	
+	return color
+
 func add_effect(effect: PotionEffect) -> Error:
 	
 	if effect not in self.effects:
@@ -46,3 +82,6 @@ func remove_effect(pos: int) -> void:
 	
 	self.effects.remove_at(pos)
 	effect_removed.emit()
+
+func set_icon_effect(node: TextureRect) -> void:
+	node.self_modulate = self.get_potion_color()

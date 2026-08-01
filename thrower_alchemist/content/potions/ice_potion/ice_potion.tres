@@ -1,0 +1,37 @@
+[gd_resource type="Resource" script_class="PotionData" format=3 uid="uid://1e8vvxipf2fv"]
+
+[ext_resource type="Script" uid="uid://cw2wgk8wru3aj" path="res://resources/potions/actions/interact.gd" id="1_43mxi"]
+[ext_resource type="Script" uid="uid://0y56gtmy1e3h" path="res://components/inventory_system/resources/item_actions.gd" id="2_vaywa"]
+[ext_resource type="Script" uid="uid://bljs478apt4sc" path="res://resources/potions/actions/use.gd" id="3_vvwd1"]
+[ext_resource type="Script" uid="uid://dj37bo78y6jpp" path="res://resources/potions/potion_effect.gd" id="4_q11pc"]
+[ext_resource type="Texture2D" uid="uid://dfgj4org13j6b" path="res://content/potions/potion.png" id="5_am726"]
+[ext_resource type="Script" uid="uid://mwbdvayb2afl" path="res://content/potion_effects/ice/ice_effect.gd" id="5_vaywa"]
+[ext_resource type="Script" uid="uid://sc48cbyclvc1" path="res://resources/potions/potion_data.gd" id="6_e6ita"]
+
+[sub_resource type="Resource" id="Resource_gfam0"]
+script = ExtResource("1_43mxi")
+
+[sub_resource type="Resource" id="Resource_it36o"]
+script = ExtResource("3_vvwd1")
+
+[sub_resource type="Resource" id="Resource_m7rxj"]
+script = ExtResource("2_vaywa")
+use = SubResource("Resource_it36o")
+interact = SubResource("Resource_gfam0")
+
+[sub_resource type="Resource" id="Resource_44e06"]
+script = ExtResource("5_vaywa")
+freeze_time = 3.0
+color = Color(0.26175386, 0.23036289, 1, 1)
+metadata/_custom_type_script = "uid://mwbdvayb2afl"
+
+[resource]
+script = ExtResource("6_e6ita")
+weight = 0.9
+effects = Array[ExtResource("4_q11pc")]([SubResource("Resource_44e06")])
+_ID = "ice_potion"
+icon = ExtResource("5_am726")
+name = "Potion"
+cooldown = 1.0
+actions = SubResource("Resource_m7rxj")
+metadata/_custom_type_script = "uid://sc48cbyclvc1"

@@ -1,10 +1,23 @@
 [gd_scene format=3 uid="uid://b2spclcrcu1hs"]
 
+[ext_resource type="Shader" uid="uid://dkec71qmxktfv" path="res://shaders/effects_shader.tres" id="1_4rie3"]
 [ext_resource type="Texture2D" uid="uid://b81roki8jflh3" path="res://content/entities/player/player.png" id="1_e50yv"]
+[ext_resource type="Script" uid="uid://bokowr37e42b3" path="res://content/entities/player/player.gd" id="1_piw5s"]
 [ext_resource type="Script" uid="uid://cixn3eduqvftn" path="res://components/move_component_2d.gd" id="2_cp3qr"]
-[ext_resource type="Script" uid="uid://drdxj65bd6jak" path="res://components/move_input_component_2d.gd" id="3_lwocm"]
+[ext_resource type="Script" uid="uid://drdxj65bd6jak" path="res://components/input_system/move_input_component_2d.gd" id="3_lwocm"]
 [ext_resource type="Script" uid="uid://ditbeykj0vfd4" path="res://components/health_component.gd" id="4_t4ell"]
 [ext_resource type="Script" uid="uid://bqx8hyj121gcl" path="res://components/hurtbox_component_2d.gd" id="5_55yfw"]
+[ext_resource type="Script" uid="uid://yeaja8p4wyux" path="res://components/inventory_system/scripts/inventory_component.gd" id="6_r5tfu"]
+[ext_resource type="Script" uid="uid://d1fyt18vlv7pq" path="res://components/inventory_system/resources/inventory_item_instance.gd" id="7_g15rv"]
+[ext_resource type="Script" uid="uid://bbmbnjuagm1l4" path="res://components/inventory_system/scripts/hotbar_component.gd" id="7_t2p4e"]
+[ext_resource type="Script" uid="uid://hlljrud6lsx3" path="res://components/inventory_system/inputs/use_item_input.gd" id="9_i83cd"]
+[ext_resource type="Script" uid="uid://b1y8nxmuj8nk1" path="res://components/inventory_system/inputs/interact_item_input.gd" id="10_iakl4"]
+[ext_resource type="Script" uid="uid://bijinphfvi0l6" path="res://components/input_system/input_manager_component.gd" id="10_twvcw"]
+[ext_resource type="Script" uid="uid://bl4331iyoi3u2" path="res://components/inventory_system/inputs/select_item_input.gd" id="11_piw5s"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_y5q02"]
+shader = ExtResource("1_4rie3")
+shader_parameter/EffectColor = Color(1, 1, 1, 1)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_obaep"]
 size = Vector2(12, 24)
@@ -14,15 +27,19 @@ radius = 4.0
 
 [node name="Player" type="CharacterBody2D" unique_id=1606296388 groups=["player"]]
 collision_layer = 64
+script = ExtResource("1_piw5s")
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1511677485]
+[node name="Sprite" type="Sprite2D" parent="." unique_id=1511677485]
 y_sort_enabled = true
+material = SubResource("ShaderMaterial_y5q02")
+position = Vector2(91, 2)
 texture = ExtResource("1_e50yv")
-offset = Vector2(0, -12)
+offset = Vector2(-91, -14)
 
-[node name="HealthComponent" type="Node" parent="." unique_id=294361878]
+[node name="HealthComponent" type="Node" parent="." unique_id=294361878 node_paths=PackedStringArray("actor")]
 script = ExtResource("4_t4ell")
-free_parent_on_die = true
+actor = NodePath("..")
+free_actor_on_die = true
 max_health = 25.0
 health = 25.0
 
@@ -31,16 +48,12 @@ script = ExtResource("2_cp3qr")
 actor = NodePath("..")
 speed = 100.0
 
-[node name="MoveInputComponent2D" type="Node" parent="." unique_id=603199798 node_paths=PackedStringArray("move_component")]
-script = ExtResource("3_lwocm")
-move_component = NodePath("../MoveComponent2D")
-action_vector = Array[StringName]([&"left", &"right", &"up", &"down"])
-
-[node name="HurtboxComponent2D" type="Area2D" parent="." unique_id=1236442513 node_paths=PackedStringArray("health_component")]
+[node name="HurtboxComponent2D" type="Area2D" parent="." unique_id=1236442513 node_paths=PackedStringArray("health_component", "actor")]
 collision_layer = 2
 collision_mask = 0
 script = ExtResource("5_55yfw")
 health_component = NodePath("../HealthComponent")
+actor = NodePath("..")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent2D" unique_id=304227575]
 position = Vector2(0, -12)
@@ -50,3 +63,39 @@ debug_color = Color(0.8294658, 0.3909105, 0.14149457, 0.41960785)
 [node name="Collision" type="CollisionShape2D" parent="." unique_id=1053479339]
 position = Vector2(0, -4)
 shape = SubResource("CircleShape2D_obaep")
+
+[node name="InventoryComponent" type="Node" parent="." unique_id=600584459]
+script = ExtResource("6_r5tfu")
+
+[node name="HotbarComponent" type="Node" parent="." unique_id=147460662]
+script = ExtResource("7_t2p4e")
+spaces = 4
+_items = Array[ExtResource("7_g15rv")]([null, null, null, null])
+metadata/_custom_type_script = "uid://bbmbnjuagm1l4"
+
+[node name="Inputs" type="Node" parent="." unique_id=209227326]
+script = ExtResource("10_twvcw")
+
+[node name="MoveInputComponent2D" type="Node" parent="Inputs" unique_id=603199798 node_paths=PackedStringArray("move_component")]
+script = ExtResource("3_lwocm")
+move_component = NodePath("../../MoveComponent2D")
+action_vector = Array[StringName]([&"left", &"right", &"up", &"down"])
+
+[node name="UseItemInput" type="Node" parent="Inputs" unique_id=1172783860 node_paths=PackedStringArray("hotbar_component", "actor")]
+script = ExtResource("9_i83cd")
+hotbar_component = NodePath("../../HotbarComponent")
+actor = NodePath("../..")
+metadata/_custom_type_script = "uid://hlljrud6lsx3"
+
+[node name="InteractItemInput" type="Node" parent="Inputs" unique_id=99728740 node_paths=PackedStringArray("hotbar_component", "actor")]
+script = ExtResource("10_iakl4")
+hotbar_component = NodePath("../../HotbarComponent")
+actor = NodePath("../..")
+metadata/_custom_type_script = "uid://b1y8nxmuj8nk1"
+
+[node name="SelectItemInput" type="Node" parent="Inputs" unique_id=390628532 node_paths=PackedStringArray("hotbar_component", "actor")]
+script = ExtResource("11_piw5s")
+hotbar_component = NodePath("../../HotbarComponent")
+actor = NodePath("../..")
+ignore_manager = true
+metadata/_custom_type_script = "uid://bl4331iyoi3u2"
