@@ -16,12 +16,10 @@ func drink_effect(actor: Node2D) -> void
 func throw_effect(actor: Node2D, potion: PotionNode) -> void
 
 @warning_ignore("unused_parameter")
-func collision_effect(actor: Node2D, potion: PotionNode, collider: KinematicCollision2D) -> void:
+func collision_effect(actor: Node2D, potion: PotionNode, collider: Node2D) -> void:
 	GameDebugger.debug_log(PotionEffect, "Detected collision = " + str(collider))
 	
-	var collide: Object = collider.get_collider()
-	
-	if collide:
+	if collider:
 		throw_effect(actor, potion)
 		potion.queue_free()
 

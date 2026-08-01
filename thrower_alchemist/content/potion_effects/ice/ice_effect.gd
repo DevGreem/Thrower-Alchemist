@@ -10,12 +10,10 @@ func drink_effect(actor: Node2D) -> void:
 func throw_effect(_actor: Node2D, _potion: PotionNode) -> void:
 	return
 
-func collision_effect(_actor: Node2D, potion: PotionNode, collider: KinematicCollision2D) -> void:
+func collision_effect(_actor: Node2D, potion: PotionNode, collider: Node2D) -> void:
 	
-	var collide: Object = collider.get_collider()
-	
-	if collide:
-		await _freeze_actor(collide as Node2D)
+	if collider:
+		_freeze_actor(collider as Node2D)
 		potion.queue_free()
 
 func _set_sprite_effect(actor: Node, _color: Color = Color.BLUE) -> void:
