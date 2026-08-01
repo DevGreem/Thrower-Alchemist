@@ -40,9 +40,8 @@ script = ExtResource("1_piw5s")
 [node name="Sprite" type="Sprite2D" parent="." unique_id=1511677485]
 y_sort_enabled = true
 material = SubResource("ShaderMaterial_y5q02")
-position = Vector2(91, 2)
 texture = ExtResource("1_e50yv")
-offset = Vector2(-91, -14)
+offset = Vector2(0, -12)
 
 [node name="HealthComponent" type="Node" parent="." unique_id=294361878 node_paths=PackedStringArray("actor")]
 script = ExtResource("4_t4ell")

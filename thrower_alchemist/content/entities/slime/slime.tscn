@@ -12,6 +12,11 @@ radius = 3.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_g04yl"]
 radius = 6.0
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_syjmg"]
+radius = 65.0
+
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_sc8da"]
+
 [node name="Slime" type="CharacterBody2D" unique_id=1014770967]
 collision_layer = 2
 
@@ -58,5 +63,15 @@ position = Vector2(0, -6)
 shape = SubResource("CircleShape2D_g04yl")
 debug_color = Color(0.70196074, 0.027014535, 0, 0.41960785)
 
-[node name="VisionComponent2D" type="Area2D" parent="." unique_id=380082686]
+[node name="VisionComponent2D" type="Area2D" parent="." unique_id=380082686 node_paths=PackedStringArray("actor")]
 script = ExtResource("5_sc8da")
+actor = NodePath("..")
+detect_bodies = false
+detect_hurtboxes = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="VisionComponent2D" unique_id=636522545]
+position = Vector2(0, -6)
+shape = SubResource("CircleShape2D_syjmg")
+
+[node name="BTPlayer" type="BTPlayer" parent="." unique_id=399286870]
+blackboard_plan = SubResource("BlackboardPlan_sc8da")
