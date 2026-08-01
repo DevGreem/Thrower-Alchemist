@@ -1,0 +1,45 @@
+[gd_resource type="BehaviorTree" format=3 uid="uid://b1oxj1nxmxgb0"]
+
+[ext_resource type="Script" uid="uid://cmivvkbelmso1" path="res://ai/tasks/follow_entity.gd" id="1_bvxmc"]
+
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_nw2t2"]
+var/attack_entities/name = &"attack_entities"
+var/attack_entities/type = 28
+var/attack_entities/value = []
+var/attack_entities/hint = 0
+var/attack_entities/hint_string = ""
+var/entities_cantity/name = &"entities_cantity"
+var/entities_cantity/type = 2
+var/entities_cantity/value = 0
+var/entities_cantity/hint = 0
+var/entities_cantity/hint_string = ""
+
+[sub_resource type="BBVariant" id="BBVariant_u17g4"]
+type = 2
+saved_value = 0
+resource_name = "<null>"
+
+[sub_resource type="BTCheckVar" id="BTCheckVar_jms5c"]
+variable = &"entities_cantity"
+check_type = 3
+value = SubResource("BBVariant_u17g4")
+
+[sub_resource type="BTAction" id="BTAction_4cy7q"]
+script = ExtResource("1_bvxmc")
+
+[sub_resource type="BTSelector" id="BTSelector_i0it5"]
+children = [SubResource("BTCheckVar_jms5c"), SubResource("BTAction_4cy7q")]
+
+[sub_resource type="BBNode" id="BBNode_g1atm"]
+saved_value = null
+
+[sub_resource type="BTCallMethod" id="BTCallMethod_i8hy7"]
+node = SubResource("BBNode_g1atm")
+
+[sub_resource type="BTSequence" id="BTSequence_rn0cl"]
+custom_name = "Main"
+children = [SubResource("BTSelector_i0it5"), SubResource("BTCallMethod_i8hy7")]
+
+[resource]
+blackboard_plan = SubResource("BlackboardPlan_nw2t2")
+root_task = SubResource("BTSequence_rn0cl")
