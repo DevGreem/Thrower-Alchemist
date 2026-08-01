@@ -40,7 +40,7 @@ reach_distance = 150.0
 collision_layer = 0
 collision_mask = 67
 script = ExtResource("5_s3gvr")
-detect_areas = true
+detect_hurtboxes = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CollisionDetectorComponent2D" unique_id=162318279]
 position = Vector2(0, -4)
