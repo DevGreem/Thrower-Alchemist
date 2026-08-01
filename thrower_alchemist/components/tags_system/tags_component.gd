@@ -4,19 +4,29 @@ class_name TagsComponent
 
 @export var tags: Array[TagData] = []
 
+## Dictionary of types of TagData and bools
+var _tag_cache: Dictionary[Variant, bool] = {}
+
 ## [parameter tag_type] tag_type is a type of TagData
 func has_tag(tag_type: Variant) -> bool:
 	
+	var cache: CacheStatus = _get_tag_cache(tag_type)
+	
+	if cache.is_cached:
+		return cache.value
+	
 	for tag: TagData in tags:
 		if is_instance_of(tag, tag_type):
+			_tag_cache[tag_type] = true
 			return true
+	
+	_tag_cache[tag_type] = false
 	
 	return false
 
-func has_tag_by_id(tag_id: StringName) -> bool:
+func _get_tag_cache(tag: Variant) -> CacheStatus:
 	
-	for tag: TagData in tags:
-		if tag.id == tag_id:
-			return true
+	if _tag_cache.has(tag):
+		return CacheStatus.generate(true, _tag_cache[tag])
 	
-	return false
+	return CacheStatus.generate(false, null)

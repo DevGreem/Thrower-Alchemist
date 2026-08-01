@@ -6,10 +6,10 @@ var _components_cache: Dictionary[Node, Dictionary] = {}
 ## [parameter type] must be a type
 func get_component(node: Node, type: Variant) -> Node:
 	
-	var cache: Node = _get_component_cache(node, type)
+	var cache: CacheStatus = _get_component_cache(node, type)
 	
-	if cache:
-		return cache
+	if cache.is_cached:
+		return cache.value as Node
 	
 	for child: Node in node.get_children():
 		if is_instance_of(child, type):
@@ -38,11 +38,12 @@ func clear_cache() -> void:
 
 func _add_component_cache(node: Node, type: Variant, component: Node) -> void:
 	
-	if not node.tree_exited.is_connected(_erase_node_cache):
-		node.tree_exited.connect(_erase_node_cache)
+	if not node.tree_exited.is_connected(_erase_node_cache.bind(node)):
+		node.tree_exited.connect(_erase_node_cache.bind(node))
 	
-	if not component.tree_exited.is_connected(_erase_component_cache):
-		component.tree_exited.connect(_erase_component_cache)
+	if component:
+		if not component.tree_exited.is_connected(_erase_component_cache.bind(node, type)):
+			component.tree_exited.connect(_erase_component_cache.bind(node, type))
 	
 	if _components_cache.has(node):
 		_components_cache[node].set(type, component)
@@ -60,11 +61,11 @@ func _erase_component_cache(node: Node, type: Variant) -> void:
 	if _components_cache.has(node):
 		_components_cache[node].erase(type)
 
-func _get_component_cache(node: Node, type: Variant) -> Node:
+func _get_component_cache(node: Node, type: Variant) -> CacheStatus:
 	var cache_dict: Dictionary = _components_cache.get(node, {})
 	
 	if cache_dict:
 		var component: Node = cache_dict.get(type)
-		return component
+		return CacheStatus.generate(true, component)
 	
-	return null
+	return CacheStatus.generate(false, null)
