@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://dahowibt6esi1"]
+
+[ext_resource type="Script" uid="uid://dc6pfykmjucc3" path="res://content/machines/potions_mixer/potions_mixer.gd" id="1_afgo1"]
+[ext_resource type="Texture2D" uid="uid://dhxev543kcutk" path="res://content/machines/potions_mixer/potions_mixer.png" id="1_dm4r4"]
+[ext_resource type="PackedScene" uid="uid://bp0q1lig48ynw" path="res://content/potions/static_potion.tscn" id="2_g867q"]
+
+[node name="PotionsMixer" type="Node2D" unique_id=341218612 node_paths=PackedStringArray("input_potions", "output_potion")]
+script = ExtResource("1_afgo1")
+input_potions = [NodePath("Potions/StaticPotion"), NodePath("Potions/StaticPotion3")]
+output_potion = NodePath("Potions/StaticPotion2")
+
+[node name="Sprite" type="Sprite2D" parent="." unique_id=898607811]
+texture = ExtResource("1_dm4r4")
+
+[node name="Potions" type="Node" parent="." unique_id=98062274]
+
+[node name="StaticPotion" parent="Potions" unique_id=802257725 instance=ExtResource("2_g867q")]
+position = Vector2(-8, -3)
+
+[node name="StaticPotion2" parent="Potions" unique_id=101976393 instance=ExtResource("2_g867q")]
+position = Vector2(2, -3)
+
+[node name="StaticPotion3" parent="Potions" unique_id=294014163 instance=ExtResource("2_g867q")]
+position = Vector2(12, -3)

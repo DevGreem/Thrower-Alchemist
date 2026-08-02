@@ -1,4 +1,4 @@
-extends Node2D
+extends CharacterBody2D
 
 class_name PotionNode
 
@@ -40,7 +40,6 @@ func _on_reach() -> void:
 	
 	self.queue_free()
 
-## TODO: make effect when the potion collide with an enemy (or a wall)
 func _make_effect(effect: PotionEffect) -> void:
 	effect.throw_effect(actor, self)
 

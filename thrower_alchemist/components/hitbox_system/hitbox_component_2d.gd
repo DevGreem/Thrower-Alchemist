@@ -41,5 +41,7 @@ func _on_area_exited(area: Area2D) -> void:
 		entered_hurtboxes.erase(area)
 
 func _make_damage(area: HurtboxComponent2D) -> void:
-	area.receive_damage(damage, activate_inmunity, ignore_inmunity)
-	damage_dealed.emit()
+	var hitted: bool = area.receive_damage(damage, activate_inmunity, ignore_inmunity)
+	
+	if hitted:
+		damage_dealed.emit()

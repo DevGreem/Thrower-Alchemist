@@ -27,7 +27,6 @@ value = SubResource("BBVariant_ne83a")
 
 [sub_resource type="BTAction" id="BTAction_4cy7q"]
 script = ExtResource("1_bvxmc")
-target_var = "attack_entity"
 
 [sub_resource type="BBNode" id="BBNode_4cy7q"]
 saved_value = NodePath("AnimationPlayer")
