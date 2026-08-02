@@ -4,14 +4,14 @@ extends Node
 var _components_cache: Dictionary[Node, Dictionary] = {}
 
 ## [parameter type] must be a type
-func get_component(node: Node, type: Variant) -> Node:
+func get_component(node: Node, type: Variant, internal: bool = false) -> Node:
 	
 	var cache: CacheStatus = _get_component_cache(node, type)
 	
 	if cache.is_cached:
 		return cache.value as Node
 	
-	for child: Node in node.get_children():
+	for child: Node in node.get_children(internal):
 		if is_instance_of(child, type):
 			_add_component_cache(node, type, child)
 			return child
@@ -20,11 +20,11 @@ func get_component(node: Node, type: Variant) -> Node:
 	return null
 
 ## [parameter types] must be an array of types
-func get_components(node: Node, types: Array) -> Dictionary[Variant, Node]:
+func get_components(node: Node, types: Array, internal: bool = false) -> Dictionary[Variant, Node]:
 	
 	var answer: Dictionary[Variant, Node] = {}
 	
-	for child: Node in node.get_children():
+	for child: Node in node.get_children(internal):
 		
 		for type: Variant in types:
 		
@@ -64,8 +64,15 @@ func _erase_component_cache(node: Node, type: Variant) -> void:
 func _get_component_cache(node: Node, type: Variant) -> CacheStatus:
 	var cache_dict: Dictionary = _components_cache.get(node, {})
 	
-	if cache_dict:
-		var component: Node = cache_dict.get(type)
-		return CacheStatus.generate(true, component)
+	if cache_dict.is_empty():
+		return CacheStatus.generate(false, null)
 	
-	return CacheStatus.generate(false, null)
+	var has_key: bool = cache_dict.has(type)
+	
+	if not has_key:
+		return CacheStatus.generate(false, null)
+	
+	var component: Node = cache_dict.get(type)
+	
+	return CacheStatus.generate(true, component)
+	
