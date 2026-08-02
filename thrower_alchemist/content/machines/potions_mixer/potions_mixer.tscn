@@ -14,30 +14,33 @@
 [ext_resource type="Script" uid="uid://sc48cbyclvc1" path="res://resources/potions/potion_data.gd" id="10_5ps6i"]
 [ext_resource type="Resource" uid="uid://1e8vvxipf2fv" path="res://content/potions/ice_potion/ice_potion.tres" id="11_i5cb4"]
 [ext_resource type="Script" uid="uid://cxehsl4at72q" path="res://components/debug_components/debug_camera_2d.gd" id="12_uacgq"]
-[ext_resource type="Script" uid="uid://dk0pi828tayhh" path="res://components/interaction_system/interaction_area_2d.gd" id="13_343vw"]
+[ext_resource type="Script" uid="uid://dk0pi828tayhh" path="res://components/interaction_system/interact_area_2d.gd" id="13_343vw"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bhjjj"]
 size = Vector2(35, 12)
 
-[sub_resource type="Resource" id="Resource_343vw"]
+[sub_resource type="Resource" id="Resource_o21ci"]
 script = ExtResource("4_uxllm")
 
-[sub_resource type="Resource" id="Resource_wiryu"]
+[sub_resource type="Resource" id="Resource_5ps6i"]
 script = ExtResource("6_uacgq")
 
-[sub_resource type="Resource" id="Resource_o21ci"]
+[sub_resource type="Resource" id="Resource_3b4mw"]
 script = ExtResource("5_i5cb4")
-use = SubResource("Resource_wiryu")
-interact = SubResource("Resource_343vw")
+use = SubResource("Resource_5ps6i")
+interact = SubResource("Resource_o21ci")
 
-[sub_resource type="Resource" id="Resource_5ps6i"]
+[sub_resource type="Resource" id="Resource_nwoyg"]
 script = ExtResource("10_5ps6i")
 weight = 1.2
 icon = ExtResource("9_o21ci")
-actions = SubResource("Resource_o21ci")
+actions = SubResource("Resource_3b4mw")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_syjmg"]
 size = Vector2(36, 4)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_obaep"]
+radius = 23.0
 
 [node name="PotionsMixer" type="StaticBody2D" unique_id=1111890572 node_paths=PackedStringArray("input_potions", "output_potion")]
 y_sort_enabled = true
@@ -81,7 +84,7 @@ position = Vector2(-10, 0)
 data = ExtResource("4_b617y")
 
 [node name="StaticPotion2" parent="Potions" unique_id=101976393 instance=ExtResource("2_g867q")]
-data = SubResource("Resource_5ps6i")
+data = SubResource("Resource_nwoyg")
 
 [node name="StaticPotion3" parent="Potions" unique_id=294014163 instance=ExtResource("2_g867q")]
 position = Vector2(10, 0)
@@ -99,4 +102,11 @@ script = ExtResource("12_uacgq")
 metadata/_custom_type_script = "uid://cxehsl4at72q"
 
 [node name="InteractionArea2D" type="Area2D" parent="." unique_id=1154205708]
+collision_layer = 256
+collision_mask = 0
 script = ExtResource("13_343vw")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea2D" unique_id=1074173441]
+position = Vector2(0, -9)
+shape = SubResource("CircleShape2D_obaep")
+debug_color = Color(0.6841424, 0.5206158, 0, 0.41960785)

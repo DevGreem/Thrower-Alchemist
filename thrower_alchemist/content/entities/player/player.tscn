@@ -18,6 +18,7 @@
 [ext_resource type="Script" uid="uid://b1y8nxmuj8nk1" path="res://components/inventory_system/inputs/interact_item_input.gd" id="10_iakl4"]
 [ext_resource type="Script" uid="uid://bijinphfvi0l6" path="res://components/input_system/input_manager_component.gd" id="10_twvcw"]
 [ext_resource type="Script" uid="uid://bl4331iyoi3u2" path="res://components/inventory_system/inputs/select_item_input.gd" id="11_piw5s"]
+[ext_resource type="Script" uid="uid://c3dkm3li8244q" path="res://components/interaction_system/interact_component_2d.gd" id="19_h0d63"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_y5q02"]
 shader = ExtResource("1_4rie3")
@@ -32,6 +33,9 @@ size = Vector2(12, 24)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_obaep"]
 radius = 4.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_g04yl"]
+radius = 35.22783
 
 [node name="Player" type="CharacterBody2D" unique_id=1606296388 groups=["player"]]
 y_sort_enabled = true
@@ -112,3 +116,17 @@ hotbar_component = NodePath("../../HotbarComponent")
 actor = NodePath("../..")
 ignore_manager = true
 metadata/_custom_type_script = "uid://bl4331iyoi3u2"
+
+[node name="InteractComponent2D" type="Node2D" parent="." unique_id=1404492988 node_paths=PackedStringArray("interact_area")]
+script = ExtResource("19_h0d63")
+interact_area = NodePath("Area2D")
+metadata/_custom_type_script = "uid://c3dkm3li8244q"
+
+[node name="Area2D" type="Area2D" parent="InteractComponent2D" unique_id=1364199099]
+collision_layer = 0
+collision_mask = 256
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractComponent2D/Area2D" unique_id=1476750933]
+position = Vector2(0, -12)
+shape = SubResource("CircleShape2D_g04yl")
+debug_color = Color(0.5855257, 0.6578363, 0, 0.41960785)
