@@ -50,13 +50,13 @@ static func join(left: PotionData, right: PotionData) -> PotionData:
 			if left_effect.id == right_effect.id:
 				continue
 			
-			if not PotionEffect.is_joinable(left_effect, right_effect):
-				return null
+			#if not PotionEffect.is_joinable(left_effect, right_effect):
+				#return null
 			
 			new_potion.add_effect(left_effect)
 			new_potion.add_effect(right_effect)
 	
-	new_potion.reach_range = max(left.reach_range, right.reach_range)
+	new_potion.weight = (left.weight + right.weight) / 2
 	
 	return new_potion
 

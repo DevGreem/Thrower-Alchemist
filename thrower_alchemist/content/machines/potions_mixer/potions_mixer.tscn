@@ -3,22 +3,62 @@
 [ext_resource type="Script" uid="uid://dc6pfykmjucc3" path="res://content/machines/potions_mixer/potions_mixer.gd" id="1_afgo1"]
 [ext_resource type="Texture2D" uid="uid://dhxev543kcutk" path="res://content/machines/potions_mixer/potions_mixer.png" id="1_dm4r4"]
 [ext_resource type="PackedScene" uid="uid://bp0q1lig48ynw" path="res://content/potions/static_potion.tscn" id="2_g867q"]
+[ext_resource type="Resource" uid="uid://cbndbhn3tf5bt" path="res://content/potions/fire_potion/fire_potion.tres" id="4_b617y"]
+[ext_resource type="Script" uid="uid://cw2wgk8wru3aj" path="res://resources/potions/actions/interact.gd" id="4_uxllm"]
+[ext_resource type="Script" uid="uid://0y56gtmy1e3h" path="res://components/inventory_system/resources/item_actions.gd" id="5_i5cb4"]
+[ext_resource type="Script" uid="uid://bljs478apt4sc" path="res://resources/potions/actions/use.gd" id="6_uacgq"]
+[ext_resource type="Script" uid="uid://dj37bo78y6jpp" path="res://resources/potions/potion_effect.gd" id="7_343vw"]
+[ext_resource type="Texture2D" uid="uid://dfgj4org13j6b" path="res://content/potions/potion.png" id="9_o21ci"]
+[ext_resource type="Script" uid="uid://sc48cbyclvc1" path="res://resources/potions/potion_data.gd" id="10_5ps6i"]
+[ext_resource type="Resource" uid="uid://1e8vvxipf2fv" path="res://content/potions/ice_potion/ice_potion.tres" id="11_i5cb4"]
+[ext_resource type="Script" uid="uid://cxehsl4at72q" path="res://components/debug_components/debug_camera_2d.gd" id="12_uacgq"]
+
+[sub_resource type="Resource" id="Resource_uacgq"]
+script = ExtResource("4_uxllm")
+
+[sub_resource type="Resource" id="Resource_343vw"]
+script = ExtResource("6_uacgq")
+
+[sub_resource type="Resource" id="Resource_wiryu"]
+script = ExtResource("5_i5cb4")
+use = SubResource("Resource_343vw")
+interact = SubResource("Resource_uacgq")
+
+[sub_resource type="Resource" id="Resource_o21ci"]
+script = ExtResource("10_5ps6i")
+weight = 1.2
+icon = ExtResource("9_o21ci")
+actions = SubResource("Resource_wiryu")
 
 [node name="PotionsMixer" type="Node2D" unique_id=341218612 node_paths=PackedStringArray("input_potions", "output_potion")]
 script = ExtResource("1_afgo1")
-input_potions = [NodePath("Potions/StaticPotion"), NodePath("Potions/StaticPotion3")]
-output_potion = NodePath("Potions/StaticPotion2")
+input_potions = [NodePath("CanvasGroup/Potions/StaticPotion"), NodePath("CanvasGroup/Potions/StaticPotion3")]
+output_potion = NodePath("CanvasGroup/Potions/StaticPotion2")
 
-[node name="Sprite" type="Sprite2D" parent="." unique_id=898607811]
+[node name="CanvasGroup" type="CanvasGroup" parent="." unique_id=899867342]
+y_sort_enabled = true
+
+[node name="Sprite" type="Sprite2D" parent="CanvasGroup" unique_id=898607811]
+y_sort_enabled = true
 texture = ExtResource("1_dm4r4")
+offset = Vector2(0, -12)
 
-[node name="Potions" type="Node" parent="." unique_id=98062274]
+[node name="Potions" type="Node" parent="CanvasGroup" unique_id=98062274]
 
-[node name="StaticPotion" parent="Potions" unique_id=802257725 instance=ExtResource("2_g867q")]
-position = Vector2(-8, -3)
+[node name="StaticPotion" parent="CanvasGroup/Potions" unique_id=802257725 instance=ExtResource("2_g867q")]
+position = Vector2(-8, -11)
+data = ExtResource("4_b617y")
 
-[node name="StaticPotion2" parent="Potions" unique_id=101976393 instance=ExtResource("2_g867q")]
-position = Vector2(2, -3)
+[node name="StaticPotion2" parent="CanvasGroup/Potions" unique_id=101976393 instance=ExtResource("2_g867q")]
+position = Vector2(2, -11)
+data = SubResource("Resource_o21ci")
 
-[node name="StaticPotion3" parent="Potions" unique_id=294014163 instance=ExtResource("2_g867q")]
-position = Vector2(12, -3)
+[node name="StaticPotion3" parent="CanvasGroup/Potions" unique_id=294014163 instance=ExtResource("2_g867q")]
+position = Vector2(12, -11)
+data = ExtResource("11_i5cb4")
+
+[node name="DebugCamera2D" type="Camera2D" parent="." unique_id=978666730]
+enabled = false
+editor_draw_screen = false
+script = ExtResource("12_uacgq")
+metadata/_custom_type_script = "uid://cxehsl4at72q"

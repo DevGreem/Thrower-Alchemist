@@ -15,12 +15,13 @@
 [ext_resource type="Texture2D" uid="uid://dfgj4org13j6b" path="res://content/potions/potion.png" id="13_pg2xm"]
 [ext_resource type="Script" uid="uid://sc48cbyclvc1" path="res://resources/potions/potion_data.gd" id="14_gc57s"]
 [ext_resource type="PackedScene" uid="uid://bxwnq63ta4kfx" path="res://content/entities/slime/slime.tscn" id="15_otnwt"]
+[ext_resource type="PackedScene" uid="uid://dahowibt6esi1" path="res://content/machines/potions_mixer/potions_mixer.tscn" id="16_3xj4h"]
 
 [sub_resource type="Resource" id="Resource_stg1e"]
 script = ExtResource("4_5i0tg")
 data = ExtResource("5_lfrn8")
 amount = 1
-remaining_cooldown = -32269.862347696457
+remaining_cooldown = -33362.89967407351
 metadata/_custom_type_script = "uid://d1fyt18vlv7pq"
 
 [sub_resource type="Resource" id="Resource_gc57s"]
@@ -114,6 +115,8 @@ metadata/_edit_lock_ = true
 offset_right = 14.0
 offset_bottom = 43.0
 metadata/_edit_lock_ = true
+
+[node name="PotionsMixer" parent="." unique_id=341218612 instance=ExtResource("16_3xj4h")]
 
 [editable path="CanvasLayer/InventoryUI"]
 [editable path="Player"]

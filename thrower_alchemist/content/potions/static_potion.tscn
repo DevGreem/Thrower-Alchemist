@@ -8,4 +8,6 @@ script = ExtResource("1_ctto7")
 sprite = NodePath("Sprite")
 
 [node name="Sprite" type="Sprite2D" parent="." unique_id=2063994827]
+y_sort_enabled = true
 texture = ExtResource("1_w6bg7")
+offset = Vector2(0, -4)
