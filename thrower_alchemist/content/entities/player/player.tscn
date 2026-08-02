@@ -7,9 +7,13 @@
 [ext_resource type="Script" uid="uid://drdxj65bd6jak" path="res://components/input_system/move_input_component_2d.gd" id="3_lwocm"]
 [ext_resource type="Script" uid="uid://ditbeykj0vfd4" path="res://components/health_component.gd" id="4_t4ell"]
 [ext_resource type="Script" uid="uid://bqx8hyj121gcl" path="res://components/hurtbox_component_2d.gd" id="5_55yfw"]
+[ext_resource type="Script" uid="uid://dfauhidejrw1c" path="res://components/tags_system/tags_component.gd" id="6_0aorw"]
 [ext_resource type="Script" uid="uid://yeaja8p4wyux" path="res://components/inventory_system/scripts/inventory_component.gd" id="6_r5tfu"]
 [ext_resource type="Script" uid="uid://d1fyt18vlv7pq" path="res://components/inventory_system/resources/inventory_item_instance.gd" id="7_g15rv"]
 [ext_resource type="Script" uid="uid://bbmbnjuagm1l4" path="res://components/inventory_system/scripts/hotbar_component.gd" id="7_t2p4e"]
+[ext_resource type="Script" uid="uid://dawgj1wjx3c7" path="res://components/tags_system/tag_data.gd" id="7_wlmkn"]
+[ext_resource type="Script" uid="uid://cgs56j8r30wpa" path="res://components/tags_system/tag_behavior.gd" id="8_h0d63"]
+[ext_resource type="Script" uid="uid://54lkyexoh7xb" path="res://components/tags_system/default_tags/player_tag.gd" id="9_2m54q"]
 [ext_resource type="Script" uid="uid://hlljrud6lsx3" path="res://components/inventory_system/inputs/use_item_input.gd" id="9_i83cd"]
 [ext_resource type="Script" uid="uid://b1y8nxmuj8nk1" path="res://components/inventory_system/inputs/interact_item_input.gd" id="10_iakl4"]
 [ext_resource type="Script" uid="uid://bijinphfvi0l6" path="res://components/input_system/input_manager_component.gd" id="10_twvcw"]
@@ -19,6 +23,10 @@
 shader = ExtResource("1_4rie3")
 shader_parameter/EffectColor = Color(1, 1, 1, 1)
 
+[sub_resource type="Resource" id="Resource_awhl2"]
+script = ExtResource("9_2m54q")
+metadata/_custom_type_script = "uid://54lkyexoh7xb"
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_obaep"]
 size = Vector2(12, 24)
 
@@ -27,14 +35,14 @@ radius = 4.0
 
 [node name="Player" type="CharacterBody2D" unique_id=1606296388 groups=["player"]]
 collision_layer = 64
+motion_mode = 1
 script = ExtResource("1_piw5s")
 
 [node name="Sprite" type="Sprite2D" parent="." unique_id=1511677485]
 y_sort_enabled = true
 material = SubResource("ShaderMaterial_y5q02")
-position = Vector2(91, 2)
 texture = ExtResource("1_e50yv")
-offset = Vector2(-91, -14)
+offset = Vector2(0, -12)
 
 [node name="HealthComponent" type="Node" parent="." unique_id=294361878 node_paths=PackedStringArray("actor")]
 script = ExtResource("4_t4ell")
@@ -47,12 +55,18 @@ script = ExtResource("2_cp3qr")
 actor = NodePath("..")
 speed = 100.0
 
+[node name="TagsComponent" type="Node" parent="." unique_id=537450596]
+script = ExtResource("6_0aorw")
+tags = Array[ExtResource("7_wlmkn")]([SubResource("Resource_awhl2")])
+metadata/_custom_type_script = "uid://dfauhidejrw1c"
+
 [node name="HurtboxComponent2D" type="Area2D" parent="." unique_id=1236442513 node_paths=PackedStringArray("health_component", "actor")]
 collision_layer = 66
 collision_mask = 0
 script = ExtResource("5_55yfw")
 health_component = NodePath("../HealthComponent")
 actor = NodePath("..")
+inmunity_time = 5.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent2D" unique_id=304227575]
 position = Vector2(0, -12)

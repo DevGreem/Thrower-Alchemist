@@ -21,12 +21,12 @@ func _ready() -> void:
 		area_entered.connect(_on_collision_area_detected)
 
 func _on_collision_detected(body: Node2D) -> void:
-	
 	if not detect_actor:
 		
 		if body == actor:
 			return
 	
+	GameDebugger.debug_log(CollisionDetectorComponent2D, "Detected collision with body")
 	collision_detected.emit(body)
 
 func _on_collision_area_detected(area: Area2D) -> void:

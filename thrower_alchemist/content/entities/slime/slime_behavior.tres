@@ -1,0 +1,67 @@
+[gd_resource type="BehaviorTree" format=3 uid="uid://b1oxj1nxmxgb0"]
+
+[ext_resource type="Script" uid="uid://cmniwp17wfvlg" path="res://ai/tasks/follow_target.gd" id="1_bvxmc"]
+[ext_resource type="Script" uid="uid://cqkcd0r63fmfm" path="res://ai/tasks/stop_movement.gd" id="2_4cy7q"]
+
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_sc8da"]
+var/attack_entity/name = &"attack_entity"
+var/attack_entity/type = 22
+var/attack_entity/value = NodePath(".")
+var/attack_entity/hint = 0
+var/attack_entity/hint_string = ""
+var/entities_cantity/name = &"entities_cantity"
+var/entities_cantity/type = 2
+var/entities_cantity/value = 0
+var/entities_cantity/hint = 0
+var/entities_cantity/hint_string = ""
+
+[sub_resource type="BBVariant" id="BBVariant_ne83a"]
+type = 2
+saved_value = 0
+resource_name = "<null>"
+
+[sub_resource type="BTCheckVar" id="BTCheckVar_bvxmc"]
+variable = &"entities_cantity"
+check_type = 3
+value = SubResource("BBVariant_ne83a")
+
+[sub_resource type="BTAction" id="BTAction_4cy7q"]
+script = ExtResource("1_bvxmc")
+target_var = "attack_entity"
+
+[sub_resource type="BBNode" id="BBNode_4cy7q"]
+saved_value = NodePath("AnimationPlayer")
+resource_name = "AnimationPlayer"
+
+[sub_resource type="BTPlayAnimation" id="BTPlayAnimation_g1atm"]
+animation_player = SubResource("BBNode_4cy7q")
+animation_name = &"jumping"
+
+[sub_resource type="BBNode" id="BBNode_i8hy7"]
+saved_value = NodePath("AnimationPlayer")
+resource_name = "AnimationPlayer"
+
+[sub_resource type="BTAwaitAnimation" id="BTAwaitAnimation_5m4o5"]
+animation_player = SubResource("BBNode_i8hy7")
+animation_name = &"jumping"
+max_time = 5.0
+
+[sub_resource type="BTWait" id="BTWait_4cy7q"]
+
+[sub_resource type="BTSequence" id="BTSequence_g1atm"]
+children = [SubResource("BTCheckVar_bvxmc"), SubResource("BTAction_4cy7q"), SubResource("BTPlayAnimation_g1atm"), SubResource("BTAwaitAnimation_5m4o5"), SubResource("BTWait_4cy7q")]
+
+[sub_resource type="BTAction" id="BTAction_i8hy7"]
+script = ExtResource("2_4cy7q")
+
+[sub_resource type="BTSelector" id="BTSelector_5m4o5"]
+custom_name = "Follow Entity"
+children = [SubResource("BTSequence_g1atm"), SubResource("BTAction_i8hy7")]
+
+[sub_resource type="BTSequence" id="BTSequence_rn0cl"]
+custom_name = "Main"
+children = [SubResource("BTSelector_5m4o5")]
+
+[resource]
+blackboard_plan = SubResource("BlackboardPlan_sc8da")
+root_task = SubResource("BTSequence_rn0cl")
