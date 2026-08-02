@@ -105,6 +105,7 @@ metadata/_custom_type_script = "uid://cxehsl4at72q"
 collision_layer = 256
 collision_mask = 0
 script = ExtResource("13_343vw")
+interact_name = "Mix Potions"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea2D" unique_id=1074173441]
 position = Vector2(0, -9)

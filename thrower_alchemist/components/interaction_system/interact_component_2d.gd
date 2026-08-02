@@ -3,16 +3,19 @@ extends Node2D
 
 class_name InteractComponent2D
 
+signal interaction_added(area: InteractArea2D)
+signal interaction_removed(area: InteractArea2D)
+signal interacted(area: InteractArea2D)
+
 @export var interact_area: Area2D:
 	set(value):
 		interact_area = value
 		update_configuration_warnings()
 
-@export var interaction_ui: Node
+@export var interaction_ui: CanvasItem
 @export var can_interact: bool = true
 @export var can_interact_through_walls: bool = false
 
-@onready var player: Node2D = get_tree().get_first_node_in_group("player")
 var detected_areas: Dictionary[InteractArea2D, bool] = {}
 var focused_interactable: InteractArea2D
 
@@ -27,22 +30,12 @@ func _ready() -> void:
 	if not interact_area.area_exited.is_connected(unregister_area):
 		interact_area.area_exited.connect(unregister_area)
 
-func register_area(area: InteractArea2D) -> void:
-	
-	if detected_areas.has(area):
-		return
-	
-	detected_areas[area] = false
-
-func unregister_area(area: InteractArea2D) -> bool:
-	return detected_areas.erase(area)
-
 func _process(_delta: float) -> void:
 	
 	if Engine.is_editor_hint():
 		return
 	
-	if not can_interact or detected_areas.is_empty():
+	if not can_interact:
 		return
 	
 	for area: InteractArea2D in detected_areas:
@@ -50,19 +43,50 @@ func _process(_delta: float) -> void:
 	
 	focused_interactable = _get_closer_interactable()
 	
-	if not focused_interactable:
-		return
-	
 	GameDebugger.debug_log(InteractComponent2D, "Closer interactable = " + str(focused_interactable))
 	
 	if not interaction_ui:
 		return
 	
+	if focused_interactable:
+		interaction_ui.show()
+	else:
+		interaction_ui.hide()
+
+func register_area(area: InteractArea2D) -> bool:
 	
+	if not area.active:
+		return false
+	
+	if detected_areas.has(area):
+		return false
+	
+	detected_areas[area] = false
+	interaction_added.emit(area)
+	
+	return true
+
+func unregister_area(area: InteractArea2D) -> bool:
+	
+	var status: bool = detected_areas.erase(area)
+	
+	if status:
+		interaction_removed.emit(area)
+	
+	return status
+
+func interact() -> bool:
+	
+	if not can_interact:
+		return false
+	
+	interacted.emit(focused_interactable)
+	await focused_interactable.interact.call()
+	return true
 
 func _get_closer_interactable() -> InteractArea2D:
 	
-	if detected_areas.is_empty() or not player:
+	if detected_areas.is_empty():
 		return null
 	
 	var best_area: InteractArea2D = null
@@ -73,23 +97,13 @@ func _get_closer_interactable() -> InteractArea2D:
 		if not detected_areas[area]:
 			continue
 		
-		var distance: float = player.global_position.distance_to(area.global_position)
+		var distance: float = self.global_position.distance_to(area.global_position)
 		
 		if distance < best_distance:
 			best_distance = distance
 			best_area = area
 	
 	return best_area
-	
-func _sort_by_distance_to_player(a: InteractArea2D, b: InteractArea2D) -> bool:
-	
-	if not player:
-		return true
-	
-	var distance1: float = player.global_position.distance_to(a.global_position)
-	var distance2: float = player.global_position.distance_to(b.global_position)
-	
-	return distance1 > distance2
 
 func _can_reach(target: Node2D) -> bool:
 	
