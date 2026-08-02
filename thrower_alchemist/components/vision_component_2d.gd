@@ -32,14 +32,21 @@ func _ready() -> void:
 
 func _on_body_entered(body: Node2D) -> void:
 	
+	GameDebugger.debug_log(VisionComponent2D, "Body detected")
+	
 	if body == actor:
+		GameDebugger.debug_log(VisionComponent2D, "The body was me")
 		return
 	
 	if _is_valid_node(body):
 		visible_entities.append(body)
 		entity_entered.emit(body)
+	
+	GameDebugger.debug_log(VisionComponent2D, "Entities cantity = " + str(visible_entities.size()))
 
 func _on_body_exited(body: Node2D) -> void:
+	
+	GameDebugger.debug_log(VisionComponent2D, "Body exited")
 	
 	if body == actor:
 		return
@@ -47,6 +54,8 @@ func _on_body_exited(body: Node2D) -> void:
 	if body in visible_entities:
 		visible_entities.erase(body)
 		entity_exited.emit(body)
+	
+	GameDebugger.debug_log(VisionComponent2D, "Entities cantity = " + str(visible_entities.size()))
 
 func _on_hurtbox_entered(area: Area2D) -> void:
 	

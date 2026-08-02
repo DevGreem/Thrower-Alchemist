@@ -8,6 +8,7 @@
 [ext_resource type="Script" uid="uid://dolqe4hla1kxn" path="res://components/hitbox_system/hitbox_component_2d.gd" id="4_bfsad"]
 [ext_resource type="Script" uid="uid://ds58twerpuwx3" path="res://components/vision_component_2d.gd" id="5_sc8da"]
 [ext_resource type="BehaviorTree" uid="uid://b1oxj1nxmxgb0" path="res://content/entities/slime/slime_behavior.tres" id="7_jqiev"]
+[ext_resource type="Script" uid="uid://b0ofjfg8urw8o" path="res://components/limbo_ai/limbo_state_machine.gd" id="9_kclqt"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_obaep"]
 radius = 3.0
@@ -19,9 +20,20 @@ radius = 6.0
 radius = 65.0
 
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_sc8da"]
+var/attack_entity/name = &"attack_entity"
+var/attack_entity/type = 22
+var/attack_entity/value = NodePath(".")
+var/attack_entity/hint = 0
+var/attack_entity/hint_string = ""
+var/entities_cantity/name = &"entities_cantity"
+var/entities_cantity/type = 2
+var/entities_cantity/value = 0
+var/entities_cantity/hint = 0
+var/entities_cantity/hint_string = ""
 
 [node name="Slime" type="CharacterBody2D" unique_id=1014770967]
 collision_layer = 2
+motion_mode = 1
 script = ExtResource("1_oms7f")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1466704479]
@@ -74,6 +86,8 @@ shape = SubResource("CircleShape2D_g04yl")
 debug_color = Color(0.70196074, 0.027014535, 0, 0.41960785)
 
 [node name="VisionComponent2D" type="Area2D" parent="." unique_id=380082686 node_paths=PackedStringArray("actor")]
+collision_layer = 0
+collision_mask = 64
 script = ExtResource("5_sc8da")
 actor = NodePath("..")
 detect_bodies = false
@@ -87,4 +101,12 @@ shape = SubResource("CircleShape2D_syjmg")
 behavior_tree = ExtResource("7_jqiev")
 blackboard_plan = SubResource("BlackboardPlan_sc8da")
 
-[node name="StateMachine" type="LimboHSM" parent="." unique_id=475389349]
+[node name="LimboStateMachine" type="LimboHSM" parent="." unique_id=252184105 node_paths=PackedStringArray("actor", "default_state")]
+script = ExtResource("9_kclqt")
+actor = NodePath("..")
+default_state = NodePath("Idle")
+metadata/_custom_type_script = "uid://b0ofjfg8urw8o"
+
+[node name="Idle" type="LimboState" parent="LimboStateMachine" unique_id=1116664557]
+
+[node name="FollowTarget" type="LimboState" parent="LimboStateMachine" unique_id=528515804]

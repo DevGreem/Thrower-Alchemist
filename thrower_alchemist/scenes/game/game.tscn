@@ -20,7 +20,7 @@
 script = ExtResource("4_5i0tg")
 data = ExtResource("5_lfrn8")
 amount = 1
-remaining_cooldown = -26152.903399723513
+remaining_cooldown = -26760.199403999137
 metadata/_custom_type_script = "uid://d1fyt18vlv7pq"
 
 [sub_resource type="Resource" id="Resource_gc57s"]
@@ -89,13 +89,13 @@ default_slot_scene = ExtResource("2_lfrn8")
 [node name="Player" parent="." unique_id=1606296388 instance=ExtResource("1_sul5r")]
 position = Vector2(40, 44)
 
-[node name="HotbarComponent" parent="Player" index="6" unique_id=147460662]
+[node name="HotbarComponent" parent="Player" index="7" unique_id=147460662]
 _items = Array[ExtResource("4_5i0tg")]([SubResource("Resource_stg1e"), SubResource("Resource_gc57s"), SubResource("Resource_63a6k"), null])
 
 [node name="Camera2D" type="Camera2D" parent="Player" unique_id=960320403]
 
 [node name="Slime" parent="." unique_id=1014770967 instance=ExtResource("15_otnwt")]
-position = Vector2(104, 49)
+position = Vector2(129, 49)
 
 [editable path="CanvasLayer/InventoryUI"]
 [editable path="Player"]
