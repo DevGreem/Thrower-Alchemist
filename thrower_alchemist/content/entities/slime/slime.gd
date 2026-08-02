@@ -4,11 +4,9 @@ class_name SlimeNode
 
 @onready var behavior: BTPlayer = $Behavior
 @onready var vision_component: VisionComponent2D = $VisionComponent2D
-@onready var state_machine: LimboStateMachine = $LimboStateMachine
 
 func _ready() -> void:
 	
-	behavior.blackboard.set_var("state_machine", state_machine)
 	behavior.blackboard.set_var("entities_cantity", 0)
 	behavior.blackboard.set_var("attack_entity", null)
 	

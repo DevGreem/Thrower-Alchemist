@@ -29,8 +29,27 @@ value = SubResource("BBVariant_ne83a")
 script = ExtResource("1_bvxmc")
 target_var = "attack_entity"
 
+[sub_resource type="BBNode" id="BBNode_4cy7q"]
+saved_value = NodePath("AnimationPlayer")
+resource_name = "AnimationPlayer"
+
+[sub_resource type="BTPlayAnimation" id="BTPlayAnimation_g1atm"]
+animation_player = SubResource("BBNode_4cy7q")
+animation_name = &"jumping"
+
+[sub_resource type="BBNode" id="BBNode_i8hy7"]
+saved_value = NodePath("AnimationPlayer")
+resource_name = "AnimationPlayer"
+
+[sub_resource type="BTAwaitAnimation" id="BTAwaitAnimation_5m4o5"]
+animation_player = SubResource("BBNode_i8hy7")
+animation_name = &"jumping"
+max_time = 5.0
+
+[sub_resource type="BTWait" id="BTWait_4cy7q"]
+
 [sub_resource type="BTSequence" id="BTSequence_g1atm"]
-children = [SubResource("BTCheckVar_bvxmc"), SubResource("BTAction_4cy7q")]
+children = [SubResource("BTCheckVar_bvxmc"), SubResource("BTAction_4cy7q"), SubResource("BTPlayAnimation_g1atm"), SubResource("BTAwaitAnimation_5m4o5"), SubResource("BTWait_4cy7q")]
 
 [sub_resource type="BTAction" id="BTAction_i8hy7"]
 script = ExtResource("2_4cy7q")

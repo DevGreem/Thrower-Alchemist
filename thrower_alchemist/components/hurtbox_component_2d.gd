@@ -9,33 +9,37 @@ signal heal_received(cantity: float)
 @export var actor: Node
 @export var inmunity_time: float = -1.0
 @export var invincible: bool = false
+@export var can_heal: bool = true
 
 var inmunity_remaining: float = -1.0
-
-func _ready() -> void:
-	inmunity_remaining = inmunity_time
 
 func _process(delta: float) -> void:
 	
 	if inmunity_remaining > 0.0:
 		inmunity_remaining -= delta
 
-func receive_damage(cantity: float, activate_inmunity: bool = true, ignore_inmunity: bool = false) -> void:
+func receive_damage(cantity: float, activate_inmunity: bool = true, ignore_inmunity: bool = false) -> bool:
 	
 	if not ignore_inmunity:
 		if inmunity_remaining > 0.0:
-			return
+			return false
 	
 	if invincible:
-		return
+		return false
 	
 	health_component.health -= cantity
 	damage_received.emit(cantity)
 	
 	if activate_inmunity:
 		inmunity_remaining = inmunity_time
+	
+	return true
 
-func receive_heal(cantity: float) -> void:
+func receive_heal(cantity: float) -> bool:
+	
+	if not can_heal:
+		return false
 	
 	health_component.health += cantity
 	heal_received.emit(cantity)
+	return true

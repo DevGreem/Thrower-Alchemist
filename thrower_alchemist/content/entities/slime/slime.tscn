@@ -8,7 +8,6 @@
 [ext_resource type="Script" uid="uid://dolqe4hla1kxn" path="res://components/hitbox_system/hitbox_component_2d.gd" id="4_bfsad"]
 [ext_resource type="Script" uid="uid://ds58twerpuwx3" path="res://components/vision_component_2d.gd" id="5_sc8da"]
 [ext_resource type="BehaviorTree" uid="uid://b1oxj1nxmxgb0" path="res://content/entities/slime/slime_behavior.tres" id="7_jqiev"]
-[ext_resource type="Script" uid="uid://b0ofjfg8urw8o" path="res://components/limbo_ai/limbo_state_machine.gd" id="9_kclqt"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_obaep"]
 radius = 3.0
@@ -17,19 +16,69 @@ radius = 3.0
 radius = 6.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_syjmg"]
-radius = 65.0
+radius = 100.0
 
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_sc8da"]
-var/attack_entity/name = &"attack_entity"
-var/attack_entity/type = 22
-var/attack_entity/value = NodePath(".")
-var/attack_entity/hint = 0
-var/attack_entity/hint_string = ""
-var/entities_cantity/name = &"entities_cantity"
-var/entities_cantity/type = 2
-var/entities_cantity/value = 0
-var/entities_cantity/hint = 0
-var/entities_cantity/hint_string = ""
+
+[sub_resource type="Animation" id="Animation_kclqt"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MoveComponent2D:can_move")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:offset:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [-6.0]
+}
+
+[sub_resource type="Animation" id="Animation_0dw0y"]
+resource_name = "jumping"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MoveComponent2D:can_move")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:offset:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [-7.0, -20.0, -7.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_t1e5s"]
+_data = {
+&"RESET": SubResource("Animation_kclqt"),
+&"jumping": SubResource("Animation_0dw0y")
+}
 
 [node name="Slime" type="CharacterBody2D" unique_id=1014770967]
 collision_layer = 2
@@ -56,6 +105,7 @@ metadata/_custom_type_script = "uid://ditbeykj0vfd4"
 [node name="MoveComponent2D" type="Node" parent="." unique_id=34789353 node_paths=PackedStringArray("actor")]
 script = ExtResource("4_7y3k0")
 actor = NodePath("..")
+can_move = false
 speed = 50.0
 metadata/_custom_type_script = "uid://cixn3eduqvftn"
 
@@ -101,12 +151,5 @@ shape = SubResource("CircleShape2D_syjmg")
 behavior_tree = ExtResource("7_jqiev")
 blackboard_plan = SubResource("BlackboardPlan_sc8da")
 
-[node name="LimboStateMachine" type="LimboHSM" parent="." unique_id=252184105 node_paths=PackedStringArray("actor", "default_state")]
-script = ExtResource("9_kclqt")
-actor = NodePath("..")
-default_state = NodePath("Idle")
-metadata/_custom_type_script = "uid://b0ofjfg8urw8o"
-
-[node name="Idle" type="LimboState" parent="LimboStateMachine" unique_id=1116664557]
-
-[node name="FollowTarget" type="LimboState" parent="LimboStateMachine" unique_id=528515804]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=50476038]
+libraries/ = SubResource("AnimationLibrary_t1e5s")
