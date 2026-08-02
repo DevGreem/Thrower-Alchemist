@@ -23,6 +23,7 @@ EventBus="*uid://b5cjin2wx7txx"
 ComponentManager="*uid://dhg8bupj1ups7"
 PlayerManager="*uid://dst27tilrrgpj"
 TagsManager="*uid://cg7tvcqghivrn"
+InteractionManager2d="*uid://dgwc8wqilsoh2"
 
 [debug]
 

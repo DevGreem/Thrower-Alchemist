@@ -81,12 +81,12 @@ _data = {
 }
 
 [node name="Slime" type="CharacterBody2D" unique_id=1014770967]
+y_sort_enabled = true
 collision_layer = 2
 motion_mode = 1
 script = ExtResource("1_oms7f")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1466704479]
-y_sort_enabled = true
 texture = ExtResource("1_3ihxs")
 offset = Vector2(0, -6)
 

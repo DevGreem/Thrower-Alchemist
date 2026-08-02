@@ -21,7 +21,7 @@
 script = ExtResource("4_5i0tg")
 data = ExtResource("5_lfrn8")
 amount = 1
-remaining_cooldown = -33362.89967407351
+remaining_cooldown = -33886.71195299418
 metadata/_custom_type_script = "uid://d1fyt18vlv7pq"
 
 [sub_resource type="Resource" id="Resource_gc57s"]
@@ -76,47 +76,56 @@ size = Vector2(14, 43)
 
 [node name="Node2D" type="Node2D" unique_id=724420841]
 
-[node name="Projectiles" type="Node2D" parent="." unique_id=2135532405 groups=["container", "projectiles_container"]]
-
-[node name="Effects" type="Node2D" parent="." unique_id=197708295 groups=["container", "effects_container"]]
-z_index = -2
-z_as_relative = false
-
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=743349263]
 
 [node name="InventoryUI" parent="CanvasLayer" unique_id=1800205673 instance=ExtResource("1_0sr1o")]
 
 [node name="Hotbar" parent="CanvasLayer/InventoryUI" index="1" unique_id=1822549158 node_paths=PackedStringArray("hotbar_component")]
-hotbar_component = NodePath("../../../Player/HotbarComponent")
+hotbar_component = NodePath("../../../YSort/Entities/Player/HotbarComponent")
 default_slot_scene = ExtResource("2_lfrn8")
 
-[node name="Player" parent="." unique_id=1606296388 instance=ExtResource("1_sul5r")]
+[node name="YSort" type="Node2D" parent="." unique_id=1291027061]
+y_sort_enabled = true
+
+[node name="Projectiles" type="Node2D" parent="YSort" unique_id=2135532405 groups=["container", "projectiles_container"]]
+
+[node name="Effects" type="Node2D" parent="YSort" unique_id=197708295 groups=["container", "effects_container"]]
+z_index = -2
+z_as_relative = false
+
+[node name="Entities" type="Node2D" parent="YSort" unique_id=1997927869]
+y_sort_enabled = true
+
+[node name="Player" parent="YSort/Entities" unique_id=1606296388 instance=ExtResource("1_sul5r")]
 position = Vector2(40, 44)
 
-[node name="HotbarComponent" parent="Player" index="7" unique_id=147460662]
+[node name="HotbarComponent" parent="YSort/Entities/Player" index="7" unique_id=147460662]
 _items = Array[ExtResource("4_5i0tg")]([SubResource("Resource_stg1e"), SubResource("Resource_gc57s"), SubResource("Resource_63a6k"), null])
 
-[node name="Camera2D" type="Camera2D" parent="Player" unique_id=960320403]
+[node name="Camera2D" type="Camera2D" parent="YSort/Entities/Player" unique_id=960320403]
 
-[node name="Slime" parent="." unique_id=1014770967 instance=ExtResource("15_otnwt")]
+[node name="Slime" parent="YSort/Entities" unique_id=1014770967 instance=ExtResource("15_otnwt")]
 position = Vector2(129, 49)
 
-[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1861170589]
+[node name="Machines" type="Node2D" parent="YSort" unique_id=1568169582]
+y_sort_enabled = true
+
+[node name="PotionsMixer" parent="YSort/Machines" unique_id=341218612 instance=ExtResource("16_3xj4h")]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="YSort/Machines" unique_id=1861170589]
 position = Vector2(76, 13)
 collision_layer = 129
 collision_mask = 0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=1312513437]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="YSort/Machines/StaticBody2D" unique_id=1312513437]
 position = Vector2(7, 21.5)
 shape = SubResource("RectangleShape2D_obaep")
 metadata/_edit_lock_ = true
 
-[node name="ColorRect" type="ColorRect" parent="StaticBody2D" unique_id=1379652919]
+[node name="ColorRect" type="ColorRect" parent="YSort/Machines/StaticBody2D" unique_id=1379652919]
 offset_right = 14.0
 offset_bottom = 43.0
 metadata/_edit_lock_ = true
 
-[node name="PotionsMixer" parent="." unique_id=341218612 instance=ExtResource("16_3xj4h")]
-
 [editable path="CanvasLayer/InventoryUI"]
-[editable path="Player"]
+[editable path="YSort/Entities/Player"]

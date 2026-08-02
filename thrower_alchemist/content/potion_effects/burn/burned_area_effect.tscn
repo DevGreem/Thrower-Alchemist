@@ -30,7 +30,7 @@ texture = ExtResource("2_h3u2l")
 [node name="BurnArea" type="Area2D" parent="." unique_id=151151841]
 unique_name_in_owner = true
 collision_layer = 32
-collision_mask = 2
+collision_mask = 67
 script = ExtResource("3_6nqlh")
 cooldown = 0.33
 can_damage_actor = true
