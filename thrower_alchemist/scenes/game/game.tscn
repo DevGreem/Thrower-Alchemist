@@ -20,7 +20,7 @@
 script = ExtResource("4_5i0tg")
 data = ExtResource("5_lfrn8")
 amount = 1
-remaining_cooldown = -27396.716200687515
+remaining_cooldown = -31838.760238175997
 metadata/_custom_type_script = "uid://d1fyt18vlv7pq"
 
 [sub_resource type="Resource" id="Resource_gc57s"]
@@ -70,6 +70,9 @@ data = SubResource("Resource_s3gvr")
 amount = 1
 metadata/_custom_type_script = "uid://d1fyt18vlv7pq"
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_obaep"]
+size = Vector2(14, 43)
+
 [node name="Node2D" type="Node2D" unique_id=724420841]
 
 [node name="Projectiles" type="Node2D" parent="." unique_id=2135532405 groups=["container", "projectiles_container"]]
@@ -96,6 +99,21 @@ _items = Array[ExtResource("4_5i0tg")]([SubResource("Resource_stg1e"), SubResour
 
 [node name="Slime" parent="." unique_id=1014770967 instance=ExtResource("15_otnwt")]
 position = Vector2(129, 49)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1861170589]
+position = Vector2(76, 13)
+collision_layer = 129
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=1312513437]
+position = Vector2(7, 21.5)
+shape = SubResource("RectangleShape2D_obaep")
+metadata/_edit_lock_ = true
+
+[node name="ColorRect" type="ColorRect" parent="StaticBody2D" unique_id=1379652919]
+offset_right = 14.0
+offset_bottom = 43.0
+metadata/_edit_lock_ = true
 
 [editable path="CanvasLayer/InventoryUI"]
 [editable path="Player"]

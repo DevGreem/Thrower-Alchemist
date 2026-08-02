@@ -46,7 +46,6 @@ func _freeze_entity(entity: Node2D) -> bool:
 
 func _freeze_player(player: PlayerNode) -> bool:
 	var input_manager: InputManagerComponent = ComponentManager.get_component(player, InputManagerComponent)
-	GameDebugger.debug_log(InputManagerComponent, str(input_manager))
 	
 	if input_manager:
 		input_manager.deactivate_all()
@@ -60,8 +59,7 @@ func _freeze_player(player: PlayerNode) -> bool:
 
 func _start_freeze(actor: Node2D) -> bool:
 	var move_component: MoveComponent2D = ComponentManager.get_component(actor, MoveComponent2D)
-	GameDebugger.debug_log_string(ComponentManager.get_class(), str(ComponentManager._components_cache))
-	GameDebugger.debug_log(IceEffect, "Starting freezing with " + str(actor))
+	GameDebugger.debug_log(IceEffect, "Starting freezing to " + str(actor))
 	
 	if not move_component:
 		GameDebugger.debug_log(IceEffect, "Actor don't have move_component")

@@ -6,11 +6,13 @@ signal entity_entered(entity: Node2D)
 signal entity_exited(entity: Node2D)
 
 @export var actor: Node
+@export var not_required: bool = false
 @export var required_tags: Array[TagData] = []
 @export var detect_bodies: bool = true
 @export var detect_hurtboxes: bool = false
 @export var can_see_through_walls: bool = false
 
+var entities_in_range: Array[Node2D] = []
 var visible_entities: Array[Node2D] = []
 
 func _ready() -> void:
@@ -30,6 +32,11 @@ func _ready() -> void:
 		if not area_exited.is_connected(_on_hurtbox_exited):
 			area_exited.connect(_on_hurtbox_exited)
 
+func _physics_process(_delta: float) -> void:
+	
+	for entity: Node2D in entities_in_range:
+		toggle_entity_visibility(entity, _can_see(entity))
+
 func _on_body_entered(body: Node2D) -> void:
 	
 	GameDebugger.debug_log(VisionComponent2D, "Body detected")
@@ -39,8 +46,7 @@ func _on_body_entered(body: Node2D) -> void:
 		return
 	
 	if _is_valid_node(body):
-		visible_entities.append(body)
-		entity_entered.emit(body)
+		entities_in_range.append(body)
 	
 	GameDebugger.debug_log(VisionComponent2D, "Entities cantity = " + str(visible_entities.size()))
 
@@ -51,9 +57,9 @@ func _on_body_exited(body: Node2D) -> void:
 	if body == actor:
 		return
 	
-	if body in visible_entities:
-		visible_entities.erase(body)
-		entity_exited.emit(body)
+	if entities_in_range.has(body):
+		entities_in_range.erase(body)
+		unsee_entity(body)
 	
 	GameDebugger.debug_log(VisionComponent2D, "Entities cantity = " + str(visible_entities.size()))
 
@@ -69,11 +75,12 @@ func _on_hurtbox_exited(area: Area2D) -> void:
 
 func _is_valid_node(body: Node) -> bool:
 	
-	if required_tags.is_empty():
+	if required_tags.is_empty() != not_required:
 		return true
 	
 	for tag: TagData in required_tags:
-		if TagsManager.has_tag(tag, body):
+		
+		if TagsManager.has_tag(tag, body) != not_required:
 			return true
 	
 	return false
@@ -90,10 +97,34 @@ func _can_see(target: Node2D) -> bool:
 		target.global_position
 	)
 	
-	var result: Dictionary = space.intersect_ray(query)
+	query.exclude = [self]
 	query.collision_mask = PhysicsLayers.mask(PhysicsLayers.Enum.VISION_BLOCKERS)
+	var result: Dictionary = space.intersect_ray(query)
 	
 	if result.is_empty():
 		return true
 	
 	return result.collider == target
+
+func toggle_entity_visibility(entity: Node2D, visibility: bool) -> void:
+	
+	if visibility:
+		see_entity(entity)
+	else:
+		unsee_entity(entity)
+
+func see_entity(entity: Node2D) -> void:
+	
+	if entity in visible_entities:
+		return
+	
+	visible_entities.append(entity)
+	entity_entered.emit(entity)
+
+func unsee_entity(entity: Node2D) -> void:
+	
+	if entity not in visible_entities:
+		return
+	
+	visible_entities.erase(entity)
+	entity_exited.emit(entity)

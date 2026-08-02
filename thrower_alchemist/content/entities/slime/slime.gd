@@ -19,6 +19,7 @@ func _ready() -> void:
 		vision_component.entity_exited.connect(_on_entity_detected)
 
 func _on_entity_detected(_entity: Node) -> void:
+	
 	_set_attack_entities()
 
 func _set_attack_entities() -> void:
