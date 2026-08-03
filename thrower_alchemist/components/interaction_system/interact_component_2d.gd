@@ -17,7 +17,14 @@ signal interacted(area: InteractArea2D)
 @export var can_interact_through_walls: bool = false
 
 var detected_areas: Dictionary[InteractArea2D, bool] = {}
-var focused_interactable: InteractArea2D
+var focused_interactable: InteractArea2D:
+	set(value):
+		
+		if focused_interactable == value:
+			return
+		
+		focused_interactable = value
+		GameDebugger.debug_log(InteractComponent2D, "Change focus to interactable = " + str(focused_interactable))
 
 func _ready() -> void:
 	
@@ -42,8 +49,6 @@ func _process(_delta: float) -> void:
 		detected_areas[area] = _can_reach(area)
 	
 	focused_interactable = _get_closer_interactable()
-	
-	GameDebugger.debug_log(InteractComponent2D, "Closer interactable = " + str(focused_interactable))
 	
 	if not interaction_ui:
 		return
@@ -80,8 +85,13 @@ func interact() -> bool:
 	if not can_interact:
 		return false
 	
+	can_interact = false
+	
 	interacted.emit(focused_interactable)
 	await focused_interactable.interact.call()
+	
+	can_interact = true
+	
 	return true
 
 func _get_closer_interactable() -> InteractArea2D:

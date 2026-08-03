@@ -36,7 +36,7 @@ size = Vector2(12, 24)
 radius = 4.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_g04yl"]
-radius = 35.22783
+radius = 13.038404
 
 [node name="Player" type="CharacterBody2D" unique_id=1606296388 groups=["player"]]
 y_sort_enabled = true

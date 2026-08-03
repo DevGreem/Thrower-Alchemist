@@ -5,8 +5,10 @@ class_name PotionsMixerNode
 
 @export var input_potions: Array[StaticPotionNode]
 @export var output_potion: StaticPotionNode
+@export var interaction_area: InteractArea2D
 
 func _ready() -> void:
+	interaction_area.interact = _on_interact
 	_on_set_potion_data()
 
 func set_potion_data(potion_idx: int, data: PotionData) -> void:
@@ -35,3 +37,6 @@ func reset() -> void:
 		input.data = null
 	
 	output_potion.data = null
+
+func _on_interact() -> void:
+	pass

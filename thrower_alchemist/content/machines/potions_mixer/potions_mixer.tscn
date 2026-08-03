@@ -42,12 +42,13 @@ size = Vector2(36, 4)
 [sub_resource type="CircleShape2D" id="CircleShape2D_obaep"]
 radius = 23.0
 
-[node name="PotionsMixer" type="StaticBody2D" unique_id=1111890572 node_paths=PackedStringArray("input_potions", "output_potion")]
+[node name="PotionsMixer" type="StaticBody2D" unique_id=1111890572 node_paths=PackedStringArray("input_potions", "output_potion", "interaction_area")]
 y_sort_enabled = true
 collision_mask = 0
 script = ExtResource("1_afgo1")
 input_potions = [NodePath("Potions/StaticPotion"), NodePath("Potions/StaticPotion3")]
 output_potion = NodePath("Potions/StaticPotion2")
+interaction_area = NodePath("InteractionArea2D")
 
 [node name="HealthComponent" type="Node" parent="." unique_id=313259797 node_paths=PackedStringArray("actor")]
 script = ExtResource("2_wiryu")
