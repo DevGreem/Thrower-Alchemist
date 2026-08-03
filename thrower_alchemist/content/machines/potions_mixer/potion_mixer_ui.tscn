@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://b15nw8au4emv5" path="res://components/ui_system/inputs/close_ui.gd" id="1_kkyad"]
 [ext_resource type="Script" uid="uid://b03i6gk6y3sq1" path="res://content/machines/potions_mixer/mixer_slot.gd" id="2_qcio2"]
 [ext_resource type="Script" uid="uid://d10ll63pv3u3p" path="res://content/potions/potion_icon_component.gd" id="3_bj6ou"]
+[ext_resource type="Texture2D" uid="uid://dpphmkh2rnqvp" path="res://content/potions/empty_potion.png" id="3_pdhpr"]
 
 [node name="PotionMixerUI" type="Control" unique_id=1053794787 node_paths=PackedStringArray("input_slots", "output_slot")]
 process_mode = 3
@@ -41,10 +42,12 @@ theme_override_constants/margin_bottom = 4
 layout_mode = 2
 alignment = 1
 
-[node name="Panel" type="Panel" parent="CenterContainer/PanelContainer/MarginContainer/HBoxContainer" unique_id=1689971585]
+[node name="Panel" type="Panel" parent="CenterContainer/PanelContainer/MarginContainer/HBoxContainer" unique_id=1689971585 node_paths=PackedStringArray("potion_icon")]
 layout_mode = 2
 size_flags_horizontal = 3
+mouse_default_cursor_shape = 2
 script = ExtResource("2_qcio2")
+potion_icon = NodePath("PotionIconComponent")
 
 [node name="TextureRect" type="TextureRect" parent="CenterContainer/PanelContainer/MarginContainer/HBoxContainer/Panel" unique_id=146231536]
 layout_mode = 1
@@ -59,16 +62,19 @@ offset_right = 20.0
 offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
+texture = ExtResource("3_pdhpr")
 
 [node name="PotionIconComponent" type="Node" parent="CenterContainer/PanelContainer/MarginContainer/HBoxContainer/Panel" unique_id=1216743412 node_paths=PackedStringArray("icon_node")]
 script = ExtResource("3_bj6ou")
 icon_node = NodePath("../TextureRect")
 metadata/_custom_type_script = "uid://d10ll63pv3u3p"
 
-[node name="Panel2" type="Panel" parent="CenterContainer/PanelContainer/MarginContainer/HBoxContainer" unique_id=1465319957]
+[node name="Panel2" type="Panel" parent="CenterContainer/PanelContainer/MarginContainer/HBoxContainer" unique_id=1465319957 node_paths=PackedStringArray("potion_icon")]
 layout_mode = 2
 size_flags_horizontal = 3
+mouse_default_cursor_shape = 2
 script = ExtResource("2_qcio2")
+potion_icon = NodePath("PotionIconComponent")
 
 [node name="TextureRect" type="TextureRect" parent="CenterContainer/PanelContainer/MarginContainer/HBoxContainer/Panel2" unique_id=1502854149]
 layout_mode = 1
@@ -83,16 +89,20 @@ offset_right = 20.0
 offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
+texture = ExtResource("3_pdhpr")
 
 [node name="PotionIconComponent" type="Node" parent="CenterContainer/PanelContainer/MarginContainer/HBoxContainer/Panel2" unique_id=1793665440 node_paths=PackedStringArray("icon_node")]
 script = ExtResource("3_bj6ou")
 icon_node = NodePath("../TextureRect")
 metadata/_custom_type_script = "uid://d10ll63pv3u3p"
 
-[node name="Panel3" type="Panel" parent="CenterContainer/PanelContainer/MarginContainer/HBoxContainer" unique_id=1132336888]
+[node name="Panel3" type="Panel" parent="CenterContainer/PanelContainer/MarginContainer/HBoxContainer" unique_id=1132336888 node_paths=PackedStringArray("potion_icon")]
 layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 2
+mouse_default_cursor_shape = 2
 script = ExtResource("2_qcio2")
+potion_icon = NodePath("PotionIconComponent")
 
 [node name="TextureRect" type="TextureRect" parent="CenterContainer/PanelContainer/MarginContainer/HBoxContainer/Panel3" unique_id=1637435740]
 layout_mode = 1
@@ -107,6 +117,7 @@ offset_right = 20.0
 offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
+texture = ExtResource("3_pdhpr")
 
 [node name="PotionIconComponent" type="Node" parent="CenterContainer/PanelContainer/MarginContainer/HBoxContainer/Panel3" unique_id=961210214 node_paths=PackedStringArray("icon_node")]
 script = ExtResource("3_bj6ou")

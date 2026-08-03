@@ -4,10 +4,11 @@
 [ext_resource type="Texture2D" uid="uid://dpphmkh2rnqvp" path="res://content/potions/empty_potion.png" id="1_w6bg7"]
 [ext_resource type="Script" uid="uid://d10ll63pv3u3p" path="res://content/potions/potion_icon_component.gd" id="3_0b7hf"]
 
-[node name="StaticPotion" type="Node2D" unique_id=802257725 node_paths=PackedStringArray("sprite")]
+[node name="StaticPotion" type="Node2D" unique_id=802257725 node_paths=PackedStringArray("sprite", "potion_icon")]
 y_sort_enabled = true
 script = ExtResource("1_ctto7")
 sprite = NodePath("Sprite")
+potion_icon = NodePath("PotionIconComponent")
 
 [node name="Sprite" type="Sprite2D" parent="." unique_id=2063994827]
 texture = ExtResource("1_w6bg7")

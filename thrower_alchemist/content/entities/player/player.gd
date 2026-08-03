@@ -11,5 +11,5 @@ func _ready() -> void:
 		health_component.died.connect(_on_die)
 
 func _on_die() -> void:
-	PlayerManager.player_died.emit()
+	PlayerManager.player_died.emit(self)
 	self.queue_free()

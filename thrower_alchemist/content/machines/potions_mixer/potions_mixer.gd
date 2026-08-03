@@ -3,6 +3,8 @@ extends StaticBody2D
 
 class_name PotionsMixerNode
 
+signal potion_setted
+
 @export var input_potions: Array[StaticPotionNode]
 @export var output_potion: StaticPotionNode
 @export var interaction_area: InteractArea2D
@@ -18,6 +20,18 @@ func _ready() -> void:
 func set_potion_data(potion_idx: int, data: PotionData) -> void:
 	input_potions[potion_idx].data = data
 	_on_set_potion_data()
+
+func reset() -> void:
+	for input: StaticPotionNode in input_potions:
+		input.data = null
+	
+	output_potion.data = null
+
+func get_potion_data(potion_idx: int) -> PotionData:
+	return input_potions[potion_idx].data
+
+func get_output_potion() -> PotionData:
+	return output_potion.data
 
 func _on_set_potion_data() -> void:
 	
@@ -35,12 +49,7 @@ func _on_set_potion_data() -> void:
 		new_data = PotionData.join(new_data, input_potions[i].data)
 	
 	output_potion.data = new_data
-
-func reset() -> void:
-	for input: StaticPotionNode in input_potions:
-		input.data = null
-	
-	output_potion.data = null
+	potion_setted.emit()
 
 func _on_interact() -> void:
 	interaction_area.active = false
