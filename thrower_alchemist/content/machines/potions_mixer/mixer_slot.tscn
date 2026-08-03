@@ -1,0 +1,32 @@
+[gd_scene format=3 uid="uid://cv3h2l464xw3e"]
+
+[ext_resource type="Script" uid="uid://b03i6gk6y3sq1" path="res://content/machines/potions_mixer/mixer_slot.gd" id="1_mbxn4"]
+[ext_resource type="Texture2D" uid="uid://dpphmkh2rnqvp" path="res://content/potions/empty_potion.png" id="2_tkyll"]
+[ext_resource type="Script" uid="uid://d10ll63pv3u3p" path="res://content/potions/potion_icon_component.gd" id="3_isycf"]
+
+[node name="MixerSlot" type="Panel" unique_id=1896267683 node_paths=PackedStringArray("potion_icon")]
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_default_cursor_shape = 2
+script = ExtResource("1_mbxn4")
+potion_icon = NodePath("PotionIconComponent")
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=1155711705]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_tkyll")
+
+[node name="PotionIconComponent" type="Node" parent="." unique_id=1153713462 node_paths=PackedStringArray("icon_node")]
+script = ExtResource("3_isycf")
+icon_node = NodePath("../TextureRect")
+metadata/_custom_type_script = "uid://d10ll63pv3u3p"

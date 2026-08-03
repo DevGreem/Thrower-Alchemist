@@ -21,7 +21,7 @@
 script = ExtResource("4_5i0tg")
 data = ExtResource("5_lfrn8")
 amount = 1
-remaining_cooldown = -37304.6875425555
+remaining_cooldown = -37497.61534170592
 metadata/_custom_type_script = "uid://d1fyt18vlv7pq"
 
 [sub_resource type="Resource" id="Resource_gc57s"]
@@ -110,6 +110,7 @@ position = Vector2(40, 44)
 
 [node name="HotbarComponent" parent="YSort/Entities/Player" index="7" unique_id=147460662]
 _items = Array[ExtResource("4_5i0tg")]([SubResource("Resource_stg1e"), SubResource("Resource_gc57s"), SubResource("Resource_63a6k"), null])
+crash_on_invalid_position = false
 
 [node name="Camera2D" type="Camera2D" parent="YSort/Entities/Player" unique_id=960320403]
 
