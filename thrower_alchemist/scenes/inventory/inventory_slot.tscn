@@ -1,0 +1,38 @@
+[gd_scene format=3 uid="uid://c5t171ovfg1lp"]
+
+[ext_resource type="Script" uid="uid://btqpoq11qsf8a" path="res://components/inventory_system/ui/inventory_slot.gd" id="1_c7w7p"]
+[ext_resource type="PackedScene" uid="uid://7tyq2l1kda1f" path="res://components/inventory_system/ui/inventory_slot_content.tscn" id="2_0uvgv"]
+[ext_resource type="Texture2D" uid="uid://bnhc6ibmcbdee" path="res://components/inventory_system/ui/slot_border.png" id="3_td8r7"]
+
+[node name="InventorySlot" type="Control" unique_id=808808959 node_paths=PackedStringArray("content", "selection_border")]
+custom_minimum_size = Vector2(14, 14)
+custom_maximum_size = Vector2(14, 14)
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_c7w7p")
+content = NodePath("InventorySlotContent")
+selection_border = NodePath("SelectionBorder")
+
+[node name="InventorySlotContent" parent="." unique_id=196539339 instance=ExtResource("2_0uvgv")]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -5.0
+offset_top = -5.0
+offset_right = 5.0
+offset_bottom = 5.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SelectionBorder" type="TextureRect" parent="." unique_id=681939916]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_td8r7")

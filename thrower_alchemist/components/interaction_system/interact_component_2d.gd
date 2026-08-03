@@ -134,7 +134,7 @@ func _can_reach(target: Node2D) -> bool:
 	)
 	
 	query.exclude = [self]
-	query.collision_mask = PhysicsLayers.mask(PhysicsLayers.Enum.INTERACTIONS)
+	query.collision_mask = PhysicsLayers.mask(PhysicsLayers.Enum.VISION_BLOCKERS)
 	
 	var result: Dictionary = space.intersect_ray(query)
 	

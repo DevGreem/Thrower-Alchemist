@@ -1,8 +1,11 @@
 [gd_scene format=3 uid="uid://rilhj81wbcge"]
 
+[ext_resource type="Script" uid="uid://cjrslt5nfetrd" path="res://content/machines/potions_mixer/potion_mixer_ui.gd" id="1_hqkwx"]
 [ext_resource type="Script" uid="uid://b15nw8au4emv5" path="res://components/ui_system/inputs/close_ui.gd" id="1_kkyad"]
+[ext_resource type="Script" uid="uid://b03i6gk6y3sq1" path="res://content/machines/potions_mixer/mixer_slot.gd" id="2_qcio2"]
+[ext_resource type="Script" uid="uid://d10ll63pv3u3p" path="res://content/potions/potion_icon_component.gd" id="3_bj6ou"]
 
-[node name="PotionMixerUI" type="Control" unique_id=1053794787]
+[node name="PotionMixerUI" type="Control" unique_id=1053794787 node_paths=PackedStringArray("input_slots", "output_slot")]
 process_mode = 3
 layout_mode = 3
 anchors_preset = 15
@@ -10,6 +13,9 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_hqkwx")
+input_slots = [NodePath("CenterContainer/PanelContainer/MarginContainer/HBoxContainer/Panel"), NodePath("CenterContainer/PanelContainer/MarginContainer/HBoxContainer/Panel2")]
+output_slot = NodePath("CenterContainer/PanelContainer/MarginContainer/HBoxContainer/Panel3")
 
 [node name="CenterContainer" type="CenterContainer" parent="." unique_id=940622406]
 layout_mode = 1
@@ -20,7 +26,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="PanelContainer" type="PanelContainer" parent="CenterContainer" unique_id=37924034]
-custom_minimum_size = Vector2(240, 128)
+custom_minimum_size = Vector2(240, 100)
 custom_maximum_size = Vector2(240, 128)
 layout_mode = 2
 
@@ -38,14 +44,74 @@ alignment = 1
 [node name="Panel" type="Panel" parent="CenterContainer/PanelContainer/MarginContainer/HBoxContainer" unique_id=1689971585]
 layout_mode = 2
 size_flags_horizontal = 3
+script = ExtResource("2_qcio2")
 
-[node name="Panel2" type="Panel" parent="CenterContainer/PanelContainer/MarginContainer/HBoxContainer" unique_id=1383873760]
+[node name="TextureRect" type="TextureRect" parent="CenterContainer/PanelContainer/MarginContainer/HBoxContainer/Panel" unique_id=146231536]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PotionIconComponent" type="Node" parent="CenterContainer/PanelContainer/MarginContainer/HBoxContainer/Panel" unique_id=1216743412 node_paths=PackedStringArray("icon_node")]
+script = ExtResource("3_bj6ou")
+icon_node = NodePath("../TextureRect")
+metadata/_custom_type_script = "uid://d10ll63pv3u3p"
+
+[node name="Panel2" type="Panel" parent="CenterContainer/PanelContainer/MarginContainer/HBoxContainer" unique_id=1465319957]
 layout_mode = 2
 size_flags_horizontal = 3
+script = ExtResource("2_qcio2")
 
-[node name="Panel3" type="Panel" parent="CenterContainer/PanelContainer/MarginContainer/HBoxContainer" unique_id=181992773]
+[node name="TextureRect" type="TextureRect" parent="CenterContainer/PanelContainer/MarginContainer/HBoxContainer/Panel2" unique_id=1502854149]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PotionIconComponent" type="Node" parent="CenterContainer/PanelContainer/MarginContainer/HBoxContainer/Panel2" unique_id=1793665440 node_paths=PackedStringArray("icon_node")]
+script = ExtResource("3_bj6ou")
+icon_node = NodePath("../TextureRect")
+metadata/_custom_type_script = "uid://d10ll63pv3u3p"
+
+[node name="Panel3" type="Panel" parent="CenterContainer/PanelContainer/MarginContainer/HBoxContainer" unique_id=1132336888]
 layout_mode = 2
 size_flags_horizontal = 3
+script = ExtResource("2_qcio2")
+
+[node name="TextureRect" type="TextureRect" parent="CenterContainer/PanelContainer/MarginContainer/HBoxContainer/Panel3" unique_id=1637435740]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PotionIconComponent" type="Node" parent="CenterContainer/PanelContainer/MarginContainer/HBoxContainer/Panel3" unique_id=961210214 node_paths=PackedStringArray("icon_node")]
+script = ExtResource("3_bj6ou")
+icon_node = NodePath("../TextureRect")
+metadata/_custom_type_script = "uid://d10ll63pv3u3p"
 
 [node name="CloseUIInput" type="Node" parent="." unique_id=915017862 node_paths=PackedStringArray("ui")]
 script = ExtResource("1_kkyad")

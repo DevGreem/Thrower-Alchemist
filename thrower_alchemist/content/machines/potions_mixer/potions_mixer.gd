@@ -44,8 +44,8 @@ func reset() -> void:
 
 func _on_interact() -> void:
 	interaction_area.active = false
-	var ui: Control = load("uid://rilhj81wbcge").instantiate()
-	
+	var ui: PotionMixerUI = load("uid://rilhj81wbcge").instantiate()
+	ui.potions_mixer = self
 	UIManager.open(ui)
 	
 	ui.tree_exited.connect(_on_exit_ui)

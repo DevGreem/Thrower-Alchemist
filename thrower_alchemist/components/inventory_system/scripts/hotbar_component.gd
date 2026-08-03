@@ -28,6 +28,8 @@ signal item_selected_changed(before: int, after: int)
 		item_selected_changed.emit(item_selected, value)
 		item_selected = clampi(value, 0, spaces-1)
 
+@export var crash_on_invalid_position: bool = false
+
 func _ready() -> void:
 	
 	if _items.size() < spaces-1:
@@ -70,5 +72,12 @@ func set_item(pos: int, new_value: InventoryItemInstance) -> bool:
 	
 	return true
 
-func _exists_position(pos: int) -> void:
-	assert(pos >= 0 and pos < spaces, "The position " + str(pos) + " don't exists!")
+func _exists_position(pos: int) -> bool:
+	
+	var status: bool = pos >= 0 and pos < spaces
+	
+	if crash_on_invalid_position:
+		assert(status, "The position " + str(pos) + " don't exists!")
+	
+	return status
+	

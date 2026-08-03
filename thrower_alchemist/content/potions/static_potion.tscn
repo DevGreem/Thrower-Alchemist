@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bxesk3b52we4m" path="res://content/potions/static_potion_node.gd" id="1_ctto7"]
 [ext_resource type="Texture2D" uid="uid://dpphmkh2rnqvp" path="res://content/potions/empty_potion.png" id="1_w6bg7"]
+[ext_resource type="Script" uid="uid://d10ll63pv3u3p" path="res://content/potions/potion_icon_component.gd" id="3_0b7hf"]
 
 [node name="StaticPotion" type="Node2D" unique_id=802257725 node_paths=PackedStringArray("sprite")]
 y_sort_enabled = true
@@ -11,3 +12,7 @@ sprite = NodePath("Sprite")
 [node name="Sprite" type="Sprite2D" parent="." unique_id=2063994827]
 texture = ExtResource("1_w6bg7")
 offset = Vector2(0, -4)
+
+[node name="PotionIconComponent" type="Node" parent="." unique_id=1025063448 node_paths=PackedStringArray("icon_node")]
+script = ExtResource("3_0b7hf")
+icon_node = NodePath("../Sprite")
