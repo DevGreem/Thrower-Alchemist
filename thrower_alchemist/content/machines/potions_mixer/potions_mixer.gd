@@ -8,8 +8,12 @@ class_name PotionsMixerNode
 @export var interaction_area: InteractArea2D
 
 func _ready() -> void:
-	interaction_area.interact = _on_interact
 	_on_set_potion_data()
+	
+	if Engine.is_editor_hint():
+		return
+	
+	interaction_area.interact = _on_interact
 
 func set_potion_data(potion_idx: int, data: PotionData) -> void:
 	input_potions[potion_idx].data = data

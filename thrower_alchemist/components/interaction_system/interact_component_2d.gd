@@ -94,7 +94,7 @@ func interact() -> bool:
 	can_interact = false
 	
 	interacted.emit(focused_interactable)
-	focused_interactable.interact.call()
+	await focused_interactable.interact.call()
 	
 	can_interact = true
 	
