@@ -6,14 +6,15 @@ class_name InteractComponent2D
 signal interaction_added(area: InteractArea2D)
 signal interaction_removed(area: InteractArea2D)
 signal interacted(area: InteractArea2D)
+signal focused_interactable_changed(area: InteractArea2D)
 
 @export var interact_area: Area2D:
 	set(value):
 		interact_area = value
 		update_configuration_warnings()
 
-@export var interaction_ui: CanvasItem
 @export var can_interact: bool = true
+
 @export var can_interact_through_walls: bool = false
 
 var detected_areas: Dictionary[InteractArea2D, bool] = {}
@@ -24,6 +25,7 @@ var focused_interactable: InteractArea2D:
 			return
 		
 		focused_interactable = value
+		focused_interactable_changed.emit(focused_interactable)
 		GameDebugger.debug_log(InteractComponent2D, "Change focus to interactable = " + str(focused_interactable))
 
 func _ready() -> void:
@@ -46,17 +48,18 @@ func _process(_delta: float) -> void:
 		return
 	
 	for area: InteractArea2D in detected_areas:
+		
+		if not area.active:
+			detected_areas[area] = false
+			
+			if area == focused_interactable:
+				focused_interactable = null
+			
+			continue
+		
 		detected_areas[area] = _can_reach(area)
 	
 	focused_interactable = _get_closer_interactable()
-	
-	if not interaction_ui:
-		return
-	
-	if focused_interactable:
-		interaction_ui.show()
-	else:
-		interaction_ui.hide()
 
 func register_area(area: InteractArea2D) -> bool:
 	
@@ -73,6 +76,9 @@ func register_area(area: InteractArea2D) -> bool:
 
 func unregister_area(area: InteractArea2D) -> bool:
 	
+	if area == focused_interactable and not can_interact:
+		pass
+	
 	var status: bool = detected_areas.erase(area)
 	
 	if status:
@@ -82,13 +88,13 @@ func unregister_area(area: InteractArea2D) -> bool:
 
 func interact() -> bool:
 	
-	if not can_interact:
+	if not can_interact or not focused_interactable:
 		return false
 	
 	can_interact = false
 	
 	interacted.emit(focused_interactable)
-	await focused_interactable.interact.call()
+	focused_interactable.interact.call()
 	
 	can_interact = true
 	
@@ -129,6 +135,7 @@ func _can_reach(target: Node2D) -> bool:
 	
 	query.exclude = [self]
 	query.collision_mask = PhysicsLayers.mask(PhysicsLayers.Enum.INTERACTIONS)
+	
 	var result: Dictionary = space.intersect_ray(query)
 	
 	if result.is_empty():

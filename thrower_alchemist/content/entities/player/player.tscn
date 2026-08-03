@@ -20,6 +20,7 @@
 [ext_resource type="Script" uid="uid://bl4331iyoi3u2" path="res://components/inventory_system/inputs/select_item_input.gd" id="11_piw5s"]
 [ext_resource type="Script" uid="uid://bo0xfdfx62t0i" path="res://components/interaction_system/inputs/interact_world_input.gd" id="19_2m54q"]
 [ext_resource type="Script" uid="uid://c3dkm3li8244q" path="res://components/interaction_system/interact_component_2d.gd" id="19_h0d63"]
+[ext_resource type="Script" uid="uid://4ttfqf8y1fon" path="res://components/interaction_system/interact_ui.gd" id="21_awhl2"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_y5q02"]
 shader = ExtResource("1_4rie3")
@@ -123,10 +124,9 @@ script = ExtResource("19_2m54q")
 interact_component = NodePath("../../InteractComponent2D")
 metadata/_custom_type_script = "uid://bo0xfdfx62t0i"
 
-[node name="InteractComponent2D" type="Node2D" parent="." unique_id=1404492988 node_paths=PackedStringArray("interact_area", "interaction_ui")]
+[node name="InteractComponent2D" type="Node2D" parent="." unique_id=1404492988 node_paths=PackedStringArray("interact_area")]
 script = ExtResource("19_h0d63")
 interact_area = NodePath("Area2D")
-interaction_ui = NodePath("Label")
 metadata/_custom_type_script = "uid://c3dkm3li8244q"
 
 [node name="Area2D" type="Area2D" parent="InteractComponent2D" unique_id=1364199099]
@@ -138,10 +138,12 @@ position = Vector2(0, -12)
 shape = SubResource("CircleShape2D_g04yl")
 debug_color = Color(0.5855257, 0.6578363, 0, 0.41960785)
 
-[node name="Label" type="Label" parent="InteractComponent2D" unique_id=2043128201]
+[node name="Label" type="Label" parent="InteractComponent2D" unique_id=2043128201 node_paths=PackedStringArray("interact_component")]
 visible = false
 offset_left = -31.0
 offset_top = -73.0
 offset_right = 32.0
 offset_bottom = -50.0
 text = "Hola Lol"
+script = ExtResource("21_awhl2")
+interact_component = NodePath("..")

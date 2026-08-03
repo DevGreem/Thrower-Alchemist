@@ -5,41 +5,19 @@
 [ext_resource type="PackedScene" uid="uid://bp0q1lig48ynw" path="res://content/potions/static_potion.tscn" id="2_g867q"]
 [ext_resource type="Script" uid="uid://ditbeykj0vfd4" path="res://components/health_component.gd" id="2_wiryu"]
 [ext_resource type="Script" uid="uid://bqx8hyj121gcl" path="res://components/hurtbox_component_2d.gd" id="3_o21ci"]
-[ext_resource type="Resource" uid="uid://cbndbhn3tf5bt" path="res://content/potions/fire_potion/fire_potion.tres" id="4_b617y"]
-[ext_resource type="Script" uid="uid://cw2wgk8wru3aj" path="res://resources/potions/actions/interact.gd" id="4_uxllm"]
-[ext_resource type="Script" uid="uid://0y56gtmy1e3h" path="res://components/inventory_system/resources/item_actions.gd" id="5_i5cb4"]
-[ext_resource type="Script" uid="uid://bljs478apt4sc" path="res://resources/potions/actions/use.gd" id="6_uacgq"]
-[ext_resource type="Script" uid="uid://dj37bo78y6jpp" path="res://resources/potions/potion_effect.gd" id="7_343vw"]
-[ext_resource type="Texture2D" uid="uid://dfgj4org13j6b" path="res://content/potions/potion.png" id="9_o21ci"]
-[ext_resource type="Script" uid="uid://sc48cbyclvc1" path="res://resources/potions/potion_data.gd" id="10_5ps6i"]
-[ext_resource type="Resource" uid="uid://1e8vvxipf2fv" path="res://content/potions/ice_potion/ice_potion.tres" id="11_i5cb4"]
 [ext_resource type="Script" uid="uid://cxehsl4at72q" path="res://components/debug_components/debug_camera_2d.gd" id="12_uacgq"]
 [ext_resource type="Script" uid="uid://dk0pi828tayhh" path="res://components/interaction_system/interact_area_2d.gd" id="13_343vw"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bhjjj"]
+resource_local_to_scene = true
 size = Vector2(35, 12)
 
-[sub_resource type="Resource" id="Resource_o21ci"]
-script = ExtResource("4_uxllm")
-
-[sub_resource type="Resource" id="Resource_5ps6i"]
-script = ExtResource("6_uacgq")
-
-[sub_resource type="Resource" id="Resource_3b4mw"]
-script = ExtResource("5_i5cb4")
-use = SubResource("Resource_5ps6i")
-interact = SubResource("Resource_o21ci")
-
-[sub_resource type="Resource" id="Resource_nwoyg"]
-script = ExtResource("10_5ps6i")
-weight = 1.2
-icon = ExtResource("9_o21ci")
-actions = SubResource("Resource_3b4mw")
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_syjmg"]
+resource_local_to_scene = true
 size = Vector2(36, 4)
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_obaep"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_o21ci"]
+resource_local_to_scene = true
 radius = 23.0
 
 [node name="PotionsMixer" type="StaticBody2D" unique_id=1111890572 node_paths=PackedStringArray("input_potions", "output_potion", "interaction_area")]
@@ -82,14 +60,11 @@ position = Vector2(2, -11)
 
 [node name="StaticPotion" parent="Potions" unique_id=802257725 instance=ExtResource("2_g867q")]
 position = Vector2(-10, 0)
-data = ExtResource("4_b617y")
 
 [node name="StaticPotion2" parent="Potions" unique_id=101976393 instance=ExtResource("2_g867q")]
-data = SubResource("Resource_nwoyg")
 
 [node name="StaticPotion3" parent="Potions" unique_id=294014163 instance=ExtResource("2_g867q")]
 position = Vector2(10, 0)
-data = ExtResource("11_i5cb4")
 
 [node name="Table" type="CollisionShape2D" parent="." unique_id=1472276424]
 z_index = 1
@@ -110,5 +85,5 @@ interact_name = "Mix Potions"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea2D" unique_id=1074173441]
 position = Vector2(0, -9)
-shape = SubResource("CircleShape2D_obaep")
+shape = SubResource("CircleShape2D_o21ci")
 debug_color = Color(0.6841424, 0.5206158, 0, 0.41960785)

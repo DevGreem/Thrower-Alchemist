@@ -1,0 +1,53 @@
+[gd_scene format=3 uid="uid://rilhj81wbcge"]
+
+[ext_resource type="Script" uid="uid://b15nw8au4emv5" path="res://components/ui_system/inputs/close_ui.gd" id="1_kkyad"]
+
+[node name="PotionMixerUI" type="Control" unique_id=1053794787]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="." unique_id=940622406]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="CenterContainer" unique_id=37924034]
+custom_minimum_size = Vector2(240, 128)
+custom_maximum_size = Vector2(240, 128)
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CenterContainer/PanelContainer" unique_id=1142257767]
+layout_mode = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/PanelContainer/MarginContainer" unique_id=1906421085]
+layout_mode = 2
+alignment = 1
+
+[node name="Panel" type="Panel" parent="CenterContainer/PanelContainer/MarginContainer/HBoxContainer" unique_id=1689971585]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Panel2" type="Panel" parent="CenterContainer/PanelContainer/MarginContainer/HBoxContainer" unique_id=1383873760]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Panel3" type="Panel" parent="CenterContainer/PanelContainer/MarginContainer/HBoxContainer" unique_id=181992773]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="CloseUIInput" type="Node" parent="." unique_id=915017862 node_paths=PackedStringArray("ui")]
+script = ExtResource("1_kkyad")
+ui = NodePath("..")
+metadata/_custom_type_script = "uid://b15nw8au4emv5"

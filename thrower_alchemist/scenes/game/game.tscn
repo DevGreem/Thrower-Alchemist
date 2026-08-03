@@ -3,6 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://i762gem8h1rt" path="res://scenes/inventory/inventory_ui.tscn" id="1_0sr1o"]
 [ext_resource type="PackedScene" uid="uid://b2spclcrcu1hs" path="res://content/entities/player/player.tscn" id="1_sul5r"]
 [ext_resource type="PackedScene" uid="uid://2w37kkfhsotc" path="res://components/inventory_system/ui/inventory_slot.tscn" id="2_lfrn8"]
+[ext_resource type="Script" uid="uid://5eysrwqfki0n" path="res://components/ui_system/ui_root.gd" id="3_5v6r0"]
 [ext_resource type="Script" uid="uid://d1fyt18vlv7pq" path="res://components/inventory_system/resources/inventory_item_instance.gd" id="4_5i0tg"]
 [ext_resource type="Resource" uid="uid://cbndbhn3tf5bt" path="res://content/potions/fire_potion/fire_potion.tres" id="5_lfrn8"]
 [ext_resource type="Resource" uid="uid://1e8vvxipf2fv" path="res://content/potions/ice_potion/ice_potion.tres" id="6_bdhmt"]
@@ -21,7 +22,7 @@
 script = ExtResource("4_5i0tg")
 data = ExtResource("5_lfrn8")
 amount = 1
-remaining_cooldown = -33886.71195299418
+remaining_cooldown = -34312.06139946742
 metadata/_custom_type_script = "uid://d1fyt18vlv7pq"
 
 [sub_resource type="Resource" id="Resource_gc57s"]
@@ -84,6 +85,16 @@ size = Vector2(14, 43)
 hotbar_component = NodePath("../../../YSort/Entities/Player/HotbarComponent")
 default_slot_scene = ExtResource("2_lfrn8")
 
+[node name="UIRoot" type="Control" parent="CanvasLayer" unique_id=1963380954]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("3_5v6r0")
+metadata/_custom_type_script = "uid://5eysrwqfki0n"
+
 [node name="YSort" type="Node2D" parent="." unique_id=1291027061]
 y_sort_enabled = true
 
@@ -110,7 +121,7 @@ position = Vector2(129, 49)
 [node name="Machines" type="Node2D" parent="YSort" unique_id=1568169582]
 y_sort_enabled = true
 
-[node name="PotionsMixer" parent="YSort/Machines" unique_id=341218612 instance=ExtResource("16_3xj4h")]
+[node name="PotionsMixer" parent="YSort/Machines" unique_id=1111890572 instance=ExtResource("16_3xj4h")]
 
 [node name="StaticBody2D" type="StaticBody2D" parent="YSort/Machines" unique_id=1861170589]
 position = Vector2(76, 13)
@@ -126,6 +137,9 @@ metadata/_edit_lock_ = true
 offset_right = 14.0
 offset_bottom = 43.0
 metadata/_edit_lock_ = true
+
+[node name="PotionsMixer2" parent="YSort/Machines" unique_id=395485956 instance=ExtResource("16_3xj4h")]
+position = Vector2(-51, 0)
 
 [editable path="CanvasLayer/InventoryUI"]
 [editable path="YSort/Entities/Player"]

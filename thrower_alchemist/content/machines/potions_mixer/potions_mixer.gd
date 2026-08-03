@@ -39,4 +39,15 @@ func reset() -> void:
 	output_potion.data = null
 
 func _on_interact() -> void:
-	pass
+	interaction_area.active = false
+	var ui: Control = load("uid://rilhj81wbcge").instantiate()
+	
+	UIManager.open(ui)
+	
+	ui.tree_exited.connect(_on_exit_ui)
+	
+	get_tree().paused = true
+
+func _on_exit_ui() -> void:
+	interaction_area.active = true
+	get_tree().paused = false

@@ -2,7 +2,16 @@ extends Area2D
 
 class_name InteractArea2D
 
-@export var interact_name: String = "interact"
-@export var active: bool = true
+signal status_changed
 
-var interact: Callable = func(_caller: Node2D) -> void: pass
+@export var interact_name: String = "interact"
+@export var active: bool = true:
+	set(value):
+		
+		if active == value:
+			return
+		
+		active = value
+		status_changed.emit()
+
+var interact: Callable = func() -> void: pass
