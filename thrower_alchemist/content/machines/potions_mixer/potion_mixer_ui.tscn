@@ -15,8 +15,8 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_hqkwx")
-input_slots = [NodePath("CenterContainer/PanelContainer/MarginContainer/HBoxContainer/Panel"), NodePath("CenterContainer/PanelContainer/MarginContainer/HBoxContainer/Panel2")]
-output_slot = NodePath("CenterContainer/PanelContainer/MarginContainer/HBoxContainer/Panel3")
+input_slots = [NodePath("CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Panel"), NodePath("CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Panel2")]
+output_slot = NodePath("CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Panel3")
 
 [node name="CenterContainer" type="CenterContainer" parent="." unique_id=940622406]
 layout_mode = 1
@@ -38,18 +38,22 @@ theme_override_constants/margin_top = 4
 theme_override_constants/margin_right = 4
 theme_override_constants/margin_bottom = 4
 
-[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/PanelContainer/MarginContainer" unique_id=1906421085]
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/PanelContainer/MarginContainer" unique_id=2093225793]
 layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=1906421085]
+layout_mode = 2
+size_flags_vertical = 3
 alignment = 1
 
-[node name="Panel" type="Panel" parent="CenterContainer/PanelContainer/MarginContainer/HBoxContainer" unique_id=1689971585 node_paths=PackedStringArray("potion_icon")]
+[node name="Panel" type="Panel" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1689971585 node_paths=PackedStringArray("potion_icon")]
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_default_cursor_shape = 2
 script = ExtResource("2_qcio2")
 potion_icon = NodePath("PotionIconComponent")
 
-[node name="TextureRect" type="TextureRect" parent="CenterContainer/PanelContainer/MarginContainer/HBoxContainer/Panel" unique_id=146231536]
+[node name="TextureRect" type="TextureRect" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Panel" unique_id=146231536]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -64,19 +68,19 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("3_pdhpr")
 
-[node name="PotionIconComponent" type="Node" parent="CenterContainer/PanelContainer/MarginContainer/HBoxContainer/Panel" unique_id=1216743412 node_paths=PackedStringArray("icon_node")]
+[node name="PotionIconComponent" type="Node" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Panel" unique_id=1216743412 node_paths=PackedStringArray("icon_node")]
 script = ExtResource("3_bj6ou")
 icon_node = NodePath("../TextureRect")
 metadata/_custom_type_script = "uid://d10ll63pv3u3p"
 
-[node name="Panel2" type="Panel" parent="CenterContainer/PanelContainer/MarginContainer/HBoxContainer" unique_id=1465319957 node_paths=PackedStringArray("potion_icon")]
+[node name="Panel2" type="Panel" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1465319957 node_paths=PackedStringArray("potion_icon")]
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_default_cursor_shape = 2
 script = ExtResource("2_qcio2")
 potion_icon = NodePath("PotionIconComponent")
 
-[node name="TextureRect" type="TextureRect" parent="CenterContainer/PanelContainer/MarginContainer/HBoxContainer/Panel2" unique_id=1502854149]
+[node name="TextureRect" type="TextureRect" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Panel2" unique_id=1502854149]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -91,20 +95,19 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("3_pdhpr")
 
-[node name="PotionIconComponent" type="Node" parent="CenterContainer/PanelContainer/MarginContainer/HBoxContainer/Panel2" unique_id=1793665440 node_paths=PackedStringArray("icon_node")]
+[node name="PotionIconComponent" type="Node" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Panel2" unique_id=1793665440 node_paths=PackedStringArray("icon_node")]
 script = ExtResource("3_bj6ou")
 icon_node = NodePath("../TextureRect")
 metadata/_custom_type_script = "uid://d10ll63pv3u3p"
 
-[node name="Panel3" type="Panel" parent="CenterContainer/PanelContainer/MarginContainer/HBoxContainer" unique_id=1132336888 node_paths=PackedStringArray("potion_icon")]
+[node name="Panel3" type="Panel" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1132336888 node_paths=PackedStringArray("potion_icon")]
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 2
-mouse_default_cursor_shape = 2
 script = ExtResource("2_qcio2")
 potion_icon = NodePath("PotionIconComponent")
 
-[node name="TextureRect" type="TextureRect" parent="CenterContainer/PanelContainer/MarginContainer/HBoxContainer/Panel3" unique_id=1637435740]
+[node name="TextureRect" type="TextureRect" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Panel3" unique_id=1637435740]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -119,10 +122,28 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("3_pdhpr")
 
-[node name="PotionIconComponent" type="Node" parent="CenterContainer/PanelContainer/MarginContainer/HBoxContainer/Panel3" unique_id=961210214 node_paths=PackedStringArray("icon_node")]
+[node name="PotionIconComponent" type="Node" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Panel3" unique_id=961210214 node_paths=PackedStringArray("icon_node")]
 script = ExtResource("3_bj6ou")
 icon_node = NodePath("../TextureRect")
 metadata/_custom_type_script = "uid://d10ll63pv3u3p"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=1033027121]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="Button2" type="Button" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2" unique_id=1907578337]
+custom_maximum_size = Vector2(-1, 12)
+layout_mode = 2
+theme_override_font_sizes/font_size = 4
+text = "Close"
+
+[node name="Button" type="Button" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2" unique_id=1262273558]
+custom_maximum_size = Vector2(-1, 12)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 5
+text = "Join"
 
 [node name="CloseUIInput" type="Node" parent="." unique_id=915017862 node_paths=PackedStringArray("ui")]
 script = ExtResource("1_kkyad")

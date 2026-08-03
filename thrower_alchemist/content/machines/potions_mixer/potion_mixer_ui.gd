@@ -16,6 +16,7 @@ func _ready() -> void:
 		input.ui_manager = self
 		input.potion_icon.set_color(potions_mixer.get_potion_data(i))
 		input.pressed.connect(_input_pressed.bind(i))
+		input.removed.connect(_input_removed.bind(i))
 	
 	output_slot.ui_manager = self
 	output_slot.potion_icon.set_color(potions_mixer.get_output_potion())
@@ -27,9 +28,17 @@ func _ready() -> void:
 func _input_pressed(idx: int) -> void:
 	var hotbar: HotbarComponent = ComponentManager.get_component(PlayerManager.current_player, HotbarComponent)
 	
-	var item: PotionData = hotbar.get_item_selected().data as PotionData
+	var item: InventoryItemInstance = hotbar.get_item_selected()
 	
-	potions_mixer.set_potion_data(idx, item)
+	if not item:
+		return
+	
+	var data: PotionData = item.data as PotionData
+	
+	potions_mixer.set_potion_data(idx, data)
+
+func _input_removed(idx: int) -> void:
+	potions_mixer.set_potion_data(idx, null)
 
 func _on_potion_setted() -> void:
 	

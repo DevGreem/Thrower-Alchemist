@@ -22,11 +22,11 @@ signal item_selected_changed(before: int, after: int)
 		
 		_exists_position(value)
 		
-		if item_selected == value:
+		if item_selected == value or value >= spaces or value < 0:
 			return
 		
 		item_selected_changed.emit(item_selected, value)
-		item_selected = clampi(value, 0, spaces-1)
+		item_selected = value
 
 @export var crash_on_invalid_position: bool = false
 
