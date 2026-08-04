@@ -5,7 +5,7 @@ class_name InventoryItemInstance
 signal refreshed
 
 @export var data: InventoryItemData
-@export var amount: int
+@export var amount: int = 1
 @export_storage var remaining_cooldown: float = -1:
 	set(value):
 		
@@ -17,6 +17,23 @@ signal refreshed
 		
 		remaining_cooldown = value
 		_refreshed_cooldown()
+
+static func generate(
+	_data: InventoryItemData,
+	_amount: int = 1,
+	_remaining_cooldown: float = -1
+) -> InventoryItemInstance:
+	
+	var instance: InventoryItemInstance = InventoryItemInstance.new()
+	instance.data = _data
+	instance.amount = _amount
+	
+	if _remaining_cooldown == -1:
+		_remaining_cooldown = _data.cooldown
+	
+	instance.remaining_cooldown = _remaining_cooldown
+	
+	return instance
 
 func start_cooldown() -> void:
 	remaining_cooldown = data.cooldown

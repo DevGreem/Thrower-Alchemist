@@ -26,6 +26,9 @@ func _ready() -> void:
 	
 	if not hotbar_component.item_selected_changed.is_connected(_on_select_new_item):
 		hotbar_component.item_selected_changed.connect(_on_select_new_item)
+	
+	if not hotbar_component.item_setted.is_connected(_on_item_setted):
+		hotbar_component.item_setted.connect(_on_item_setted)
 
 func _init_slots() -> void:
 	
@@ -44,6 +47,15 @@ func _init_slots() -> void:
 		add_child(slot)
 	
 	_on_select_new_item(-1, hotbar_component.item_selected)
+
+func _on_item_setted(pos: int, value: InventoryItemInstance) -> void:
+	
+	var data: InventoryItemData = null
+	
+	if value:
+		data = value.data
+	
+	slots[pos].content.set_item(data)
 
 func _on_select_new_item(before: int, after: int) -> void:
 	

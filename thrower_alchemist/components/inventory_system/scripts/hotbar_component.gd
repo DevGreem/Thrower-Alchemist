@@ -27,6 +27,7 @@ signal item_selected_changed(before: int, after: int)
 		
 		item_selected_changed.emit(item_selected, value)
 		item_selected = value
+		GameDebugger.debug_log(HotbarComponent, "Changed item selected to = " + str(item_selected))
 
 @export var crash_on_invalid_position: bool = false
 
@@ -55,10 +56,29 @@ func _process(delta: float) -> void:
 func get_item(pos: int) -> InventoryItemInstance:
 	var value: InventoryItemInstance = _items.get(pos)
 	item_getted.emit(pos, value)
+	
+	GameDebugger.debug_log(HotbarComponent, "Item Getted: " + str(value) + "; in pos = " + str(pos))
 	return value
 
 func get_item_selected() -> InventoryItemInstance:
 	return get_item(item_selected)
+
+## Returns -1 when a position is not free
+func get_first_free_position() -> int:
+	
+	for i: int in range(_items.size()):
+		if not _items[i]:
+			return i
+	
+	return -1
+
+func add_item(pos: int, item: InventoryItemData, amount: int) -> bool:
+	
+	if _items[pos].data != item:
+		return false
+	
+	_items[pos].amount += amount
+	return true
 
 func set_item(pos: int, new_value: InventoryItemInstance) -> bool:
 	
@@ -80,4 +100,3 @@ func _exists_position(pos: int) -> bool:
 		assert(status, "The position " + str(pos) + " don't exists!")
 	
 	return status
-	

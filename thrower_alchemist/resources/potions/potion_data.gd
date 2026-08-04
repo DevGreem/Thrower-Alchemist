@@ -42,6 +42,9 @@ func drink_effects(actor: Node2D) -> void:
 
 static func join(left: PotionData, right: PotionData) -> PotionData:
 	
+	if not left or not right:
+		return null
+	
 	var new_potion: PotionData = PotionData.new()
 	
 	for left_effect: PotionEffect in left.effects:
