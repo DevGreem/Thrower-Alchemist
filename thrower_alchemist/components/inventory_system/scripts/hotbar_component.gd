@@ -63,6 +63,9 @@ func get_item(pos: int) -> InventoryItemInstance:
 func get_item_selected() -> InventoryItemInstance:
 	return get_item(item_selected)
 
+func set_item_selected(new_value: InventoryItemInstance) -> bool:
+	return set_item(item_selected, new_value)
+
 ## Returns -1 when a position is not free
 func get_first_free_position() -> int:
 	
@@ -74,22 +77,43 @@ func get_first_free_position() -> int:
 
 func add_item(pos: int, item: InventoryItemData, amount: int) -> bool:
 	
-	if not _items[pos]:
+	var getted: InventoryItemInstance = get_item(pos)
+	
+	if not getted:
 		var instance: InventoryItemInstance = InventoryItemInstance.generate(item, amount)
-		_items[pos] = instance
+		set_item(pos, instance)
 		return true
 	
-	if _items[pos].data != item:
+	if getted.data != item:
 		return false
 	
-	_items[pos].amount += amount
+	getted.amount += amount
 	return true
+
+func replace_item(pos: int, item: InventoryItemInstance) -> InventoryItemInstance:
+	
+	var getted: InventoryItemInstance = get_item(pos)
+	
+	if not getted:
+		set_item(pos, item)
+		return null
+	
+	if item:
+		if getted.data == item.data:
+			_items[pos].amount += item.amount
+			return null
+	
+	set_item(pos, item)
+	
+	return getted
 
 func set_item_data(pos: int, new_value: InventoryItemData) -> bool:
 	
-	if _items[pos]:
+	var getted: InventoryItemInstance = get_item(pos)
+	
+	if getted:
 		
-		if _items[pos].data == new_value:
+		if getted.data == new_value:
 			return false
 	
 	var instance: InventoryItemInstance = InventoryItemInstance.generate(new_value)
@@ -101,7 +125,7 @@ func set_item(pos: int, new_value: InventoryItemInstance) -> bool:
 	
 	_exists_position(pos)
 	
-	if _items[pos] == new_value:
+	if get_item(pos) == new_value:
 		return false
 	
 	_items.set(pos, new_value)

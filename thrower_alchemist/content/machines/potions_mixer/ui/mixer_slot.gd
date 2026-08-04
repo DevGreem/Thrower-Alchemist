@@ -31,15 +31,16 @@ func _on_pressed() -> void:
 	pressed.emit()
 	var hotbar: HotbarComponent = _get_hotbar()
 	
-	var item: InventoryItemInstance = hotbar.get_item_selected()
+	var potion: InventoryItemInstance = InventoryItemInstance.generate(
+		potions_mixer.get_potion_data(idx)
+	)
 	
-	if not item:
-		return
+	var replaced: InventoryItemInstance = hotbar.replace_item(hotbar.item_selected, potion)
 	
-	var data: PotionData = item.data as PotionData
-	
-	potions_mixer.set_potion_data(idx, data)
-	hotbar.set_item(hotbar.item_selected, null)
+	if replaced:
+		potions_mixer.set_potion_data(idx, replaced.data as PotionData)
+	else:
+		potions_mixer.set_potion_data(idx, null)
 
 func _on_removed() -> void:
 	removed.emit()
