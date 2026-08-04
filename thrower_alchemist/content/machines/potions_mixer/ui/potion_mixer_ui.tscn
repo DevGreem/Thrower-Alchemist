@@ -105,17 +105,18 @@ text = "Close"
 script = ExtResource("3_gnnc7")
 ui = NodePath("../../../../../..")
 
-[node name="AnimationContainer" type="Control" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2" unique_id=878189956]
+[node name="AnimationContainer" type="Control" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2" unique_id=1333653732]
+custom_minimum_size = Vector2(18, 12)
 layout_mode = 2
 script = ExtResource("6_3kexj")
 metadata/_custom_type_script = "uid://btu7r865mi7rd"
 
 [node name="JoinPotions" type="Button" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2/AnimationContainer" unique_id=1262273558]
 custom_maximum_size = Vector2(-1, 12)
-layout_mode = 0
-offset_left = -22.0
-offset_right = -4.0
-offset_bottom = 12.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 pivot_offset = Vector2(9, 6)
