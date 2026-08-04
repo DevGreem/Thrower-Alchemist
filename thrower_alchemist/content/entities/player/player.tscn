@@ -89,13 +89,13 @@ script = ExtResource("6_r5tfu")
 script = ExtResource("7_t2p4e")
 spaces = 4
 _items = Array[ExtResource("7_g15rv")]([null, null, null, null])
-crash_on_invalid_position = null
 metadata/_custom_type_script = "uid://bbmbnjuagm1l4"
 
 [node name="Inputs" type="Node" parent="." unique_id=209227326]
 script = ExtResource("10_twvcw")
 
 [node name="MoveInputComponent2D" type="Node" parent="Inputs" unique_id=603199798 node_paths=PackedStringArray("move_component")]
+process_mode = 3
 script = ExtResource("3_lwocm")
 move_component = NodePath("../../MoveComponent2D")
 action_vector = Array[StringName]([&"left", &"right", &"up", &"down"])
