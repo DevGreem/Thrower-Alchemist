@@ -5,12 +5,15 @@ class_name PotionMixerUI
 @export var potions_mixer: PotionsMixerNode
 @export var input_slots: Array[MixerSlot] = []
 @export var output_slot: MixerSlot = null
+@export var join_button: JoinPotionsButton
 
 func _ready() -> void:
 	
 	if not potions_mixer.potion_setted.is_connected(_on_potion_setted):
 		potions_mixer.potion_setted.connect(_on_potion_setted)
 	
+	join_button.potions_mixer = potions_mixer
+	join_button.pressed.connect(_on_potions_joined)
 	_init_slots()
 	
 	_on_potion_setted()
@@ -37,3 +40,6 @@ func _on_potion_setted() -> void:
 
 func _get_hotbar() -> HotbarComponent:
 	return ComponentManager.get_component(PlayerManager.current_player, HotbarComponent)
+
+func _on_potions_joined() -> void:
+	pass

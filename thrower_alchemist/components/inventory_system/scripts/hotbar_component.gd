@@ -74,10 +74,27 @@ func get_first_free_position() -> int:
 
 func add_item(pos: int, item: InventoryItemData, amount: int) -> bool:
 	
+	if not _items[pos]:
+		var instance: InventoryItemInstance = InventoryItemInstance.generate(item, amount)
+		_items[pos] = instance
+		return true
+	
 	if _items[pos].data != item:
 		return false
 	
 	_items[pos].amount += amount
+	return true
+
+func set_item_data(pos: int, new_value: InventoryItemData) -> bool:
+	
+	if _items[pos]:
+		
+		if _items[pos].data == new_value:
+			return false
+	
+	var instance: InventoryItemInstance = InventoryItemInstance.generate(new_value)
+	set_item(pos, instance)
+	
 	return true
 
 func set_item(pos: int, new_value: InventoryItemInstance) -> bool:

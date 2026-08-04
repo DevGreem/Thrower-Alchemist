@@ -64,3 +64,9 @@ func _on_interact() -> void:
 func _on_exit_ui() -> void:
 	interaction_area.active = true
 	get_tree().paused = false
+
+func can_mix() -> bool:
+	
+	var output: PotionData = get_output_potion()
+	
+	return output != null

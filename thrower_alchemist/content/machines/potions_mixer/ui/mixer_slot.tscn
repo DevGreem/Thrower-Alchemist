@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cv3h2l464xw3e"]
 
-[ext_resource type="Script" uid="uid://b03i6gk6y3sq1" path="res://content/machines/potions_mixer/mixer_slot.gd" id="1_mbxn4"]
+[ext_resource type="Script" uid="uid://b03i6gk6y3sq1" path="res://content/machines/potions_mixer/ui/mixer_slot.gd" id="1_mbxn4"]
 [ext_resource type="Texture2D" uid="uid://dpphmkh2rnqvp" path="res://content/potions/empty_potion.png" id="2_tkyll"]
 [ext_resource type="Script" uid="uid://d10ll63pv3u3p" path="res://content/potions/potion_icon_component.gd" id="3_isycf"]
 

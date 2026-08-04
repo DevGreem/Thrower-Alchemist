@@ -1,10 +1,11 @@
 [gd_scene format=3 uid="uid://rilhj81wbcge"]
 
-[ext_resource type="Script" uid="uid://cjrslt5nfetrd" path="res://content/machines/potions_mixer/potion_mixer_ui.gd" id="1_hqkwx"]
+[ext_resource type="Script" uid="uid://cjrslt5nfetrd" path="res://content/machines/potions_mixer/ui/potion_mixer_ui.gd" id="1_hqkwx"]
 [ext_resource type="Script" uid="uid://b15nw8au4emv5" path="res://components/ui_system/inputs/close_ui.gd" id="1_kkyad"]
-[ext_resource type="PackedScene" uid="uid://cv3h2l464xw3e" path="res://content/machines/potions_mixer/mixer_slot.tscn" id="2_qcio2"]
+[ext_resource type="PackedScene" uid="uid://cv3h2l464xw3e" path="res://content/machines/potions_mixer/ui/mixer_slot.tscn" id="2_qcio2"]
+[ext_resource type="Script" uid="uid://b4g5ob62xmiqy" path="res://content/machines/potions_mixer/ui/join_potions_button.gd" id="3_621rk"]
 
-[node name="PotionMixerUI" type="Control" unique_id=1053794787 node_paths=PackedStringArray("input_slots", "output_slot")]
+[node name="PotionMixerUI" type="Control" unique_id=1053794787 node_paths=PackedStringArray("input_slots", "output_slot", "join_button")]
 process_mode = 3
 layout_mode = 3
 anchors_preset = 15
@@ -15,6 +16,7 @@ grow_vertical = 2
 script = ExtResource("1_hqkwx")
 input_slots = [NodePath("CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/MixerSlot"), NodePath("CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/MixerSlot")]
 output_slot = NodePath("CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer3/MixerSlot")
+join_button = NodePath("CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2/JoinPotions")
 
 [node name="CenterContainer" type="CenterContainer" parent="." unique_id=940622406]
 layout_mode = 1
@@ -90,19 +92,20 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 4
 
-[node name="Button2" type="Button" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2" unique_id=1907578337]
+[node name="Close" type="Button" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2" unique_id=1907578337]
 custom_maximum_size = Vector2(-1, 12)
 layout_mode = 2
-theme_override_font_sizes/font_size = 4
+theme_override_font_sizes/font_size = 5
 text = "Close"
 
-[node name="Button" type="Button" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2" unique_id=1262273558]
+[node name="JoinPotions" type="Button" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2" unique_id=1262273558]
 custom_maximum_size = Vector2(-1, 12)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_font_sizes/font_size = 5
 text = "Join"
+script = ExtResource("3_621rk")
 
 [node name="CloseUIInput" type="Node" parent="." unique_id=915017862 node_paths=PackedStringArray("ui")]
 script = ExtResource("1_kkyad")

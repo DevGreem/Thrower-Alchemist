@@ -24,6 +24,9 @@ static func generate(
 	_remaining_cooldown: float = -1
 ) -> InventoryItemInstance:
 	
+	if not _data:
+		return null
+	
 	var instance: InventoryItemInstance = InventoryItemInstance.new()
 	instance.data = _data
 	instance.amount = _amount
