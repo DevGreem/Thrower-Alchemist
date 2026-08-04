@@ -17,8 +17,8 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_hqkwx")
-input_slots = [NodePath("CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/MixerSlot"), NodePath("CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/MixerSlot")]
-output_slot = NodePath("CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer3/MixerSlot")
+input_slots = [NodePath("CenterContainer/PanelContainer/MarginContainer/VBoxContainer/PotionsSlot/VBoxContainer/MixerSlot"), NodePath("CenterContainer/PanelContainer/MarginContainer/VBoxContainer/PotionsSlot/VBoxContainer2/MixerSlot")]
+output_slot = NodePath("CenterContainer/PanelContainer/MarginContainer/VBoxContainer/PotionsSlot/VBoxContainer3/MixerSlot")
 join_button = NodePath("CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2/AnimationContainer/JoinPotions")
 
 [node name="CenterContainer" type="CenterContainer" parent="." unique_id=940622406]
@@ -44,69 +44,102 @@ theme_override_constants/margin_bottom = 4
 [node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/PanelContainer/MarginContainer" unique_id=2093225793]
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=1906421085]
+[node name="PotionsSlot" type="HBoxContainer" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=1906421085]
 layout_mode = 2
 size_flags_vertical = 3
 alignment = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1327813659]
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/PotionsSlot" unique_id=1327813659]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Label" type="Label" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=371110544]
+[node name="Label" type="Label" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/PotionsSlot/VBoxContainer" unique_id=371110544]
 layout_mode = 2
 theme_override_font_sizes/font_size = 5
 text = "Potion 1"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="MixerSlot" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=1896267683 instance=ExtResource("2_qcio2")]
+[node name="MixerSlot" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/PotionsSlot/VBoxContainer" unique_id=1896267683 instance=ExtResource("2_qcio2")]
 layout_mode = 2
 
-[node name="VBoxContainer3" type="VBoxContainer" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=688955639]
+[node name="VBoxContainer3" type="VBoxContainer" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/PotionsSlot" unique_id=688955639]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Label" type="Label" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer3" unique_id=1801995024]
+[node name="Label" type="Label" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/PotionsSlot/VBoxContainer3" unique_id=1801995024]
 layout_mode = 2
 theme_override_font_sizes/font_size = 5
 text = "Result"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="MixerSlot" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer3" unique_id=1076887566 instance=ExtResource("2_qcio2")]
+[node name="MixerSlot" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/PotionsSlot/VBoxContainer3" unique_id=1076887566 instance=ExtResource("2_qcio2")]
 layout_mode = 2
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=2127820851]
+[node name="VBoxContainer2" type="VBoxContainer" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/PotionsSlot" unique_id=2127820851]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Label" type="Label" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2" unique_id=513849879]
+[node name="Label" type="Label" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/PotionsSlot/VBoxContainer2" unique_id=513849879]
 layout_mode = 2
 theme_override_font_sizes/font_size = 5
 text = "Potion 2"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="MixerSlot" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2" unique_id=1506790100 instance=ExtResource("2_qcio2")]
+[node name="MixerSlot" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/PotionsSlot/VBoxContainer2" unique_id=1506790100 instance=ExtResource("2_qcio2")]
 layout_mode = 2
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=1033027121]
 layout_mode = 2
 size_flags_horizontal = 4
+alignment = 1
 
-[node name="Close" type="Button" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2" unique_id=1907578337 node_paths=PackedStringArray("ui")]
-custom_maximum_size = Vector2(-1, 12)
+[node name="AnimationContainer2" type="Control" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2" unique_id=2018677547]
 layout_mode = 2
+script = ExtResource("6_3kexj")
+metadata/_custom_type_script = "uid://btu7r865mi7rd"
+
+[node name="Close" type="Button" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2/AnimationContainer2" unique_id=1907578337 node_paths=PackedStringArray("ui")]
+custom_maximum_size = Vector2(-1, 12)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(10.5, 6)
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_font_sizes/font_size = 5
 text = "Close"
 script = ExtResource("3_gnnc7")
-ui = NodePath("../../../../../..")
+ui = NodePath("../../../../../../..")
 
-[node name="AnimationContainer" type="Control" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2" unique_id=1333653732]
-custom_minimum_size = Vector2(18, 12)
+[node name="AnimationComponent" type="Node" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2/AnimationContainer2/Close" unique_id=267697596 node_paths=PackedStringArray("node")]
+script = ExtResource("5_242g8")
+node = NodePath("..")
+on_execute_signal = &"mouse_entered"
+property_to_change = "rotation_degrees"
+to = 7.5
+duration = 0.1
+add_ease = false
+add_transition = false
+metadata/_custom_type_script = "uid://sunq41nbd1mx"
+
+[node name="AnimationComponent2" type="Node" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2/AnimationContainer2/Close" unique_id=2002285632 node_paths=PackedStringArray("node")]
+script = ExtResource("5_242g8")
+node = NodePath("..")
+on_execute_signal = &"mouse_exited"
+property_to_change = "rotation_degrees"
+to = 0.0
+duration = 0.1
+add_ease = false
+add_transition = false
+metadata/_custom_type_script = "uid://sunq41nbd1mx"
+
+[node name="AnimationContainer" type="Control" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2" unique_id=546556608]
 layout_mode = 2
 script = ExtResource("6_3kexj")
 metadata/_custom_type_script = "uid://btu7r865mi7rd"
