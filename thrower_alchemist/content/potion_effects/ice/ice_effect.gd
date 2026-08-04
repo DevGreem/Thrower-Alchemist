@@ -75,6 +75,9 @@ func _start_freeze(actor: Node2D) -> bool:
 	
 	await actor.get_tree().create_timer(freeze_time).timeout
 	
+	if not is_instance_valid(actor):
+		return false
+	
 	if _counter != actor.get_meta(META_ID, null):
 		return false
 	

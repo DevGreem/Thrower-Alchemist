@@ -42,4 +42,5 @@ func _get_hotbar() -> HotbarComponent:
 	return ComponentManager.get_component(PlayerManager.current_player, HotbarComponent)
 
 func _on_potions_joined() -> void:
+	#UIManager.close(self)
 	pass

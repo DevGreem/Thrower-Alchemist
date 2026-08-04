@@ -22,8 +22,9 @@ func set_potion_data(potion_idx: int, data: PotionData) -> void:
 	_on_set_potion_data()
 
 func reset() -> void:
-	for input: StaticPotionNode in input_potions:
-		input.data = null
+	
+	for i: int in range(input_potions.size()):
+		set_potion_data(i, null)
 	
 	output_potion.data = null
 
