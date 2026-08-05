@@ -12,6 +12,9 @@ func _ready() -> void:
 	if not potions_mixer.potion_setted.is_connected(_on_potion_setted):
 		potions_mixer.potion_setted.connect(_on_potion_setted)
 	
+	if not potions_mixer.exploded.is_connected(_on_explode):
+		potions_mixer.exploded.connect(_on_explode)
+	
 	join_button.potions_mixer = potions_mixer
 	join_button.pressed.connect(_on_potions_joined)
 	_init_slots()
@@ -44,3 +47,6 @@ func _get_hotbar() -> HotbarComponent:
 func _on_potions_joined() -> void:
 	#UIManager.close(self)
 	pass
+
+func _on_explode() -> void:
+	UIManager.close(self)

@@ -40,29 +40,39 @@ func drink_effects(actor: Node2D) -> void:
 	for effect: PotionEffect in effects:
 		effect.drink_effect(actor)
 
-static func join(left: PotionData, right: PotionData) -> PotionData:
+static func join(left: PotionData, right: PotionData) -> JoinStatus:
 	
 	if not left or not right:
-		return null
+		return JoinStatus.generate(
+			JoinStatus.Status.DISALLOWED,
+			null
+		)
 	
 	var new_potion: PotionData = PotionData.new()
 	
 	for left_effect: PotionEffect in left.effects:
 		for right_effect: PotionEffect in right.effects:
 			
-			if left_effect == right_effect:
+			if left_effect.id == right_effect.id:
 				new_potion.add_effect(left_effect)
 				continue
 			
-			#if not PotionEffect.is_joinable(left_effect, right_effect):
-				#return null
+			if not PotionEffect.is_joinable(left_effect, right_effect):
+				return JoinStatus.generate(
+					JoinStatus.Status.EXPLODED,
+					null
+				)
 			
 			new_potion.add_effect(left_effect)
 			new_potion.add_effect(right_effect)
 	
 	new_potion.weight = (left.weight + right.weight) / 2
+	new_potion.cooldown = (left.cooldown + right.cooldown) / 2
 	
-	return new_potion
+	return JoinStatus.generate(
+		JoinStatus.Status.JOINED,
+		new_potion
+	)
 
 func get_potion_color() -> Color:
 	var color: Color = Color.BLACK

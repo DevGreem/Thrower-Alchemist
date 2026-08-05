@@ -1,3 +1,4 @@
+@tool
 extends PotionEffect
 
 class_name BurnEffect
@@ -7,6 +8,10 @@ class_name BurnEffect
 @export var time_alive: float
 var cooldown: float:
 	get: return time_alive/times
+
+func _init() -> void:
+	_ID = "burn_effect"
+	_COLOR = Color.ORANGE_RED
 
 func drink_effect(actor: Node2D) -> void:
 	

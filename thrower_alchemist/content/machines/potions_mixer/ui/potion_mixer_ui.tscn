@@ -19,7 +19,7 @@ grow_vertical = 2
 script = ExtResource("1_hqkwx")
 input_slots = [NodePath("CenterContainer/PanelContainer/MarginContainer/VBoxContainer/PotionsSlot/VBoxContainer/MixerSlot"), NodePath("CenterContainer/PanelContainer/MarginContainer/VBoxContainer/PotionsSlot/VBoxContainer2/MixerSlot")]
 output_slot = NodePath("CenterContainer/PanelContainer/MarginContainer/VBoxContainer/PotionsSlot/Output/MixerSlot")
-join_button = NodePath("CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2/AnimationContainer/JoinPotions")
+join_button = NodePath("CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2/JoinButton/JoinPotions")
 
 [node name="CenterContainer" type="CenterContainer" parent="." unique_id=940622406]
 layout_mode = 1
@@ -141,12 +141,12 @@ loops = 0
 node = NodePath("..")
 metadata/_custom_type_script = "uid://sunq41nbd1mx"
 
-[node name="AnimationContainer" type="Control" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2" unique_id=546556608]
+[node name="JoinButton" type="Control" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2" unique_id=546556608]
 layout_mode = 2
 script = ExtResource("6_3kexj")
 metadata/_custom_type_script = "uid://btu7r865mi7rd"
 
-[node name="JoinPotions" type="Button" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2/AnimationContainer" unique_id=1262273558]
+[node name="JoinPotions" type="Button" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2/JoinButton" unique_id=1262273558]
 custom_maximum_size = Vector2(-1, 12)
 layout_mode = 1
 anchors_preset = 15
@@ -161,7 +161,7 @@ theme_override_font_sizes/font_size = 5
 text = "Join"
 script = ExtResource("3_621rk")
 
-[node name="AnimationComponent" type="Node" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2/AnimationContainer/JoinPotions" unique_id=1002336491 node_paths=PackedStringArray("node")]
+[node name="AnimationComponent" type="Node" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2/JoinButton/JoinPotions" unique_id=1002336491 node_paths=PackedStringArray("node")]
 script = ExtResource("5_242g8")
 on_execute_signal = &"mouse_entered"
 property_to_change = "rotation_degrees"
@@ -172,7 +172,7 @@ add_transition = false
 node = NodePath("..")
 metadata/_custom_type_script = "uid://sunq41nbd1mx"
 
-[node name="AnimationComponent2" type="Node" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2/AnimationContainer/JoinPotions" unique_id=1655452648 node_paths=PackedStringArray("node")]
+[node name="AnimationComponent2" type="Node" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2/JoinButton/JoinPotions" unique_id=1655452648 node_paths=PackedStringArray("node")]
 script = ExtResource("5_242g8")
 on_execute_signal = &"mouse_exited"
 property_to_change = "rotation_degrees"

@@ -4,6 +4,7 @@ extends StaticBody2D
 class_name PotionsMixerNode
 
 signal potion_setted
+signal exploded
 
 @export var input_potions: Array[StaticPotionNode]
 @export var output_potion: StaticPotionNode
@@ -34,6 +35,10 @@ func get_potion_data(potion_idx: int) -> PotionData:
 func get_output_potion() -> PotionData:
 	return output_potion.data
 
+func explode() -> void:
+	exploded.emit()
+	self.queue_free()
+
 func _on_set_potion_data() -> void:
 	
 	if input_potions.is_empty():
@@ -47,7 +52,13 @@ func _on_set_potion_data() -> void:
 		if not input_potions[i].data:
 			continue
 		
-		new_data = PotionData.join(new_data, input_potions[i].data)
+		var query: JoinStatus = PotionData.join(new_data, input_potions[i].data)
+		
+		if query.status == JoinStatus.Status.EXPLODED:
+			explode()
+			return
+		
+		new_data = query.result
 	
 	output_potion.data = new_data
 	potion_setted.emit()
