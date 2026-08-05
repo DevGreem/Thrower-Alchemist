@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://cv3h2l464xw3e" path="res://content/machines/potions_mixer/ui/mixer_slot.tscn" id="2_qcio2"]
 [ext_resource type="Script" uid="uid://b4g5ob62xmiqy" path="res://content/machines/potions_mixer/ui/join_potions_button.gd" id="3_621rk"]
 [ext_resource type="Script" uid="uid://5kkdipb4kyxl" path="res://components/ui_system/components/ui_close_button.gd" id="3_gnnc7"]
-[ext_resource type="Script" uid="uid://sunq41nbd1mx" path="res://components/animation_system/animation_component.gd" id="5_242g8"]
+[ext_resource type="Script" uid="uid://sunq41nbd1mx" path="res://components/animation_system/tweener_component.gd" id="5_242g8"]
 [ext_resource type="Script" uid="uid://btu7r865mi7rd" path="res://components/animation_system/animation_container.gd" id="6_3kexj"]
 
 [node name="PotionMixerUI" type="Control" unique_id=1053794787 node_paths=PackedStringArray("input_slots", "output_slot", "join_button")]
@@ -109,7 +109,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-pivot_offset = Vector2(10.5, 6)
+pivot_offset_ratio = Vector2(0.5, 0.5)
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_font_sizes/font_size = 5
@@ -119,7 +119,6 @@ ui = NodePath("../../../../../../..")
 
 [node name="AnimationComponent" type="Node" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2/AnimationContainer2/Close" unique_id=267697596 node_paths=PackedStringArray("node")]
 script = ExtResource("5_242g8")
-node = NodePath("..")
 on_execute_signal = &"mouse_entered"
 property_to_change = "rotation_degrees"
 to = 7.5
@@ -127,11 +126,11 @@ duration = 0.1
 add_ease = false
 add_transition = false
 loops = 0
+node = NodePath("..")
 metadata/_custom_type_script = "uid://sunq41nbd1mx"
 
 [node name="AnimationComponent2" type="Node" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2/AnimationContainer2/Close" unique_id=2002285632 node_paths=PackedStringArray("node")]
 script = ExtResource("5_242g8")
-node = NodePath("..")
 on_execute_signal = &"mouse_exited"
 property_to_change = "rotation_degrees"
 to = 0.0
@@ -139,6 +138,7 @@ duration = 0.1
 add_ease = false
 add_transition = false
 loops = 0
+node = NodePath("..")
 metadata/_custom_type_script = "uid://sunq41nbd1mx"
 
 [node name="AnimationContainer" type="Control" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2" unique_id=546556608]
@@ -163,24 +163,24 @@ script = ExtResource("3_621rk")
 
 [node name="AnimationComponent" type="Node" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2/AnimationContainer/JoinPotions" unique_id=1002336491 node_paths=PackedStringArray("node")]
 script = ExtResource("5_242g8")
-node = NodePath("..")
 on_execute_signal = &"mouse_entered"
 property_to_change = "rotation_degrees"
 to = 7.5
 duration = 0.1
 add_ease = false
 add_transition = false
+node = NodePath("..")
 metadata/_custom_type_script = "uid://sunq41nbd1mx"
 
 [node name="AnimationComponent2" type="Node" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2/AnimationContainer/JoinPotions" unique_id=1655452648 node_paths=PackedStringArray("node")]
 script = ExtResource("5_242g8")
-node = NodePath("..")
 on_execute_signal = &"mouse_exited"
 property_to_change = "rotation_degrees"
 to = 0.0
 duration = 0.1
 add_ease = false
 add_transition = false
+node = NodePath("..")
 metadata/_custom_type_script = "uid://sunq41nbd1mx"
 
 [node name="CloseUIInput" type="Node" parent="." unique_id=915017862 node_paths=PackedStringArray("ui")]

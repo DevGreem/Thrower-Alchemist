@@ -1,26 +1,8 @@
+@abstract
 @tool
-extends Node
+extends TweenerAnimator
 
-class_name AnimationComponent
-
-signal finished
-
-enum State {
-	IDLE,
-	PLAYING,
-	FINISHED
-}
-
-@export var node: CanvasItem:
-	set(value):
-		node = value
-		notify_property_list_changed()
-		update_configuration_warnings()
-
-@export var on_execute_signal: StringName:
-	set(value):
-		on_execute_signal = value
-		notify_property_list_changed()
+class_name PropertyTweenerAnimator
 
 @export var property_to_change: String:
 	set(value):
@@ -49,28 +31,9 @@ enum State {
 		notify_property_list_changed()
 
 @export var trans_type: Tween.TransitionType
+
 @export var loops: int = 1
-@export var await_animations: Array[AnimationComponent] = []
-
 var tween: Tween
-var state: State = State.IDLE
-
-func _ready() -> void:
-	if Engine.is_editor_hint():
-		return
-	
-	if not node:
-		node = get_parent()
-	
-	if not node.is_connected(on_execute_signal, _make_animation):
-		node.connect(on_execute_signal, _make_animation)
-
-func wait_finished() -> void:
-	
-	if state == State.FINISHED:
-		return
-		
-	await finished
 
 func _verify_tween() -> void:
 	
@@ -84,15 +47,12 @@ func _connect_tween_signals() -> void:
 	
 	if not tween.finished.is_connected(_on_tween_finished):
 		tween.finished.connect(_on_tween_finished)
+
+func make_animation(..._parameters: Array) -> void:
 	
-func _make_animation(..._parameters: Array) -> void:
+	await await_tweeners()
 	
-	
-	for animation: AnimationComponent in await_animations:
-		if animation:
-			await animation.wait_finished()
-	
-	state = State.PLAYING
+	state = TweenerState.Enum.PLAYING
 	_verify_tween()
 	
 	if add_ease:
@@ -107,12 +67,12 @@ func _make_animation(..._parameters: Array) -> void:
 		tweener.from(from)
 	
 	tween.set_loops(loops)
-	GameDebugger.debug_log(AnimationComponent, "Playing tween animation")
+	GameDebugger.debug_log(TweenerComponent, "Playing tween animation")
 
 func _on_tween_finished() -> void:
-	state = State.FINISHED
+	state = TweenerState.Enum.FINISHED
 	finished.emit()
-	GameDebugger.debug_log(AnimationComponent, "Animation tween Finished")
+	GameDebugger.debug_log(TweenerComponent, "Animation tween Finished")
 
 func _get_names(properties: Array[Dictionary]) -> Array:
 	return properties.map(
@@ -123,12 +83,6 @@ func _get_names(properties: Array[Dictionary]) -> Array:
 func _validate_property(property: Dictionary) -> void:
 	
 	if node:
-		if property.name == "on_execute_signal":
-			
-			var signals: Array = _get_names(node.get_signal_list())
-			
-			property.hint = PROPERTY_HINT_ENUM
-			property.hint_string = ",".join(signals)
 		
 		if property.name == "property_to_change":
 			
@@ -156,14 +110,3 @@ func _validate_property(property: Dictionary) -> void:
 	if property.name == "trans_type":
 		if not add_transition:
 			property.usage = PROPERTY_USAGE_NO_EDITOR
-
-func _get_configuration_warnings() -> PackedStringArray:
-	
-	var warnings: PackedStringArray = []
-	
-	if not node:
-		warnings.append("You must assign a node")
-	
-	
-	
-	return warnings
