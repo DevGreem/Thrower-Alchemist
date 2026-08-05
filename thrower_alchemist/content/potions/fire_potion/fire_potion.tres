@@ -21,6 +21,9 @@ interact = SubResource("Resource_pae1y")
 
 [sub_resource type="Resource" id="Resource_g1atm"]
 script = ExtResource("2_e2n8g")
+damage = 3.0
+times = 5
+time_alive = 5.0
 _ID = "burn_effect"
 id = "burn_effect"
 _COLOR = Color(1, 0.27058825, 0, 1)

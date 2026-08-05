@@ -53,10 +53,6 @@ static func join(left: PotionData, right: PotionData) -> JoinStatus:
 	for left_effect: PotionEffect in left.effects:
 		for right_effect: PotionEffect in right.effects:
 			
-			if left_effect.id == right_effect.id:
-				new_potion.add_effect(left_effect)
-				continue
-			
 			if not PotionEffect.is_joinable(left_effect, right_effect):
 				return JoinStatus.generate(
 					JoinStatus.Status.EXPLODED,

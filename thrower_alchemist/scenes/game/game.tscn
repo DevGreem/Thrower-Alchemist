@@ -20,7 +20,7 @@
 [sub_resource type="Resource" id="Resource_stg1e"]
 script = ExtResource("4_5i0tg")
 data = ExtResource("5_lfrn8")
-remaining_cooldown = -44698.19323072291
+remaining_cooldown = -46413.170501088236
 metadata/_custom_type_script = "uid://d1fyt18vlv7pq"
 
 [sub_resource type="Resource" id="Resource_gc57s"]

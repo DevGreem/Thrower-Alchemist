@@ -9,6 +9,7 @@ signal collision_detected(collider: Node2D)
 @export var detect_actor: bool = false
 @export var detect_hurtboxes: bool = false
 
+#TODO: Add a Hurtboxes Detector
 func _ready() -> void:
 	
 	if not self.body_entered.is_connected(_on_collision_detected):
