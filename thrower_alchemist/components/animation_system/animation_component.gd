@@ -5,15 +5,23 @@ class_name AnimationComponent
 
 signal finished
 
+enum State {
+	IDLE,
+	PLAYING,
+	FINISHED
+}
+
 @export var node: CanvasItem:
 	set(value):
 		node = value
 		notify_property_list_changed()
+		update_configuration_warnings()
 
 @export var on_execute_signal: StringName:
 	set(value):
 		on_execute_signal = value
 		notify_property_list_changed()
+
 @export var property_to_change: String:
 	set(value):
 		property_to_change = value
@@ -41,17 +49,28 @@ signal finished
 		notify_property_list_changed()
 
 @export var trans_type: Tween.TransitionType
-@export var loops: int = 0
-@export var async: bool = false
+@export var loops: int = 1
+@export var await_animations: Array[AnimationComponent] = []
 
 var tween: Tween
+var state: State = State.IDLE
 
 func _ready() -> void:
 	if Engine.is_editor_hint():
 		return
 	
+	if not node:
+		node = get_parent()
+	
 	if not node.is_connected(on_execute_signal, _make_animation):
 		node.connect(on_execute_signal, _make_animation)
+
+func wait_finished() -> void:
+	
+	if state == State.FINISHED:
+		return
+		
+	await finished
 
 func _verify_tween() -> void:
 	
@@ -68,6 +87,12 @@ func _connect_tween_signals() -> void:
 	
 func _make_animation(..._parameters: Array) -> void:
 	
+	
+	for animation: AnimationComponent in await_animations:
+		if animation:
+			await animation.wait_finished()
+	
+	state = State.PLAYING
 	_verify_tween()
 	
 	if add_ease:
@@ -75,8 +100,6 @@ func _make_animation(..._parameters: Array) -> void:
 	
 	if add_transition:
 		tween.set_trans(trans_type)
-	
-	tween.set_parallel(async)
 	
 	var tweener: PropertyTweener = tween.tween_property(node, property_to_change as NodePath, to, duration)
 	
@@ -87,7 +110,15 @@ func _make_animation(..._parameters: Array) -> void:
 	GameDebugger.debug_log(AnimationComponent, "Playing tween animation")
 
 func _on_tween_finished() -> void:
+	state = State.FINISHED
 	finished.emit()
+	GameDebugger.debug_log(AnimationComponent, "Animation tween Finished")
+
+func _get_names(properties: Array[Dictionary]) -> Array:
+	return properties.map(
+		func(property: Dictionary) -> StringName:
+			return property.name
+	)
 
 func _validate_property(property: Dictionary) -> void:
 	
@@ -126,8 +157,13 @@ func _validate_property(property: Dictionary) -> void:
 		if not add_transition:
 			property.usage = PROPERTY_USAGE_NO_EDITOR
 
-func _get_names(properties: Array[Dictionary]) -> Array:
-	return properties.map(
-		func(property: Dictionary) -> StringName:
-			return property.name
-	)
+func _get_configuration_warnings() -> PackedStringArray:
+	
+	var warnings: PackedStringArray = []
+	
+	if not node:
+		warnings.append("You must assign a node")
+	
+	
+	
+	return warnings
