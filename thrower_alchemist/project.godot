@@ -27,6 +27,7 @@ UIManager="*uid://dby5u3bvyp14j"
 
 [debug]
 
+settings/stdout/print_fps=true
 gdscript/warnings/directory_rules={
 "res://addons": 0,
 "res://script_templates": 0

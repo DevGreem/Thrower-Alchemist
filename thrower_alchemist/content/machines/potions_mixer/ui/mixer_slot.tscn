@@ -3,8 +3,10 @@
 [ext_resource type="Script" uid="uid://b03i6gk6y3sq1" path="res://content/machines/potions_mixer/ui/mixer_slot.gd" id="1_mbxn4"]
 [ext_resource type="Texture2D" uid="uid://dpphmkh2rnqvp" path="res://content/potions/empty_potion.png" id="2_tkyll"]
 [ext_resource type="Script" uid="uid://d10ll63pv3u3p" path="res://content/potions/potion_icon_component.gd" id="3_isycf"]
+[ext_resource type="Script" uid="uid://sunq41nbd1mx" path="res://components/animation_system/animation_component.gd" id="4_ae7eb"]
 
 [node name="MixerSlot" type="Panel" unique_id=1896267683 node_paths=PackedStringArray("potion_icon")]
+pivot_offset_ratio = Vector2(0.5, 0.5)
 size_flags_horizontal = 3
 size_flags_vertical = 3
 mouse_default_cursor_shape = 2
@@ -30,3 +32,46 @@ texture = ExtResource("2_tkyll")
 script = ExtResource("3_isycf")
 icon_node = NodePath("../TextureRect")
 metadata/_custom_type_script = "uid://d10ll63pv3u3p"
+
+[node name="ScaleUp" type="Node" parent="." unique_id=561392942 node_paths=PackedStringArray("node")]
+script = ExtResource("4_ae7eb")
+node = NodePath("..")
+on_execute_signal = &"mouse_entered"
+property_to_change = "scale"
+to = Vector2(1.05, 1.05)
+duration = 0.1
+add_ease = false
+ease_type = 2
+add_transition = false
+metadata/_custom_type_script = "uid://sunq41nbd1mx"
+
+[node name="ScaleDown" type="Node" parent="." unique_id=1484285303 node_paths=PackedStringArray("node")]
+script = ExtResource("4_ae7eb")
+node = NodePath("..")
+on_execute_signal = &"mouse_exited"
+property_to_change = "scale"
+to = Vector2(1, 1)
+duration = 0.1
+add_ease = false
+ease_type = 2
+add_transition = false
+metadata/_custom_type_script = "uid://sunq41nbd1mx"
+
+[node name="AddBright" type="Node" parent="." unique_id=477758027 node_paths=PackedStringArray("node")]
+script = ExtResource("4_ae7eb")
+node = NodePath("..")
+on_execute_signal = &"mouse_entered"
+property_to_change = "modulate"
+to = Color(1.1638972, 1.1638972, 1.1638972, 1)
+duration = 0.1
+metadata/_custom_type_script = "uid://sunq41nbd1mx"
+
+[node name="RemoveBright" type="Node" parent="." unique_id=32889463 node_paths=PackedStringArray("node")]
+script = ExtResource("4_ae7eb")
+node = NodePath("..")
+on_execute_signal = &"mouse_exited"
+property_to_change = "modulate"
+to = Color(1, 1, 1, 1)
+duration = 0.1
+add_transition = false
+metadata/_custom_type_script = "uid://sunq41nbd1mx"

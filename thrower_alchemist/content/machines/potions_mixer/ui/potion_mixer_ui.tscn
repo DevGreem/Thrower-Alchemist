@@ -18,7 +18,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_hqkwx")
 input_slots = [NodePath("CenterContainer/PanelContainer/MarginContainer/VBoxContainer/PotionsSlot/VBoxContainer/MixerSlot"), NodePath("CenterContainer/PanelContainer/MarginContainer/VBoxContainer/PotionsSlot/VBoxContainer2/MixerSlot")]
-output_slot = NodePath("CenterContainer/PanelContainer/MarginContainer/VBoxContainer/PotionsSlot/VBoxContainer3/MixerSlot")
+output_slot = NodePath("CenterContainer/PanelContainer/MarginContainer/VBoxContainer/PotionsSlot/Output/MixerSlot")
 join_button = NodePath("CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2/AnimationContainer/JoinPotions")
 
 [node name="CenterContainer" type="CenterContainer" parent="." unique_id=940622406]
@@ -63,18 +63,18 @@ vertical_alignment = 1
 [node name="MixerSlot" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/PotionsSlot/VBoxContainer" unique_id=1896267683 instance=ExtResource("2_qcio2")]
 layout_mode = 2
 
-[node name="VBoxContainer3" type="VBoxContainer" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/PotionsSlot" unique_id=688955639]
+[node name="Output" type="VBoxContainer" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/PotionsSlot" unique_id=688955639]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Label" type="Label" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/PotionsSlot/VBoxContainer3" unique_id=1801995024]
+[node name="Label" type="Label" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/PotionsSlot/Output" unique_id=1801995024]
 layout_mode = 2
 theme_override_font_sizes/font_size = 5
 text = "Result"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="MixerSlot" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/PotionsSlot/VBoxContainer3" unique_id=1076887566 instance=ExtResource("2_qcio2")]
+[node name="MixerSlot" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/PotionsSlot/Output" unique_id=1076887566 instance=ExtResource("2_qcio2")]
 layout_mode = 2
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/PotionsSlot" unique_id=2127820851]
@@ -126,6 +126,7 @@ to = 7.5
 duration = 0.1
 add_ease = false
 add_transition = false
+loops = 0
 metadata/_custom_type_script = "uid://sunq41nbd1mx"
 
 [node name="AnimationComponent2" type="Node" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2/AnimationContainer2/Close" unique_id=2002285632 node_paths=PackedStringArray("node")]
@@ -137,6 +138,7 @@ to = 0.0
 duration = 0.1
 add_ease = false
 add_transition = false
+loops = 0
 metadata/_custom_type_script = "uid://sunq41nbd1mx"
 
 [node name="AnimationContainer" type="Control" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2" unique_id=546556608]
