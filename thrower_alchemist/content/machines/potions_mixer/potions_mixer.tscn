@@ -3,8 +3,8 @@
 [ext_resource type="Script" uid="uid://dc6pfykmjucc3" path="res://content/machines/potions_mixer/potions_mixer.gd" id="1_afgo1"]
 [ext_resource type="Texture2D" uid="uid://dhxev543kcutk" path="res://content/machines/potions_mixer/potions_mixer.png" id="1_dm4r4"]
 [ext_resource type="PackedScene" uid="uid://bp0q1lig48ynw" path="res://content/potions/static_potion.tscn" id="2_g867q"]
-[ext_resource type="Script" uid="uid://ditbeykj0vfd4" path="res://components/health_component.gd" id="2_wiryu"]
-[ext_resource type="Script" uid="uid://bqx8hyj121gcl" path="res://components/hurtbox_component_2d.gd" id="3_o21ci"]
+[ext_resource type="Script" uid="uid://ditbeykj0vfd4" path="res://components/hit_system/health_component.gd" id="2_wiryu"]
+[ext_resource type="Script" uid="uid://bqx8hyj121gcl" path="res://components/hit_system/hurtbox_component_2d.gd" id="3_o21ci"]
 [ext_resource type="Script" uid="uid://cxehsl4at72q" path="res://components/debug_components/debug_camera_2d.gd" id="12_uacgq"]
 [ext_resource type="Script" uid="uid://dk0pi828tayhh" path="res://components/interaction_system/interact_area_2d.gd" id="13_343vw"]
 
@@ -33,7 +33,6 @@ script = ExtResource("2_wiryu")
 actor = NodePath("..")
 free_actor_on_die = true
 max_health = 15.0
-health = 15.0
 metadata/_custom_type_script = "uid://ditbeykj0vfd4"
 
 [node name="HurtboxComponent2D" type="Area2D" parent="." unique_id=1417987659 node_paths=PackedStringArray("health_component", "actor")]

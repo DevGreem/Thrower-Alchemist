@@ -20,7 +20,7 @@
 [sub_resource type="Resource" id="Resource_stg1e"]
 script = ExtResource("4_5i0tg")
 data = ExtResource("5_lfrn8")
-remaining_cooldown = -37573.36315437539
+remaining_cooldown = -39372.327624703634
 metadata/_custom_type_script = "uid://d1fyt18vlv7pq"
 
 [sub_resource type="Resource" id="Resource_gc57s"]
@@ -72,11 +72,44 @@ metadata/_custom_type_script = "uid://d1fyt18vlv7pq"
 resource_local_to_scene = true
 size = Vector2(35, 12)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_5v6r0"]
+[sub_resource type="Resource" id="Resource_5v6r0"]
+script = ExtResource("7_ftsea")
+
+[sub_resource type="Resource" id="Resource_uyinl"]
+script = ExtResource("9_3xj4h")
+
+[sub_resource type="Resource" id="Resource_10c2w"]
+script = ExtResource("8_otnwt")
+use = SubResource("Resource_uyinl")
+interact = SubResource("Resource_5v6r0")
+
+[sub_resource type="Resource" id="Resource_pg2xm"]
+script = ExtResource("11_uyinl")
+damage = 3.0
+times = 5
+time_alive = 5.0
+_ID = "test"
+color = Color(0.87486136, 0, 0, 1)
+metadata/_custom_type_script = "uid://bqo6ldsmwtpak"
+
+[sub_resource type="Resource" id="Resource_44e06"]
+script = ExtResource("12_10c2w")
+freeze_time = 3.0
+color = Color(0.26175386, 0.23036289, 1, 1)
+metadata/_custom_type_script = "uid://mwbdvayb2afl"
+
+[sub_resource type="Resource" id="Resource_4vuph"]
+script = ExtResource("14_gc57s")
+weight = 1.2
+effects = Array[ExtResource("10_5v6r0")]([SubResource("Resource_pg2xm"), SubResource("Resource_44e06")])
+icon = ExtResource("13_pg2xm")
+actions = SubResource("Resource_10c2w")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wdnak"]
 resource_local_to_scene = true
 size = Vector2(36, 4)
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_uyinl"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_h48ew"]
 resource_local_to_scene = true
 radius = 23.0
 
@@ -88,9 +121,6 @@ size = Vector2(14, 43)
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=743349263]
 
 [node name="InventoryUI" parent="CanvasLayer" unique_id=1800205673 instance=ExtResource("1_0sr1o")]
-
-[node name="Hotbar" parent="CanvasLayer/InventoryUI" index="1" unique_id=1822549158 node_paths=PackedStringArray("hotbar_component")]
-hotbar_component = NodePath("../../../YSort/Entities/Player/HotbarComponent")
 
 [node name="UIRoot" type="Control" parent="CanvasLayer" unique_id=1963380954]
 layout_mode = 3
@@ -119,7 +149,6 @@ position = Vector2(40, 44)
 
 [node name="HotbarComponent" parent="YSort/Entities/Player" index="7" unique_id=147460662]
 _items = Array[ExtResource("4_5i0tg")]([SubResource("Resource_stg1e"), SubResource("Resource_gc57s"), SubResource("Resource_63a6k"), null])
-crash_on_invalid_position = false
 
 [node name="Camera2D" type="Camera2D" parent="YSort/Entities/Player" unique_id=960320403]
 
@@ -138,14 +167,17 @@ shape = SubResource("RectangleShape2D_3xj4h")
 [node name="StaticPotion" parent="YSort/Machines/PotionsMixer/Potions" parent_id_path=PackedInt32Array(1111890572, 137565596) index="0" unique_id=802257725]
 data = ExtResource("5_lfrn8")
 
+[node name="StaticPotion2" parent="YSort/Machines/PotionsMixer/Potions" parent_id_path=PackedInt32Array(1111890572, 137565596) index="1" unique_id=101976393]
+data = SubResource("Resource_4vuph")
+
 [node name="StaticPotion3" parent="YSort/Machines/PotionsMixer/Potions" parent_id_path=PackedInt32Array(1111890572, 137565596) index="2" unique_id=294014163]
 data = ExtResource("6_bdhmt")
 
 [node name="Table" parent="YSort/Machines/PotionsMixer" index="4" unique_id=1472276424]
-shape = SubResource("RectangleShape2D_5v6r0")
+shape = SubResource("RectangleShape2D_wdnak")
 
 [node name="CollisionShape2D" parent="YSort/Machines/PotionsMixer/InteractionArea2D" parent_id_path=PackedInt32Array(1111890572, 1154205708) index="0" unique_id=1074173441]
-shape = SubResource("CircleShape2D_uyinl")
+shape = SubResource("CircleShape2D_h48ew")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="YSort/Machines" unique_id=1861170589]
 position = Vector2(76, 13)
@@ -165,6 +197,5 @@ metadata/_edit_lock_ = true
 [node name="PotionsMixer2" parent="YSort/Machines" unique_id=395485956 instance=ExtResource("16_3xj4h")]
 position = Vector2(-51, 0)
 
-[editable path="CanvasLayer/InventoryUI"]
 [editable path="YSort/Entities/Player"]
 [editable path="YSort/Machines/PotionsMixer"]

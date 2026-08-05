@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dveba1yoyt1tm" path="res://content/potion_effects/burn/burned_area_effect.gd" id="1_6nqlh"]
 [ext_resource type="Texture2D" uid="uid://c8rd6c18awaw6" path="res://content/potion_effects/burn/burned_area.png" id="2_h3u2l"]
-[ext_resource type="Script" uid="uid://dikmkfyvbtmds" path="res://components/hitbox_system/time_hitbox_component_2d.gd" id="3_6nqlh"]
+[ext_resource type="Script" uid="uid://dikmkfyvbtmds" path="res://components/hit_system/hitboxes/time_hitbox_component_2d.gd" id="3_6nqlh"]
 [ext_resource type="Script" uid="uid://76hfggre2bev" path="res://components/destination_system/reach_range_component.gd" id="4_1d2ir"]
 [ext_resource type="PackedScene" uid="uid://bbhuukstueh6y" path="res://content/potion_effects/burn/fire_particles.tscn" id="5_6nqlh"]
 
