@@ -39,7 +39,7 @@ z_as_relative = false
 y_sort_enabled = true
 
 [node name="Player" parent="YSort/Entities" unique_id=1606296388 instance=ExtResource("1_sul5r")]
-position = Vector2(43, 37)
+position = Vector2(64, 34)
 
 [node name="Camera2D" type="Camera2D" parent="YSort/Entities/Player" unique_id=960320403]
 
@@ -50,4 +50,4 @@ position = Vector2(250, 112)
 y_sort_enabled = true
 
 [node name="PotionsMixer2" parent="YSort/Machines" unique_id=395485956 instance=ExtResource("16_3xj4h")]
-position = Vector2(80, 30)
+position = Vector2(120, 41)

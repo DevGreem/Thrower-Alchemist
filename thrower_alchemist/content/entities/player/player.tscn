@@ -26,15 +26,15 @@
 shader = ExtResource("1_4rie3")
 shader_parameter/EffectColor = Color(1, 1, 1, 1)
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_obaep"]
+radius = 3.0
+
 [sub_resource type="Resource" id="Resource_awhl2"]
 script = ExtResource("9_2m54q")
 metadata/_custom_type_script = "uid://54lkyexoh7xb"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_obaep"]
 size = Vector2(12, 24)
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_obaep"]
-radius = 4.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_g04yl"]
 radius = 13.038404
@@ -49,6 +49,11 @@ script = ExtResource("1_piw5s")
 material = SubResource("ShaderMaterial_y5q02")
 texture = ExtResource("1_e50yv")
 offset = Vector2(0, -12)
+
+[node name="Collision" type="CollisionShape2D" parent="." unique_id=1053479339]
+z_index = 1
+position = Vector2(0, -4)
+shape = SubResource("CircleShape2D_obaep")
 
 [node name="HealthComponent" type="Node" parent="." unique_id=294361878 node_paths=PackedStringArray("actor")]
 script = ExtResource("4_t4ell")
@@ -65,23 +70,6 @@ script = ExtResource("6_0aorw")
 tags = Array[ExtResource("7_wlmkn")]([SubResource("Resource_awhl2")])
 metadata/_custom_type_script = "uid://dfauhidejrw1c"
 
-[node name="HurtboxComponent2D" type="Area2D" parent="." unique_id=1236442513 node_paths=PackedStringArray("health_component", "actor")]
-collision_layer = 66
-collision_mask = 0
-script = ExtResource("5_55yfw")
-health_component = NodePath("../HealthComponent")
-actor = NodePath("..")
-inmunity_time = 0.5
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent2D" unique_id=304227575]
-position = Vector2(0, -12)
-shape = SubResource("RectangleShape2D_obaep")
-debug_color = Color(0.8294658, 0.3909105, 0.14149457, 0.41960785)
-
-[node name="Collision" type="CollisionShape2D" parent="." unique_id=1053479339]
-position = Vector2(0, -4)
-shape = SubResource("CircleShape2D_obaep")
-
 [node name="InventoryComponent" type="Node" parent="." unique_id=600584459]
 script = ExtResource("6_r5tfu")
 
@@ -90,6 +78,32 @@ script = ExtResource("7_t2p4e")
 spaces = 4
 _items = Array[ExtResource("7_g15rv")]([null, null, null, null])
 metadata/_custom_type_script = "uid://bbmbnjuagm1l4"
+
+[node name="Areas" type="Node" parent="." unique_id=841309645]
+
+[node name="HurtboxComponent2D" type="Area2D" parent="Areas" unique_id=1236442513 node_paths=PackedStringArray("health_component", "actor")]
+visible = false
+collision_layer = 66
+collision_mask = 0
+script = ExtResource("5_55yfw")
+health_component = NodePath("../../HealthComponent")
+actor = NodePath("../..")
+inmunity_time = 0.5
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Areas/HurtboxComponent2D" unique_id=304227575]
+position = Vector2(0, -12)
+shape = SubResource("RectangleShape2D_obaep")
+debug_color = Color(0.8294658, 0.3909105, 0.14149457, 0.41960785)
+
+[node name="InteractArea" type="Area2D" parent="Areas" unique_id=1364199099]
+visible = false
+collision_layer = 0
+collision_mask = 256
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Areas/InteractArea" unique_id=1476750933]
+position = Vector2(0, -12)
+shape = SubResource("CircleShape2D_g04yl")
+debug_color = Color(0.5855257, 0.6578363, 0, 0.41960785)
 
 [node name="Inputs" type="Node" parent="." unique_id=209227326]
 script = ExtResource("10_twvcw")
@@ -127,17 +141,8 @@ metadata/_custom_type_script = "uid://bo0xfdfx62t0i"
 
 [node name="InteractComponent2D" type="Node2D" parent="." unique_id=1404492988 node_paths=PackedStringArray("interact_area")]
 script = ExtResource("19_h0d63")
-interact_area = NodePath("Area2D")
+interact_area = NodePath("../Areas/InteractArea")
 metadata/_custom_type_script = "uid://c3dkm3li8244q"
-
-[node name="Area2D" type="Area2D" parent="InteractComponent2D" unique_id=1364199099]
-collision_layer = 0
-collision_mask = 256
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractComponent2D/Area2D" unique_id=1476750933]
-position = Vector2(0, -12)
-shape = SubResource("CircleShape2D_g04yl")
-debug_color = Color(0.5855257, 0.6578363, 0, 0.41960785)
 
 [node name="Label" type="Label" parent="InteractComponent2D" unique_id=2043128201 node_paths=PackedStringArray("interact_component")]
 visible = false

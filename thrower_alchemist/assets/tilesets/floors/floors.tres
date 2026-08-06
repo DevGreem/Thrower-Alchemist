@@ -1,18 +1,26 @@
 [gd_resource type="TileSet" format=3 uid="uid://dvccs0rdkm3jy"]
 
-[ext_resource type="Texture2D" uid="uid://c142ydh3y1g6j" path="res://assets/tilesets/floors/tile_floor1.png" id="1_71k6k"]
+[ext_resource type="Texture2D" uid="uid://c142ydh3y1g6j" path="res://assets/tilesets/floors/tile_floor1.png" id="1_kflk7"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_7g82c"]
-texture = ExtResource("1_71k6k")
+texture = ExtResource("1_kflk7")
 texture_region_size = Vector2i(8, 8)
 0:0/next_alternative_id = 11
 0:0/0 = 0
 0:0/10 = 10
 0:0/10/probability = 0.05
-1:0/next_alternative_id = 5
+1:0/next_alternative_id = 8
 1:0/0 = 0
 1:0/4 = 4
 1:0/4/probability = 0.05
+1:0/5 = 5
+1:0/5/flip_h = true
+1:0/5/probability = 0.05
+1:0/6 = 6
+1:0/6/flip_v = true
+1:0/7 = 7
+1:0/7/flip_h = true
+1:0/7/flip_v = true
 2:0/next_alternative_id = 4
 2:0/0 = 0
 2:0/3 = 3

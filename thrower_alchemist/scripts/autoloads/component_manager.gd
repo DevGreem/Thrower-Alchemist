@@ -4,11 +4,10 @@ extends Node
 var _components_cache: Dictionary[Node, Dictionary] = {}
 
 ## [parameter type] must be a type
-func get_component(node: Node, type: Variant, internal: bool = false) -> Node:
+func get_component(node: Node, type: Variant, recursive: bool = false, internal: bool = false) -> Node:
 	
 	if not is_instance_valid(node):
 		return null
-
 	
 	var cache: CacheStatus = _get_component_cache(node, type)
 	
@@ -19,6 +18,36 @@ func get_component(node: Node, type: Variant, internal: bool = false) -> Node:
 		if is_instance_of(child, type):
 			_add_component_cache(node, type, child)
 			return child
+		
+		if not recursive:
+			continue
+		
+		var ans: Node =_recursive_get_component(node, child, type, internal)
+		
+		if ans:
+			return ans
+	
+	_add_component_cache(node, type, null)
+	return null
+
+func _recursive_get_component(parent: Node, node: Node, type: Variant, internal: bool = false) -> Node:
+	
+	if not is_instance_valid(parent) or not is_instance_valid(node):
+		return null
+	
+	var cache: CacheStatus = _get_component_cache(node, type)
+	
+	if cache.is_cached:
+		return cache.value as Node
+	
+	for child: Node in node.get_children():
+		
+		if is_instance_of(child, type):
+			_add_component_cache(parent, type, child)
+			_add_component_cache(node, type, child)
+			return child
+		
+		_recursive_get_component(parent, child, type, internal)
 	
 	_add_component_cache(node, type, null)
 	return null

@@ -59,13 +59,14 @@ script = ExtResource("2_4cy7q")
 [sub_resource type="BTWait" id="BTWait_4cy7q"]
 
 [sub_resource type="BTSequence" id="BTSequence_g1atm"]
+custom_name = "Follow Entity"
 children = [SubResource("BTCondition_i8hy7"), SubResource("BTCheckVar_bvxmc"), SubResource("BTAction_4cy7q"), SubResource("BTPlayAnimation_g1atm"), SubResource("BTAwaitAnimation_5m4o5"), SubResource("BTAction_g1atm"), SubResource("BTWait_4cy7q")]
 
 [sub_resource type="BTAction" id="BTAction_i8hy7"]
 script = ExtResource("2_4cy7q")
 
 [sub_resource type="BTSelector" id="BTSelector_5m4o5"]
-custom_name = "Follow Entity"
+custom_name = "Move"
 children = [SubResource("BTSequence_g1atm"), SubResource("BTAction_i8hy7")]
 
 [sub_resource type="BTSequence" id="BTSequence_rn0cl"]
