@@ -25,7 +25,9 @@ signal died
 		max_health_changed.emit(max_health, value)
 		max_health = value
 
-@export var health: float:
+@export var start_health: float = -1.0
+
+var health: float:
 	set(value):
 		
 		if only_int:
@@ -43,9 +45,16 @@ signal died
 		
 		_verify_die()
 
+func _ready() -> void:
+	
+	if start_health == -1.0:
+		health = max_health
+	else:
+		health = start_health
+
 func _verify_die() -> void:
 	
-	if health > 0:
+	if health > 0.0:
 		return
 	
 	died.emit()

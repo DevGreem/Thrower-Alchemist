@@ -7,8 +7,7 @@ class_name SlimeNode
 
 func _ready() -> void:
 	
-	behavior.blackboard.set_var("entities_cantity", 0)
-	behavior.blackboard.set_var("attack_entity", null)
+	behavior.blackboard_plan.create_blackboard(self)
 	
 	if not vision_component.entity_entered.is_connected(_on_entity_detected):
 		vision_component.entity_entered.connect(_on_entity_detected)
@@ -27,6 +26,6 @@ func _set_attack_entities() -> void:
 	behavior.blackboard.set_var("entities_cantity", arr.size())
 	
 	if arr.size() > 0:
-		behavior.blackboard.set_var("attack_entity", arr.front())
+		behavior.blackboard.set_var("target", arr.front())
 	else:
-		behavior.blackboard.set_var("attack_entity", null)
+		behavior.blackboard.set_var("target", null)

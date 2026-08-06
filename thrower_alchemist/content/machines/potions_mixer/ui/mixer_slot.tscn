@@ -1,0 +1,87 @@
+[gd_scene format=3 uid="uid://cv3h2l464xw3e"]
+
+[ext_resource type="Script" uid="uid://b03i6gk6y3sq1" path="res://content/machines/potions_mixer/ui/mixer_slot.gd" id="1_mbxn4"]
+[ext_resource type="Texture2D" uid="uid://dpphmkh2rnqvp" path="res://content/potions/empty_potion.png" id="2_tkyll"]
+[ext_resource type="Script" uid="uid://d10ll63pv3u3p" path="res://content/potions/potion_icon_component.gd" id="3_isycf"]
+[ext_resource type="Script" uid="uid://citt3bcswolbo" path="res://components/animation_system/tweener_tree.gd" id="5_fr462"]
+[ext_resource type="Script" uid="uid://6y1cd60i2cyt" path="res://components/animation_system/tweener_action.gd" id="6_a5wpn"]
+
+[node name="MixerSlot" type="Panel" unique_id=1896267683 node_paths=PackedStringArray("potion_icon")]
+pivot_offset_ratio = Vector2(0.5, 0.5)
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_default_cursor_shape = 2
+script = ExtResource("1_mbxn4")
+potion_icon = NodePath("PotionIconComponent")
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=1155711705]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_tkyll")
+
+[node name="PotionIconComponent" type="Node" parent="." unique_id=1153713462 node_paths=PackedStringArray("icon_node")]
+script = ExtResource("3_isycf")
+icon_node = NodePath("../TextureRect")
+metadata/_custom_type_script = "uid://d10ll63pv3u3p"
+
+[node name="MouseEntered" type="Node" parent="." unique_id=1659657823 node_paths=PackedStringArray("node")]
+script = ExtResource("5_fr462")
+on_execute_signal = &"mouse_entered"
+node = NodePath("..")
+metadata/_custom_type_script = "uid://citt3bcswolbo"
+
+[node name="ScaleUp" type="Node" parent="MouseEntered" unique_id=962987852 node_paths=PackedStringArray("node")]
+script = ExtResource("6_a5wpn")
+property_to_change = "scale"
+to = Vector2(1.05, 1.05)
+duration = 0.1
+add_ease = false
+add_transition = false
+node = NodePath("../..")
+metadata/_custom_type_script = "uid://6y1cd60i2cyt"
+
+[node name="AddBright" type="Node" parent="MouseEntered" unique_id=1918389280 node_paths=PackedStringArray("node")]
+script = ExtResource("6_a5wpn")
+property_to_change = "modulate"
+to = Color(1.25516, 1.25516, 1.25516, 1)
+duration = 0.1
+add_ease = false
+add_transition = false
+node = NodePath("../..")
+metadata/_custom_type_script = "uid://6y1cd60i2cyt"
+
+[node name="MouseExited" type="Node" parent="." unique_id=2125532528 node_paths=PackedStringArray("node")]
+script = ExtResource("5_fr462")
+on_execute_signal = &"mouse_exited"
+node = NodePath("..")
+metadata/_custom_type_script = "uid://citt3bcswolbo"
+
+[node name="ScaleDown" type="Node" parent="MouseExited" unique_id=141598626 node_paths=PackedStringArray("node")]
+script = ExtResource("6_a5wpn")
+property_to_change = "scale"
+to = Vector2(1, 1)
+duration = 0.1
+add_ease = false
+add_transition = false
+node = NodePath("../..")
+metadata/_custom_type_script = "uid://6y1cd60i2cyt"
+
+[node name="RemoveBright" type="Node" parent="MouseExited" unique_id=1366160801 node_paths=PackedStringArray("node")]
+script = ExtResource("6_a5wpn")
+property_to_change = "modulate"
+to = Color(1, 1, 1, 1)
+duration = 0.1
+add_ease = false
+add_transition = false
+node = NodePath("../..")
+metadata/_custom_type_script = "uid://6y1cd60i2cyt"

@@ -19,18 +19,21 @@ script = ExtResource("2_0cie3")
 use = SubResource("Resource_iijxw")
 interact = SubResource("Resource_pae1y")
 
-[sub_resource type="Resource" id="Resource_s3gvr"]
+[sub_resource type="Resource" id="Resource_g1atm"]
 script = ExtResource("2_e2n8g")
 damage = 3.0
 times = 5
 time_alive = 5.0
-color = Color(0.87486136, 0, 0, 1)
+_ID = "burn_effect"
+id = "burn_effect"
+_COLOR = Color(1, 0.27058825, 0, 1)
+color = Color(1, 0.27058825, 0, 1)
 metadata/_custom_type_script = "uid://bqo6ldsmwtpak"
 
 [resource]
 script = ExtResource("2_bqqku")
 weight = 1.5
-effects = Array[ExtResource("1_yf3ll")]([SubResource("Resource_s3gvr")])
+effects = Array[ExtResource("1_yf3ll")]([SubResource("Resource_g1atm")])
 _ID = "fire_potion"
 icon = ExtResource("3_e2n8g")
 name = "Potion"

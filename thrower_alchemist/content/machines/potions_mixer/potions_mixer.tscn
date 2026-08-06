@@ -1,0 +1,88 @@
+[gd_scene format=3 uid="uid://dahowibt6esi1"]
+
+[ext_resource type="Script" uid="uid://dc6pfykmjucc3" path="res://content/machines/potions_mixer/potions_mixer.gd" id="1_afgo1"]
+[ext_resource type="Texture2D" uid="uid://dhxev543kcutk" path="res://content/machines/potions_mixer/potions_mixer.png" id="1_dm4r4"]
+[ext_resource type="PackedScene" uid="uid://bp0q1lig48ynw" path="res://content/potions/static_potion.tscn" id="2_g867q"]
+[ext_resource type="Script" uid="uid://ditbeykj0vfd4" path="res://components/hit_system/health_component.gd" id="2_wiryu"]
+[ext_resource type="Script" uid="uid://bqx8hyj121gcl" path="res://components/hit_system/hurtbox_component_2d.gd" id="3_o21ci"]
+[ext_resource type="Script" uid="uid://cxehsl4at72q" path="res://components/debug_components/debug_camera_2d.gd" id="12_uacgq"]
+[ext_resource type="Script" uid="uid://dk0pi828tayhh" path="res://components/interaction_system/interact_area_2d.gd" id="13_343vw"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bhjjj"]
+resource_local_to_scene = true
+size = Vector2(35, 12)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_syjmg"]
+resource_local_to_scene = true
+size = Vector2(36, 4)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_o21ci"]
+resource_local_to_scene = true
+radius = 23.0
+
+[node name="PotionsMixer" type="StaticBody2D" unique_id=1111890572 node_paths=PackedStringArray("input_potions", "output_potion", "interaction_area")]
+y_sort_enabled = true
+collision_mask = 0
+script = ExtResource("1_afgo1")
+input_potions = [NodePath("Potions/StaticPotion"), NodePath("Potions/StaticPotion3")]
+output_potion = NodePath("Potions/StaticPotion2")
+interaction_area = NodePath("InteractionArea2D")
+
+[node name="HealthComponent" type="Node" parent="." unique_id=313259797 node_paths=PackedStringArray("actor")]
+script = ExtResource("2_wiryu")
+actor = NodePath("..")
+free_actor_on_die = true
+max_health = 15.0
+metadata/_custom_type_script = "uid://ditbeykj0vfd4"
+
+[node name="HurtboxComponent2D" type="Area2D" parent="." unique_id=1417987659 node_paths=PackedStringArray("health_component", "actor")]
+collision_mask = 0
+script = ExtResource("3_o21ci")
+health_component = NodePath("../HealthComponent")
+actor = NodePath("..")
+inmunity_time = 0.5
+metadata/_custom_type_script = "uid://bqx8hyj121gcl"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent2D" unique_id=179810655]
+position = Vector2(-0.5, -13)
+shape = SubResource("RectangleShape2D_bhjjj")
+debug_color = Color(0.70196074, 0.27211767, 0, 0.41960785)
+
+[node name="Sprite" type="Sprite2D" parent="." unique_id=898607811]
+y_sort_enabled = true
+texture = ExtResource("1_dm4r4")
+offset = Vector2(0, -12)
+
+[node name="Potions" type="Node2D" parent="." unique_id=137565596]
+y_sort_enabled = true
+position = Vector2(2, -11)
+
+[node name="StaticPotion" parent="Potions" unique_id=802257725 instance=ExtResource("2_g867q")]
+position = Vector2(-10, 0)
+
+[node name="StaticPotion2" parent="Potions" unique_id=101976393 instance=ExtResource("2_g867q")]
+
+[node name="StaticPotion3" parent="Potions" unique_id=294014163 instance=ExtResource("2_g867q")]
+position = Vector2(10, 0)
+
+[node name="Table" type="CollisionShape2D" parent="." unique_id=1472276424]
+z_index = 1
+position = Vector2(0, -9)
+shape = SubResource("RectangleShape2D_syjmg")
+
+[node name="DebugCamera2D" type="Camera2D" parent="." unique_id=978666730]
+enabled = false
+editor_draw_screen = false
+script = ExtResource("12_uacgq")
+metadata/_custom_type_script = "uid://cxehsl4at72q"
+
+[node name="InteractionArea2D" type="Area2D" parent="." unique_id=1154205708]
+collision_layer = 256
+collision_mask = 0
+script = ExtResource("13_343vw")
+interact_name = "Mix Potions"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea2D" unique_id=1074173441]
+position = Vector2(0, -9)
+shape = SubResource("CircleShape2D_o21ci")
+debug_color = Color(0.6841424, 0.5206158, 0, 0.41960785)

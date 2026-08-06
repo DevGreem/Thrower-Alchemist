@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="PotionEffectConnection" format=3 uid="uid://buknf082k848h"]
+
+[ext_resource type="Script" uid="uid://bjrdp2gyn7hjw" path="res://resources/potions/potion_effect_connection.gd" id="1_xjgoc"]
+
+[resource]
+script = ExtResource("1_xjgoc")
+left = "burn_effect"
+right = "ice_effect"
+metadata/_custom_type_script = "uid://bjrdp2gyn7hjw"

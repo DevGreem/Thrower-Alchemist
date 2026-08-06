@@ -1,14 +1,14 @@
-extends Node2D
+extends CharacterBody2D
 
 class_name PotionNode
 
-@onready var sprite: Sprite2D = $Sprite
 @onready var move_component: MoveComponent2D = $%MoveComponent2D
 @onready var reach_distance_component: ReachDistanceComponent2D = $%ReachDistanceComponent2D
 @onready var collision_detector_component: CollisionDetectorComponent2D = $CollisionDetectorComponent2D
 
 @export var actor: Node2D
 @export var data: PotionData
+@export var potion_icon_component: PotionIconComponent
 
 static func generate(_actor: Node2D, _data: PotionData) -> PotionNode:
 	
@@ -29,7 +29,7 @@ func _update_data() -> void:
 	if not data:
 		return
 	
-	sprite.self_modulate = data.get_potion_color()
+	potion_icon_component.set_color(data)
 	
 	reach_distance_component.reach_distance /= data.weight
 
@@ -40,7 +40,6 @@ func _on_reach() -> void:
 	
 	self.queue_free()
 
-## TODO: make effect when the potion collide with an enemy (or a wall)
 func _make_effect(effect: PotionEffect) -> void:
 	effect.throw_effect(actor, self)
 

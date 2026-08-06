@@ -1,3 +1,4 @@
+@tool
 extends PotionEffect
 
 class_name IceEffect
@@ -5,6 +6,10 @@ class_name IceEffect
 @export var freeze_time: float
 
 const META_ID: String = "freeze_counter"
+
+func _init() -> void:
+	_ID = "ice_effect"
+	_COLOR = Color.BLUE
 
 func drink_effect(actor: Node2D) -> void:
 	_freeze_actor(actor)
@@ -74,6 +79,9 @@ func _start_freeze(actor: Node2D) -> bool:
 	_set_sprite_effect(actor, Color.BLUE)
 	
 	await actor.get_tree().create_timer(freeze_time).timeout
+	
+	if not is_instance_valid(actor):
+		return false
 	
 	if _counter != actor.get_meta(META_ID, null):
 		return false

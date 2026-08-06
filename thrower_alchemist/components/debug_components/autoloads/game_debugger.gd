@@ -1,3 +1,4 @@
+@tool
 extends Node
 
 func debug(title: Script, message: String, force_show: bool = false, type: DebugType.Enum = DebugType.Enum.LOG) -> void:

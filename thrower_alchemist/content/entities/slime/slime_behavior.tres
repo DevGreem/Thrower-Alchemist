@@ -1,6 +1,7 @@
 [gd_resource type="BehaviorTree" format=3 uid="uid://b1oxj1nxmxgb0"]
 
 [ext_resource type="Script" uid="uid://cmniwp17wfvlg" path="res://ai/tasks/follow_target.gd" id="1_bvxmc"]
+[ext_resource type="Script" uid="uid://ddmb6y0yg5fx5" path="res://ai/tasks/check_node_var.gd" id="1_g1atm"]
 [ext_resource type="Script" uid="uid://cqkcd0r63fmfm" path="res://ai/tasks/stop_movement.gd" id="2_4cy7q"]
 
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_sc8da"]
@@ -15,6 +16,13 @@ var/entities_cantity/value = 0
 var/entities_cantity/hint = 0
 var/entities_cantity/hint_string = ""
 
+[sub_resource type="BTCondition" id="BTCondition_i8hy7"]
+script = ExtResource("1_g1atm")
+node = NodePath("MoveComponent2D")
+property = &"can_move"
+check_type = "=="
+value = true
+
 [sub_resource type="BBVariant" id="BBVariant_ne83a"]
 type = 2
 saved_value = 0
@@ -27,7 +35,6 @@ value = SubResource("BBVariant_ne83a")
 
 [sub_resource type="BTAction" id="BTAction_4cy7q"]
 script = ExtResource("1_bvxmc")
-target_var = "attack_entity"
 
 [sub_resource type="BBNode" id="BBNode_4cy7q"]
 saved_value = NodePath("AnimationPlayer")
@@ -46,10 +53,13 @@ animation_player = SubResource("BBNode_i8hy7")
 animation_name = &"jumping"
 max_time = 5.0
 
+[sub_resource type="BTAction" id="BTAction_g1atm"]
+script = ExtResource("2_4cy7q")
+
 [sub_resource type="BTWait" id="BTWait_4cy7q"]
 
 [sub_resource type="BTSequence" id="BTSequence_g1atm"]
-children = [SubResource("BTCheckVar_bvxmc"), SubResource("BTAction_4cy7q"), SubResource("BTPlayAnimation_g1atm"), SubResource("BTAwaitAnimation_5m4o5"), SubResource("BTWait_4cy7q")]
+children = [SubResource("BTCondition_i8hy7"), SubResource("BTCheckVar_bvxmc"), SubResource("BTAction_4cy7q"), SubResource("BTPlayAnimation_g1atm"), SubResource("BTAwaitAnimation_5m4o5"), SubResource("BTAction_g1atm"), SubResource("BTWait_4cy7q")]
 
 [sub_resource type="BTAction" id="BTAction_i8hy7"]
 script = ExtResource("2_4cy7q")

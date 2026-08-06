@@ -10,7 +10,8 @@ enum Enum {
 	EXPLOSSIONS = 5,
 	DAMAGE_BOXES = 6,
 	PLAYERS = 7,
-	VISION_BLOCKERS = 8
+	VISION_BLOCKERS = 8,
+	INTERACTIONS = 9
 }
 
 static func mask(layer: Enum) -> int:
