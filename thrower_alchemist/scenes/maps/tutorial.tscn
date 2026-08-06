@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://ctim88ddanme6"]
+
+[ext_resource type="TileSet" uid="uid://dvccs0rdkm3jy" path="res://assets/tilesets/floor1.tres" id="1_fx4e1"]
+
+[node name="Tutorial" type="Node2D" unique_id=123151583]
+y_sort_enabled = true
+
+[node name="World" type="Node" parent="." unique_id=896626261]
+
+[node name="Walls" type="TileMapLayer" parent="World" unique_id=368726191]
+
+[node name="Floor" type="TileMapLayer" parent="World" unique_id=1133568298]
+tile_set = ExtResource("1_fx4e1")
+
+[node name="Machines" type="Node2D" parent="." unique_id=2002651479]
+y_sort_enabled = true
+
+[node name="Spawners" type="Node" parent="." unique_id=1912375907]
