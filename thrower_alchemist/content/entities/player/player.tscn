@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://drdxj65bd6jak" path="res://components/input_system/move_input_component_2d.gd" id="3_lwocm"]
 [ext_resource type="Script" uid="uid://ditbeykj0vfd4" path="res://components/hit_system/health_component.gd" id="4_t4ell"]
 [ext_resource type="Script" uid="uid://bqx8hyj121gcl" path="res://components/hit_system/hurtbox_component_2d.gd" id="5_55yfw"]
+[ext_resource type="Script" uid="uid://bgjv2k7xs1aop" path="res://content/entities/player/flip_component.gd" id="5_d0m51"]
 [ext_resource type="Script" uid="uid://dfauhidejrw1c" path="res://components/tags_system/tags_component.gd" id="6_0aorw"]
 [ext_resource type="Script" uid="uid://yeaja8p4wyux" path="res://components/inventory_system/scripts/inventory_component.gd" id="6_r5tfu"]
 [ext_resource type="Script" uid="uid://d1fyt18vlv7pq" path="res://components/inventory_system/resources/inventory_item_instance.gd" id="7_g15rv"]
@@ -60,6 +61,11 @@ script = ExtResource("4_t4ell")
 actor = NodePath("..")
 max_health = 25.0
 
+[node name="FlipComponent2D" type="Node" parent="." unique_id=71585832 node_paths=PackedStringArray("move_component", "sprite")]
+script = ExtResource("5_d0m51")
+move_component = NodePath("../MoveComponent2D")
+sprite = NodePath("../Sprite")
+
 [node name="MoveComponent2D" type="Node" parent="." unique_id=1338874261 node_paths=PackedStringArray("actor")]
 script = ExtResource("2_cp3qr")
 actor = NodePath("..")
@@ -79,10 +85,9 @@ spaces = 4
 _items = Array[ExtResource("7_g15rv")]([null, null, null, null])
 metadata/_custom_type_script = "uid://bbmbnjuagm1l4"
 
-[node name="Areas" type="Node" parent="." unique_id=841309645]
+[node name="Areas" type="Node2D" parent="." unique_id=40561696]
 
 [node name="HurtboxComponent2D" type="Area2D" parent="Areas" unique_id=1236442513 node_paths=PackedStringArray("health_component", "actor")]
-visible = false
 collision_layer = 66
 collision_mask = 0
 script = ExtResource("5_55yfw")
@@ -96,7 +101,6 @@ shape = SubResource("RectangleShape2D_obaep")
 debug_color = Color(0.8294658, 0.3909105, 0.14149457, 0.41960785)
 
 [node name="InteractArea" type="Area2D" parent="Areas" unique_id=1364199099]
-visible = false
 collision_layer = 0
 collision_mask = 256
 

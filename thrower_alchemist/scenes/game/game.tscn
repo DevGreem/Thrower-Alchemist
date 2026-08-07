@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://ctim88ddanme6" path="res://scenes/maps/tutorial.tscn" id="1_5v6r0"]
 [ext_resource type="PackedScene" uid="uid://b2spclcrcu1hs" path="res://content/entities/player/player.tscn" id="1_sul5r"]
 [ext_resource type="Script" uid="uid://5eysrwqfki0n" path="res://components/ui_system/ui_root.gd" id="3_5v6r0"]
+[ext_resource type="Script" uid="uid://dioel84pp6qle" path="res://components/toggle_game_hide_util_node.gd" id="5_bdhmt"]
 [ext_resource type="PackedScene" uid="uid://bxwnq63ta4kfx" path="res://content/entities/slime/slime.tscn" id="15_otnwt"]
 [ext_resource type="PackedScene" uid="uid://dahowibt6esi1" path="res://content/machines/potions_mixer/potions_mixer.tscn" id="16_3xj4h"]
 
@@ -42,6 +43,17 @@ y_sort_enabled = true
 position = Vector2(64, 34)
 
 [node name="Camera2D" type="Camera2D" parent="YSort/Entities/Player" unique_id=960320403]
+
+[node name="ColorRect" type="ColorRect" parent="YSort/Entities/Player/Camera2D" unique_id=761001759]
+visible = false
+z_index = -101
+offset_left = -128.0
+offset_top = -72.0
+offset_right = 128.0
+offset_bottom = 73.0
+color = Color(0.23137255, 0.09019608, 0.14509805, 1)
+script = ExtResource("5_bdhmt")
+hide_in_game = false
 
 [node name="Slime" parent="YSort/Entities" unique_id=1014770967 instance=ExtResource("15_otnwt")]
 position = Vector2(250, 112)

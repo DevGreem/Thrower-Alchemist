@@ -66,6 +66,7 @@ func _on_body_exited(body: Node2D) -> void:
 func _on_hurtbox_entered(area: Area2D) -> void:
 	
 	if area is HurtboxComponent2D:
+		GameDebugger.debug_log(VisionComponent2D, "Detected hurtbox of " + str(area.actor))
 		_on_body_entered(area.actor as Node2D)
 
 func _on_hurtbox_exited(area: Area2D) -> void:
