@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Thrower Alchemist"
-run/main_scene="uid://dl6qcrq8i5xm0"
+run/main_scene="uid://d0efybbjr5lxn"
 config/features=PackedStringArray("4.7", "Forward Plus")
 config/icon="res://icon.svg"
 

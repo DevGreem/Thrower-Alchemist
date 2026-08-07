@@ -37,8 +37,8 @@ metadata/_custom_type_script = "uid://54lkyexoh7xb"
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_obaep"]
 size = Vector2(12, 24)
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_g04yl"]
-radius = 13.038404
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g1atm"]
+size = Vector2(20, 12)
 
 [node name="Player" type="CharacterBody2D" unique_id=1606296388 groups=["player"]]
 y_sort_enabled = true
@@ -105,8 +105,8 @@ collision_layer = 0
 collision_mask = 256
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Areas/InteractArea" unique_id=1476750933]
-position = Vector2(0, -12)
-shape = SubResource("CircleShape2D_g04yl")
+position = Vector2(0, -4)
+shape = SubResource("RectangleShape2D_g1atm")
 debug_color = Color(0.5855257, 0.6578363, 0, 0.41960785)
 
 [node name="Inputs" type="Node" parent="." unique_id=209227326]
@@ -138,13 +138,15 @@ actor = NodePath("../..")
 ignore_manager = true
 metadata/_custom_type_script = "uid://bl4331iyoi3u2"
 
-[node name="InteractWorldInput" type="Node" parent="Inputs" unique_id=725035905 node_paths=PackedStringArray("interact_component")]
+[node name="InteractWorldInput" type="Node" parent="Inputs" unique_id=725035905 node_paths=PackedStringArray("interact_component", "actor")]
 script = ExtResource("19_2m54q")
 interact_component = NodePath("../../InteractComponent2D")
+actor = NodePath("../..")
 metadata/_custom_type_script = "uid://bo0xfdfx62t0i"
 
-[node name="InteractComponent2D" type="Node2D" parent="." unique_id=1404492988 node_paths=PackedStringArray("interact_area")]
+[node name="InteractComponent2D" type="Node2D" parent="." unique_id=1404492988 node_paths=PackedStringArray("actor", "interact_area")]
 script = ExtResource("19_h0d63")
+actor = NodePath("..")
 interact_area = NodePath("../Areas/InteractArea")
 metadata/_custom_type_script = "uid://c3dkm3li8244q"
 

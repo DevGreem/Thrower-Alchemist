@@ -1,0 +1,88 @@
+[gd_scene format=3 uid="uid://ce7q32878qtvu"]
+
+[ext_resource type="Texture2D" uid="uid://o5rib67dxxm0" path="res://content/entities/tutorial_dummy/tutorial_dummy.png" id="1_u070d"]
+[ext_resource type="Script" uid="uid://ditbeykj0vfd4" path="res://components/hit_system/health_component.gd" id="2_im0wv"]
+[ext_resource type="Script" uid="uid://bqx8hyj121gcl" path="res://components/hit_system/hurtbox_component_2d.gd" id="3_k08vs"]
+[ext_resource type="Script" uid="uid://bkloujx624lh4" path="res://components/hit_system/collision_detector_component_2d.gd" id="4_im0wv"]
+[ext_resource type="Script" uid="uid://citt3bcswolbo" path="res://components/animation_system/tweener_tree.gd" id="6_u2pnx"]
+[ext_resource type="Script" uid="uid://6y1cd60i2cyt" path="res://components/animation_system/tweener_action.gd" id="7_jvifw"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g04yl"]
+size = Vector2(8, 10)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_obaep"]
+size = Vector2(12, 10)
+
+[node name="TutorialDummy" type="Node2D" unique_id=1223026451]
+y_sort_enabled = true
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=141246718]
+texture = ExtResource("1_u070d")
+offset = Vector2(0, -8)
+
+[node name="HealthComponent" type="Node" parent="." unique_id=1292650634]
+script = ExtResource("2_im0wv")
+metadata/_custom_type_script = "uid://ditbeykj0vfd4"
+
+[node name="HurtboxComponent2D" type="Area2D" parent="." unique_id=1618844333 node_paths=PackedStringArray("health_component", "actor")]
+script = ExtResource("3_k08vs")
+health_component = NodePath("../HealthComponent")
+actor = NodePath("..")
+invincible = true
+metadata/_custom_type_script = "uid://bqx8hyj121gcl"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent2D" unique_id=1143222310]
+position = Vector2(0, -5)
+shape = SubResource("RectangleShape2D_g04yl")
+debug_color = Color(0.70196074, 0.22661354, 0, 0.41960785)
+
+[node name="CollisionDetectorComponent2D" type="Area2D" parent="." unique_id=1912031188 node_paths=PackedStringArray("actor")]
+collision_layer = 0
+collision_mask = 106
+script = ExtResource("4_im0wv")
+actor = NodePath("..")
+detect_hurtboxes = true
+metadata/_custom_type_script = "uid://bkloujx624lh4"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CollisionDetectorComponent2D" unique_id=353196935]
+position = Vector2(0, -5)
+shape = SubResource("RectangleShape2D_obaep")
+
+[node name="TweenerTree" type="Node" parent="." unique_id=31571565 node_paths=PackedStringArray("node")]
+script = ExtResource("6_u2pnx")
+on_execute_signal = &"collision_detected"
+node = NodePath("../CollisionDetectorComponent2D")
+metadata/_custom_type_script = "uid://citt3bcswolbo"
+
+[node name="TweenerAction" type="Node" parent="TweenerTree" unique_id=1925654914 node_paths=PackedStringArray("node")]
+script = ExtResource("7_jvifw")
+property_to_change = "rotation_degrees"
+from = false
+to = -20.0
+duration = 0.1
+ease_type = 1
+add_transition = false
+node = NodePath("../../Sprite2D")
+metadata/_custom_type_script = "uid://6y1cd60i2cyt"
+
+[node name="TweenerAction2" type="Node" parent="TweenerTree" unique_id=737109462 node_paths=PackedStringArray("node", "await_animators")]
+script = ExtResource("7_jvifw")
+property_to_change = "rotation_degrees"
+from = null
+to = 20.0
+duration = 0.2
+ease_type = 2
+add_transition = false
+node = NodePath("../../Sprite2D")
+await_animators = [NodePath("../TweenerAction")]
+metadata/_custom_type_script = "uid://6y1cd60i2cyt"
+
+[node name="TweenerAction3" type="Node" parent="TweenerTree" unique_id=578337508 node_paths=PackedStringArray("node", "await_animators")]
+script = ExtResource("7_jvifw")
+property_to_change = "rotation_degrees"
+from = null
+duration = 0.1
+add_transition = false
+node = NodePath("../../Sprite2D")
+await_animators = [NodePath("../TweenerAction2")]
+metadata/_custom_type_script = "uid://6y1cd60i2cyt"

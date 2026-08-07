@@ -36,7 +36,7 @@ func spawn_scene(scene: PackedScene, pos: Vector2, group: ContainerType.Enum) ->
 		return null
 	
 	var node: Node2D = scene.instantiate()
-	node.global_pos = pos
+	node.global_position = pos
 	
 	container.add_child(node)
 	node_spawned.emit(node)

@@ -8,6 +8,9 @@ class_name TweenerTree
 		on_execute_signal = value
 		notify_property_list_changed()
 
+var _running_children: int = 0
+var animations: Array[TweenerAnimator]
+
 func _ready() -> void:
 	
 	if Engine.is_editor_hint():
@@ -18,17 +21,64 @@ func _ready() -> void:
 		return
 	
 	super._ready()
+	update_childrens()
 	
-	if not node.is_connected(on_execute_signal, _execute_actions):
-		node.connect(on_execute_signal, _execute_actions)
+	if not node.is_connected(on_execute_signal, make_animation):
+		node.connect(on_execute_signal, make_animation)
 
-func _execute_actions(..._parameters: Array) -> void:
+func preview_animation() -> void:
 	
-	await await_tweeners()
+	if not Engine.is_editor_hint():
+		return
 	
 	for child: Node in get_children():
-		if child is PropertyTweenerAnimator:
-			child.make_animation()
+		if child is TweenerAnimator:
+			child._preview_animation()
+
+func make_animation(..._parameters: Array) -> void:
+	
+	if state == TweenerState.Enum.PLAYING:
+		return
+	
+	await await_tweeners()
+	state = TweenerState.Enum.PLAYING
+	_running_children = animations.size()
+	
+	if _running_children == 0:
+		_finish_animation()
+		return
+	
+	for animation: TweenerAnimator in animations:
+		play_child(animation)
+	
+
+func update_childrens() -> void:
+	
+	animations.clear()
+	
+	for child: Node in get_children():
+		if child is TweenerAnimator:
+			animations.append(child)
+
+func play_child(
+	child: TweenerAnimator,
+	parameters: Array = []
+) -> void:
+	@warning_ignore("redundant_await")
+	await child.make_animation(parameters)
+	
+	_running_children -= 1
+	
+	if _running_children == 0:
+		_finish_animation()
+
+func _finish_animation() -> void:
+	state = TweenerState.Enum.FINISHED
+	
+	for animation: TweenerAnimator in animations:
+		animation.state = TweenerState.Enum.IDLE
+	
+	finished.emit()
 
 func _on_order_changed() -> void:
 	

@@ -24,7 +24,6 @@ metadata/_custom_type_script = "uid://5eysrwqfki0n"
 
 [node name="YSort" type="Node2D" parent="." unique_id=1291027061]
 y_sort_enabled = true
-position = Vector2(-32, -19)
 
 [node name="Projectiles" type="Node2D" parent="YSort" unique_id=2135532405 groups=["container", "projectiles_container"]]
 

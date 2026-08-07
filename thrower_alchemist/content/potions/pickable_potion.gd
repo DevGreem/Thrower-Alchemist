@@ -12,9 +12,16 @@ func _ready() -> void:
 
 func _on_interact(component: InteractComponent2D) -> void:
 	
+	GameDebugger.debug_log(PickablePotion, "Picked potion")
+	
+	if not data:
+		GameDebugger.debug_error(PickablePotion, "Data no founded")
+		return
+	
 	var hotbar: HotbarComponent = ComponentManager.get_component(component.actor, HotbarComponent)
 	
 	if not hotbar:
+		GameDebugger.debug_log(PickablePotion, "Hotbar not founded")
 		return
 	
 	var free_pos: int = hotbar.get_first_free_position()

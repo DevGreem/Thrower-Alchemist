@@ -14,8 +14,8 @@ class_name PropertyTweenerAnimator
 		add_from = value
 		notify_property_list_changed()
 
-@export var from: Variant = null
-@export var to: Variant
+@export var from: Variant = 0.0
+@export var to: Variant = 0.0
 @export var duration: float
 @export var delay: float = 0.0
 
@@ -35,26 +35,69 @@ class_name PropertyTweenerAnimator
 
 @export var loops: int = 1
 var tween: Tween
+var _editor_preview: bool = false
 
-func _verify_tween() -> void:
+func _ready() -> void:
+	super._ready()
+	
+	GameDebugger.debug_log(PropertyTweenerAnimator, "to = " + str(to))
+	GameDebugger.debug_log(PropertyTweenerAnimator, "to type = " + str(typeof(to)))
+	GameDebugger.debug_log(PropertyTweenerAnimator, "to type name = " + str(type_string(typeof(to))))
+
+func _verify_tween() -> bool:
+	
+	if not node:
+		GameDebugger.debug_warning(PropertyTweenerAnimator, "Node assigned removed and executing animation")
+		return false
 	
 	if tween and tween.is_valid():
 		tween.kill()
 	
 	tween = node.create_tween()
 	_connect_tween_signals()
+	return true
 	
 func _connect_tween_signals() -> void:
 	
 	if not tween.finished.is_connected(_on_tween_finished):
 		tween.finished.connect(_on_tween_finished)
 
+func preview_animation() -> void:
+	
+	if not Engine.is_editor_hint():
+		return
+	
+	if not node or not property_to_change:
+		return
+	
+	var original_value: Variant = node.get(property_to_change)
+	_editor_preview = true
+	
+	await make_animation()
+	
+	_restore_state(original_value)
+
+func _restore_state(original_value: Variant) -> void:
+	
+	if not _editor_preview:
+		return
+	
+	if not node or not property_to_change:
+		return
+	
+	node.set(property_to_change, original_value)
+	
+	_editor_preview = false
+
 func make_animation(..._parameters: Array) -> void:
 	
 	await await_tweeners()
 	
 	state = TweenerState.Enum.PLAYING
-	_verify_tween()
+	var ok: bool = _verify_tween()
+	
+	if not ok:
+		return
 	
 	if add_ease:
 		tween.set_ease(ease_type)
@@ -63,10 +106,14 @@ func make_animation(..._parameters: Array) -> void:
 		tween.set_trans(trans_type)
 	
 	var tweener: PropertyTweener = tween.tween_property(node, property_to_change as NodePath, to, duration)
-	tweener.set_delay(delay)
 	
-	if add_from:
-		tweener.from(from)
+	if tweener:
+		tweener.set_delay(delay)
+		
+		if add_from:
+			tweener.from(from)
+	else:
+		GameDebugger.debug_error(PropertyTweenerAnimator, "Tweener not created")
 	
 	tween.set_loops(loops)
 	GameDebugger.debug_log(TweenerComponent, "Playing tween animation")

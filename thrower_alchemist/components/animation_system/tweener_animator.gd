@@ -14,6 +14,9 @@ signal finished
 
 @export var await_animators: Array[TweenerAnimator] = []
 
+@warning_ignore("unused_private_class_variable")
+@export_tool_button("Preview animation") var _preview: Callable = preview_animation
+
 var state: TweenerState.Enum = TweenerState.Enum.IDLE
 
 func _ready() -> void:
@@ -31,9 +34,16 @@ func wait_finished() -> void:
 	await finished
 
 func await_tweeners() -> void:
-	for animation: TweenerComponent in await_animators:
+	
+	for animation: TweenerAnimator in await_animators:
 		if animation:
 			await animation.wait_finished()
+
+@abstract
+func preview_animation() -> void
+
+@abstract
+func make_animation(...parameters: Array) -> void
 
 func _get_configuration_warnings() -> PackedStringArray:
 	
