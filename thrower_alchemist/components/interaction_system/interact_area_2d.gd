@@ -2,6 +2,7 @@ extends Area2D
 
 class_name InteractArea2D
 
+signal interacted(component: InteractComponent2D)
 signal status_changed
 
 @export var interact_name: String = "interact"
@@ -14,4 +15,5 @@ signal status_changed
 		active = value
 		status_changed.emit()
 
-var interact: Callable = func() -> void: pass
+func interact(component: InteractComponent2D) -> void:
+	interacted.emit(component)
