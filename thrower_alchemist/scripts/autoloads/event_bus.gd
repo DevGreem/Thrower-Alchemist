@@ -10,6 +10,9 @@ func spawn_node(node: Node, group: ContainerType.Enum) -> bool:
 	if not container:
 		return false
 	
+	if node.get_parent() == container:
+		return false
+	
 	container.add_child(node)
 	node_spawned.emit(node)
 	

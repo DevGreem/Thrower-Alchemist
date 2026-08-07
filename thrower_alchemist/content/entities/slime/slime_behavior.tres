@@ -51,7 +51,7 @@ resource_name = "AnimationPlayer"
 [sub_resource type="BTAwaitAnimation" id="BTAwaitAnimation_5m4o5"]
 animation_player = SubResource("BBNode_i8hy7")
 animation_name = &"jumping"
-max_time = 5.0
+max_time = 2.0
 
 [sub_resource type="BTAction" id="BTAction_g1atm"]
 script = ExtResource("2_4cy7q")

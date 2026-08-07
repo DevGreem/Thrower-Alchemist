@@ -17,6 +17,7 @@ class_name PropertyTweenerAnimator
 @export var from: Variant = null
 @export var to: Variant
 @export var duration: float
+@export var delay: float = 0.0
 
 @export var add_ease: bool = true:
 	set(value):
@@ -62,6 +63,7 @@ func make_animation(..._parameters: Array) -> void:
 		tween.set_trans(trans_type)
 	
 	var tweener: PropertyTweener = tween.tween_property(node, property_to_change as NodePath, to, duration)
+	tweener.set_delay(delay)
 	
 	if add_from:
 		tweener.from(from)

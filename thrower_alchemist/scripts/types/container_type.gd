@@ -4,7 +4,8 @@ class_name ContainerType
 
 enum Enum {
 	PROJECTILES_CONTAINER,
-	EFFECTS_CONTAINER
+	EFFECTS_CONTAINER,
+	ENTITIES_CONTAINER
 }
 
 static func as_string(value: Enum) -> String:
