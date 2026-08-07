@@ -3,6 +3,7 @@ extends HitboxComponent2D
 class_name TimeHitboxComponent2D
 
 @export var cooldown: float
+@export var start_with_damage: bool = true
 
 var areas_timers: Dictionary[HurtboxComponent2D, float] = {}
 
@@ -15,7 +16,11 @@ func _ready() -> void:
 func _on_area_entered(area: Area2D) -> void:
 	
 	if area is HurtboxComponent2D:
-		areas_timers.set(area, cooldown)
+		
+		if start_with_damage:
+			areas_timers.set(area, 0.0)
+		else:
+			areas_timers.set(area, cooldown)
 
 func _on_area_exited(area: Area2D) -> void:
 	areas_timers.erase(area)

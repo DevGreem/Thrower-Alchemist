@@ -51,6 +51,10 @@ func _process(_delta: float) -> void:
 	
 	for area: InteractArea2D in detected_areas:
 		
+		if not is_instance_valid(area):
+			unregister_area(area)
+			continue
+		
 		if not area.active:
 			detected_areas[area] = false
 			
@@ -78,8 +82,8 @@ func register_area(area: InteractArea2D) -> bool:
 
 func unregister_area(area: InteractArea2D) -> bool:
 	
-	if area == focused_interactable and not can_interact:
-		pass
+	if area == focused_interactable:
+		focused_interactable = null
 	
 	var status: bool = detected_areas.erase(area)
 	
