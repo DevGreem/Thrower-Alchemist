@@ -16,7 +16,7 @@ func preview_animation() -> void:
 	
 	for child: Node in get_children():
 		if child is TweenerAnimator:
-			child._preview_animation()
+			child.preview_animation()
 
 func make_animation(..._parameters: Array) -> void:
 	
@@ -33,7 +33,6 @@ func make_animation(..._parameters: Array) -> void:
 	
 	for animation: TweenerAnimator in animations:
 		play_child(animation)
-	
 
 func update_childrens() -> void:
 	

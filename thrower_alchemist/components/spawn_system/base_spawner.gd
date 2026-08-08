@@ -11,6 +11,12 @@ enum SpawnType {
 	RESPAWN
 }
 
+@export var scene: PackedScene:
+	set(value):
+		scene = value
+		notify_property_list_changed()
+		update_configuration_warnings()
+
 @export var spawn_type: SpawnType:
 	set(value):
 		spawn_type = value
@@ -52,10 +58,21 @@ func try_spawn(..._parameters: Array) -> void:
 		return
 	
 	spawn()
+	spawned.emit()
 	has_spawned = true
 
 @abstract
 func _preview_spawn() -> void
+
+static func is_valid_spawner(spawner: BaseSpawner) -> bool:
+	
+	if not spawner:
+		return false
+	
+	if not spawner.scene:
+		return false
+	
+	return true
 
 func _get_configuration_warnings() -> PackedStringArray:
 	

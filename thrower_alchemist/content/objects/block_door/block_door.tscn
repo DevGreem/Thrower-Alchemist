@@ -49,6 +49,7 @@ metadata/_custom_type_script = "uid://cy3gb1u028y4j"
 script = ExtResource("5_5ew4y")
 node = NodePath("../../../Sprite2D")
 property_to_change = "visible"
+to = false
 add_ease = false
 add_transition = false
 await_animators = [NodePath("../TweenerAction2")]

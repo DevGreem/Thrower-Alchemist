@@ -13,6 +13,7 @@
 [ext_resource type="Resource" uid="uid://1e8vvxipf2fv" path="res://content/potions/ice_potion/ice_potion.tres" id="10_0752k"]
 [ext_resource type="PackedScene" uid="uid://dahowibt6esi1" path="res://content/machines/potions_mixer/potions_mixer.tscn" id="11_q6yd5"]
 [ext_resource type="PackedScene" uid="uid://c5kx2wadtgqlu" path="res://content/objects/block_door/block_door.tscn" id="12_w3yyd"]
+[ext_resource type="Script" uid="uid://difch0m48utsh" path="res://components/spawn_system/spawners_linker.gd" id="13_rbpbn"]
 
 [node name="Tutorial" type="Node2D" unique_id=123151583 node_paths=PackedStringArray("player_spawner")]
 y_sort_enabled = true
@@ -121,7 +122,7 @@ scene = ExtResource("12_w3yyd")
 metadata/_custom_type_script = "uid://cn34pf7jgm5w6"
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="Spawners/DoorSpawner" unique_id=885802918]
-rect = Rect2(-16, -19, 33, 42)
+rect = Rect2(-17, -19, 34, 42)
 
 [node name="TriggerSpawner" type="Node" parent="Spawners/DoorSpawner" unique_id=1795070697 node_paths=PackedStringArray("spawner", "node")]
 script = ExtResource("8_w3yyd")
@@ -129,6 +130,10 @@ spawner = NodePath("..")
 node = NodePath("../VisibleOnScreenNotifier2D")
 signal_to_connect = &"screen_entered"
 metadata/_custom_type_script = "uid://b4b27isfuwpp6"
+
+[node name="SpawnersLinker" type="Node" parent="Spawners" unique_id=1239106536]
+script = ExtResource("13_rbpbn")
+metadata/_custom_type_script = "uid://difch0m48utsh"
 
 [node name="Debug" type="Node" parent="." unique_id=447466529]
 
