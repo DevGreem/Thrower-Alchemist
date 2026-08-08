@@ -17,6 +17,8 @@ func spawn() -> void:
 		self.global_position,
 		spawn_container
 	)
+	
+	has_spawned = true
 
 func _preview_spawn() -> void:
 	

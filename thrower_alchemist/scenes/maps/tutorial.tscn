@@ -5,10 +5,10 @@
 [ext_resource type="TileSet" uid="uid://bt4yh4vulrgos" path="res://assets/tilesets/walls/walls.tres" id="2_3yaat"]
 [ext_resource type="TileSet" uid="uid://dx716qc06ufca" path="res://assets/tilesets/doors/doors.tres" id="3_ex4x4"]
 [ext_resource type="Script" uid="uid://cxehsl4at72q" path="res://components/debug_components/debug_camera_2d.gd" id="5_57ggm"]
-[ext_resource type="Script" uid="uid://2v4axu8ap6um" path="res://components/spawn_system/data_scene_spawner_2d.gd" id="5_jvqc6"]
-[ext_resource type="PackedScene" uid="uid://b80uiyq60v0kn" path="res://content/potions/pickable_potion.tscn" id="6_ybytg"]
+[ext_resource type="PackedScene" uid="uid://68xbebrslfyp" path="res://scenes/spawners/potion_spawner.tscn" id="5_w3yyd"]
 [ext_resource type="Resource" uid="uid://cbndbhn3tf5bt" path="res://content/potions/fire_potion/fire_potion.tres" id="7_m62tc"]
 [ext_resource type="Script" uid="uid://cn34pf7jgm5w6" path="res://components/spawn_system/scene_spawner_2d.gd" id="8_j5r57"]
+[ext_resource type="Script" uid="uid://b4b27isfuwpp6" path="res://components/spawn_system/spawn_trigger.gd" id="8_w3yyd"]
 [ext_resource type="PackedScene" uid="uid://ce7q32878qtvu" path="res://content/entities/tutorial_dummy/tutorial_dummy.tscn" id="9_0752k"]
 [ext_resource type="Resource" uid="uid://1e8vvxipf2fv" path="res://content/potions/ice_potion/ice_potion.tres" id="10_0752k"]
 [ext_resource type="PackedScene" uid="uid://dahowibt6esi1" path="res://content/machines/potions_mixer/potions_mixer.tscn" id="11_q6yd5"]
@@ -61,52 +61,43 @@ metadata/_edit_lock_ = true
 [node name="PlayerSpawner" type="Marker2D" parent="Spawners" unique_id=1692652672]
 position = Vector2(32, 5)
 
-[node name="PotionSpawner" type="Marker2D" parent="Spawners" unique_id=1286480778 node_paths=PackedStringArray("visible_node")]
+[node name="PotionSpawner" parent="Spawners" unique_id=1880383520 instance=ExtResource("5_w3yyd")]
 position = Vector2(372, 0)
-script = ExtResource("5_jvqc6")
-property_name = &"data"
 data = ExtResource("7_m62tc")
-scene = ExtResource("6_ybytg")
-spawn_on = 1
-visible_node = NodePath("VisibleOnScreenNotifier2D")
-metadata/_custom_type_script = "uid://2v4axu8ap6um"
 
-[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="Spawners/PotionSpawner" unique_id=91853271]
-rect = Rect2(-13, -14, 26, 28)
-metadata/_edit_lock_ = true
-
-[node name="DummySpawner" type="Marker2D" parent="Spawners" unique_id=1924667296 node_paths=PackedStringArray("visible_node")]
+[node name="DummySpawner" type="Marker2D" parent="Spawners" unique_id=1924667296]
 position = Vector2(540, 0)
 script = ExtResource("8_j5r57")
 scene = ExtResource("9_0752k")
-spawn_on = 3
-visible_node = NodePath("VisibleOnScreenNotifier2D")
-despawn_on = 2
+spawn_type = 1
 metadata/_custom_type_script = "uid://cn34pf7jgm5w6"
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="Spawners/DummySpawner" unique_id=1068193517]
 metadata/_edit_lock_ = true
 
-[node name="OtherPotionSpawner" type="Marker2D" parent="Spawners" unique_id=1085139863 node_paths=PackedStringArray("visible_node")]
+[node name="OnVisible" type="Node" parent="Spawners/DummySpawner" unique_id=313256654 node_paths=PackedStringArray("spawner", "node")]
+script = ExtResource("8_w3yyd")
+spawner = NodePath("..")
+node = NodePath("../VisibleOnScreenNotifier2D")
+signal_to_connect = &"screen_entered"
+metadata/_custom_type_script = "uid://b4b27isfuwpp6"
+
+[node name="OnInvisible" type="Node" parent="Spawners/DummySpawner" unique_id=1448263988 node_paths=PackedStringArray("spawner", "node")]
+script = ExtResource("8_w3yyd")
+spawner = NodePath("..")
+spawn = false
+node = NodePath("../VisibleOnScreenNotifier2D")
+signal_to_connect = &"screen_exited"
+metadata/_custom_type_script = "uid://b4b27isfuwpp6"
+
+[node name="PotionSpawner2" parent="Spawners" unique_id=1155681908 instance=ExtResource("5_w3yyd")]
 position = Vector2(588, -166)
-script = ExtResource("5_jvqc6")
-property_name = &"data"
 data = ExtResource("10_0752k")
-scene = ExtResource("6_ybytg")
-spawn_on = 1
-visible_node = NodePath("VisibleOnScreenNotifier2D")
-metadata/_custom_type_script = "uid://2v4axu8ap6um"
 
-[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="Spawners/OtherPotionSpawner" unique_id=645547751]
-position = Vector2(0, -4)
-metadata/_edit_lock_ = true
-
-[node name="PotionsMixerSpawner" type="Marker2D" parent="Spawners" unique_id=37027847 node_paths=PackedStringArray("visible_node")]
+[node name="PotionsMixerSpawner" type="Marker2D" parent="Spawners" unique_id=37027847]
 position = Vector2(588, -199)
 script = ExtResource("8_j5r57")
 scene = ExtResource("11_q6yd5")
-spawn_on = 1
-visible_node = NodePath("VisibleOnScreenNotifier2D")
 spawn_container = 3
 metadata/_custom_type_script = "uid://cn34pf7jgm5w6"
 
@@ -114,6 +105,13 @@ metadata/_custom_type_script = "uid://cn34pf7jgm5w6"
 position = Vector2(0, -10)
 rect = Rect2(-25, -19, 50, 38)
 metadata/_edit_lock_ = true
+
+[node name="TriggerSpawner" type="Node" parent="Spawners/PotionsMixerSpawner" unique_id=904875569 node_paths=PackedStringArray("spawner", "node")]
+script = ExtResource("8_w3yyd")
+spawner = NodePath("..")
+node = NodePath("../VisibleOnScreenNotifier2D")
+signal_to_connect = &"screen_entered"
+metadata/_custom_type_script = "uid://b4b27isfuwpp6"
 
 [node name="Debug" type="Node" parent="." unique_id=447466529]
 
