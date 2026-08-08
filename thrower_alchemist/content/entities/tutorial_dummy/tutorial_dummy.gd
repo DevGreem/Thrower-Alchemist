@@ -2,7 +2,7 @@ extends Node2D
 
 class_name TutorialDummy
 
-@export var follow_flip_component: FollowFlipComponent2d
+@export var follow_flip_component: FollowFlipComponent2D
 
 func _ready() -> void:
 	
