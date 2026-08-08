@@ -50,6 +50,9 @@ y_sort_enabled = true
 
 [node name="Player" parent="YSort/Entities" unique_id=1606296388 instance=ExtResource("5_ewj4s")]
 
+[node name="Machines" type="Node2D" parent="YSort" unique_id=894768521 groups=["machines_container"]]
+y_sort_enabled = true
+
 [node name="WorldContainer" type="Node2D" parent="." unique_id=236857337]
 z_index = -100
 y_sort_enabled = true

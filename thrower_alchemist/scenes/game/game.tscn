@@ -34,6 +34,9 @@ z_as_relative = false
 [node name="Entities" type="Node2D" parent="YSort" unique_id=1997927869 groups=["entities_container"]]
 y_sort_enabled = true
 
+[node name="Machines" type="Node2D" parent="YSort" unique_id=1704196033 groups=["machines_container"]]
+y_sort_enabled = true
+
 [node name="WorldContainer" type="Node2D" parent="." unique_id=236857337]
 z_index = -100
 y_sort_enabled = true

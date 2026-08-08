@@ -9,9 +9,15 @@ class_name TweenerTrigger
 		notify_property_list_changed()
 		update_configuration_warnings()
 
-@export var signal_to_connect: StringName
+@export var signal_to_connect: StringName:
+	set(value):
+		signal_to_connect = value
+		update_configuration_warnings()
 
-@export var animator: TweenerAnimator
+@export var animator: TweenerAnimator:
+	set(value):
+		animator = value
+		update_configuration_warnings()
 
 func _ready() -> void:
 	
@@ -51,5 +57,11 @@ func _get_configuration_warnings() -> PackedStringArray:
 	
 	if not node:
 		warnings.append("You must assign a node")
+	
+	if not signal_to_connect:
+		warnings.append("Animation never will be executed")
+	
+	if not animator:
+		warnings.append("You must assign a TweenerAniator")
 	
 	return warnings

@@ -29,18 +29,23 @@ const NO_VISIBLE_TYPES: Array[SpawnType] = [
 	set(value):
 		spawn_on = value
 		update_configuration_warnings()
+		notify_property_list_changed()
 
 @export var visible_node: VisibleOnScreenNotifier2D:
 	set(value):
 		visible_node = value
 		update_configuration_warnings()
+		notify_property_list_changed()
 
 @export var despawn_on: SpawnType = SpawnType.NONE:
 	set(value):
 		despawn_on = value
 		update_configuration_warnings()
+		notify_property_list_changed()
 
 @export var spawn_container: ContainerType.Enum = ContainerType.Enum.ENTITIES_CONTAINER
+
+@export_tool_button("Preview Spawn") var preview_button: Callable = _preview_spawn
 
 var spawned: bool = false
 var spawned_node: CanvasItem:
@@ -50,6 +55,7 @@ var spawned_node: CanvasItem:
 		
 		if not spawned and spawned_node:
 			spawned = true
+
 
 func _ready() -> void:
 	
@@ -75,6 +81,9 @@ func spawn() -> void
 func despawn() -> void:
 	spawned_node.queue_free()
 	spawned_node = null
+
+@abstract
+func _preview_spawn() -> void
 
 func _on_screen_entered() -> void:
 	

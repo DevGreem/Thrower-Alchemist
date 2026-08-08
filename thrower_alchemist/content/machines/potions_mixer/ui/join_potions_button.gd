@@ -22,5 +22,6 @@ func _on_pressed() -> void:
 		return
 	
 	var result_potion: PotionData = potions_mixer.get_output_potion()
+	potions_mixer.reset()
 	
 	hotbar.set_item_data(free_pos, result_potion)

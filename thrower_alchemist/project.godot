@@ -62,6 +62,7 @@ container="All Node Containers Have This"
 projectiles_container=""
 effects_container=""
 entities_container=""
+machines_container=""
 
 [input]
 

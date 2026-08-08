@@ -7,6 +7,9 @@ class_name PickablePotion
 
 func _ready() -> void:
 	
+	if Engine.is_editor_hint():
+		return
+	
 	if not interact_area.interacted.is_connected(_on_interact):
 		interact_area.interacted.connect(_on_interact)
 

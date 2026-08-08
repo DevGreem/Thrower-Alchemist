@@ -13,6 +13,12 @@ func spawn() -> void:
 	super.spawn()
 	spawned_node.set(property_name, data)
 
+func _preview_spawn() -> void:
+	var node: Node2D = scene.instantiate(PackedScene.GEN_EDIT_STATE_DISABLED)
+	node.owner = null
+	node.set(property_name, data)
+	add_child(node)
+
 func _validate_property(property: Dictionary) -> void:
 	
 	if not scene:

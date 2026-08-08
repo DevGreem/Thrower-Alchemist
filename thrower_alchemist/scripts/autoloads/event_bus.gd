@@ -40,6 +40,7 @@ func spawn_scene(scene: PackedScene, pos: Vector2, group: ContainerType.Enum) ->
 	
 	container.add_child(node)
 	node_spawned.emit(node)
+	GameDebugger.debug_log_string("EventBus", "Spawned node " + str(node))
 	
 	return node
 
