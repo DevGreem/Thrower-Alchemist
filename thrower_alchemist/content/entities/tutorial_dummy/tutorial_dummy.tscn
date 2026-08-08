@@ -14,7 +14,7 @@
 size = Vector2(8, 10)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_obaep"]
-size = Vector2(12, 10)
+size = Vector2(12, 14)
 
 [node name="TutorialDummy" type="Node2D" unique_id=1223026451 node_paths=PackedStringArray("follow_flip_component")]
 y_sort_enabled = true
@@ -54,13 +54,20 @@ metadata/_custom_type_script = "uid://bkloujx624lh4"
 position = Vector2(0, -5)
 shape = SubResource("RectangleShape2D_obaep")
 
-[node name="TweenerTree" type="Node" parent="." unique_id=49992492]
+[node name="FollowFlipComponent2d" type="Node" parent="." unique_id=1359494722 node_paths=PackedStringArray("node")]
+script = ExtResource("8_jvifw")
+node = NodePath("../Sprite2D")
+metadata/_custom_type_script = "uid://xqeyliosun8n"
+
+[node name="Animations" type="Node" parent="." unique_id=1445535113]
+
+[node name="OnDetectSomething" type="Node" parent="Animations" unique_id=49992492]
 script = ExtResource("6_u2pnx")
 metadata/_custom_type_script = "uid://citt3bcswolbo"
 
-[node name="RotateLeft" type="Node" parent="TweenerTree" unique_id=717410907 node_paths=PackedStringArray("node")]
+[node name="RotateLeft" type="Node" parent="Animations/OnDetectSomething" unique_id=717410907 node_paths=PackedStringArray("node")]
 script = ExtResource("7_jvifw")
-node = NodePath("../../Sprite2D")
+node = NodePath("../../../Sprite2D")
 property_to_change = "global_rotation_degrees"
 to = -20.0
 duration = 0.1
@@ -68,9 +75,9 @@ ease_type = 1
 add_transition = false
 metadata/_custom_type_script = "uid://cy3gb1u028y4j"
 
-[node name="RotateRight" type="Node" parent="TweenerTree" unique_id=953955312 node_paths=PackedStringArray("node", "await_animators")]
+[node name="RotateRight" type="Node" parent="Animations/OnDetectSomething" unique_id=953955312 node_paths=PackedStringArray("node", "await_animators")]
 script = ExtResource("7_jvifw")
-node = NodePath("../../Sprite2D")
+node = NodePath("../../../Sprite2D")
 property_to_change = "global_rotation_degrees"
 to = 20.0
 duration = 0.2
@@ -79,9 +86,9 @@ add_transition = false
 await_animators = [NodePath("../RotateLeft")]
 metadata/_custom_type_script = "uid://cy3gb1u028y4j"
 
-[node name="ReturnToCenter" type="Node" parent="TweenerTree" unique_id=1774112233 node_paths=PackedStringArray("node", "await_animators")]
+[node name="ReturnToCenter" type="Node" parent="Animations/OnDetectSomething" unique_id=1774112233 node_paths=PackedStringArray("node", "await_animators")]
 script = ExtResource("7_jvifw")
-node = NodePath("../../Sprite2D")
+node = NodePath("../../../Sprite2D")
 property_to_change = "global_rotation_degrees"
 duration = 0.1
 ease_type = 2
@@ -89,21 +96,16 @@ add_transition = false
 await_animators = [NodePath("../RotateRight")]
 metadata/_custom_type_script = "uid://cy3gb1u028y4j"
 
-[node name="DetectCollision" type="Node" parent="." unique_id=913055220 node_paths=PackedStringArray("node", "animator")]
+[node name="DetectCollision" type="Node" parent="Animations" unique_id=913055220 node_paths=PackedStringArray("node", "animator")]
 script = ExtResource("7_u2pnx")
-node = NodePath("../CollisionDetectorComponent2D")
+node = NodePath("../../CollisionDetectorComponent2D")
 signal_to_connect = &"collision_detected"
-animator = NodePath("../TweenerTree")
+animator = NodePath("../OnDetectSomething")
 metadata/_custom_type_script = "uid://csownupd7lbcp"
 
-[node name="DetectDamage" type="Node" parent="." unique_id=1915119 node_paths=PackedStringArray("node", "animator")]
+[node name="DetectDamage" type="Node" parent="Animations" unique_id=1915119 node_paths=PackedStringArray("node", "animator")]
 script = ExtResource("7_u2pnx")
-node = NodePath("../HurtboxComponent2D")
+node = NodePath("../../HurtboxComponent2D")
 signal_to_connect = &"damage_received"
-animator = NodePath("../TweenerTree")
+animator = NodePath("../OnDetectSomething")
 metadata/_custom_type_script = "uid://csownupd7lbcp"
-
-[node name="FollowFlipComponent2d" type="Node" parent="." unique_id=1359494722 node_paths=PackedStringArray("node")]
-script = ExtResource("8_jvifw")
-node = NodePath("../Sprite2D")
-metadata/_custom_type_script = "uid://xqeyliosun8n"
