@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://ctim88ddanme6" path="res://scenes/maps/tutorial.tscn" id="2_ewj4s"]
 [ext_resource type="PackedScene" uid="uid://i762gem8h1rt" path="res://scenes/inventory/inventory_ui.tscn" id="2_fdevw"]
 [ext_resource type="Script" uid="uid://5eysrwqfki0n" path="res://components/ui_system/ui_root.gd" id="3_ewj4s"]
-[ext_resource type="Script" uid="uid://c81ue6bvggjb2" path="res://components/follow_node_component_2d.gd" id="3_uv5ep"]
+[ext_resource type="Script" uid="uid://c81ue6bvggjb2" path="res://components/follow_system/follow_node_component_2d.gd" id="3_uv5ep"]
 [ext_resource type="PackedScene" uid="uid://b2spclcrcu1hs" path="res://content/entities/player/player.tscn" id="5_ewj4s"]
 
 [node name="GameMap" type="Node2D" unique_id=724420841 node_paths=PackedStringArray("world_container")]

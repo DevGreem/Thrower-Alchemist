@@ -1,12 +1,14 @@
 [gd_scene format=3 uid="uid://ce7q32878qtvu"]
 
 [ext_resource type="Texture2D" uid="uid://o5rib67dxxm0" path="res://content/entities/tutorial_dummy/tutorial_dummy.png" id="1_u070d"]
+[ext_resource type="Script" uid="uid://b6nujstkyoydy" path="res://content/entities/tutorial_dummy/tutorial_dummy.gd" id="1_wbk67"]
 [ext_resource type="Script" uid="uid://ditbeykj0vfd4" path="res://components/hit_system/health_component.gd" id="2_im0wv"]
 [ext_resource type="Script" uid="uid://bqx8hyj121gcl" path="res://components/hit_system/hurtbox_component_2d.gd" id="3_k08vs"]
 [ext_resource type="Script" uid="uid://bkloujx624lh4" path="res://components/hit_system/collision_detector_component_2d.gd" id="4_im0wv"]
 [ext_resource type="Script" uid="uid://citt3bcswolbo" path="res://components/animation_system/tweener_tree.gd" id="6_u2pnx"]
 [ext_resource type="Script" uid="uid://cy3gb1u028y4j" path="res://components/animation_system/tweener_action.gd" id="7_jvifw"]
 [ext_resource type="Script" uid="uid://csownupd7lbcp" path="res://components/animation_system/tweener_trigger.gd" id="7_u2pnx"]
+[ext_resource type="Script" uid="uid://xqeyliosun8n" path="res://components/follow_system/follow_flip_component_2d.gd" id="8_jvifw"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g04yl"]
 size = Vector2(8, 10)
@@ -14,8 +16,10 @@ size = Vector2(8, 10)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_obaep"]
 size = Vector2(12, 10)
 
-[node name="TutorialDummy" type="Node2D" unique_id=1223026451]
+[node name="TutorialDummy" type="Node2D" unique_id=1223026451 node_paths=PackedStringArray("follow_flip_component")]
 y_sort_enabled = true
+script = ExtResource("1_wbk67")
+follow_flip_component = NodePath("FollowFlipComponent2d")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=141246718]
 texture = ExtResource("1_u070d")
@@ -54,7 +58,7 @@ shape = SubResource("RectangleShape2D_obaep")
 script = ExtResource("6_u2pnx")
 metadata/_custom_type_script = "uid://citt3bcswolbo"
 
-[node name="TweenerAction" type="Node" parent="TweenerTree" unique_id=717410907 node_paths=PackedStringArray("node")]
+[node name="RotateLeft" type="Node" parent="TweenerTree" unique_id=717410907 node_paths=PackedStringArray("node")]
 script = ExtResource("7_jvifw")
 node = NodePath("../../Sprite2D")
 property_to_change = "global_rotation_degrees"
@@ -64,7 +68,7 @@ ease_type = 1
 add_transition = false
 metadata/_custom_type_script = "uid://cy3gb1u028y4j"
 
-[node name="TweenerAction2" type="Node" parent="TweenerTree" unique_id=953955312 node_paths=PackedStringArray("node", "await_animators")]
+[node name="RotateRight" type="Node" parent="TweenerTree" unique_id=953955312 node_paths=PackedStringArray("node", "await_animators")]
 script = ExtResource("7_jvifw")
 node = NodePath("../../Sprite2D")
 property_to_change = "global_rotation_degrees"
@@ -72,29 +76,34 @@ to = 20.0
 duration = 0.2
 ease_type = 2
 add_transition = false
-await_animators = [NodePath("../TweenerAction")]
+await_animators = [NodePath("../RotateLeft")]
 metadata/_custom_type_script = "uid://cy3gb1u028y4j"
 
-[node name="TweenerAction3" type="Node" parent="TweenerTree" unique_id=1774112233 node_paths=PackedStringArray("node", "await_animators")]
+[node name="ReturnToCenter" type="Node" parent="TweenerTree" unique_id=1774112233 node_paths=PackedStringArray("node", "await_animators")]
 script = ExtResource("7_jvifw")
 node = NodePath("../../Sprite2D")
 property_to_change = "global_rotation_degrees"
 duration = 0.1
 ease_type = 2
 add_transition = false
-await_animators = [NodePath("../TweenerAction2")]
+await_animators = [NodePath("../RotateRight")]
 metadata/_custom_type_script = "uid://cy3gb1u028y4j"
 
-[node name="TweenerTrigger" type="Node" parent="." unique_id=913055220 node_paths=PackedStringArray("node", "animator")]
+[node name="DetectCollision" type="Node" parent="." unique_id=913055220 node_paths=PackedStringArray("node", "animator")]
 script = ExtResource("7_u2pnx")
 node = NodePath("../CollisionDetectorComponent2D")
 signal_to_connect = &"collision_detected"
 animator = NodePath("../TweenerTree")
 metadata/_custom_type_script = "uid://csownupd7lbcp"
 
-[node name="TweenerTrigger2" type="Node" parent="." unique_id=1915119 node_paths=PackedStringArray("node", "animator")]
+[node name="DetectDamage" type="Node" parent="." unique_id=1915119 node_paths=PackedStringArray("node", "animator")]
 script = ExtResource("7_u2pnx")
 node = NodePath("../HurtboxComponent2D")
 signal_to_connect = &"damage_received"
 animator = NodePath("../TweenerTree")
 metadata/_custom_type_script = "uid://csownupd7lbcp"
+
+[node name="FollowFlipComponent2d" type="Node" parent="." unique_id=1359494722 node_paths=PackedStringArray("node")]
+script = ExtResource("8_jvifw")
+node = NodePath("../Sprite2D")
+metadata/_custom_type_script = "uid://xqeyliosun8n"
