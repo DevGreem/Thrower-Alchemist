@@ -40,8 +40,9 @@ shape = SubResource("RectangleShape2D_obaep")
 script = ExtResource("4_m2o8m")
 metadata/_custom_type_script = "uid://wrej1f5pwr14"
 
-[node name="KillAllEnemiesObjective" type="Node" parent="ObjectivesContainer" unique_id=1058605790 node_paths=PackedStringArray("enemies_container")]
+[node name="KillAllEnemiesObjective" type="Node" parent="ObjectivesContainer" unique_id=1058605790 node_paths=PackedStringArray("room_controller", "enemies_container")]
 script = ExtResource("5_qtepd")
+room_controller = NodePath("../../RoomController")
 enemies_container = NodePath("../../Enemies")
 metadata/_custom_type_script = "uid://c3c6pnk3a4sqx"
 
@@ -78,6 +79,7 @@ position = Vector2(-75, -57)
 script = ExtResource("6_hk00n")
 scene = ExtResource("8_54gvk")
 spawn_container = NodePath("../../Enemies")
+spawn_deferred = true
 metadata/_custom_type_script = "uid://cn34pf7jgm5w6"
 
 [node name="Triggers" type="Node" parent="." unique_id=2073652159]

@@ -40,6 +40,7 @@ func _verify_all_objectives_completed() -> void:
 		if not objectives[objective]:
 			return
 	
+	GameDebugger.debug_log(ObjectivesContainer, "Completed all objectives")
 	all_completed.emit()
 
 func _get_configuration_warnings() -> PackedStringArray:

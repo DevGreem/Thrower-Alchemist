@@ -28,6 +28,8 @@ enum SpawnType {
 		spawn_container = value
 		update_configuration_warnings()
 
+@export var spawn_deferred: bool = false
+
 @export_tool_button("Preview Spawn") var preview_button: Callable = _preview_spawn
 
 var has_spawned: bool = false

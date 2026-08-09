@@ -12,3 +12,4 @@ var is_completed: bool:
 func complete() -> void:
 	_is_completed = true
 	completed.emit()
+	GameDebugger.debug_log(RoomObjective, 'Completed objective "' + self.name + '"')

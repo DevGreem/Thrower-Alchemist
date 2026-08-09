@@ -6,13 +6,16 @@ class_name SceneSpawner2D
 func spawn() -> void:
 	
 	GameDebugger.debug_log(SceneSpawner2D, "Spawning scene " + str(scene))
-	spawned_node = EventBus.spawn_scene(
-		scene,
-		spawn_container
-	)
 	
-	if spawned_node is Node2D:
-		spawned_node.global_position = self.global_position
+	spawned_node = scene.instantiate() as Node2D
+	
+	spawned_node.global_position = self.global_position
+	
+	EventBus.spawn_node(
+		spawned_node,
+		spawn_container,
+		spawn_deferred
+	)
 	
 	has_spawned = true
 
