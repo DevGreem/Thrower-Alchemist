@@ -51,6 +51,6 @@ func _get_configuration_warnings() -> PackedStringArray:
 		warnings.append("You must assign a node")
 	
 	if not signal_to_connect:
-		warnings.append("Animation never will be executed")
+		warnings.append("You must assign a signal")
 	
 	return warnings

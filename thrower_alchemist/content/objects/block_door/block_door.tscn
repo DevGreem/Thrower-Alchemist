@@ -6,16 +6,24 @@
 [ext_resource type="Script" uid="uid://citt3bcswolbo" path="res://components/animation_system/tweener_tree.gd" id="4_1v305"]
 [ext_resource type="Script" uid="uid://cy3gb1u028y4j" path="res://components/animation_system/tweener_action.gd" id="5_5ew4y"]
 
-[node name="BlockDoor" type="Node2D" unique_id=29518178]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_obaep"]
+size = Vector2(24, 32)
+
+[node name="BlockDoor" type="StaticBody2D" unique_id=610256026]
+collision_mask = 0
 script = ExtResource("1_njpen")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1910169278]
 texture = ExtResource("2_4b4sr")
 
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1191987853]
+shape = SubResource("RectangleShape2D_obaep")
+
 [node name="Animations" type="Node" parent="." unique_id=514312373]
 
-[node name="Opened" type="Node" parent="Animations" unique_id=2074486883 node_paths=PackedStringArray("node")]
+[node name="Opened" type="Node" parent="Animations" unique_id=2074486883 node_paths=PackedStringArray("animator", "node")]
 script = ExtResource("3_oj88t")
+animator = NodePath("../OnOpened")
 node = NodePath("../..")
 signal_to_connect = &"opened"
 metadata/_custom_type_script = "uid://csownupd7lbcp"

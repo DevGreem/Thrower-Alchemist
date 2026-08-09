@@ -16,6 +16,8 @@ func _execute(..._parameters: Array) -> void:
 
 func _validate_property(property: Dictionary) -> void:
 	
+	super._validate_property(property)
+	
 	if not target:
 		return
 	

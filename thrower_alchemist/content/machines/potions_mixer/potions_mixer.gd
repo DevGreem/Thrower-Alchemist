@@ -5,6 +5,7 @@ class_name PotionsMixerNode
 
 signal potion_setted
 signal exploded
+signal mixed
 
 @export var input_potions: Array[StaticPotionNode]
 @export var output_potion: StaticPotionNode
@@ -80,6 +81,22 @@ func _on_exit_ui() -> void:
 
 func can_mix() -> bool:
 	
-	var output: PotionData = get_output_potion()
+	for potion: StaticPotionNode in input_potions:
+		
+		if not potion.data:
+			return false
+		
+		if potion.data.effects.is_empty():
+			return false
 	
-	return output != null
+	return true
+
+func mix() -> PotionData:
+	
+	if not can_mix():
+		return null
+	
+	GameDebugger.debug_log(PotionsMixerNode, "Potions Mixed correctly")
+	mixed.emit()
+	reset.call_deferred()
+	return get_output_potion()
