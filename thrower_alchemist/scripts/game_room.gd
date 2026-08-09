@@ -3,29 +3,38 @@ extends Node2D
 class_name GameRoom
 
 signal completed
-signal player_entered
-signal player_exited
+signal room_started
 
-@export var auto_completed: bool = false
 @export var player_detector: Area2D
 
-var is_completed: bool = false:
-	set(value):
-		is_completed = value
-		
-		if is_completed:
-			completed.emit()
+@export var _is_completed: bool = false
+var is_completed: bool:
+	get:
+		return _is_completed
 
-func _ready() -> void:
+var started: bool = false
+
+func complete() -> bool:
 	
-	if not player_detector.body_entered.is_connected(_on_player_entered):
-		player_detector.body_entered.connect(_on_player_entered)
+	if is_completed:
+		return false
 	
-	if not player_detector.body_exited.is_connected(_on_player_exited):
-		player_detector.body_exited.connect(_on_player_exited)
+	_is_completed = true
+	started = false
+	completed.emit()
+	
+	return true
 
-func _on_player_entered(..._params: Array) -> void:
-	player_entered.emit()
+func can_start() -> bool:
+	return not started and not is_completed
 
-func _on_player_exited(..._params: Array) -> void:
-	player_exited.emit()
+func start() -> bool:
+	
+	if not can_start():
+		GameDebugger.debug_log(GameRoom, "The room " + self.name + " can't start")
+		return false
+	
+	started = true
+	room_started.emit()
+	GameDebugger.debug_log(GameRoom, "The room " + self.name + " has started")
+	return true

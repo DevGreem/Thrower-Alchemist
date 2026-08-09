@@ -34,6 +34,7 @@ func preview_animation() -> void
 func finish() -> void:
 	state = TweenerState.Enum.FINISHED
 	finished.emit()
+	GameDebugger.debug_log(TweenerAnimator, 'Animation "' + str(self.name) + '" finished')
 
 @abstract
 func make_animation(...parameters: Array) -> void

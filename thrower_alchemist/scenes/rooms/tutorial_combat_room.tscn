@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://b7ys0jq5lm1rr" path="res://scripts/game_room.gd" id="1_3l7c3"]
 [ext_resource type="TileSet" uid="uid://dvccs0rdkm3jy" path="res://assets/tilesets/floors/floors.tres" id="2_e1fpc"]
+[ext_resource type="Script" uid="uid://f3lst4ljbwcx" path="res://scripts/room_detector_component.gd" id="2_pqqt8"]
 [ext_resource type="TileSet" uid="uid://bt4yh4vulrgos" path="res://assets/tilesets/walls/walls.tres" id="3_g3mex"]
 [ext_resource type="PackedScene" uid="uid://c5kx2wadtgqlu" path="res://content/objects/block_door/block_door.tscn" id="4_e1fpc"]
 [ext_resource type="Script" uid="uid://8h3fajc76w20" path="res://components/triggers_system/execute_trigger.gd" id="5_g3mex"]
@@ -15,10 +16,12 @@ script = ExtResource("1_3l7c3")
 player_detector = NodePath("PlayerDetector")
 metadata/_edit_vertical_guides_ = [4.0]
 
-[node name="PlayerDetector" type="Area2D" parent="." unique_id=1227002381]
+[node name="PlayerDetector" type="Area2D" parent="." unique_id=1227002381 node_paths=PackedStringArray("room")]
 z_index = 1
 collision_layer = 0
 collision_mask = 64
+script = ExtResource("2_pqqt8")
+room = NodePath("..")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetector" unique_id=1000312062]
 position = Vector2(4.5, 11.5)
@@ -46,12 +49,12 @@ metadata/_edit_lock_ = true
 position = Vector2(4, 135)
 start_open = true
 
-[node name="OnEnterPlayer" type="Node" parent="." unique_id=1381215841 node_paths=PackedStringArray("target", "node")]
+[node name="OnStartRoom" type="Node" parent="." unique_id=1381215841 node_paths=PackedStringArray("target", "node")]
 script = ExtResource("5_g3mex")
 target = NodePath("../Doors/BlockDoor")
 method = &"close"
 node = NodePath("..")
-signal_to_connect = &"player_entered"
+signal_to_connect = &"room_started"
 metadata/_custom_type_script = "uid://8h3fajc76w20"
 
 [node name="ExecuteTrigger" type="Node" parent="." unique_id=1839769988 node_paths=PackedStringArray("target", "node")]

@@ -8,7 +8,7 @@
 [ext_resource type="Script" uid="uid://gvyugh0lodjv" path="res://components/animation_system/set_no_tween.gd" id="6_1v305"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_obaep"]
-size = Vector2(24, 9)
+size = Vector2(24, 15)
 
 [node name="BlockDoor" type="StaticBody2D" unique_id=610256026]
 y_sort_enabled = true
@@ -16,12 +16,12 @@ collision_mask = 0
 script = ExtResource("1_njpen")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1910169278]
-position = Vector2(75, -11)
+position = Vector2(0, -11)
 texture = ExtResource("2_4b4sr")
-offset = Vector2(-75, -5)
+offset = Vector2(0, -5)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1191987853]
-position = Vector2(0, -4.5)
+position = Vector2(0, -7.5)
 shape = SubResource("RectangleShape2D_obaep")
 
 [node name="Animations" type="Node" parent="." unique_id=514312373]
@@ -45,7 +45,7 @@ ease_type = 2
 add_transition = false
 node = NodePath("../../../Sprite2D")
 property_to_change = "offset"
-to = Vector2(0, -8)
+to = Vector2(0, -13)
 metadata/_custom_type_script = "uid://cy3gb1u028y4j"
 
 [node name="TweenerAction2" type="Node" parent="Animations/OnOpened" unique_id=1192701092 node_paths=PackedStringArray("node", "await_animators")]
@@ -56,7 +56,7 @@ ease_type = 2
 add_transition = false
 node = NodePath("../../../Sprite2D")
 property_to_change = "offset"
-to = Vector2(0, -20)
+to = Vector2(0, -28)
 await_animators = [NodePath("../TweenerAction")]
 metadata/_custom_type_script = "uid://cy3gb1u028y4j"
 
@@ -111,7 +111,7 @@ ease_type = 2
 add_transition = false
 node = NodePath("../../../Sprite2D")
 property_to_change = "offset"
-to = Vector2(0, -8)
+to = Vector2(0, -13)
 await_animators = [NodePath("../SetDisabled")]
 metadata/_custom_type_script = "uid://cy3gb1u028y4j"
 
@@ -123,6 +123,6 @@ ease_type = 2
 add_transition = false
 node = NodePath("../../../Sprite2D")
 property_to_change = "offset"
-to = Vector2(0, 0)
+to = Vector2(0, -5)
 await_animators = [NodePath("../DownOffset")]
 metadata/_custom_type_script = "uid://cy3gb1u028y4j"

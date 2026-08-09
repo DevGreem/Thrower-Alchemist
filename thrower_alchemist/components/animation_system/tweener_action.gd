@@ -33,10 +33,6 @@ func _ready() -> void:
 	
 	if Engine.is_editor_hint():
 		return
-	
-	GameDebugger.debug_log(TweenerAction, "to = " + str(to))
-	GameDebugger.debug_log(TweenerAction, "to type = " + str(typeof(to)))
-	GameDebugger.debug_log(TweenerAction, "to type name = " + str(type_string(typeof(to))))
 
 func _verify_tween() -> bool:
 	
@@ -83,7 +79,7 @@ func make_animation(..._parameters: Array) -> void:
 		GameDebugger.debug_error(TweenerAction, "Tweener not created")
 	
 	tween.set_loops(loops)
-	GameDebugger.debug_log(TweenerAction, "Playing tween animation")
+	GameDebugger.debug_log(TweenerAction, 'Playing animation "' + str(self.name) + '"')
 
 func _validate_property(property: Dictionary) -> void:
 	super._validate_property(property)

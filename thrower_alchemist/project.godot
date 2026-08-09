@@ -24,6 +24,7 @@ ComponentManager="*uid://dhg8bupj1ups7"
 PlayerManager="*uid://dst27tilrrgpj"
 TagsManager="*uid://cg7tvcqghivrn"
 UIManager="*uid://dby5u3bvyp14j"
+RoomManager="*uid://c0h320o5nhauq"
 
 [debug]
 
