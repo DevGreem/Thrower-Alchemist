@@ -1,18 +1,7 @@
 @tool
-extends TweenerAnimator
+extends NodeTweener
 
 class_name TweenerAction
-
-@export var node: CanvasItem:
-	set(value):
-		node = value
-		notify_property_list_changed()
-		update_configuration_warnings()
-
-@export var property_to_change: String:
-	set(value):
-		property_to_change = value
-		notify_property_list_changed()
 
 @export var add_from: bool = false:
 	set(value):
@@ -20,7 +9,6 @@ class_name TweenerAction
 		notify_property_list_changed()
 
 @export var from: Variant = 0.0
-@export var to: Variant = 0.0
 @export var duration: float
 @export var delay: float = 0.0
 
@@ -40,15 +28,11 @@ class_name TweenerAction
 
 @export var loops: int = 1
 var tween: Tween
-var _editor_preview: bool = false
 
 func _ready() -> void:
 	
 	if Engine.is_editor_hint():
 		return
-	
-	if not node:
-		node = get_parent()
 	
 	GameDebugger.debug_log(TweenerAction, "to = " + str(to))
 	GameDebugger.debug_log(TweenerAction, "to type = " + str(typeof(to)))
@@ -69,36 +53,9 @@ func _verify_tween() -> bool:
 	
 func _connect_tween_signals() -> void:
 	
-	if not tween.finished.is_connected(_on_tween_finished):
-		tween.finished.connect(_on_tween_finished)
-
-func preview_animation() -> void:
+	if not tween.finished.is_connected(finish):
+		tween.finished.connect(finish)
 	
-	if not Engine.is_editor_hint():
-		return
-	
-	if not node or not property_to_change:
-		return
-	
-	var original_value: Variant = node.get(property_to_change)
-	_editor_preview = true
-	
-	await make_animation()
-	
-	_restore_state(original_value)
-
-func _restore_state(original_value: Variant) -> void:
-	
-	if not _editor_preview:
-		return
-	
-	if not node or not property_to_change:
-		return
-	
-	node.set(property_to_change, original_value)
-	
-	_editor_preview = false
-
 func make_animation(..._parameters: Array) -> void:
 	
 	await await_tweeners()
@@ -128,30 +85,13 @@ func make_animation(..._parameters: Array) -> void:
 	tween.set_loops(loops)
 	GameDebugger.debug_log(TweenerAction, "Playing tween animation")
 
-func _on_tween_finished() -> void:
-	state = TweenerState.Enum.FINISHED
-	finished.emit()
-	GameDebugger.debug_log(TweenerAction, "Animation tween Finished")
-
-func _get_names(properties: Array[Dictionary]) -> Array:
-	return properties.map(
-		func(property: Dictionary) -> StringName:
-			return property.name
-	)
-
 func _validate_property(property: Dictionary) -> void:
+	super._validate_property(property)
 	
 	if node:
-		
-		if property.name == "property_to_change":
-			
-			var properties: Array = _get_names(node.get_property_list())
-			
-			property.hint = PROPERTY_HINT_ENUM
-			property.hint_string = ",".join(properties)
 	
 		if property_to_change:
-			if property.name in ["from", "to"]:
+			if property.name == "from":
 				var value: Variant = node.get(property_to_change)
 				
 				property.type = typeof(value)
@@ -169,12 +109,3 @@ func _validate_property(property: Dictionary) -> void:
 	if property.name == "trans_type":
 		if not add_transition:
 			property.usage = PROPERTY_USAGE_NO_EDITOR
-
-func _get_configuration_warnings() -> PackedStringArray:
-	
-	var warnings: PackedStringArray = []
-	
-	if not node:
-		warnings.append("You must assign a node")
-	
-	return warnings

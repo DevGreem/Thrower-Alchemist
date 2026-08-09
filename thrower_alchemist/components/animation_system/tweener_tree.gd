@@ -55,9 +55,8 @@ func play_child(
 		_finish_animation()
 
 func _finish_animation() -> void:
-	state = TweenerState.Enum.FINISHED
 	
 	for animation: TweenerAnimator in animations:
 		animation.state = TweenerState.Enum.IDLE
 	
-	finished.emit()
+	finish()

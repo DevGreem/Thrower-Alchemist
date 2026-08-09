@@ -31,5 +31,9 @@ func await_tweeners() -> void:
 @abstract
 func preview_animation() -> void
 
+func finish() -> void:
+	state = TweenerState.Enum.FINISHED
+	finished.emit()
+
 @abstract
 func make_animation(...parameters: Array) -> void
