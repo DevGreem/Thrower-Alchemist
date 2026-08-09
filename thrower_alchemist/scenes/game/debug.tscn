@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://b2spclcrcu1hs" path="res://content/entities/player/player.tscn" id="5_ewj4s"]
 
 [node name="GameMap" type="Node2D" unique_id=724420841 node_paths=PackedStringArray("world_container")]
+y_sort_enabled = true
 script = ExtResource("1_k6ilb")
 predefined_map = ExtResource("2_ewj4s")
 world_container = NodePath("WorldContainer")
@@ -55,5 +56,4 @@ z_as_relative = false
 y_sort_enabled = true
 
 [node name="WorldContainer" type="Node2D" parent="." unique_id=236857337]
-z_index = -100
 y_sort_enabled = true

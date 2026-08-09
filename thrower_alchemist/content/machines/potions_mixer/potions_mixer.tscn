@@ -21,7 +21,6 @@ resource_local_to_scene = true
 radius = 23.0
 
 [node name="PotionsMixer" type="StaticBody2D" unique_id=1111890572 node_paths=PackedStringArray("input_potions", "output_potion", "interaction_area")]
-z_as_relative = false
 y_sort_enabled = true
 collision_mask = 0
 script = ExtResource("1_afgo1")

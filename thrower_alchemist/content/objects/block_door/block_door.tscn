@@ -11,14 +11,14 @@
 size = Vector2(24, 9)
 
 [node name="BlockDoor" type="StaticBody2D" unique_id=610256026]
-z_as_relative = false
 y_sort_enabled = true
 collision_mask = 0
 script = ExtResource("1_njpen")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1910169278]
-position = Vector2(0, -16)
+position = Vector2(75, -11)
 texture = ExtResource("2_4b4sr")
+offset = Vector2(-75, -5)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1191987853]
 position = Vector2(0, -4.5)
@@ -62,7 +62,6 @@ metadata/_custom_type_script = "uid://cy3gb1u028y4j"
 
 [node name="SetInvisible" type="Node" parent="Animations/OnOpened" unique_id=1074585084 node_paths=PackedStringArray("node", "await_animators")]
 script = ExtResource("6_1v305")
-deferred_call = null
 node = NodePath("../../../Sprite2D")
 property_to_change = "visible"
 to = false
@@ -71,7 +70,6 @@ metadata/_custom_type_script = "uid://gvyugh0lodjv"
 
 [node name="SetDisabled" type="Node" parent="Animations/OnOpened" unique_id=254697642 node_paths=PackedStringArray("node", "await_animators")]
 script = ExtResource("6_1v305")
-deferred_call = null
 node = NodePath("../../../CollisionShape2D")
 property_to_change = "disabled"
 to = true
@@ -91,7 +89,6 @@ metadata/_custom_type_script = "uid://citt3bcswolbo"
 
 [node name="SetVisible" type="Node" parent="Animations/OnClosed" unique_id=1500990671 node_paths=PackedStringArray("node")]
 script = ExtResource("6_1v305")
-deferred_call = null
 node = NodePath("../../../Sprite2D")
 property_to_change = "visible"
 to = true

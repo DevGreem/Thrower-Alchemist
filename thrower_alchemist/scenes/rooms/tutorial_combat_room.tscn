@@ -25,6 +25,7 @@ position = Vector2(4.5, 11.5)
 shape = SubResource("RectangleShape2D_obaep")
 
 [node name="World" type="Node2D" parent="." unique_id=1292111676]
+z_index = -100
 metadata/_edit_lock_ = true
 
 [node name="Floors" type="TileMapLayer" parent="World" unique_id=1751550965]
@@ -38,7 +39,6 @@ tile_set = ExtResource("3_g3mex")
 metadata/_edit_lock_ = true
 
 [node name="Doors" type="Node2D" parent="." unique_id=573551291]
-z_as_relative = false
 y_sort_enabled = true
 metadata/_edit_lock_ = true
 
