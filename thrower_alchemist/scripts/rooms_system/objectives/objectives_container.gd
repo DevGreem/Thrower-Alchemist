@@ -10,6 +10,9 @@ var objectives: Dictionary[RoomObjective, bool] = {}
 
 func _ready() -> void:
 	
+	if Engine.is_editor_hint():
+		return
+	
 	for child: Node in get_children():
 		
 		if child is RoomObjective:

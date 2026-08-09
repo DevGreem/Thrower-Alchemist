@@ -23,7 +23,10 @@ enum SpawnType {
 		update_configuration_warnings()
 		notify_property_list_changed()
 
-@export var spawn_container: ContainerType.Enum = ContainerType.Enum.ENTITIES_CONTAINER
+@export var spawn_container: Node:
+	set(value):
+		spawn_container = value
+		update_configuration_warnings()
 
 @export_tool_button("Preview Spawn") var preview_button: Callable = _preview_spawn
 

@@ -7,6 +7,7 @@ class_name TriggerSpawner
 @export var spawn: bool = true
 
 func _execute(..._parameters: Array) -> void:
+	GameDebugger.debug_log(TriggerSpawner, 'Executing spawner "' + str(spawner.name) + '"')
 	
 	if spawn:
 		spawner.try_spawn()

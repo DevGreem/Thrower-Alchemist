@@ -18,7 +18,7 @@ func _ready() -> void:
 		)
 		
 		
-		EventBus.spawn_node(
+		EventBus.spawn_node_in_group(
 			PlayerManager.current_player,
 			ContainerType.Enum.ENTITIES_CONTAINER
 		)

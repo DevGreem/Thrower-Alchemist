@@ -2,6 +2,9 @@ extends Node
 
 class_name RoomController
 
+signal started
+signal completed
+
 enum State {
 	INACTIVE,
 	STARTED,
@@ -29,6 +32,16 @@ func set_state(new_state: State, force: bool = false) -> bool:
 	_room_state = new_state
 	return true
 
+func _on_set_state() -> void:
+	
+	if room_state == State.STARTED:
+		GameDebugger.debug_log(RoomController, "Starting room")
+		started.emit()
+	elif room_state == State.COMPLETED:
+		GameDebugger.debug_log(RoomController, "Room Completed")
+		open_doors()
+		completed.emit()
+
 func start() -> void:
 	
 	var ok: bool = set_state(State.STARTED)
@@ -40,7 +53,14 @@ func start() -> void:
 
 func close_doors() -> void:
 	
-	for door: Node in doors_container:
+	for door: Node in doors_container.get_children():
 		
 		if door is BlockDoorNode:
 			door.close()
+
+func open_doors() -> void:
+	
+	for door: Node in doors_container.get_children():
+		
+		if door is BlockDoorNode:
+			door.open()

@@ -5,9 +5,9 @@
 [ext_resource type="TileSet" uid="uid://bt4yh4vulrgos" path="res://assets/tilesets/walls/walls.tres" id="2_3yaat"]
 [ext_resource type="TileSet" uid="uid://dx716qc06ufca" path="res://assets/tilesets/doors/doors.tres" id="3_ex4x4"]
 [ext_resource type="Script" uid="uid://cxehsl4at72q" path="res://components/debug_components/debug_camera_2d.gd" id="5_57ggm"]
-[ext_resource type="PackedScene" uid="uid://68xbebrslfyp" path="res://scenes/spawners/potion_spawner.tscn" id="5_w3yyd"]
 [ext_resource type="Resource" uid="uid://cbndbhn3tf5bt" path="res://content/potions/fire_potion/fire_potion.tres" id="7_m62tc"]
 [ext_resource type="Script" uid="uid://cn34pf7jgm5w6" path="res://components/spawn_system/scene_spawner_2d.gd" id="8_j5r57"]
+[ext_resource type="PackedScene" uid="uid://b80uiyq60v0kn" path="res://content/potions/pickable_potion.tscn" id="8_rbpbn"]
 [ext_resource type="Script" uid="uid://b4b27isfuwpp6" path="res://components/spawn_system/spawn_trigger.gd" id="8_w3yyd"]
 [ext_resource type="PackedScene" uid="uid://ce7q32878qtvu" path="res://content/entities/tutorial_dummy/tutorial_dummy.tscn" id="9_0752k"]
 [ext_resource type="Resource" uid="uid://1e8vvxipf2fv" path="res://content/potions/ice_potion/ice_potion.tres" id="10_0752k"]
@@ -67,32 +67,44 @@ tile_map_data = PackedByteArray("AAADAP3/AQAAAAAAAAADAP7/AQAAAAEAAAADAP//AQAAAAI
 tile_set = ExtResource("3_ex4x4")
 metadata/_edit_lock_ = true
 
-[node name="Machines" type="Node2D" parent="." unique_id=191629329]
+[node name="Machines" type="Node2D" parent="." unique_id=191629329 groups=["machines_container"]]
 y_sort_enabled = true
+metadata/_edit_lock_ = true
 
 [node name="PotionsMixer" parent="Machines" unique_id=1111890572 instance=ExtResource("11_q6yd5")]
 position = Vector2(588, -205)
 
 [node name="Doors" type="Node2D" parent="." unique_id=2001727690]
 y_sort_enabled = true
+metadata/_edit_lock_ = true
 
 [node name="BlockDoor" parent="Doors" unique_id=29518178 instance=ExtResource("12_w3yyd")]
 position = Vector2(588, -256)
 
+[node name="Entities" type="Node2D" parent="." unique_id=113973233]
+y_sort_enabled = true
+metadata/_edit_lock_ = true
+
+[node name="PickablePotion" parent="Entities" unique_id=802257725 instance=ExtResource("8_rbpbn")]
+position = Vector2(372, 0)
+data = ExtResource("7_m62tc")
+
+[node name="PickablePotion2" parent="Entities" unique_id=1031047726 instance=ExtResource("8_rbpbn")]
+position = Vector2(588, -155)
+data = ExtResource("10_0752k")
+
 [node name="Spawners" type="Node2D" parent="." unique_id=405870049]
+metadata/_edit_lock_ = true
 
 [node name="PlayerSpawner" type="Marker2D" parent="Spawners" unique_id=1692652672]
 position = Vector2(32, 5)
 
-[node name="PotionSpawner" parent="Spawners" unique_id=1880383520 instance=ExtResource("5_w3yyd")]
-position = Vector2(372, 0)
-data = ExtResource("7_m62tc")
-
-[node name="DummySpawner" type="Marker2D" parent="Spawners" unique_id=1924667296]
+[node name="DummySpawner" type="Marker2D" parent="Spawners" unique_id=1924667296 node_paths=PackedStringArray("spawn_container")]
 position = Vector2(540, 0)
 script = ExtResource("8_j5r57")
 scene = ExtResource("9_0752k")
 spawn_type = 1
+spawn_container = NodePath("../../Entities")
 metadata/_custom_type_script = "uid://cn34pf7jgm5w6"
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="Spawners/DummySpawner" unique_id=1068193517]
@@ -113,10 +125,6 @@ node = NodePath("../VisibleOnScreenNotifier2D")
 signal_to_connect = &"screen_exited"
 metadata/_custom_type_script = "uid://b4b27isfuwpp6"
 
-[node name="PotionSpawner2" parent="Spawners" unique_id=1155681908 instance=ExtResource("5_w3yyd")]
-position = Vector2(588, -166)
-data = ExtResource("10_0752k")
-
 [node name="OnMixPotions" type="Node" parent="." unique_id=1387750137 node_paths=PackedStringArray("target", "node")]
 script = ExtResource("14_rbpbn")
 target = NodePath("../Doors/BlockDoor")
@@ -127,6 +135,7 @@ metadata/_custom_type_script = "uid://8h3fajc76w20"
 
 [node name="Rooms" type="Node2D" parent="." unique_id=1965858066]
 y_sort_enabled = true
+metadata/_edit_lock_ = true
 
 [node name="TutorialCombatRoom" parent="Rooms" unique_id=615088380 instance=ExtResource("15_hp4bx")]
 position = Vector2(584, -447)

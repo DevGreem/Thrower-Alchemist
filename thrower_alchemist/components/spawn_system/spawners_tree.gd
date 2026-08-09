@@ -6,6 +6,6 @@ func spawn() -> void:
 	
 	for child: Node in get_children():
 		if child is BaseSpawner:
-			child.spawn()
+			child.try_spawn()
 		elif child is SpawnersTree:
 			child.spawn()
