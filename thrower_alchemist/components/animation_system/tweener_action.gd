@@ -8,7 +8,7 @@ class_name TweenerAction
 		add_from = value
 		notify_property_list_changed()
 
-@export var from: Variant = 0.0
+@export var from: Variant = null
 @export var duration: float
 @export var delay: float = 0.0
 
@@ -94,7 +94,11 @@ func _validate_property(property: Dictionary) -> void:
 			if property.name == "from":
 				var value: Variant = node.get(property_to_change)
 				
-				property.type = typeof(value)
+				var type: int = typeof(value)
+				property.type = type
+				
+				if not from:
+					from = type_convert(null, type)
 			
 		if property.name == "from":
 			

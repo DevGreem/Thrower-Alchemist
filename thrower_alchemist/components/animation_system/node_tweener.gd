@@ -15,7 +15,7 @@ class_name NodeTweener
 		property_to_change = value
 		notify_property_list_changed()
 
-@export var to: Variant = 0.0
+@export var to: Variant = null
 
 func preview_animation() -> void:
 	
@@ -60,8 +60,12 @@ func _validate_property(property: Dictionary) -> void:
 	if property_to_change:
 		if property.name == "to":
 			var value: Variant = node.get(property_to_change)
-				
-			property.type = typeof(value)
+			
+			var type: int = typeof(value)
+			property.type = type
+			
+			if not to:
+				to = type_convert(null, type)
 
 func _get_configuration_warnings() -> PackedStringArray:
 	

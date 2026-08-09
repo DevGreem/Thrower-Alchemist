@@ -67,45 +67,49 @@ metadata/_custom_type_script = "uid://citt3bcswolbo"
 
 [node name="RotateLeft" type="Node" parent="Animations/OnDetectSomething" unique_id=717410907 node_paths=PackedStringArray("node")]
 script = ExtResource("7_jvifw")
-node = NodePath("../../../Sprite2D")
-property_to_change = "global_rotation_degrees"
-to = -20.0
+from = 0.0
 duration = 0.1
 ease_type = 1
 add_transition = false
+node = NodePath("../../../Sprite2D")
+property_to_change = "global_rotation_degrees"
+to = -20.0
 metadata/_custom_type_script = "uid://cy3gb1u028y4j"
 
 [node name="RotateRight" type="Node" parent="Animations/OnDetectSomething" unique_id=953955312 node_paths=PackedStringArray("node", "await_animators")]
 script = ExtResource("7_jvifw")
-node = NodePath("../../../Sprite2D")
-property_to_change = "global_rotation_degrees"
-to = 20.0
+from = 0.0
 duration = 0.2
 ease_type = 2
 add_transition = false
+node = NodePath("../../../Sprite2D")
+property_to_change = "global_rotation_degrees"
+to = 20.0
 await_animators = [NodePath("../RotateLeft")]
 metadata/_custom_type_script = "uid://cy3gb1u028y4j"
 
 [node name="ReturnToCenter" type="Node" parent="Animations/OnDetectSomething" unique_id=1774112233 node_paths=PackedStringArray("node", "await_animators")]
 script = ExtResource("7_jvifw")
-node = NodePath("../../../Sprite2D")
-property_to_change = "global_rotation_degrees"
+from = 0.0
 duration = 0.1
 ease_type = 2
 add_transition = false
+node = NodePath("../../../Sprite2D")
+property_to_change = "global_rotation_degrees"
+to = 0.0
 await_animators = [NodePath("../RotateRight")]
 metadata/_custom_type_script = "uid://cy3gb1u028y4j"
 
-[node name="DetectCollision" type="Node" parent="Animations" unique_id=913055220 node_paths=PackedStringArray("node", "animator")]
+[node name="DetectCollision" type="Node" parent="Animations" unique_id=913055220 node_paths=PackedStringArray("animator", "node")]
 script = ExtResource("7_u2pnx")
+animator = NodePath("../OnDetectSomething")
 node = NodePath("../../CollisionDetectorComponent2D")
 signal_to_connect = &"collision_detected"
-animator = NodePath("../OnDetectSomething")
 metadata/_custom_type_script = "uid://csownupd7lbcp"
 
-[node name="DetectDamage" type="Node" parent="Animations" unique_id=1915119 node_paths=PackedStringArray("node", "animator")]
+[node name="DetectDamage" type="Node" parent="Animations" unique_id=1915119 node_paths=PackedStringArray("animator", "node")]
 script = ExtResource("7_u2pnx")
+animator = NodePath("../OnDetectSomething")
 node = NodePath("../../HurtboxComponent2D")
 signal_to_connect = &"damage_received"
-animator = NodePath("../OnDetectSomething")
 metadata/_custom_type_script = "uid://csownupd7lbcp"

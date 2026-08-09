@@ -8,16 +8,20 @@
 [ext_resource type="Script" uid="uid://gvyugh0lodjv" path="res://components/animation_system/set_no_tween.gd" id="6_1v305"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_obaep"]
-size = Vector2(24, 32)
+size = Vector2(24, 9)
 
 [node name="BlockDoor" type="StaticBody2D" unique_id=610256026]
+z_as_relative = false
+y_sort_enabled = true
 collision_mask = 0
 script = ExtResource("1_njpen")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1910169278]
+position = Vector2(0, -16)
 texture = ExtResource("2_4b4sr")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1191987853]
+position = Vector2(0, -4.5)
 shape = SubResource("RectangleShape2D_obaep")
 
 [node name="Animations" type="Node" parent="." unique_id=514312373]
@@ -35,6 +39,7 @@ metadata/_custom_type_script = "uid://citt3bcswolbo"
 
 [node name="TweenerAction" type="Node" parent="Animations/OnOpened" unique_id=389389906 node_paths=PackedStringArray("node")]
 script = ExtResource("5_5ew4y")
+from = Vector2(0, 0)
 duration = 0.5
 ease_type = 2
 add_transition = false
@@ -45,6 +50,7 @@ metadata/_custom_type_script = "uid://cy3gb1u028y4j"
 
 [node name="TweenerAction2" type="Node" parent="Animations/OnOpened" unique_id=1192701092 node_paths=PackedStringArray("node", "await_animators")]
 script = ExtResource("5_5ew4y")
+from = Vector2(0, 0)
 duration = 0.25
 ease_type = 2
 add_transition = false
@@ -56,18 +62,20 @@ metadata/_custom_type_script = "uid://cy3gb1u028y4j"
 
 [node name="SetInvisible" type="Node" parent="Animations/OnOpened" unique_id=1074585084 node_paths=PackedStringArray("node", "await_animators")]
 script = ExtResource("6_1v305")
+deferred_call = null
 node = NodePath("../../../Sprite2D")
 property_to_change = "visible"
 to = false
 await_animators = [NodePath("../TweenerAction2")]
 metadata/_custom_type_script = "uid://gvyugh0lodjv"
 
-[node name="SetNoTween" type="Node" parent="Animations/OnOpened" unique_id=254697642 node_paths=PackedStringArray("node", "await_animators")]
+[node name="SetDisabled" type="Node" parent="Animations/OnOpened" unique_id=254697642 node_paths=PackedStringArray("node", "await_animators")]
 script = ExtResource("6_1v305")
+deferred_call = null
 node = NodePath("../../../CollisionShape2D")
 property_to_change = "disabled"
 to = true
-await_animators = [NodePath("../TweenerAction2")]
+await_animators = [NodePath("../TweenerAction")]
 metadata/_custom_type_script = "uid://gvyugh0lodjv"
 
 [node name="Closed" type="Node" parent="Animations" unique_id=620467040 node_paths=PackedStringArray("animator", "node")]
@@ -83,27 +91,41 @@ metadata/_custom_type_script = "uid://citt3bcswolbo"
 
 [node name="SetVisible" type="Node" parent="Animations/OnClosed" unique_id=1500990671 node_paths=PackedStringArray("node")]
 script = ExtResource("6_1v305")
+deferred_call = null
 node = NodePath("../../../Sprite2D")
 property_to_change = "visible"
 to = true
 metadata/_custom_type_script = "uid://gvyugh0lodjv"
 
-[node name="DownOffset" type="Node" parent="Animations/OnClosed" unique_id=1614488785 node_paths=PackedStringArray("node")]
+[node name="SetDisabled" type="Node" parent="Animations/OnClosed" unique_id=50462968 node_paths=PackedStringArray("node", "await_animators")]
+script = ExtResource("6_1v305")
+deferred_call = true
+node = NodePath("../../../CollisionShape2D")
+property_to_change = "disabled"
+to = false
+await_animators = [NodePath("../SetVisible")]
+metadata/_custom_type_script = "uid://gvyugh0lodjv"
+
+[node name="DownOffset" type="Node" parent="Animations/OnClosed" unique_id=1614488785 node_paths=PackedStringArray("node", "await_animators")]
 script = ExtResource("5_5ew4y")
+from = Vector2(0, 0)
 duration = 0.5
 ease_type = 2
 add_transition = false
 node = NodePath("../../../Sprite2D")
 property_to_change = "offset"
 to = Vector2(0, -8)
+await_animators = [NodePath("../SetDisabled")]
 metadata/_custom_type_script = "uid://cy3gb1u028y4j"
 
 [node name="DownOffset+" type="Node" parent="Animations/OnClosed" unique_id=1735379052 node_paths=PackedStringArray("node", "await_animators")]
 script = ExtResource("5_5ew4y")
+from = Vector2(0, 0)
 duration = 0.25
 ease_type = 2
 add_transition = false
 node = NodePath("../../../Sprite2D")
 property_to_change = "offset"
+to = Vector2(0, 0)
 await_animators = [NodePath("../DownOffset")]
 metadata/_custom_type_script = "uid://cy3gb1u028y4j"
