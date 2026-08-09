@@ -35,8 +35,8 @@ func start_room(room: GameRoom, max_enemies: int = -1, execute_start: bool = tru
 func complete_room(execute_complete: bool = true) -> void:
 	
 	if actual_room.started:
-		killed_enemies = 0
 		enemies_cantity = DEFAULT_ENEMIES_CANTITY
+		killed_enemies = 0
 	
 	if execute_complete:
 		actual_room.complete()

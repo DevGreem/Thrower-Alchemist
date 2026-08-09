@@ -5,8 +5,6 @@ class_name GameRoom
 signal completed
 signal room_started
 
-@export var player_detector: Area2D
-
 @export var _is_completed: bool = false
 var is_completed: bool:
 	get:

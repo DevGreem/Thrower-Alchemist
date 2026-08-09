@@ -1,31 +1,49 @@
 [gd_scene format=4 uid="uid://b255yq4r07svj"]
 
-[ext_resource type="Script" uid="uid://b7ys0jq5lm1rr" path="res://scripts/game_room.gd" id="1_3l7c3"]
+[ext_resource type="Script" uid="uid://b7ys0jq5lm1rr" path="res://scripts/rooms_system/game_room.gd" id="1_3l7c3"]
+[ext_resource type="Script" uid="uid://dutstqspisf34" path="res://scripts/rooms_system/room_controller.gd" id="2_20qox"]
 [ext_resource type="TileSet" uid="uid://dvccs0rdkm3jy" path="res://assets/tilesets/floors/floors.tres" id="2_e1fpc"]
-[ext_resource type="Script" uid="uid://f3lst4ljbwcx" path="res://scripts/room_detector_component.gd" id="2_pqqt8"]
+[ext_resource type="Script" uid="uid://f3lst4ljbwcx" path="res://scripts/rooms_system/room_detector_component.gd" id="2_pqqt8"]
 [ext_resource type="TileSet" uid="uid://bt4yh4vulrgos" path="res://assets/tilesets/walls/walls.tres" id="3_g3mex"]
 [ext_resource type="PackedScene" uid="uid://c5kx2wadtgqlu" path="res://content/objects/block_door/block_door.tscn" id="4_e1fpc"]
+[ext_resource type="Script" uid="uid://wrej1f5pwr14" path="res://scripts/rooms_system/objectives/objectives_container.gd" id="4_m2o8m"]
 [ext_resource type="Script" uid="uid://8h3fajc76w20" path="res://components/triggers_system/execute_trigger.gd" id="5_g3mex"]
+[ext_resource type="Script" uid="uid://c3c6pnk3a4sqx" path="res://scripts/rooms_system/objectives/defaults/kill_all_enemies_objective.gd" id="5_qtepd"]
+[ext_resource type="Script" uid="uid://cn34pf7jgm5w6" path="res://components/spawn_system/scene_spawner_2d.gd" id="6_hk00n"]
+[ext_resource type="Script" uid="uid://b7rbgqsgnx5pu" path="res://components/spawn_system/spawners_tree.gd" id="6_yon70"]
+[ext_resource type="PackedScene" uid="uid://bxwnq63ta4kfx" path="res://content/entities/slime/slime.tscn" id="8_54gvk"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_obaep"]
 size = Vector2(217, 185)
 
-[node name="TutorialCombatRoom" type="Node2D" unique_id=615088380 node_paths=PackedStringArray("player_detector")]
+[node name="TutorialCombatRoom" type="Node2D" unique_id=615088380]
 y_sort_enabled = true
 script = ExtResource("1_3l7c3")
-player_detector = NodePath("PlayerDetector")
 metadata/_edit_vertical_guides_ = [4.0]
 
-[node name="PlayerDetector" type="Area2D" parent="." unique_id=1227002381 node_paths=PackedStringArray("room")]
+[node name="RoomController" type="Node" parent="." unique_id=1711538978 node_paths=PackedStringArray("doors_container")]
+script = ExtResource("2_20qox")
+doors_container = NodePath("../Doors")
+metadata/_custom_type_script = "uid://dutstqspisf34"
+
+[node name="PlayerDetector" type="Area2D" parent="." unique_id=1227002381]
 z_index = 1
 collision_layer = 0
 collision_mask = 64
 script = ExtResource("2_pqqt8")
-room = NodePath("..")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetector" unique_id=1000312062]
 position = Vector2(4.5, 11.5)
 shape = SubResource("RectangleShape2D_obaep")
+
+[node name="ObjectivesContainer" type="Node" parent="." unique_id=28861762]
+script = ExtResource("4_m2o8m")
+metadata/_custom_type_script = "uid://wrej1f5pwr14"
+
+[node name="KillAllEnemiesObjective" type="Node" parent="ObjectivesContainer" unique_id=1058605790 node_paths=PackedStringArray("enemies_container")]
+script = ExtResource("5_qtepd")
+enemies_container = NodePath("../../Enemies")
+metadata/_custom_type_script = "uid://c3c6pnk3a4sqx"
 
 [node name="World" type="Node2D" parent="." unique_id=1292111676]
 z_index = -100
@@ -49,6 +67,18 @@ metadata/_edit_lock_ = true
 position = Vector2(4, 135)
 start_open = true
 
+[node name="Enemies" type="Node2D" parent="." unique_id=650368380]
+
+[node name="Spawners" type="Node" parent="." unique_id=1675514904]
+script = ExtResource("6_yon70")
+metadata/_custom_type_script = "uid://b7rbgqsgnx5pu"
+
+[node name="SceneSpawner2D" type="Marker2D" parent="Spawners" unique_id=1029722844]
+position = Vector2(-75, -57)
+script = ExtResource("6_hk00n")
+scene = ExtResource("8_54gvk")
+metadata/_custom_type_script = "uid://cn34pf7jgm5w6"
+
 [node name="OnStartRoom" type="Node" parent="." unique_id=1381215841 node_paths=PackedStringArray("target", "node")]
 script = ExtResource("5_g3mex")
 target = NodePath("../Doors/BlockDoor")
@@ -57,7 +87,7 @@ node = NodePath("..")
 signal_to_connect = &"room_started"
 metadata/_custom_type_script = "uid://8h3fajc76w20"
 
-[node name="ExecuteTrigger" type="Node" parent="." unique_id=1839769988 node_paths=PackedStringArray("target", "node")]
+[node name="OnCompleteRoom" type="Node" parent="." unique_id=1839769988 node_paths=PackedStringArray("target", "node")]
 script = ExtResource("5_g3mex")
 target = NodePath("../Doors/BlockDoor")
 method = &"open"

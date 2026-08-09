@@ -2,7 +2,7 @@ extends Area2D
 
 class_name RoomDetectorComponent
 
-@export var room: GameRoom
+@export var room: RoomController
 
 func _ready() -> void:
 	
@@ -10,4 +10,4 @@ func _ready() -> void:
 		body_entered.connect(_on_player_entered)
 
 func _on_player_entered(_body: Node2D) -> void:
-	RoomManager.start_room(room)
+	room.start()
