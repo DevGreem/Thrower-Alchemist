@@ -225,6 +225,7 @@ collision_mask = 0
 script = ExtResource("3_sc8da")
 health_component = NodePath("../HealthComponent")
 actor = NodePath("..")
+inmunity_time = 0.5
 metadata/_custom_type_script = "uid://bqx8hyj121gcl"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent2D" unique_id=1430556046]
