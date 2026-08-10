@@ -1,6 +1,6 @@
 @abstract
 @tool
-extends Marker2D
+extends ISpawn
 
 class_name BaseSpawner
 
@@ -45,9 +45,6 @@ func _ready() -> void:
 	
 	if Engine.is_editor_hint():
 		return
-
-@abstract
-func spawn() -> void
 
 func despawn() -> void:
 	

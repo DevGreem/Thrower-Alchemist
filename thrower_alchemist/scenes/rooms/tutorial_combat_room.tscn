@@ -13,7 +13,7 @@
 [ext_resource type="Script" uid="uid://b4b27isfuwpp6" path="res://components/spawn_system/spawn_trigger.gd" id="12_qtepd"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_obaep"]
-size = Vector2(217, 185)
+size = Vector2(217, 184)
 
 [node name="TutorialCombatRoom" type="Node2D" unique_id=615088380]
 y_sort_enabled = true
@@ -33,7 +33,7 @@ script = ExtResource("2_pqqt8")
 room = NodePath("../RoomController")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetector" unique_id=1000312062]
-position = Vector2(4.5, 11.5)
+position = Vector2(4.5, 12)
 shape = SubResource("RectangleShape2D_obaep")
 
 [node name="ObjectivesContainer" type="Node" parent="." unique_id=28861762]
@@ -70,15 +70,25 @@ start_open = true
 
 [node name="Enemies" type="Node2D" parent="." unique_id=650368380 groups=["entities_container"]]
 
-[node name="Spawners" type="Node" parent="." unique_id=1675514904]
+[node name="Spawners" type="Node" parent="." unique_id=1923619974]
+
+[node name="SpawnersTree" type="Marker2D" parent="Spawners" unique_id=78018172]
 script = ExtResource("6_yon70")
 metadata/_custom_type_script = "uid://b7rbgqsgnx5pu"
 
-[node name="SceneSpawner2D" type="Marker2D" parent="Spawners" unique_id=1029722844 node_paths=PackedStringArray("spawn_container")]
+[node name="SceneSpawner2D" type="Marker2D" parent="Spawners/SpawnersTree" unique_id=1029722844 node_paths=PackedStringArray("spawn_container")]
 position = Vector2(-75, -57)
 script = ExtResource("6_hk00n")
 scene = ExtResource("8_54gvk")
-spawn_container = NodePath("../../Enemies")
+spawn_container = NodePath("../../../Enemies")
+spawn_deferred = true
+metadata/_custom_type_script = "uid://cn34pf7jgm5w6"
+
+[node name="SceneSpawner2D2" type="Marker2D" parent="Spawners/SpawnersTree" unique_id=1543021808 node_paths=PackedStringArray("spawn_container")]
+position = Vector2(82, 28)
+script = ExtResource("6_hk00n")
+scene = ExtResource("8_54gvk")
+spawn_container = NodePath("../../../Enemies")
 spawn_deferred = true
 metadata/_custom_type_script = "uid://cn34pf7jgm5w6"
 
@@ -86,7 +96,7 @@ metadata/_custom_type_script = "uid://cn34pf7jgm5w6"
 
 [node name="StartEnemies" type="Node" parent="Triggers" unique_id=620516963 node_paths=PackedStringArray("spawner", "node")]
 script = ExtResource("12_qtepd")
-spawner = NodePath("../../Spawners/SceneSpawner2D")
+spawner = NodePath("../../Spawners/SpawnersTree")
 node = NodePath("../../RoomController")
 signal_to_connect = &"started"
 metadata/_custom_type_script = "uid://b4b27isfuwpp6"
