@@ -48,7 +48,6 @@ func start() -> void:
 	
 	GameDebugger.debug_log(RoomController, "Room Started")
 	started.emit()
-	close_doors()
 
 func complete() -> void:
 	
@@ -59,24 +58,3 @@ func complete() -> void:
 	
 	GameDebugger.debug_log(RoomController, "Room completed")
 	completed.emit()
-	open_doors()
-
-func close_doors() -> void:
-	
-	if not doors_container:
-		return
-	
-	for door: Node in doors_container.get_children():
-		
-		if door is BlockDoorNode:
-			door.close()
-
-func open_doors() -> void:
-	
-	if not doors_container:
-		return
-	
-	for door: Node in doors_container.get_children():
-		
-		if door is BlockDoorNode:
-			door.open()

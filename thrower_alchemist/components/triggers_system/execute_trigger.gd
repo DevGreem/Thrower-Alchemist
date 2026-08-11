@@ -22,7 +22,7 @@ func _validate_property(property: Dictionary) -> void:
 		return
 	
 	if property.name == "method":
-		var methods: Array = _get_names(target.get_method_list())
+		var methods: Array = PropertiesUtilities.get_properties_names(target.get_method_list())
 		
 		property.hint = PROPERTY_HINT_ENUM
 		property.hint_string = ",".join(methods)

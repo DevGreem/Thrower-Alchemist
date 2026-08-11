@@ -25,6 +25,7 @@ PlayerManager="*uid://dst27tilrrgpj"
 TagsManager="*uid://cg7tvcqghivrn"
 UIManager="*uid://dby5u3bvyp14j"
 RoomManager="*uid://c0h320o5nhauq"
+PropertiesUtilities="*uid://bx15j0x1na5xp"
 
 [debug]
 
