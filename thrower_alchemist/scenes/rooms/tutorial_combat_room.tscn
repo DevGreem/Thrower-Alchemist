@@ -11,8 +11,9 @@
 [ext_resource type="Script" uid="uid://b7rbgqsgnx5pu" path="res://components/spawn_system/spawners_tree.gd" id="6_yon70"]
 [ext_resource type="Script" uid="uid://d4a80wtjg4cq7" path="res://scripts/doors_container.gd" id="7_qtepd"]
 [ext_resource type="PackedScene" uid="uid://bxwnq63ta4kfx" path="res://content/entities/slime/slime.tscn" id="8_54gvk"]
-[ext_resource type="Script" uid="uid://b4b27isfuwpp6" path="res://components/spawn_system/spawn_trigger.gd" id="12_qtepd"]
+[ext_resource type="Script" uid="uid://dcufdc1p80h0j" path="res://components/triggers_system/trigger_execute_action.gd" id="13_2gpiv"]
 [ext_resource type="Script" uid="uid://8h3fajc76w20" path="res://components/triggers_system/execute_trigger.gd" id="13_ldm8d"]
+[ext_resource type="Script" uid="uid://chr8x08prhqt2" path="res://components/triggers_system/trigger_tree.gd" id="14_ox8py"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_obaep"]
 size = Vector2(217, 184)
@@ -122,12 +123,23 @@ metadata/_custom_type_script = "uid://cn34pf7jgm5w6"
 
 [node name="Triggers" type="Node" parent="." unique_id=2073652159]
 
-[node name="StartEnemies" type="Node" parent="Triggers" unique_id=620516963 node_paths=PackedStringArray("spawner", "node")]
-script = ExtResource("12_qtepd")
-spawner = NodePath("../../Spawners/SpawnersTree")
+[node name="StartedRoom" type="Node" parent="Triggers" unique_id=1471177238 node_paths=PackedStringArray("node")]
+script = ExtResource("14_ox8py")
 signal_to_connect = &"started"
 node = NodePath("../../RoomController")
-metadata/_custom_type_script = "uid://b4b27isfuwpp6"
+metadata/_custom_type_script = "uid://chr8x08prhqt2"
+
+[node name="SpawnEnemies" type="Node" parent="Triggers/StartedRoom" unique_id=1745093924 node_paths=PackedStringArray("node")]
+script = ExtResource("13_2gpiv")
+method = &"try_spawn"
+node = NodePath("../../../Spawners/SpawnersTree")
+metadata/_custom_type_script = "uid://dcufdc1p80h0j"
+
+[node name="CloseDoors" type="Node" parent="Triggers/StartedRoom" unique_id=993095450 node_paths=PackedStringArray("node")]
+script = ExtResource("13_2gpiv")
+method = &"close"
+node = NodePath("../../../Doors")
+metadata/_custom_type_script = "uid://dcufdc1p80h0j"
 
 [node name="RoomCompleted" type="Node" parent="Triggers" unique_id=855993342 node_paths=PackedStringArray("target", "node")]
 script = ExtResource("13_ldm8d")

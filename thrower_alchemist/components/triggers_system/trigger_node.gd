@@ -7,16 +7,20 @@ class_name TriggerNode
 @export var signal_to_connect: StringName:
 	set(value):
 		signal_to_connect = value
+		notify_property_list_changed()
 		update_configuration_warnings()
 
 func _ready() -> void:
 	super._ready()
 	
-	if not node.is_connected(signal_to_connect, _execute):
-		node.connect(signal_to_connect, _execute)
+	if Engine.is_editor_hint():
+		return
+	
+	if not node.is_connected(signal_to_connect, execute):
+		node.connect(signal_to_connect, execute)
 
 @abstract
-func _execute(..._parameters: Array) -> void
+func execute(..._parameters: Array) -> void
 
 func _validate_property(property: Dictionary) -> void:
 	

@@ -17,7 +17,7 @@ func _ready() -> void:
 		return
 
 @abstract
-func _execute(..._parameters: Array) -> void
+func execute(..._parameters: Array) -> void
 
 func _get_configuration_warnings() -> PackedStringArray:
 	

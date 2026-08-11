@@ -8,7 +8,7 @@ class_name TweenerTrigger
 		animator = value
 		update_configuration_warnings()
 
-func _execute(..._parameters: Array) -> void:
+func execute(..._parameters: Array) -> void:
 	animator.make_animation()
 
 func _get_configuration_warnings() -> PackedStringArray:

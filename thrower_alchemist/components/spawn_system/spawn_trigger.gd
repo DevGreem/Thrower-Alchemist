@@ -6,7 +6,7 @@ class_name TriggerSpawner
 @export var spawner: ISpawn
 @export var spawn: bool = true
 
-func _execute(..._parameters: Array) -> void:
+func execute(..._parameters: Array) -> void:
 	GameDebugger.debug_log(TriggerSpawner, 'Executing spawner "' + str(spawner.name) + '"')
 	
 	if spawn:

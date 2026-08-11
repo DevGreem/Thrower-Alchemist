@@ -11,7 +11,7 @@ class_name ExecuteTrigger
 		
 @export var method: StringName
 
-func _execute(..._parameters: Array) -> void:
+func execute(..._parameters: Array) -> void:
 	target.call(method)
 
 func _validate_property(property: Dictionary) -> void:
