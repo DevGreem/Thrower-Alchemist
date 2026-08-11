@@ -16,6 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://c5kx2wadtgqlu" path="res://content/objects/block_door/block_door.tscn" id="12_w3yyd"]
 [ext_resource type="Script" uid="uid://8h3fajc76w20" path="res://components/triggers_system/execute_trigger.gd" id="14_rbpbn"]
 [ext_resource type="PackedScene" uid="uid://b255yq4r07svj" path="res://scenes/rooms/tutorial_combat_room.tscn" id="15_hp4bx"]
+[ext_resource type="Resource" uid="uid://cf0cql6uoc4or" path="res://content/potions/types/disable_heal_potion/disable_heal_potion.tres" id="17_5wtir"]
 
 [node name="Tutorial" type="Node2D" unique_id=123151583 node_paths=PackedStringArray("player_spawner")]
 y_sort_enabled = true
@@ -149,3 +150,7 @@ method = &"open"
 signal_to_connect = &"mixed"
 node = NodePath("../../Machines/PotionsMixer")
 metadata/_custom_type_script = "uid://8h3fajc76w20"
+
+[node name="PickablePotion" parent="." unique_id=396875908 instance=ExtResource("8_rbpbn")]
+position = Vector2(588, -672)
+data = ExtResource("17_5wtir")

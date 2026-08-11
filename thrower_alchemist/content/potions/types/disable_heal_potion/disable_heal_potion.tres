@@ -1,0 +1,40 @@
+[gd_resource type="Resource" script_class="PotionData" format=3 uid="uid://cf0cql6uoc4or"]
+
+[ext_resource type="Script" uid="uid://cw2wgk8wru3aj" path="res://resources/potions/actions/interact.gd" id="1_8vgh8"]
+[ext_resource type="Script" uid="uid://0y56gtmy1e3h" path="res://components/inventory_system/resources/item_actions.gd" id="2_m2ubd"]
+[ext_resource type="Script" uid="uid://bljs478apt4sc" path="res://resources/potions/actions/use.gd" id="3_jip7w"]
+[ext_resource type="Script" uid="uid://dj37bo78y6jpp" path="res://resources/potions/potion_effect.gd" id="4_d8hsy"]
+[ext_resource type="Texture2D" uid="uid://dfgj4org13j6b" path="res://content/potions/potion.png" id="5_4knf5"]
+[ext_resource type="Script" uid="uid://bfbpbwi43jrw7" path="res://content/potion_effects/disable_healing/disable_healing_effect.gd" id="5_m2ubd"]
+[ext_resource type="Script" uid="uid://sc48cbyclvc1" path="res://resources/potions/potion_data.gd" id="6_njxy4"]
+
+[sub_resource type="Resource" id="Resource_p82yg"]
+script = ExtResource("1_8vgh8")
+
+[sub_resource type="Resource" id="Resource_487fy"]
+script = ExtResource("3_jip7w")
+
+[sub_resource type="Resource" id="Resource_uyln1"]
+script = ExtResource("2_m2ubd")
+use = SubResource("Resource_487fy")
+interact = SubResource("Resource_p82yg")
+
+[sub_resource type="Resource" id="Resource_m7dfg"]
+script = ExtResource("5_m2ubd")
+time = 3.0
+_ID = "disable_healing_effect"
+id = "disable_healing_effect"
+_COLOR = Color(0.54509807, 0, 0, 1)
+color = Color(0.54509807, 0, 0, 1)
+metadata/_custom_type_script = "uid://bfbpbwi43jrw7"
+
+[resource]
+script = ExtResource("6_njxy4")
+weight = 1.25
+effects = Array[ExtResource("4_d8hsy")]([SubResource("Resource_m7dfg")])
+_ID = "disable_heal_potion"
+icon = ExtResource("5_4knf5")
+name = "Potion"
+cooldown = 10.0
+actions = SubResource("Resource_uyln1")
+metadata/_custom_type_script = "uid://sc48cbyclvc1"
