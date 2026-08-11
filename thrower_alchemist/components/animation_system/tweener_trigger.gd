@@ -9,6 +9,7 @@ class_name TweenerTrigger
 		update_configuration_warnings()
 
 func execute(..._parameters: Array) -> void:
+	GameDebugger.debug_log(TweenerTrigger, "Executing animation " + str(animator.name))
 	animator.make_animation()
 
 func _get_configuration_warnings() -> PackedStringArray:

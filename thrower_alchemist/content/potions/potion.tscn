@@ -6,7 +6,7 @@
 [ext_resource type="Script" uid="uid://bkloujx624lh4" path="res://components/hit_system/hurtbox_detector_component_2d.gd" id="5_s3gvr"]
 [ext_resource type="Script" uid="uid://d10ll63pv3u3p" path="res://content/potions/potion_icon_component.gd" id="6_p4w1y"]
 [ext_resource type="Script" uid="uid://cixn3eduqvftn" path="res://components/move_component_2d.gd" id="6_s3gvr"]
-[ext_resource type="Script" uid="uid://dbayy5n8t67ol" path="res://components/collision_detector_component_2d.gd" id="7_p4w1y"]
+[ext_resource type="Script" uid="uid://dbayy5n8t67ol" path="res://components/area_detection_system/collision_detector_component_2d.gd" id="7_p4w1y"]
 [ext_resource type="Script" uid="uid://8h3fajc76w20" path="res://components/triggers_system/execute_trigger.gd" id="8_gb8pu"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_s3gvr"]
