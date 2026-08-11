@@ -2,12 +2,16 @@ extends CharacterBody2D
 
 class_name PotionNode
 
-@onready var move_component: MoveComponent2D = $%MoveComponent2D
-@onready var reach_distance_component: ReachDistanceComponent2D = $%ReachDistanceComponent2D
-@onready var collision_detector_component: CollisionDetectorComponent2D = $CollisionDetectorComponent2D
+@export var move_component: MoveComponent2D
+@export var reach_distance_component: ReachDistanceComponent2D
+@export var hurtbox_detector: HurtboxDetectorComponent2D
 
 @export var actor: Node2D
-@export var data: PotionData
+@export var data: PotionData:
+	set(value):
+		data = value
+		_update_data()
+
 @export var potion_icon_component: PotionIconComponent
 
 static func generate(_actor: Node2D, _data: PotionData) -> PotionNode:
@@ -21,7 +25,7 @@ static func generate(_actor: Node2D, _data: PotionData) -> PotionNode:
 	return new_potion
 
 func _ready() -> void:
-	collision_detector_component.actor = actor
+	hurtbox_detector.actor = self.actor
 	_update_data()
 
 func _update_data() -> void:
@@ -55,11 +59,4 @@ func _make_collision_effect(collider: Node2D) -> void:
 		effect.collision_effect(actor, self, collider)
 
 func throw(direction: Vector2) -> void:
-	
-	if not reach_distance_component.reached.is_connected(_on_reach):
-		reach_distance_component.reached.connect(_on_reach)
-	
-	if not collision_detector_component.collision_detected.is_connected(_make_collision_effect):
-		collision_detector_component.collision_detected.connect(_make_collision_effect)
-	
 	move_component.direction = self.global_position.direction_to(direction)

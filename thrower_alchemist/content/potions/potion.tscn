@@ -3,9 +3,11 @@
 [ext_resource type="Script" uid="uid://fey7uq0vedbb" path="res://content/potions/potion_node.gd" id="1_bctwa"]
 [ext_resource type="Texture2D" uid="uid://dfgj4org13j6b" path="res://content/potions/potion.png" id="2_j0gsx"]
 [ext_resource type="Script" uid="uid://b7vd0ofxx6q5p" path="res://components/destination_system/reach_distance_component.gd" id="5_63a6k"]
-[ext_resource type="Script" uid="uid://bkloujx624lh4" path="res://components/hit_system/collision_detector_component_2d.gd" id="5_s3gvr"]
+[ext_resource type="Script" uid="uid://bkloujx624lh4" path="res://components/hit_system/hurtbox_detector_component_2d.gd" id="5_s3gvr"]
 [ext_resource type="Script" uid="uid://d10ll63pv3u3p" path="res://content/potions/potion_icon_component.gd" id="6_p4w1y"]
 [ext_resource type="Script" uid="uid://cixn3eduqvftn" path="res://components/move_component_2d.gd" id="6_s3gvr"]
+[ext_resource type="Script" uid="uid://dbayy5n8t67ol" path="res://components/collision_detector_component_2d.gd" id="7_p4w1y"]
+[ext_resource type="Script" uid="uid://8h3fajc76w20" path="res://components/triggers_system/execute_trigger.gd" id="8_gb8pu"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_s3gvr"]
 radius = 2.0
@@ -13,10 +15,13 @@ radius = 2.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_63a6k"]
 radius = 2.25
 
-[node name="Potion" type="CharacterBody2D" unique_id=1241958563 node_paths=PackedStringArray("potion_icon_component")]
+[node name="Potion" type="CharacterBody2D" unique_id=1241958563 node_paths=PackedStringArray("move_component", "reach_distance_component", "hurtbox_detector", "potion_icon_component")]
 y_sort_enabled = true
 collision_layer = 8
 script = ExtResource("1_bctwa")
+move_component = NodePath("MoveComponent2D")
+reach_distance_component = NodePath("ReachDistanceComponent2D")
+hurtbox_detector = NodePath("Detectors/HurtboxDetectorComponent2D")
 potion_icon_component = NodePath("PotionIconComponent")
 
 [node name="Sprite" type="Sprite2D" parent="." unique_id=201296664]
@@ -24,7 +29,6 @@ position = Vector2(0, -4)
 texture = ExtResource("2_j0gsx")
 
 [node name="MoveComponent2D" type="Node" parent="." unique_id=1730887930 node_paths=PackedStringArray("actor")]
-unique_name_in_owner = true
 script = ExtResource("6_s3gvr")
 actor = NodePath("..")
 speed = 175.0
@@ -35,24 +39,55 @@ position = Vector2(0, -4)
 shape = SubResource("CircleShape2D_s3gvr")
 
 [node name="ReachDistanceComponent2D" type="Node" parent="." unique_id=768853802 node_paths=PackedStringArray("actor", "move_component")]
-unique_name_in_owner = true
 script = ExtResource("5_63a6k")
 actor = NodePath("..")
 move_component = NodePath("../MoveComponent2D")
 reach_distance = 150.0
 
-[node name="CollisionDetectorComponent2D" type="Area2D" parent="." unique_id=1085547622]
-collision_layer = 0
-collision_mask = 67
-script = ExtResource("5_s3gvr")
-detect_hurtboxes = true
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CollisionDetectorComponent2D" unique_id=162318279]
-position = Vector2(0, -4)
-shape = SubResource("CircleShape2D_63a6k")
-debug_color = Color(0.03284751, 0.70196074, 0, 0.41960785)
-
 [node name="PotionIconComponent" type="Node" parent="." unique_id=1308127113 node_paths=PackedStringArray("icon_node")]
 script = ExtResource("6_p4w1y")
 icon_node = NodePath("../Sprite")
 metadata/_custom_type_script = "uid://d10ll63pv3u3p"
+
+[node name="Detectors" type="Node" parent="." unique_id=1244316171]
+
+[node name="HurtboxDetectorComponent2D" type="Area2D" parent="Detectors" unique_id=1085547622]
+collision_layer = 0
+collision_mask = 67
+script = ExtResource("5_s3gvr")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Detectors/HurtboxDetectorComponent2D" unique_id=162318279]
+position = Vector2(0, -4)
+shape = SubResource("CircleShape2D_63a6k")
+debug_color = Color(0.03284751, 0.70196074, 0, 0.41960785)
+
+[node name="CollisionDetectorComponent2D" type="Node" parent="Detectors" unique_id=1346173151 node_paths=PackedStringArray("node")]
+script = ExtResource("7_p4w1y")
+node = NodePath("../..")
+metadata/_custom_type_script = "uid://dbayy5n8t67ol"
+
+[node name="Triggers" type="Node" parent="." unique_id=403966091]
+
+[node name="OnDetectHurtbox" type="Node" parent="Triggers" unique_id=1537586723 node_paths=PackedStringArray("target", "node")]
+script = ExtResource("8_gb8pu")
+target = NodePath("../..")
+method = &"_make_collision_effect"
+signal_to_connect = &"hurtbox_detected"
+node = NodePath("../../Detectors/HurtboxDetectorComponent2D")
+metadata/_custom_type_script = "uid://8h3fajc76w20"
+
+[node name="OnDetectCollision" type="Node" parent="Triggers" unique_id=887200950 node_paths=PackedStringArray("target", "node")]
+script = ExtResource("8_gb8pu")
+target = NodePath("../..")
+method = &"_make_collision_effect"
+signal_to_connect = &"collision_detected"
+node = NodePath("../../Detectors/CollisionDetectorComponent2D")
+metadata/_custom_type_script = "uid://8h3fajc76w20"
+
+[node name="OnReachDistance" type="Node" parent="Triggers" unique_id=1556816417 node_paths=PackedStringArray("target", "node")]
+script = ExtResource("8_gb8pu")
+target = NodePath("../..")
+method = &"_on_reach"
+signal_to_connect = &"reached"
+node = NodePath("../../ReachDistanceComponent2D")
+metadata/_custom_type_script = "uid://8h3fajc76w20"

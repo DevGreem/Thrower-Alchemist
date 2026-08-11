@@ -102,6 +102,10 @@ data = ExtResource("10_0752k")
 position = Vector2(571, -672)
 data = ExtResource("11_2wg8v")
 
+[node name="PickablePotion4" parent="Entities" unique_id=396875908 instance=ExtResource("8_rbpbn")]
+position = Vector2(588, -672)
+data = ExtResource("17_5wtir")
+
 [node name="Spawners" type="Node2D" parent="." unique_id=405870049]
 metadata/_edit_lock_ = true
 
@@ -150,7 +154,3 @@ method = &"open"
 signal_to_connect = &"mixed"
 node = NodePath("../../Machines/PotionsMixer")
 metadata/_custom_type_script = "uid://8h3fajc76w20"
-
-[node name="PickablePotion" parent="." unique_id=396875908 instance=ExtResource("8_rbpbn")]
-position = Vector2(588, -672)
-data = ExtResource("17_5wtir")

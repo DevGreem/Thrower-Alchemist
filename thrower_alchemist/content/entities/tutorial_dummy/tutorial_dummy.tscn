@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://b6nujstkyoydy" path="res://content/entities/tutorial_dummy/tutorial_dummy.gd" id="1_wbk67"]
 [ext_resource type="Script" uid="uid://ditbeykj0vfd4" path="res://components/hit_system/health_component.gd" id="2_im0wv"]
 [ext_resource type="Script" uid="uid://bqx8hyj121gcl" path="res://components/hit_system/hurtbox_component_2d.gd" id="3_k08vs"]
-[ext_resource type="Script" uid="uid://bkloujx624lh4" path="res://components/hit_system/collision_detector_component_2d.gd" id="4_im0wv"]
+[ext_resource type="Script" uid="uid://bkloujx624lh4" path="res://components/hit_system/hurtbox_detector_component_2d.gd" id="4_im0wv"]
 [ext_resource type="Script" uid="uid://citt3bcswolbo" path="res://components/animation_system/tweener_tree.gd" id="6_u2pnx"]
 [ext_resource type="Script" uid="uid://cy3gb1u028y4j" path="res://components/animation_system/tweener_action.gd" id="7_jvifw"]
 [ext_resource type="Script" uid="uid://csownupd7lbcp" path="res://components/animation_system/tweener_trigger.gd" id="7_u2pnx"]
@@ -103,13 +103,13 @@ metadata/_custom_type_script = "uid://cy3gb1u028y4j"
 [node name="DetectCollision" type="Node" parent="Animations" unique_id=913055220 node_paths=PackedStringArray("animator", "node")]
 script = ExtResource("7_u2pnx")
 animator = NodePath("../OnDetectSomething")
-node = NodePath("../../CollisionDetectorComponent2D")
 signal_to_connect = &"collision_detected"
+node = NodePath("../../CollisionDetectorComponent2D")
 metadata/_custom_type_script = "uid://csownupd7lbcp"
 
 [node name="DetectDamage" type="Node" parent="Animations" unique_id=1915119 node_paths=PackedStringArray("animator", "node")]
 script = ExtResource("7_u2pnx")
 animator = NodePath("../OnDetectSomething")
-node = NodePath("../../HurtboxComponent2D")
 signal_to_connect = &"damage_received"
+node = NodePath("../../HurtboxComponent2D")
 metadata/_custom_type_script = "uid://csownupd7lbcp"
