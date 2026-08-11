@@ -12,6 +12,7 @@ var id: String:
 @export var name: String
 @export_multiline var description: String
 @export var cooldown: float = -1
+@export var start_without_cooldown: bool = true
 @export var max_stack: int = 1
 @export var actions: ItemActions
 

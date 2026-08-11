@@ -22,6 +22,7 @@
 [ext_resource type="Script" uid="uid://bo0xfdfx62t0i" path="res://components/interaction_system/inputs/interact_world_input.gd" id="19_2m54q"]
 [ext_resource type="Script" uid="uid://c3dkm3li8244q" path="res://components/interaction_system/interact_component_2d.gd" id="19_h0d63"]
 [ext_resource type="Script" uid="uid://4ttfqf8y1fon" path="res://components/interaction_system/interact_ui.gd" id="21_awhl2"]
+[ext_resource type="Script" uid="uid://d3uryx80exwr" path="res://components/debug_components/inputs/debug_god_input.gd" id="21_msox1"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_y5q02"]
 shader = ExtResource("1_4rie3")
@@ -143,6 +144,12 @@ script = ExtResource("19_2m54q")
 interact_component = NodePath("../../InteractComponent2D")
 actor = NodePath("../..")
 metadata/_custom_type_script = "uid://bo0xfdfx62t0i"
+
+[node name="DebugGodInput" type="Node" parent="Inputs" unique_id=806090452 node_paths=PackedStringArray("collisions", "actor")]
+script = ExtResource("21_msox1")
+collisions = [NodePath("../../Collision")]
+actor = NodePath("../..")
+metadata/_custom_type_script = "uid://d3uryx80exwr"
 
 [node name="InteractComponent2D" type="Node2D" parent="." unique_id=1404492988 node_paths=PackedStringArray("actor", "interact_area")]
 script = ExtResource("19_h0d63")
