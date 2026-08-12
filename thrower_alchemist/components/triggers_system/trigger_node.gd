@@ -16,9 +16,9 @@ func _ready() -> void:
 	if Engine.is_editor_hint():
 		return
 	
-	if not node.has_signal(signal_to_connect):
-		GameDebugger.debug_warning(TriggerNode, 'Signal no exists in the node"' + str(node.name))
-		return
+	#if not node.has_signal(signal_to_connect):
+		#GameDebugger.debug_warning(TriggerNode, 'Signal no exists in the node"' + str(node.name))
+		#return
 	
 	if not node.is_connected(signal_to_connect, execute):
 		node.connect(signal_to_connect, execute)

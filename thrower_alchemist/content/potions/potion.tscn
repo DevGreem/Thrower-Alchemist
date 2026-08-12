@@ -21,7 +21,7 @@ collision_layer = 8
 script = ExtResource("1_bctwa")
 move_component = NodePath("MoveComponent2D")
 reach_distance_component = NodePath("ReachDistanceComponent2D")
-hurtbox_detector = NodePath("Detectors/HurtboxDetectorComponent2D")
+hurtbox_detector = NodePath("HurtboxDetectorComponent2D")
 potion_icon_component = NodePath("PotionIconComponent")
 
 [node name="Sprite" type="Sprite2D" parent="." unique_id=201296664]
@@ -49,21 +49,19 @@ script = ExtResource("6_p4w1y")
 icon_node = NodePath("../Sprite")
 metadata/_custom_type_script = "uid://d10ll63pv3u3p"
 
-[node name="Detectors" type="Node" parent="." unique_id=1244316171]
-
-[node name="HurtboxDetectorComponent2D" type="Area2D" parent="Detectors" unique_id=1085547622]
+[node name="HurtboxDetectorComponent2D" type="Area2D" parent="." unique_id=1085547622]
 collision_layer = 0
-collision_mask = 67
+collision_mask = 75
 script = ExtResource("5_s3gvr")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Detectors/HurtboxDetectorComponent2D" unique_id=162318279]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxDetectorComponent2D" unique_id=162318279]
 position = Vector2(0, -4)
 shape = SubResource("CircleShape2D_63a6k")
 debug_color = Color(0.03284751, 0.70196074, 0, 0.41960785)
 
-[node name="CollisionDetectorComponent2D" type="Node" parent="Detectors" unique_id=1346173151 node_paths=PackedStringArray("node")]
+[node name="CollisionDetectorComponent2D" type="Node" parent="." unique_id=1346173151 node_paths=PackedStringArray("node")]
 script = ExtResource("7_p4w1y")
-node = NodePath("../..")
+node = NodePath("..")
 metadata/_custom_type_script = "uid://dbayy5n8t67ol"
 
 [node name="Triggers" type="Node" parent="." unique_id=403966091]
@@ -73,7 +71,7 @@ script = ExtResource("8_gb8pu")
 target = NodePath("../..")
 method = &"_make_collision_effect"
 signal_to_connect = &"hurtbox_detected"
-node = NodePath("../../Detectors/HurtboxDetectorComponent2D")
+node = NodePath("../../HurtboxDetectorComponent2D")
 metadata/_custom_type_script = "uid://8h3fajc76w20"
 
 [node name="OnDetectCollision" type="Node" parent="Triggers" unique_id=887200950 node_paths=PackedStringArray("target", "node")]
@@ -81,7 +79,7 @@ script = ExtResource("8_gb8pu")
 target = NodePath("../..")
 method = &"_make_collision_effect"
 signal_to_connect = &"collision_detected"
-node = NodePath("../../Detectors/CollisionDetectorComponent2D")
+node = NodePath("../../CollisionDetectorComponent2D")
 metadata/_custom_type_script = "uid://8h3fajc76w20"
 
 [node name="OnReachDistance" type="Node" parent="Triggers" unique_id=1556816417 node_paths=PackedStringArray("target", "node")]

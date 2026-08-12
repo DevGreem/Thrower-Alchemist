@@ -2,7 +2,7 @@
 extends EditorScript
 
 func _run() -> void:
-	_print_tree(get_scene())
+	_print_tree(EditorInterface.get_edited_scene_root())
 
 func _print_tree(node: Node, indent: String = "") -> void:
 	print(indent, node.name, " (", node.get_class(), ")")

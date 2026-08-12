@@ -57,6 +57,8 @@ func _make_collision_effect(collider: Node2D) -> void:
 	
 	for effect: PotionEffect in data.effects:
 		effect.collision_effect(actor, self, collider)
+	
+	self.queue_free()
 
 func throw(direction: Vector2) -> void:
 	move_component.direction = self.global_position.direction_to(direction)

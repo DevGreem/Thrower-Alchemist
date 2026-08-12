@@ -15,6 +15,8 @@ func _ready() -> void:
 	if not node:
 		GameDebugger.debug_warning(TriggerNode, "Node not assigned")
 		return
+	
+	GameDebugger.debug_log(ITrigger, "Trigger " + self.name + " loaded")
 
 @abstract
 func execute(..._parameters: Array) -> void
