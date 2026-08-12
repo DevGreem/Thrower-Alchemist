@@ -35,6 +35,5 @@ effects = Array[ExtResource("4_nk1am")]([SubResource("Resource_urx8p")])
 _ID = "heal_potion"
 icon = ExtResource("5_e1ryf")
 name = "Potion"
-cooldown = 15.0
 actions = SubResource("Resource_cpxj2")
 metadata/_custom_type_script = "uid://sc48cbyclvc1"

@@ -29,6 +29,7 @@ script = ExtResource("2_im0wv")
 metadata/_custom_type_script = "uid://ditbeykj0vfd4"
 
 [node name="HurtboxComponent2D" type="Area2D" parent="." unique_id=1618844333 node_paths=PackedStringArray("health_component", "actor")]
+collision_mask = 0
 script = ExtResource("3_k08vs")
 health_component = NodePath("../HealthComponent")
 actor = NodePath("..")

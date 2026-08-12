@@ -27,6 +27,8 @@ func _disable_target_health(target: Node) -> void:
 		GameDebugger.debug_log(DisableHealingEffect, "HealthComponent not founded")
 		return
 	
+	GameDebugger.debug_log(DisableHealingEffect, "Health of target disabled", true)
+	
 	var _counter: int = target.get_meta(META_ID, 0)
 	_counter += 1
 	
@@ -43,3 +45,4 @@ func _disable_target_health(target: Node) -> void:
 		return
 	
 	health.can_change_health = true
+	GameDebugger.debug_log(DisableHealingEffect, "Health of target enabled", true)
