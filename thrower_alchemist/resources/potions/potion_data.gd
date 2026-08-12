@@ -74,7 +74,7 @@ func get_potion_color() -> Color:
 	var color: Color = Color.BLACK
 	
 	for effect: PotionEffect in self.effects:
-		color += effect.color
+		color += effect.definition.color
 	
 	if not self.effects.is_empty():
 		color /= self.effects.size()

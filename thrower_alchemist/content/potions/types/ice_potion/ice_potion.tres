@@ -22,10 +22,6 @@ interact = SubResource("Resource_gfam0")
 [sub_resource type="Resource" id="Resource_44e06"]
 script = ExtResource("5_vaywa")
 freeze_time = 3.0
-_ID = "ice_effect"
-id = "ice_effect"
-_COLOR = Color(0, 0, 1, 1)
-color = Color(0, 0, 1, 1)
 metadata/_custom_type_script = "uid://mwbdvayb2afl"
 
 [resource]

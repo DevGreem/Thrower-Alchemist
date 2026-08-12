@@ -5,9 +5,12 @@ class_name HealEffect
 
 @export var heal: float
 
-func _init() -> void:
-	_ID = "heal_effect"
-	_COLOR = Color.LIME_GREEN
+func get_definition() -> PotionEffectDefinition:
+	return PotionEffectDefinition.new(
+		"heal_effect",
+		Color.LIME_GREEN,
+		PotionJoinMode.Enum.DENY
+	)
 
 func drink_effect(actor: Node2D) -> void:
 	_heal_target(actor)

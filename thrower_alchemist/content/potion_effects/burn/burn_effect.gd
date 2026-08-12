@@ -9,9 +9,11 @@ class_name BurnEffect
 var cooldown: float:
 	get: return time_alive/times
 
-func _init() -> void:
-	_ID = "burn_effect"
-	_COLOR = Color.ORANGE_RED
+func get_definition() -> PotionEffectDefinition:
+	return PotionEffectDefinition.new(
+		"burn_effect",
+		Color.ORANGE_RED
+	)
 
 func drink_effect(actor: Node2D) -> void:
 	

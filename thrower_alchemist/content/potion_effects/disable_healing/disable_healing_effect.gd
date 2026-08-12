@@ -6,9 +6,11 @@ class_name DisableHealingEffect
 @export var time: float
 const META_ID: String = "disable_heal_counter"
 
-func _init() -> void:
-	_ID = "disable_healing_effect"
-	_COLOR = Color.DARK_RED
+func get_definition() -> PotionEffectDefinition:
+	return PotionEffectDefinition.new(
+		"disable_healing_effect",
+		Color.DARK_RED
+	)
 
 func drink_effect(actor: Node2D) -> void:
 	_disable_target_health(actor)

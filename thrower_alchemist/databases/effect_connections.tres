@@ -14,18 +14,26 @@ _scan_rulesets = Array[Dictionary]([{
 &"scan_regex_include": ""
 }])
 _uids_to_string_ids = Dictionary[StringName, StringName]({
+&"uid://beuddqrqs4pil": &"heal_disable_healing",
 &"uid://buknf082k848h": &"burn_ice"
 })
 _string_ids_to_uids = Dictionary[StringName, StringName]({
-&"burn_ice": &"uid://buknf082k848h"
+&"burn_ice": &"uid://buknf082k848h",
+&"heal_disable_healing": &"uid://beuddqrqs4pil"
 })
 _property_index = Dictionary[StringName, Dictionary]({
 &"left": {
 "burn_effect": {
 &"burn_ice": true
+},
+"heal_effect": {
+&"heal_disable_healing": true
 }
 },
 &"right": {
+"disable_healing_effect": {
+&"heal_disable_healing": true
+},
 "ice_effect": {
 &"burn_ice": true
 }

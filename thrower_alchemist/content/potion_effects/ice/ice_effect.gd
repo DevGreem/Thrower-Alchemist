@@ -7,9 +7,11 @@ class_name IceEffect
 
 const META_ID: String = "freeze_counter"
 
-func _init() -> void:
-	_ID = "ice_effect"
-	_COLOR = Color.BLUE
+func get_definition() -> PotionEffectDefinition:
+	return PotionEffectDefinition.new(
+		"ice_effect",
+		Color.BLUE
+	)
 
 func drink_effect(actor: Node2D) -> void:
 	_freeze_actor(actor)
