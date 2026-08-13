@@ -52,6 +52,10 @@ func _recursive_get_component(parent: Node, node: Node, type: Variant, internal:
 	_add_component_cache(node, type, null)
 	return null
 
+func get_component_array(node: Node, type: Array, internal: bool = false) -> Array[Node]:
+	
+	return []
+
 ## [parameter types] must be an array of types
 func get_components(node: Node, types: Array, internal: bool = false) -> Dictionary[Variant, Node]:
 	
