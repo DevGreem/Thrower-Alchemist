@@ -51,6 +51,7 @@ size = Vector2(20, 12)
 [node name="Player" type="CharacterBody2D" unique_id=1606296388 groups=["player"]]
 y_sort_enabled = true
 collision_layer = 68
+collision_mask = 5
 motion_mode = 1
 script = ExtResource("1_piw5s")
 
@@ -204,10 +205,10 @@ move_component = NodePath("../../../MoveComponent2D")
 idle_transition = NodePath("../../Transitions/UndashIdleTransition")
 move_transition = NodePath("../../Transitions/DashUndashTransition")
 move_input = NodePath("../../../Inputs/MoveInputComponent2D")
-dash_time = 1.0
+dash_time = 0.1
 operator = "*"
 speed_value = 5.0
-cooldown = 1.0
+cooldown = 0.5
 
 [node name="Transitions" type="Node" parent="States" unique_id=734629214]
 
