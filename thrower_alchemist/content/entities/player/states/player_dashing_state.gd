@@ -35,6 +35,7 @@ func _ready() -> void:
 func can_dash() -> bool:
 	return timer.is_stopped()
 
+# TODO: Add falling holes like enter the gungeon and add a new Falling state
 func _enter() -> void:
 	
 	original_change_direction = move_component.can_change_direction
