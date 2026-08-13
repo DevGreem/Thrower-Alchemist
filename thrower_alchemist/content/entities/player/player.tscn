@@ -30,6 +30,7 @@
 [ext_resource type="Script" uid="uid://do6g2i4d6kbhj" path="res://components/limbo_ai/hsm_transition_adder.gd" id="26_qbe7t"]
 [ext_resource type="Script" uid="uid://d0kc0cjwq0k7w" path="res://content/entities/player/states/player_dashing_state.gd" id="28_8l5bx"]
 [ext_resource type="Script" uid="uid://bxxh2ah2yyi43" path="res://components/limbo_ai/hsm_bidirectional_transition_adder.gd" id="28_hp5df"]
+[ext_resource type="Script" uid="uid://tde4f3qhw3et" path="res://content/entities/player/states/falling_state.gd" id="29_2ux3l"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_y5q02"]
 shader = ExtResource("1_4rie3")
@@ -184,59 +185,79 @@ interact_component = NodePath("..")
 [node name="StateMachine" type="LimboHSM" parent="States" unique_id=1871033156 node_paths=PackedStringArray("actor", "default_state")]
 script = ExtResource("24_xorka")
 actor = NodePath("../..")
-default_state = NodePath("Idle")
+default_state = NodePath("Normal")
 metadata/_custom_type_script = "uid://b0ofjfg8urw8o"
 
-[node name="Idle" type="LimboState" parent="States/StateMachine" unique_id=613331369 node_paths=PackedStringArray("move_input", "transition")]
+[node name="Normal" type="LimboHSM" parent="States/StateMachine" unique_id=901959481 node_paths=PackedStringArray("actor", "default_state")]
+script = ExtResource("24_xorka")
+actor = NodePath("../../..")
+default_state = NodePath("Idle")
+start_automatically = false
+metadata/_custom_type_script = "uid://b0ofjfg8urw8o"
+
+[node name="Idle" type="LimboState" parent="States/StateMachine/Normal" unique_id=613331369 node_paths=PackedStringArray("move_input", "transition")]
 script = ExtResource("25_qbe7t")
-move_input = NodePath("../../../Inputs/MoveInputComponent2D")
-transition = NodePath("../../Transitions/MoveStopTransition")
+move_input = NodePath("../../../../Inputs/MoveInputComponent2D")
+transition = NodePath("../../../Transitions/MoveStopTransition")
 
-[node name="Moving" type="LimboState" parent="States/StateMachine" unique_id=534378920 node_paths=PackedStringArray("move_input", "dash_input", "stop_transition", "dash_transition")]
+[node name="Moving" type="LimboState" parent="States/StateMachine/Normal" unique_id=534378920 node_paths=PackedStringArray("move_input", "dash_input", "stop_transition", "dash_transition")]
 script = ExtResource("26_k0eji")
-move_input = NodePath("../../../Inputs/MoveInputComponent2D")
-dash_input = NodePath("../../../Inputs/DashInput")
-stop_transition = NodePath("../../Transitions/MoveStopTransition")
-dash_transition = NodePath("../../Transitions/DashUndashTransition")
+move_input = NodePath("../../../../Inputs/MoveInputComponent2D")
+dash_input = NodePath("../../../../Inputs/DashInput")
+stop_transition = NodePath("../../../Transitions/MoveStopTransition")
+dash_transition = NodePath("../../../Transitions/DashUndashTransition")
 
-[node name="Dashing" type="LimboState" parent="States/StateMachine" unique_id=479541923 node_paths=PackedStringArray("move_component", "idle_transition", "move_transition", "move_input")]
+[node name="Dashing" type="LimboState" parent="States/StateMachine/Normal" unique_id=479541923 node_paths=PackedStringArray("move_component", "idle_transition", "move_transition", "move_input")]
 script = ExtResource("28_8l5bx")
-move_component = NodePath("../../../MoveComponent2D")
-idle_transition = NodePath("../../Transitions/UndashIdleTransition")
-move_transition = NodePath("../../Transitions/DashUndashTransition")
-move_input = NodePath("../../../Inputs/MoveInputComponent2D")
+move_component = NodePath("../../../../MoveComponent2D")
+idle_transition = NodePath("../../../Transitions/UndashIdleTransition")
+move_transition = NodePath("../../../Transitions/DashUndashTransition")
+move_input = NodePath("../../../../Inputs/MoveInputComponent2D")
 dash_time = 0.1
 operator = "*"
 speed_value = 5.0
 cooldown = 0.5
+
+[node name="Falling" type="LimboState" parent="States/StateMachine" unique_id=1513118912]
+script = ExtResource("29_2ux3l")
 
 [node name="Transitions" type="Node" parent="States" unique_id=734629214]
 
 [node name="MoveStopTransition" type="Node" parent="States/Transitions" unique_id=119242373 node_paths=PackedStringArray("state_machine", "from_state", "to_state")]
 script = ExtResource("28_hp5df")
 _reverse_transition_name = &"stop"
-state_machine = NodePath("../../StateMachine")
+state_machine = NodePath("../../StateMachine/Normal")
 custom_transition_name = true
 _transition_name = &"move"
-from_state = NodePath("../../StateMachine/Idle")
-to_state = NodePath("../../StateMachine/Moving")
+from_state = NodePath("../../StateMachine/Normal/Idle")
+to_state = NodePath("../../StateMachine/Normal/Moving")
 metadata/_custom_type_script = "uid://bxxh2ah2yyi43"
 
 [node name="DashUndashTransition" type="Node" parent="States/Transitions" unique_id=1704606668 node_paths=PackedStringArray("state_machine", "from_state", "to_state")]
 script = ExtResource("28_hp5df")
 _reverse_transition_name = &"undash"
-state_machine = NodePath("../../StateMachine")
+state_machine = NodePath("../../StateMachine/Normal")
 custom_transition_name = true
 _transition_name = &"dash"
-from_state = NodePath("../../StateMachine/Moving")
-to_state = NodePath("../../StateMachine/Dashing")
+from_state = NodePath("../../StateMachine/Normal/Moving")
+to_state = NodePath("../../StateMachine/Normal/Dashing")
 metadata/_custom_type_script = "uid://bxxh2ah2yyi43"
 
 [node name="UndashIdleTransition" type="Node" parent="States/Transitions" unique_id=1148949896 node_paths=PackedStringArray("state_machine", "from_state", "to_state")]
 script = ExtResource("26_qbe7t")
-state_machine = NodePath("../../StateMachine")
+state_machine = NodePath("../../StateMachine/Normal")
 custom_transition_name = true
 _transition_name = &"undash_idle"
-from_state = NodePath("../../StateMachine/Dashing")
-to_state = NodePath("../../StateMachine/Idle")
+from_state = NodePath("../../StateMachine/Normal/Dashing")
+to_state = NodePath("../../StateMachine/Normal/Idle")
 metadata/_custom_type_script = "uid://do6g2i4d6kbhj"
+
+[node name="FallIdleTransition" type="Node" parent="States/Transitions" unique_id=1131060474 node_paths=PackedStringArray("state_machine", "from_state", "to_state")]
+script = ExtResource("28_hp5df")
+_reverse_transition_name = &"ground"
+state_machine = NodePath("../../StateMachine")
+custom_transition_name = true
+_transition_name = &"falling"
+from_state = NodePath("../../StateMachine/Normal")
+to_state = NodePath("../../StateMachine/Falling")
+metadata/_custom_type_script = "uid://bxxh2ah2yyi43"

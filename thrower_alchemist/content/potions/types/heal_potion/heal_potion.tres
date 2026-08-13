@@ -20,7 +20,7 @@ script = ExtResource("2_so8h5")
 use = SubResource("Resource_eqn8t")
 interact = SubResource("Resource_kvrjs")
 
-[sub_resource type="Resource" id="Resource_u6lwp"]
+[sub_resource type="Resource" id="Resource_qlqge"]
 script = ExtResource("5_qlqge")
 
 [sub_resource type="Resource" id="Resource_urx8p"]

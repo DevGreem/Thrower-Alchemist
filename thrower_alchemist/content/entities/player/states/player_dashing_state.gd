@@ -2,6 +2,8 @@ extends LimboState
 
 class_name PlayerDashingState
 
+var GROUND_LAYER: int = PhysicsLayers.mask(PhysicsLayers.Enum.GROUND)
+
 @export var move_component: MoveComponent2D
 @export var idle_transition: BaseHSMTransitionAdder
 @export var move_transition: BaseHSMTransitionAdder
@@ -21,6 +23,7 @@ var character: CharacterBody2D:
 var original_change_direction: bool
 var original_speed: float
 var original_layer: int
+var original_mask_layer: int
 
 var timer: Timer
 
@@ -40,7 +43,8 @@ func _enter() -> void:
 	
 	original_change_direction = move_component.can_change_direction
 	original_speed = move_component.speed
-	original_layer = character.collision_mask
+	original_layer = character.collision_layer
+	original_mask_layer = character.collision_mask
 
 	var expression: Expression = Expression.new()
 	expression.parse("original " + operator + " speed", ["original", "speed"])
@@ -53,7 +57,9 @@ func _enter() -> void:
 	
 	move_component.can_change_direction = directionable
 	move_component.speed = value
-	character.collision_mask ^= PhysicsLayers.mask(PhysicsLayers.Enum.GROUND)
+	
+	character.collision_mask ^= GROUND_LAYER
+	character.collision_layer ^= GROUND_LAYER
 	GameDebugger.debug_log(PlayerDashingState, "New Character layers = " + str(character.collision_layer))
 	
 	get_tree().create_timer(dash_time).timeout.connect(_choose_transition)
@@ -62,7 +68,8 @@ func _exit() -> void:
 	timer.start()
 	move_component.speed = original_speed
 	move_component.can_change_direction = original_change_direction
-	character.collision_mask = original_layer
+	character.collision_mask = original_mask_layer
+	character.collision_layer = original_layer
 
 func _choose_transition() -> void:
 	

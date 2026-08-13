@@ -17,6 +17,11 @@
 [ext_resource type="Script" uid="uid://8h3fajc76w20" path="res://components/triggers_system/execute_trigger.gd" id="14_rbpbn"]
 [ext_resource type="PackedScene" uid="uid://b255yq4r07svj" path="res://scenes/rooms/tutorial_combat_room.tscn" id="15_hp4bx"]
 [ext_resource type="Resource" uid="uid://cf0cql6uoc4or" path="res://content/potions/types/disable_heal_potion/disable_heal_potion.tres" id="17_5wtir"]
+[ext_resource type="Script" uid="uid://cj6sxw65oyt7u" path="res://components/fall_system/fall_hole_area_2d.gd" id="18_5kl0j"]
+[ext_resource type="Script" uid="uid://cy3gb1u028y4j" path="res://components/animation_system/tweener_action.gd" id="19_uoqrq"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_obaep"]
+size = Vector2(20, 24)
 
 [node name="Tutorial" type="Node2D" unique_id=123151583 node_paths=PackedStringArray("player_spawner")]
 y_sort_enabled = true
@@ -155,3 +160,28 @@ method = &"open"
 signal_to_connect = &"mixed"
 node = NodePath("../../Machines/PotionsMixer")
 metadata/_custom_type_script = "uid://8h3fajc76w20"
+
+[node name="Holes" type="Node" parent="." unique_id=311630621]
+
+[node name="Area2D" type="Area2D" parent="Holes" unique_id=1790636613 node_paths=PackedStringArray("tweener")]
+position = Vector2(732, -699)
+collision_layer = 0
+collision_mask = 4
+script = ExtResource("18_5kl0j")
+tweener = NodePath("TweenerAction")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Holes/Area2D" unique_id=1063457429]
+position = Vector2(0, -1)
+shape = SubResource("RectangleShape2D_obaep")
+
+[node name="TweenerAction" type="Node" parent="Holes/Area2D" unique_id=1941669692 node_paths=PackedStringArray("node")]
+script = ExtResource("19_uoqrq")
+from = Vector2(0, 0)
+duration = 1.0
+delay = 0.25
+add_ease = false
+add_transition = false
+node = NodePath("..")
+property_to_change = "scale"
+to = Vector2(0, 0)
+metadata/_custom_type_script = "uid://cy3gb1u028y4j"
