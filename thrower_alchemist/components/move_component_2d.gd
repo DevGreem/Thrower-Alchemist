@@ -2,11 +2,20 @@ extends Node
 
 class_name MoveComponent2D
 
+signal speed_changed(old: float, new: float)
+
 @export var actor: CharacterBody2D
 @export var can_move: bool = true
 @export var can_change_direction: bool = true
 
-@export var speed: float
+@export var speed: float:
+	set(value):
+		
+		if speed == value:
+			return
+		
+		speed_changed.emit(speed, value)
+		speed = value
 
 var _direction: Vector2 = Vector2.ZERO
 var direction: Vector2:

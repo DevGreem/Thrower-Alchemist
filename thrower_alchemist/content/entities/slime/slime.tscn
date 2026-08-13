@@ -269,14 +269,14 @@ libraries/ = SubResource("AnimationLibrary_t1e5s")
 script = ExtResource("9_kclqt")
 target = NodePath("..")
 method = &"_set_attack_entities"
-node = NodePath("../VisionComponent2D")
 signal_to_connect = &"entity_entered"
+node = NodePath("../VisionComponent2D")
 metadata/_custom_type_script = "uid://8h3fajc76w20"
 
 [node name="OnEntityExited" type="Node" parent="." unique_id=733208805 node_paths=PackedStringArray("target", "node")]
 script = ExtResource("9_kclqt")
 target = NodePath("..")
 method = &"_set_attack_entities"
-node = NodePath("../VisionComponent2D")
 signal_to_connect = &"entity_exited"
+node = NodePath("../VisionComponent2D")
 metadata/_custom_type_script = "uid://8h3fajc76w20"
