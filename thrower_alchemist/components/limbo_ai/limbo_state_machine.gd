@@ -8,8 +8,10 @@ class_name LimboStateMachine
 
 func _ready() -> void:
 	self.initial_state = default_state
-	self.initialize(actor)
-	self.set_active(true)
+	
+	if start_automatically:
+		self.initialize(actor)
+		self.set_active(true)
 
 func change_state_by_path(node_name: NodePath) -> void:
 	var node: LimboState = get_node(node_name)

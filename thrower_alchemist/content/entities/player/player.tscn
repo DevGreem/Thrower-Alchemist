@@ -7,7 +7,7 @@
 [ext_resource type="Script" uid="uid://drdxj65bd6jak" path="res://components/input_system/move_input_component_2d.gd" id="3_lwocm"]
 [ext_resource type="Script" uid="uid://ditbeykj0vfd4" path="res://components/hit_system/health_component.gd" id="4_t4ell"]
 [ext_resource type="Script" uid="uid://bqx8hyj121gcl" path="res://components/hit_system/hurtbox_component_2d.gd" id="5_55yfw"]
-[ext_resource type="Script" uid="uid://bgjv2k7xs1aop" path="res://content/entities/player/flip_component.gd" id="5_d0m51"]
+[ext_resource type="Script" uid="uid://bgjv2k7xs1aop" path="res://components/flip_component_2d.gd" id="5_d0m51"]
 [ext_resource type="Script" uid="uid://dfauhidejrw1c" path="res://components/tags_system/tags_component.gd" id="6_0aorw"]
 [ext_resource type="Script" uid="uid://yeaja8p4wyux" path="res://components/inventory_system/scripts/inventory_component.gd" id="6_r5tfu"]
 [ext_resource type="Script" uid="uid://d1fyt18vlv7pq" path="res://components/inventory_system/resources/inventory_item_instance.gd" id="7_g15rv"]
@@ -23,6 +23,9 @@
 [ext_resource type="Script" uid="uid://c3dkm3li8244q" path="res://components/interaction_system/interact_component_2d.gd" id="19_h0d63"]
 [ext_resource type="Script" uid="uid://4ttfqf8y1fon" path="res://components/interaction_system/interact_ui.gd" id="21_awhl2"]
 [ext_resource type="Script" uid="uid://d3uryx80exwr" path="res://components/debug_components/inputs/debug_god_input.gd" id="21_msox1"]
+[ext_resource type="Script" uid="uid://b0ofjfg8urw8o" path="res://components/limbo_ai/limbo_state_machine.gd" id="24_xorka"]
+[ext_resource type="Script" uid="uid://gdk1i41g250w" path="res://content/entities/player/states/player_idle_state.gd" id="25_qbe7t"]
+[ext_resource type="Script" uid="uid://do6g2i4d6kbhj" path="res://content/entities/player/hsm_transition_adder.gd" id="26_qbe7t"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_y5q02"]
 shader = ExtResource("1_4rie3")
@@ -166,3 +169,25 @@ offset_bottom = -50.0
 text = "Hola Lol"
 script = ExtResource("21_awhl2")
 interact_component = NodePath("..")
+
+[node name="States" type="Node" parent="." unique_id=1220933562]
+
+[node name="StateMachine" type="LimboHSM" parent="States" unique_id=1871033156 node_paths=PackedStringArray("actor", "default_state")]
+script = ExtResource("24_xorka")
+actor = NodePath("../..")
+default_state = NodePath("Idle")
+metadata/_custom_type_script = "uid://b0ofjfg8urw8o"
+
+[node name="Idle" type="LimboState" parent="States/StateMachine" unique_id=613331369 node_paths=PackedStringArray("move_component", "transition")]
+script = ExtResource("25_qbe7t")
+move_component = NodePath("../../../MoveComponent2D")
+transition = NodePath("../../HSMTransitionAdder")
+
+[node name="Moving" type="LimboState" parent="States/StateMachine" unique_id=534378920]
+
+[node name="HSMTransitionAdder" type="Node" parent="States" unique_id=321792321 node_paths=PackedStringArray("state_machine", "from_state", "to_state")]
+script = ExtResource("26_qbe7t")
+state_machine = NodePath("../StateMachine")
+transition_name = &"to_move"
+from_state = NodePath("../StateMachine/Idle")
+to_state = NodePath("../StateMachine/Moving")

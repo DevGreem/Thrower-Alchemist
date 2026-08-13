@@ -18,4 +18,4 @@ class_name MoveInputComponent2D
 func _input(_event: InputEvent) -> void:
 	var axis: Vector2 = Input.get_vector.callv(action_vector)
 	
-	move_component.direction = axis
+	move_component.set_direction(axis)

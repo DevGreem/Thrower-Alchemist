@@ -15,6 +15,9 @@ func _tick(_delta: float) -> Status:
 	if not movement:
 		return FAILURE
 	
-	movement.direction = actor.global_position.direction_to(target.global_position)
+	var result: bool =movement.set_direction(actor.global_position.direction_to(target.global_position))
 	
-	return SUCCESS
+	if result:
+		return SUCCESS
+	else:
+		return FAILURE

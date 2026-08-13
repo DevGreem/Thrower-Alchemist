@@ -61,4 +61,4 @@ func _make_collision_effect(collider: Node2D) -> void:
 	self.queue_free()
 
 func throw(direction: Vector2) -> void:
-	move_component.direction = self.global_position.direction_to(direction)
+	move_component.set_direction(self.global_position.direction_to(direction))

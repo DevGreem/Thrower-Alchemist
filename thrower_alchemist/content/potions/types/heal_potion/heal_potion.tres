@@ -5,6 +5,7 @@
 [ext_resource type="Script" uid="uid://bljs478apt4sc" path="res://resources/potions/actions/use.gd" id="3_v0kuu"]
 [ext_resource type="Script" uid="uid://dj37bo78y6jpp" path="res://resources/potions/potion_effect.gd" id="4_nk1am"]
 [ext_resource type="Texture2D" uid="uid://dfgj4org13j6b" path="res://content/potions/potion.png" id="5_e1ryf"]
+[ext_resource type="Script" uid="uid://dba3j1pn1w36w" path="res://resources/potions/potion_effect_definition.gd" id="5_qlqge"]
 [ext_resource type="Script" uid="uid://ckhu6etse6ct5" path="res://content/potion_effects/heal/heal_effect.gd" id="5_so8h5"]
 [ext_resource type="Script" uid="uid://sc48cbyclvc1" path="res://resources/potions/potion_data.gd" id="6_s8cgn"]
 
@@ -19,13 +20,13 @@ script = ExtResource("2_so8h5")
 use = SubResource("Resource_eqn8t")
 interact = SubResource("Resource_kvrjs")
 
+[sub_resource type="Resource" id="Resource_u6lwp"]
+script = ExtResource("5_qlqge")
+
 [sub_resource type="Resource" id="Resource_urx8p"]
 script = ExtResource("5_so8h5")
 heal = 10.0
-_ID = "heal_effect"
-id = "heal_effect"
-_COLOR = Color(0.19607843, 0.8039216, 0.19607843, 1)
-color = Color(0.19607843, 0.8039216, 0.19607843, 1)
+definition = null
 metadata/_custom_type_script = "uid://ckhu6etse6ct5"
 
 [resource]

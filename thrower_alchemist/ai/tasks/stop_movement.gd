@@ -12,6 +12,9 @@ func _tick(_delta: float) -> Status:
 	if not movement:
 		return FAILURE
 	
-	movement.direction = Vector2(0, 0)
+	var result: bool = movement.set_direction(Vector2.ZERO)
 	
-	return SUCCESS
+	if result:
+		return SUCCESS
+	else:
+		return FAILURE
