@@ -19,68 +19,108 @@ var _cache: ComponentCacheManager = ComponentCacheManager.new(
 )
 
 ## [param type] must be a type
-func get_component(node: Node, type: Variant, recursive: bool = false, internal: bool = false) -> Node:
+func get_component(node: Node, type: Variant, internal: bool = false, use_cache: bool = true) -> Node:
 	
 	if not is_instance_valid(node):
 		return null
 	
-	var cache: CacheStatusNode = _cache.getter_manager().get_component_cache(node, type)
-	
-	if cache.is_cached:
-		return cache.get_value()
+	if use_cache:
+		var cache: CacheStatusNode = _cache.getter_manager().get_component_cache(node, type)
+		
+		if cache.is_cached:
+			return cache.get_value()
 	
 	for child: Node in node.get_children(internal):
 		if is_instance_of(child, type):
-			#_add_component_cache(node, type, child)
+			_cache.storage_manager().add_component_cache(node, type, child)
 			return child
-		
-		if not recursive:
-			continue
-		
-		var ans: Node = recursive_get_component(node, child, type, internal)
-		
-		if ans:
-			return ans
 	
 	#_add_component_cache(node, type, null)
+	_cache.storage_manager().add_component_cache(node, type, null)
 	return null
 
-func recursive_get_component(parent: Node, node: Node, type: Variant, internal: bool = false) -> Node:
+func recursive_get_component(parent: Node, node: Node, type: Variant, internal: bool = false, use_cache: bool = true) -> Node:
 	
 	if not is_instance_valid(parent) or not is_instance_valid(node):
 		return null
 	
-	var cache: CacheStatusNode = _cache.getter_manager().get_component_cache(node, type)
+	if use_cache:
+		var cache: CacheStatusNode = _cache.getter_manager().get_component_cache(node, type)
+		
+		if cache.is_cached:
+			return cache.get_value()
 	
-	if cache.is_cached:
-		return cache.get_value()
-	
-	for child: Node in node.get_children():
+	for child: Node in node.get_children(internal):
 		
 		if is_instance_of(child, type):
-			#_add_component_cache(parent, type, child)
-			#_add_component_cache(node, type, child)
+			_cache.storage_manager().add_component_cache(parent, type, child)
+			_cache.storage_manager().add_component_cache(node, type, child)
 			return child
 		
-		var ans: Node = recursive_get_component(parent, child, type, internal)
+		var ans: Node = recursive_get_component(parent, child, type, internal, use_cache)
 		
 		if ans:
-			#_add_component_cache(parent, type, child)
-			#_add_component_cache(node, type, child)
+			_cache.storage_manager().add_component_cache(parent, type, child)
+			_cache.storage_manager().add_component_cache(node, type, child)
 			return ans
 	
-	#_add_component_cache(node, type, null)
+	_cache.storage_manager().add_component_cache(node, type, null)
 	return null
 
-func get_component_array(node: Node, type: Array, recursive: bool = false, internal: bool = false) -> Array[Node]:
+func get_component_array(node: Node, type: Array, internal: bool = false, use_cache: bool = true) -> Array[Node]:
 	
 	if not is_instance_valid(node):
 		return []
 	
+	if use_cache:
+		var cache: CacheStatusArrayNode = _cache.getter_manager().get_component_array_cache(node, type)
+		
+		if cache.is_cached:
+			return cache.get_value()
+	
 	var result: Array = []
 	
+	for child: Node in node.get_children(internal):
+		
+		if is_instance_of(child, type):
+			result.append(child)
+			_cache.storage_manager().add_component_cache(node, type, child)
+			continue
 	
-	return []
+	if result.is_empty():
+		_cache.storage_manager().add_component_cache(node, type, null)
+	
+	return result
+
+func recursive_get_component_array(parent: Node, node: Node, type: Array, internal: bool = false, use_cache: bool = true) -> Array[Node]:
+	
+	if not is_instance_valid(parent) or not is_instance_valid(node):
+		return []
+	
+	if use_cache:
+		var cache: CacheStatusArrayNode = _cache.getter_manager().get_component_array_cache(node, type)
+		
+		if cache.is_cached:
+			return cache.get_value()
+	
+	var result: Array[Node] = []
+	
+	for child: Node in node.get_children(internal):
+		
+		if is_instance_of(child, type):
+			result.append(child)
+			_cache.storage_manager().add_component_cache(node, type, child)
+			_cache.storage_manager().add_component_cache(parent, type, child)
+		
+		var ans: Array[Node] = recursive_get_component_array(parent, child, type, internal, use_cache)
+		
+		if ans:
+			result.append_array(ans)
+	
+	if result.is_empty():
+		_cache.storage_manager().add_component_cache(node, type, null)
+	
+	return result
 
 ## [parameter types] must be an array of types
 func get_components(node: Node, types: Array, internal: bool = false) -> Dictionary[Variant, Node]:

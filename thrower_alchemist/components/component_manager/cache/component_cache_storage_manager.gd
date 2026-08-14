@@ -16,9 +16,15 @@ func add_component_cache(node: Node, type: Variant, component: Node) -> void:
 		cache.storage[node] = {}
 	
 	if not cache.storage[node].has(type):
-		cache.storage[node][type] = [component]
-	else:
-		cache.storage[node][type].append(component)
+		cache.storage[node][type] = []
+	
+	if component in cache.storage[node][type]:
+		return
+	
+	if not component:
+		return
+		
+	cache.storage[node][type].append(component)
 	
 	if not component.tree_exiting.is_connected(garbage.remove_component_cache.bind(node, type, component)):
 		component.tree_exiting.connect(garbage.remove_component_cache.bind(node, type, component))
