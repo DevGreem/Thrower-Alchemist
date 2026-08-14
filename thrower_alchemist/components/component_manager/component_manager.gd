@@ -13,8 +13,13 @@ extends Node
 ##	}
 ## [/codeblock]
 var _components_cache: Dictionary[Node, Dictionary] = {}
+var _cache: ComponentCacheManager = ComponentCacheManager.new(
+	ComponentCacheGetter.new(),
+	ComponentCacheStorage.new(),
+	ComponentCacheGarbage.new()
+)
 
-## [parameter type] must be a type
+## [param type] must be a type
 func get_component(node: Node, type: Variant, recursive: bool = false, internal: bool = false) -> Node:
 	
 	if not is_instance_valid(node):

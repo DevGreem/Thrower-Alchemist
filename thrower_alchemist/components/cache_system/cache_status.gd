@@ -12,3 +12,6 @@ static func generate(_is_cached: bool, _value: Variant) -> CacheStatus:
 	status.value = _value
 	
 	return status
+
+func get_value() -> Variant:
+	return value

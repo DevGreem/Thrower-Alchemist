@@ -6,13 +6,16 @@ func set_cache(...parameters: Array) -> bool:
 	
 	var size: int = parameters.size()
 	
-	if size < 2:
+	if size == 0:
 		return false
 	
-	var root: Dictionary = {}
-	var current_key: Variant = root
+	if size == 1:
+		cache.storage[parameters[0]] = {}
+		return true
 	
-	for i: int in range(size-1):
+	var current_key: Variant = cache.storage
+	
+	for i: int in range(size-2):
 		
 		var key: Variant = parameters[i]
 		
@@ -24,7 +27,3 @@ func set_cache(...parameters: Array) -> bool:
 	current_key[parameters[-2]] = parameters[-1]
 	
 	return true
-
-func clear_cache() -> void:
-	cache.storage.clear()
-	cache.cleared.emit()
