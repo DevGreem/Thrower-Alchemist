@@ -19,12 +19,12 @@ func _get_from_storage(...parameters: Array) -> Variant:
 	
 	return value
 
-func get_cache(...parameters: Array) -> CacheStatus:
+func get_cache(...parameters: Array) -> BaseCacheStatus:
 	
 	var value: Variant = _get_from_storage(parameters)
 	
 	if not value:
-		return CacheStatus.generate(
+		return BaseCacheStatus.new(
 			false,
 			null
 		)

@@ -13,16 +13,16 @@ var storage: Dictionary = {}:
 		if storage == {}:
 			cleared.emit()
 
-var getter_manager: CacheGetter:
-	get = get_getter_manager,
+var _getter_manager: CacheGetter:
+	get = getter_manager,
 	set = set_getter
 
-var storage_manager: CacheStorage:
-	get = get_storage_manager,
+var _storage_manager: CacheStorage:
+	get = storage_manager,
 	set = set_storage
 
-var garbage_manager: CacheGarbage:
-	get = get_garbage_manager,
+var _garbage_manager: CacheGarbage:
+	get = garbage_manager,
 	set = set_garbage
 
 func _init(
@@ -30,34 +30,34 @@ func _init(
 	storager: CacheStorage = CacheStorage.new(),
 	garbager: CacheGarbage = CacheGarbage.new()
 ) -> void:
-	getter_manager = getter
-	storage_manager = storager
-	garbage_manager = garbager
+	_getter_manager = getter
+	_storage_manager = storager
+	_garbage_manager = garbager
 
-func get_getter_manager() -> CacheGetter:
-	return getter_manager
+func getter_manager() -> CacheGetter:
+	return _getter_manager
 
-func get_storage_manager() -> CacheStorage:
-	return storage_manager
+func storage_manager() -> CacheStorage:
+	return _storage_manager
 
-func get_garbage_manager() -> CacheGarbage:
-	return garbage_manager
+func garbage_manager() -> CacheGarbage:
+	return _garbage_manager
 
 func set_getter(value: CacheGetter) -> void:
 	
-	getter_manager = value
+	_getter_manager = value
 	
-	if getter_manager:
-		getter_manager.cache = self
+	if _getter_manager:
+		_getter_manager.cache = self
 
 func set_storage(value: CacheStorage) -> void:
-	storage_manager = value
+	_storage_manager = value
 	
-	if storage_manager:
-		storage_manager.cache = self
+	if _storage_manager:
+		_storage_manager.cache = self
 
 func set_garbage(value: CacheGarbage) -> void:
-	garbage_manager = value
+	_garbage_manager = value
 	
-	if garbage_manager:
-		garbage_manager.cache = self
+	if _garbage_manager:
+		_garbage_manager.cache = self

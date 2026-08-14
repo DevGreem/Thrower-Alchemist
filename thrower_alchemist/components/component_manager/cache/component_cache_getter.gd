@@ -2,28 +2,28 @@ extends CacheGetter
 
 class_name ComponentCacheGetter
 
-func get_component_cache(node: Node, type: Variant) -> CacheStatus:
+func get_component_cache(node: Node, type: Variant) -> CacheStatusNode:
 	
 	if not _exists_type_cache(node, type):
-		return CacheStatus.generate(false, null)
+		return BaseCacheStatus.new(false, null)
 	
 	var arr: Array[Node] = _get_from_storage(node, type)
 	
 	if arr.is_empty():
-		return CacheStatus.generate(true, null)
+		return BaseCacheStatus.new(true, null)
 	
 	var component: Node = arr.front()
 	
-	return CacheStatus.generate(true, component)
+	return BaseCacheStatus.new(true, component)
 
-func get_component_array_cache(node: Node, type: Variant) -> CacheStatus:
+func get_component_array_cache(node: Node, type: Variant) -> CacheStatusArrayNode:
 	
 	if not _exists_type_cache(node, type):
-		return CacheStatus.generate(false, null)
+		return BaseCacheStatus.new(false, null)
 	
 	var arr: Array[Node] = _get_from_storage(node, type)
 	
-	return CacheStatus.generate(true, arr)
+	return BaseCacheStatus.new(true, arr)
 
 func _exists_node_cache(node: Node, empty_as_exists: bool = false) -> bool:
 	

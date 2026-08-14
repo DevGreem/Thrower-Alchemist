@@ -12,7 +12,6 @@ extends Node
 ##		}
 ##	}
 ## [/codeblock]
-var _components_cache: Dictionary[Node, Dictionary] = {}
 var _cache: ComponentCacheManager = ComponentCacheManager.new(
 	ComponentCacheGetter.new(),
 	ComponentCacheStorage.new(),
@@ -25,14 +24,14 @@ func get_component(node: Node, type: Variant, recursive: bool = false, internal:
 	if not is_instance_valid(node):
 		return null
 	
-	var cache: CacheStatus = _get_component_cache(node, type)
+	var cache: CacheStatusNode = _cache.getter_manager().get_component_cache(node, type)
 	
 	if cache.is_cached:
-		return cache.value as Node
+		return cache.get_value()
 	
 	for child: Node in node.get_children(internal):
 		if is_instance_of(child, type):
-			_add_component_cache(node, type, child)
+			#_add_component_cache(node, type, child)
 			return child
 		
 		if not recursive:
@@ -43,7 +42,7 @@ func get_component(node: Node, type: Variant, recursive: bool = false, internal:
 		if ans:
 			return ans
 	
-	_add_component_cache(node, type, null)
+	#_add_component_cache(node, type, null)
 	return null
 
 func recursive_get_component(parent: Node, node: Node, type: Variant, internal: bool = false) -> Node:
@@ -51,26 +50,26 @@ func recursive_get_component(parent: Node, node: Node, type: Variant, internal: 
 	if not is_instance_valid(parent) or not is_instance_valid(node):
 		return null
 	
-	var cache: CacheStatus = _get_component_cache(node, type)
+	var cache: CacheStatusNode = _cache.getter_manager().get_component_cache(node, type)
 	
 	if cache.is_cached:
-		return cache.value as Node
+		return cache.get_value()
 	
 	for child: Node in node.get_children():
 		
 		if is_instance_of(child, type):
-			_add_component_cache(parent, type, child)
-			_add_component_cache(node, type, child)
+			#_add_component_cache(parent, type, child)
+			#_add_component_cache(node, type, child)
 			return child
 		
 		var ans: Node = recursive_get_component(parent, child, type, internal)
 		
 		if ans:
-			_add_component_cache(parent, type, child)
-			_add_component_cache(node, type, child)
+			#_add_component_cache(parent, type, child)
+			#_add_component_cache(node, type, child)
 			return ans
 	
-	_add_component_cache(node, type, null)
+	#_add_component_cache(node, type, null)
 	return null
 
 func get_component_array(node: Node, type: Array, recursive: bool = false, internal: bool = false) -> Array[Node]:
@@ -96,81 +95,7 @@ func get_components(node: Node, types: Array, internal: bool = false) -> Diction
 		for type: Variant in types:
 		
 			if is_instance_of(child, type):
-				_add_component_cache(node, type, child)
+				#_add_component_cache(node, type, child)
 				answer.set(type, child)
 	
 	return answer
-
-func clear_cache() -> void:
-	_components_cache.clear()
-
-func clear_type(node: Node, type: Variant) -> bool:
-	
-	if not _components_cache.has(node):
-		return false
-	
-	if not _components_cache[node].has(type):
-		return false
-	
-	_components_cache[node][type].clear()
-	return true
-
-func _add_component_cache(node: Node, type: Variant, component: Node) -> void:
-	
-	if not is_instance_valid(node) or not is_instance_valid(component):
-		return
-	
-	if not node.tree_exiting.is_connected(erase_node_cache.bind(node)):
-		node.tree_exiting.connect(erase_node_cache.bind(node))
-	
-	if not _components_cache.has(node):
-		_components_cache[node] = {}
-	
-	if not _components_cache[node].has(type):
-		_components_cache[node][type] = [component]
-	else:
-		_components_cache[node][type].append(component)
-	
-	var idx: int = _components_cache[node][type].size()
-	
-	if not component.tree_exiting.is_connected(erase_component_cache.bind(node, type, idx)):
-		component.tree_exiting.connect(erase_component_cache.bind(node, type, idx))
-
-func erase_node_cache(node: Node) -> void:
-	_components_cache.erase(node)
-
-func erase_type_cache(node: Node, type: Variant) -> bool:
-	
-	if _components_cache.has(node):
-		return _components_cache[node].erase(type)
-	
-	return false
-
-func erase_component_cache(node: Node, type: Variant, idx: int) -> bool:
-	
-	if not _components_cache.has(node):
-		return false
-	
-	if not _components_cache[node].has(type):
-		return false
-	
-	_components_cache[node][type].remove_at(idx)
-	return true
-
-func _get_component_cache(node: Node, type: Variant) -> CacheStatus:
-	
-	if not _components_cache.has(node):
-		return CacheStatus.generate(false, null)
-	
-	var cache_dict: Dictionary = _components_cache.get(node, {})
-	
-	if not cache_dict.has(type):
-		return CacheStatus.generate(false, null)
-	
-	var component: Node = cache_dict.get(type)
-	
-	if not is_instance_valid(component) and component != null:
-		return CacheStatus.generate(false, null)
-	
-	return CacheStatus.generate(true, component)
-	

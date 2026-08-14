@@ -12,7 +12,7 @@ func remove_cache(...parameters: Array) -> bool:
 	if size == 1:
 		cache.storage.erase(parameters[0])
 	
-	var current: CacheStatus = cache.getter_manager.get_cache(parameters.slice(0, size-1))
+	var current: BaseCacheStatus = cache.getter_manager().get_cache(parameters.slice(0, size-1))
 	
 	if not current.is_cached:
 		return false
