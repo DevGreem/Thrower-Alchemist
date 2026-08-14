@@ -7,6 +7,12 @@ class_name PlayerMovingState
 @export var stop_transition: BaseHSMTransitionAdder
 @export var dash_transition: BaseHSMTransitionAdder
 
+func _ready() -> void:
+	set_guard(
+		func() -> bool:
+			return move_input.move_component.can_move
+	)
+
 func _enter() -> void:
 	GameDebugger.debug_log(PlayerMovingState, "CONNECTED")
 	dash_input.dash_requested.connect(_on_dash_requested)

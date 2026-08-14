@@ -23,7 +23,7 @@ func collision_effect(_actor: Node2D, _potion: PotionNode, collider: Node2D) -> 
 
 func _heal_target(target: Node) -> void:
 	
-	var health: HealthComponent = ComponentManager.get_component(target, HealthComponent, true)
+	var health: HealthComponent = ComponentManager.get_component(target, HealthComponent)
 	
 	if not _has_health_component(health):
 		return

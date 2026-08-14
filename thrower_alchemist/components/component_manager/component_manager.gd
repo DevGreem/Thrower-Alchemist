@@ -67,7 +67,7 @@ func recursive_get_component(parent: Node, node: Node, type: Variant, internal: 
 	_cache.storage_manager().add_component_cache(node, type, null)
 	return null
 
-func get_component_array(node: Node, type: Array, internal: bool = false, use_cache: bool = true) -> Array[Node]:
+func get_component_array(node: Node, type: Variant, internal: bool = false, use_cache: bool = true) -> Array[Node]:
 	
 	if not is_instance_valid(node):
 		return []
@@ -78,7 +78,7 @@ func get_component_array(node: Node, type: Array, internal: bool = false, use_ca
 		if cache.is_cached:
 			return cache.get_value()
 	
-	var result: Array = []
+	var result: Array[Node] = []
 	
 	for child: Node in node.get_children(internal):
 		
@@ -92,7 +92,7 @@ func get_component_array(node: Node, type: Array, internal: bool = false, use_ca
 	
 	return result
 
-func recursive_get_component_array(parent: Node, node: Node, type: Array, internal: bool = false, use_cache: bool = true) -> Array[Node]:
+func recursive_get_component_array(parent: Node, node: Node, type: Variant, internal: bool = false, use_cache: bool = true) -> Array[Node]:
 	
 	if not is_instance_valid(parent) or not is_instance_valid(node):
 		return []

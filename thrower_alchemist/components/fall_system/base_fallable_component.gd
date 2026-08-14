@@ -1,0 +1,20 @@
+@abstract
+extends Node
+
+class_name BaseFallableComponent
+
+@export var active: bool = true
+@export var free_on_fall: bool = false
+
+@abstract
+func _fall(source: FallHoleArea2D) -> void
+
+func try_fall(source: FallHoleArea2D) -> void:
+	
+	if not active:
+		return
+	
+	_fall(source)
+	
+	if free_on_fall:
+		queue_free()

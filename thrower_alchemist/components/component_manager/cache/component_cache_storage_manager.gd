@@ -7,7 +7,7 @@ func add_component_cache(node: Node, type: Variant, component: Node) -> void:
 	if not is_instance_valid(node) or not is_instance_valid(component):
 		return
 	
-	var garbage: ComponentCacheGarbage = cache.garbage
+	var garbage: ComponentCacheGarbage = cache.garbage_manager()
 	
 	if not node.tree_exiting.is_connected(garbage.remove_node_cache.bind(node)):
 		node.tree_exiting.connect(garbage.remove_node_cache.bind(node))

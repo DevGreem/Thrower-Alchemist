@@ -1,7 +1,8 @@
 extends Area2D
 
-class_name FallHoleArea2d
+class_name FallHoleArea2D
 
+@export var damage: float = 5.0
 @export var tweener: TweenerAction
 
 func _ready() -> void:
@@ -15,12 +16,13 @@ func _on_body_entered(body: Node2D) -> void:
 		return
 	
 	_fall_target(body, true)
-	
-	tweener.node = body
-	tweener.make_animation()
 
 ## TODO: Change state of the target to falling
 func _fall_target(target: Node2D, is_falling: bool) -> void:
 	
-	#var transition: Dictionary[Variant, Node] = ComponentManager.get_components(target, BaseHSMTransitionAdder)
-	pass
+	var fall_component: BaseFallableComponent = ComponentManager.get_component(target, BaseFallableComponent)
+	
+	if not fall_component:
+		return
+	
+	fall_component.try_fall(self)

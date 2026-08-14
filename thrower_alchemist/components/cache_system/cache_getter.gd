@@ -21,7 +21,7 @@ func _get_from_storage(...parameters: Array) -> Variant:
 
 func get_cache(...parameters: Array) -> BaseCacheStatus:
 	
-	var value: Variant = _get_from_storage(parameters)
+	var value: Variant = _get_from_storage.callv(parameters)
 	
 	if not value:
 		return BaseCacheStatus.new(
