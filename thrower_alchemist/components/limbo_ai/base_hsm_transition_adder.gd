@@ -4,6 +4,9 @@ extends Node
 
 class_name BaseHSMTransitionAdder
 
+@warning_ignore("unused_signal")
+signal triggered
+
 @export var state_machine: LimboStateMachine
 
 @export var custom_transition_name: bool = false:

@@ -3,6 +3,7 @@
 [ext_resource type="Shader" uid="uid://dkec71qmxktfv" path="res://shaders/effects_shader.tres" id="1_4rie3"]
 [ext_resource type="Texture2D" uid="uid://b81roki8jflh3" path="res://content/entities/player/player.png" id="1_e50yv"]
 [ext_resource type="Script" uid="uid://bokowr37e42b3" path="res://content/entities/player/player.gd" id="1_piw5s"]
+[ext_resource type="Script" uid="uid://dp482qliilkp1" path="res://content/entities/player/player_fallable_component.gd" id="2_2jeju"]
 [ext_resource type="Script" uid="uid://cixn3eduqvftn" path="res://components/move_component_2d.gd" id="2_cp3qr"]
 [ext_resource type="Script" uid="uid://drdxj65bd6jak" path="res://components/input_system/move_input_component_2d.gd" id="3_lwocm"]
 [ext_resource type="Script" uid="uid://ditbeykj0vfd4" path="res://components/hit_system/health_component.gd" id="4_t4ell"]
@@ -91,6 +92,15 @@ collision_layer = 68
 collision_mask = 5
 motion_mode = 1
 script = ExtResource("1_piw5s")
+
+[node name="PlayerFallableComponent" type="Node" parent="." unique_id=1641490121 node_paths=PackedStringArray("state_machine", "health_component", "transition", "actor")]
+script = ExtResource("2_2jeju")
+state_machine = NodePath("../States/StateMachine")
+health_component = NodePath("../HealthComponent")
+transition = NodePath("../States/Transitions/FallIdleTransition")
+actor = NodePath("..")
+spawn_offset = Vector2(12, 12)
+metadata/_custom_type_script = "uid://dp482qliilkp1"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=823647512]
 libraries/ = SubResource("AnimationLibrary_70y76")
@@ -257,11 +267,13 @@ operator = "*"
 speed_value = 5.0
 cooldown = 0.5
 
-[node name="Falling" type="LimboState" parent="States/StateMachine" unique_id=1513118912 node_paths=PackedStringArray("animation_player", "move_component", "flip_component")]
+[node name="Falling" type="LimboState" parent="States/StateMachine" unique_id=1513118912 node_paths=PackedStringArray("animation_player", "move_component", "flip_component", "unfall_transition")]
 script = ExtResource("29_2ux3l")
 animation_player = NodePath("../../../AnimationPlayer")
+animation_name = &"falling"
 move_component = NodePath("../../../MoveComponent2D")
 flip_component = NodePath("../../../FlipComponent2D")
+unfall_transition = NodePath("../../Transitions/FallIdleTransition")
 
 [node name="Transitions" type="Node" parent="States" unique_id=734629214]
 

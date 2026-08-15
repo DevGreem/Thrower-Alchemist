@@ -51,12 +51,15 @@ func trigger() -> void:
 			'Changing to state "' + transition_name + '"'
 		)
 		state_machine.dispatch(transition_name)
+		triggered.emit()
+		
 	elif current_state == to_state:
 		GameDebugger.debug_log(
 			HSMBidirectionalTransitionAdder,
 			'Changing to state "' + reverse_transition_name + '"'
 		)
 		state_machine.dispatch(reverse_transition_name)
+		triggered.emit()
 
 func _validate_property(property: Dictionary) -> void:
 	

@@ -15,10 +15,9 @@ func _on_body_entered(body: Node2D) -> void:
 	if body is not CollisionObject2D:
 		return
 	
-	_fall_target(body, true)
+	_fall_target(body)
 
-## TODO: Change state of the target to falling
-func _fall_target(target: Node2D, is_falling: bool) -> void:
+func _fall_target(target: Node2D) -> void:
 	
 	var fall_component: BaseFallableComponent = ComponentManager.get_component(target, BaseFallableComponent)
 	
@@ -26,3 +25,11 @@ func _fall_target(target: Node2D, is_falling: bool) -> void:
 		return
 	
 	fall_component.try_fall(self)
+
+func get_shape() -> Shape2D:
+	
+	for child: Node in get_children():
+		if child is CollisionShape2D:
+			return child.shape
+	
+	return null

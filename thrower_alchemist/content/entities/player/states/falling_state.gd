@@ -4,9 +4,15 @@ extends LimboState
 class_name FallingState
 
 @export var animation_player: AnimationPlayer
-@export var animation_name: StringName = &"falling"
+@export var animation_name: StringName
 @export var move_component: MoveComponent2D
 @export var flip_component: FlipComponent2D
+@export var unfall_transition: BaseHSMTransitionAdder
+
+func _ready() -> void:
+	
+	if not animation_player.animation_finished.is_connected(_on_finish_animation):
+		animation_player.animation_finished.connect(_on_finish_animation)
 
 func _enter() -> void:
 	
@@ -26,6 +32,14 @@ func _exit() -> void:
 	
 	if flip_component:
 		flip_component.active = true
+
+func _on_finish_animation(anim_name: StringName) -> void:
+	
+	if unfall_transition.state_machine.get_active_state() != self:
+		return
+	
+	if anim_name == animation_name:
+		unfall_transition.trigger()
 
 func _validate_property(property: Dictionary) -> void:
 	

@@ -18,3 +18,13 @@ func try_fall(source: FallHoleArea2D) -> void:
 	
 	if free_on_fall:
 		queue_free()
+
+@abstract
+func _respawn(source: FallHoleArea2D) -> void
+
+func try_spawn(source: FallHoleArea2D) -> void:
+	
+	if not active:
+		return
+	
+	_respawn(source)
