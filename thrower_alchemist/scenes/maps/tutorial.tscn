@@ -204,11 +204,14 @@ metadata/_edit_group_ = true
 position = Vector2(0.5, 1.5)
 shape = SubResource("RectangleShape2D_g04yl")
 
-[node name="ExecuteTrigger" type="Node" parent="Interactables/InteractArea2D" unique_id=568376583 node_paths=PackedStringArray("node")]
+[node name="ExecuteTrigger" type="Node" parent="Interactables/InteractArea2D" unique_id=568376583 node_paths=PackedStringArray("target", "node")]
 script = ExtResource("14_rbpbn")
+target = NodePath("../EndFloorNode")
+method = &"end_floor"
 signal_to_connect = &"interacted"
 node = NodePath("..")
 metadata/_custom_type_script = "uid://8h3fajc76w20"
 
-[node name="Node" type="Node" parent="Interactables/InteractArea2D" unique_id=1461751768]
+[node name="EndFloorNode" type="Node" parent="Interactables/InteractArea2D" unique_id=1461751768]
 script = ExtResource("21_jt61u")
+end_run = true

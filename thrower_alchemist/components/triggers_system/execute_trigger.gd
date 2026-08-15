@@ -12,7 +12,23 @@ class_name ExecuteTrigger
 @export var method: StringName
 
 func execute(...parameters: Array) -> void:
-	target.callv(method, parameters)
+	var params: int = target.get_method_argument_count(method)
+	
+	if parameters.size() > params:
+		
+		if params > 0:
+			parameters = parameters.slice(0, parameters.size(), 1, true)
+		
+		GameDebugger.debug_warning(
+			ExecuteTrigger,
+			'Executing the method "' + method + '" of the node ' + target.name + " (" + str(target) + ") " + "with less parameters than the required\n" +
+			"The method need " + str(params) + " parameters but " + str(parameters.size()) + " was given"
+		)
+	
+	if params == 0:
+		target.call(method)
+	else:
+		target.callv(method, parameters)
 
 func _validate_property(property: Dictionary) -> void:
 	
