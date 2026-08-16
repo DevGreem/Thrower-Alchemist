@@ -4,9 +4,9 @@
 [ext_resource type="Script" uid="uid://b6nujstkyoydy" path="res://content/entities/tutorial_dummy/tutorial_dummy.gd" id="1_wbk67"]
 [ext_resource type="Script" uid="uid://ditbeykj0vfd4" path="res://components/hit_system/health_component.gd" id="2_im0wv"]
 [ext_resource type="Script" uid="uid://bqx8hyj121gcl" path="res://components/hit_system/hurtbox_component_2d.gd" id="3_k08vs"]
-[ext_resource type="Script" uid="uid://citt3bcswolbo" path="res://components/animation_system/tweener_tree.gd" id="6_u2pnx"]
-[ext_resource type="Script" uid="uid://cy3gb1u028y4j" path="res://components/animation_system/tweener_action.gd" id="7_jvifw"]
-[ext_resource type="Script" uid="uid://csownupd7lbcp" path="res://components/animation_system/tweener_trigger.gd" id="7_u2pnx"]
+[ext_resource type="Script" uid="uid://citt3bcswolbo" path="res://components/animation_system/tweeners/tweener_tree.gd" id="6_u2pnx"]
+[ext_resource type="Script" uid="uid://cy3gb1u028y4j" path="res://components/animation_system/tweeners/tweener_action.gd" id="7_jvifw"]
+[ext_resource type="Script" uid="uid://csownupd7lbcp" path="res://components/animation_system/tweeners/tweener_trigger.gd" id="7_u2pnx"]
 [ext_resource type="Script" uid="uid://xqeyliosun8n" path="res://components/follow_system/follow_flip_component_2d.gd" id="8_jvifw"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g04yl"]

@@ -2,10 +2,10 @@
 
 [ext_resource type="Script" uid="uid://cemq46bdnbv7j" path="res://content/objects/block_door/block_door_node.gd" id="1_njpen"]
 [ext_resource type="Texture2D" uid="uid://bbg75dn66uplc" path="res://content/objects/block_door/block_door.png" id="2_4b4sr"]
-[ext_resource type="Script" uid="uid://csownupd7lbcp" path="res://components/animation_system/tweener_trigger.gd" id="3_oj88t"]
-[ext_resource type="Script" uid="uid://citt3bcswolbo" path="res://components/animation_system/tweener_tree.gd" id="4_1v305"]
-[ext_resource type="Script" uid="uid://cy3gb1u028y4j" path="res://components/animation_system/tweener_action.gd" id="5_5ew4y"]
-[ext_resource type="Script" uid="uid://gvyugh0lodjv" path="res://components/animation_system/set_no_tween.gd" id="6_1v305"]
+[ext_resource type="Script" uid="uid://csownupd7lbcp" path="res://components/animation_system/tweeners/tweener_trigger.gd" id="3_oj88t"]
+[ext_resource type="Script" uid="uid://citt3bcswolbo" path="res://components/animation_system/tweeners/tweener_tree.gd" id="4_1v305"]
+[ext_resource type="Script" uid="uid://cy3gb1u028y4j" path="res://components/animation_system/tweeners/tweener_action.gd" id="5_5ew4y"]
+[ext_resource type="Script" uid="uid://gvyugh0lodjv" path="res://components/animation_system/tweeners/set_no_tween.gd" id="6_1v305"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_obaep"]
 size = Vector2(24, 15)

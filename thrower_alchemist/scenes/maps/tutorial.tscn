@@ -18,7 +18,7 @@
 [ext_resource type="PackedScene" uid="uid://b255yq4r07svj" path="res://scenes/rooms/tutorial_combat_room.tscn" id="15_hp4bx"]
 [ext_resource type="Resource" uid="uid://cf0cql6uoc4or" path="res://content/potions/types/disable_heal_potion/disable_heal_potion.tres" id="17_5wtir"]
 [ext_resource type="Script" uid="uid://cj6sxw65oyt7u" path="res://components/fall_system/fall_hole_area_2d.gd" id="18_5kl0j"]
-[ext_resource type="Script" uid="uid://cy3gb1u028y4j" path="res://components/animation_system/tweener_action.gd" id="19_uoqrq"]
+[ext_resource type="Script" uid="uid://cy3gb1u028y4j" path="res://components/animation_system/tweeners/tweener_action.gd" id="19_uoqrq"]
 [ext_resource type="Script" uid="uid://dk0pi828tayhh" path="res://components/interaction_system/interact_area_2d.gd" id="20_7fbcs"]
 [ext_resource type="Script" uid="uid://b8f7jg5whb2pb" path="res://scripts/end_floor_node.gd" id="21_jt61u"]
 

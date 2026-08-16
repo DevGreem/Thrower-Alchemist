@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://cw15qbdetysw0"]
 
-[ext_resource type="Script" uid="uid://csownupd7lbcp" path="res://components/animation_system/tweener_trigger.gd" id="2_dmk8j"]
-[ext_resource type="Script" uid="uid://cy3gb1u028y4j" path="res://components/animation_system/tweener_action.gd" id="3_rc5eb"]
+[ext_resource type="Script" uid="uid://csownupd7lbcp" path="res://components/animation_system/tweeners/tweener_trigger.gd" id="2_dmk8j"]
+[ext_resource type="Script" uid="uid://cy3gb1u028y4j" path="res://components/animation_system/tweeners/tweener_action.gd" id="3_rc5eb"]
 
 [node name="RotableButtonAnimated" type="Button" unique_id=380966570]
 custom_maximum_size = Vector2(-1, 12)

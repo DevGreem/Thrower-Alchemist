@@ -24,13 +24,15 @@ func change_scene(path: String) -> void:
 	if path == current_scene:
 		return
 	
-	change_requested.emit()
-	
 	var error: Error = ResourceLoader.load_threaded_request(path)
 	
 	if error != OK:
 		GameDebugger.debug_error_string("ScenesManager", "An error ocurred while loading a new scene", true)
 		return
+	
+	change_requested.emit()
+	
+	GameDebugger.debug_log_string("ScenesManager", "Loading new scene...")
 	
 	get_tree().paused = true
 	previous_scene = current_scene

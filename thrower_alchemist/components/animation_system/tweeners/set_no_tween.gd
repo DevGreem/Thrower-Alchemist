@@ -15,6 +15,7 @@ func make_animation(..._parameters: Array) -> void:
 		node.set(property_to_change, to)
 	else:
 		node.set_deferred(property_to_change, to)
+	
 	GameDebugger.debug_log(SetNoTween,
 		'Setting property "' + property_to_change +
 		'" to the node ' + str(node) + "\n" +

@@ -6,6 +6,7 @@
 
 [sub_resource type="Animation" id="Animation_ao0rk"]
 length = 0.001
+loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -109,4 +110,12 @@ animation_player = NodePath("../AnimationPlayer")
 animation_name = &"fading_in"
 signal_to_connect = &"scene_changed"
 node = NodePath("../../..")
+metadata/_custom_type_script = "uid://6c5smnsbmg0h"
+
+[node name="AnimationTrigger3" type="Node" parent="CanvasLayer/Control" unique_id=1122961950 node_paths=PackedStringArray("animation_player", "node")]
+script = ExtResource("2_ao0rk")
+animation_player = NodePath("../AnimationPlayer")
+animation_name = &"RESET"
+signal_to_connect = &"animation_finished"
+node = NodePath("../AnimationPlayer")
 metadata/_custom_type_script = "uid://6c5smnsbmg0h"
