@@ -1,0 +1,57 @@
+[gd_scene format=3 uid="uid://ca53wqrhnvgrt"]
+
+[ext_resource type="Script" uid="uid://qqccb5c6n424" path="res://components/scenes_manager.gd" id="1_4k7tt"]
+
+[sub_resource type="Animation" id="Animation_4k7tt"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasModulate:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_ao0rk"]
+resource_name = "fading_out"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasModulate:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_5x8sy"]
+_data = {
+&"RESET": SubResource("Animation_4k7tt"),
+&"fading_out": SubResource("Animation_ao0rk")
+}
+
+[node name="ScenesManager" type="Node" unique_id=1078534961]
+script = ExtResource("1_4k7tt")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=942312636]
+
+[node name="Control" type="Control" parent="CanvasLayer" unique_id=593313578]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CanvasModulate" type="CanvasModulate" parent="CanvasLayer/Control" unique_id=657120029]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer/Control" unique_id=1142310250]
+libraries/ = SubResource("AnimationLibrary_5x8sy")
