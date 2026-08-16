@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="PotionEffectConnection" format=3 uid="uid://beuddqrqs4pil"]
+
+[ext_resource type="Script" uid="uid://bjrdp2gyn7hjw" path="res://resources/potions/potion_effect_connection.gd" id="1_pqn6a"]
+
+[resource]
+script = ExtResource("1_pqn6a")
+left = "heal_effect"
+right = "disable_healing_effect"
+metadata/_custom_type_script = "uid://bjrdp2gyn7hjw"

@@ -1,0 +1,61 @@
+[gd_scene format=3 uid="uid://d0efybbjr5lxn"]
+
+[ext_resource type="Script" uid="uid://co0o8kcsdwdso" path="res://scripts/game_map.gd" id="1_k6ilb"]
+[ext_resource type="PackedScene" uid="uid://ctim88ddanme6" path="res://scenes/maps/tutorial.tscn" id="2_ewj4s"]
+[ext_resource type="PackedScene" uid="uid://i762gem8h1rt" path="res://scenes/inventory/inventory_ui.tscn" id="2_fdevw"]
+[ext_resource type="Script" uid="uid://5eysrwqfki0n" path="res://components/ui_system/ui_root.gd" id="3_ewj4s"]
+[ext_resource type="Script" uid="uid://c81ue6bvggjb2" path="res://components/follow_system/follow_node_component_2d.gd" id="3_uv5ep"]
+[ext_resource type="PackedScene" uid="uid://b2spclcrcu1hs" path="res://content/entities/player/player.tscn" id="5_ewj4s"]
+
+[node name="GameMap" type="Node2D" unique_id=724420841 node_paths=PackedStringArray("world_container")]
+y_sort_enabled = true
+script = ExtResource("1_k6ilb")
+predefined_map = ExtResource("2_ewj4s")
+world_container = NodePath("WorldContainer")
+metadata/_edit_horizontal_guides_ = [-792.0, -616.0, -704.0]
+metadata/_edit_vertical_guides_ = [588.0]
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=562425778]
+metadata/_edit_lock_ = true
+
+[node name="FollowNodeComponent2D" type="Node" parent="Camera2D" unique_id=1906229816 node_paths=PackedStringArray("actor", "target")]
+script = ExtResource("3_uv5ep")
+actor = NodePath("..")
+target = NodePath("../../YSort/Entities/Player")
+metadata/_custom_type_script = "uid://c81ue6bvggjb2"
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=743349263]
+
+[node name="InventoryUI" parent="CanvasLayer" unique_id=1800205673 instance=ExtResource("2_fdevw")]
+
+[node name="UIRoot" type="Control" parent="CanvasLayer" unique_id=1963380954]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("3_ewj4s")
+metadata/_custom_type_script = "uid://5eysrwqfki0n"
+
+[node name="YSort" type="Node2D" parent="." unique_id=1291027061]
+y_sort_enabled = true
+metadata/_edit_lock_ = true
+
+[node name="Projectiles" type="Node2D" parent="YSort" unique_id=2135532405 groups=["container", "projectiles_container"]]
+
+[node name="Effects" type="Node2D" parent="YSort" unique_id=197708295 groups=["container", "effects_container"]]
+z_index = -2
+z_as_relative = false
+
+[node name="Entities" type="Node2D" parent="YSort" unique_id=1997927869 groups=["entities_container"]]
+y_sort_enabled = true
+
+[node name="Player" parent="YSort/Entities" unique_id=1606296388 instance=ExtResource("5_ewj4s")]
+z_as_relative = false
+
+[node name="Machines" type="Node2D" parent="YSort" unique_id=894768521 groups=["machines_container"]]
+y_sort_enabled = true
+
+[node name="WorldContainer" type="Node2D" parent="." unique_id=236857337]
+y_sort_enabled = true

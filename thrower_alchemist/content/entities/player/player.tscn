@@ -3,10 +3,12 @@
 [ext_resource type="Shader" uid="uid://dkec71qmxktfv" path="res://shaders/effects_shader.tres" id="1_4rie3"]
 [ext_resource type="Texture2D" uid="uid://b81roki8jflh3" path="res://content/entities/player/player.png" id="1_e50yv"]
 [ext_resource type="Script" uid="uid://bokowr37e42b3" path="res://content/entities/player/player.gd" id="1_piw5s"]
+[ext_resource type="Script" uid="uid://dp482qliilkp1" path="res://content/entities/player/player_fallable_component.gd" id="2_2jeju"]
 [ext_resource type="Script" uid="uid://cixn3eduqvftn" path="res://components/move_component_2d.gd" id="2_cp3qr"]
 [ext_resource type="Script" uid="uid://drdxj65bd6jak" path="res://components/input_system/move_input_component_2d.gd" id="3_lwocm"]
 [ext_resource type="Script" uid="uid://ditbeykj0vfd4" path="res://components/hit_system/health_component.gd" id="4_t4ell"]
 [ext_resource type="Script" uid="uid://bqx8hyj121gcl" path="res://components/hit_system/hurtbox_component_2d.gd" id="5_55yfw"]
+[ext_resource type="Script" uid="uid://bgjv2k7xs1aop" path="res://components/flip_component_2d.gd" id="5_d0m51"]
 [ext_resource type="Script" uid="uid://dfauhidejrw1c" path="res://components/tags_system/tags_component.gd" id="6_0aorw"]
 [ext_resource type="Script" uid="uid://yeaja8p4wyux" path="res://components/inventory_system/scripts/inventory_component.gd" id="6_r5tfu"]
 [ext_resource type="Script" uid="uid://d1fyt18vlv7pq" path="res://components/inventory_system/resources/inventory_item_instance.gd" id="7_g15rv"]
@@ -21,10 +23,59 @@
 [ext_resource type="Script" uid="uid://bo0xfdfx62t0i" path="res://components/interaction_system/inputs/interact_world_input.gd" id="19_2m54q"]
 [ext_resource type="Script" uid="uid://c3dkm3li8244q" path="res://components/interaction_system/interact_component_2d.gd" id="19_h0d63"]
 [ext_resource type="Script" uid="uid://4ttfqf8y1fon" path="res://components/interaction_system/interact_ui.gd" id="21_awhl2"]
+[ext_resource type="Script" uid="uid://d3uryx80exwr" path="res://components/debug_components/inputs/debug_god_input.gd" id="21_msox1"]
+[ext_resource type="Script" uid="uid://bh0h2gblnqadb" path="res://scripts/inputs/dash_input.gd" id="22_hp5df"]
+[ext_resource type="Script" uid="uid://b0ofjfg8urw8o" path="res://components/limbo_ai/limbo_state_machine.gd" id="24_xorka"]
+[ext_resource type="Script" uid="uid://gdk1i41g250w" path="res://content/entities/player/states/player_idle_state.gd" id="25_qbe7t"]
+[ext_resource type="Script" uid="uid://cohlysva3t2wf" path="res://content/entities/player/states/player_moving_state.gd" id="26_k0eji"]
+[ext_resource type="Script" uid="uid://do6g2i4d6kbhj" path="res://components/limbo_ai/hsm_transition_adder.gd" id="26_qbe7t"]
+[ext_resource type="Script" uid="uid://d0kc0cjwq0k7w" path="res://content/entities/player/states/player_dashing_state.gd" id="28_8l5bx"]
+[ext_resource type="Script" uid="uid://bxxh2ah2yyi43" path="res://components/limbo_ai/hsm_bidirectional_transition_adder.gd" id="28_hp5df"]
+[ext_resource type="Script" uid="uid://tde4f3qhw3et" path="res://content/entities/player/states/falling_state.gd" id="29_2ux3l"]
+
+[sub_resource type="Animation" id="Animation_2ux3l"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_2jeju"]
+resource_name = "falling"
+length = 1.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_70y76"]
+_data = {
+&"RESET": SubResource("Animation_2ux3l"),
+&"falling": SubResource("Animation_2jeju")
+}
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_y5q02"]
 shader = ExtResource("1_4rie3")
 shader_parameter/EffectColor = Color(1, 1, 1, 1)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_obaep"]
+radius = 3.0
 
 [sub_resource type="Resource" id="Resource_awhl2"]
 script = ExtResource("9_2m54q")
@@ -33,27 +84,47 @@ metadata/_custom_type_script = "uid://54lkyexoh7xb"
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_obaep"]
 size = Vector2(12, 24)
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_obaep"]
-radius = 4.0
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_g04yl"]
-radius = 13.038404
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g1atm"]
+size = Vector2(20, 12)
 
 [node name="Player" type="CharacterBody2D" unique_id=1606296388 groups=["player"]]
 y_sort_enabled = true
-collision_layer = 64
+collision_layer = 68
+collision_mask = 5
 motion_mode = 1
 script = ExtResource("1_piw5s")
+
+[node name="PlayerFallableComponent" type="Node" parent="." unique_id=1641490121 node_paths=PackedStringArray("state_machine", "health_component", "transition", "actor")]
+script = ExtResource("2_2jeju")
+state_machine = NodePath("../States/StateMachine")
+health_component = NodePath("../HealthComponent")
+transition = NodePath("../States/Transitions/FallIdleTransition")
+actor = NodePath("..")
+spawn_offset = Vector2(12, 12)
+metadata/_custom_type_script = "uid://dp482qliilkp1"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=823647512]
+libraries/ = SubResource("AnimationLibrary_70y76")
 
 [node name="Sprite" type="Sprite2D" parent="." unique_id=1511677485]
 material = SubResource("ShaderMaterial_y5q02")
 texture = ExtResource("1_e50yv")
 offset = Vector2(0, -12)
 
+[node name="Collision" type="CollisionShape2D" parent="." unique_id=1053479339]
+z_index = 1
+position = Vector2(0, -4)
+shape = SubResource("CircleShape2D_obaep")
+
 [node name="HealthComponent" type="Node" parent="." unique_id=294361878 node_paths=PackedStringArray("actor")]
 script = ExtResource("4_t4ell")
 actor = NodePath("..")
 max_health = 25.0
+
+[node name="FlipComponent2D" type="Node" parent="." unique_id=71585832 node_paths=PackedStringArray("move_component", "sprite")]
+script = ExtResource("5_d0m51")
+move_component = NodePath("../MoveComponent2D")
+sprite = NodePath("../Sprite")
 
 [node name="MoveComponent2D" type="Node" parent="." unique_id=1338874261 node_paths=PackedStringArray("actor")]
 script = ExtResource("2_cp3qr")
@@ -65,23 +136,6 @@ script = ExtResource("6_0aorw")
 tags = Array[ExtResource("7_wlmkn")]([SubResource("Resource_awhl2")])
 metadata/_custom_type_script = "uid://dfauhidejrw1c"
 
-[node name="HurtboxComponent2D" type="Area2D" parent="." unique_id=1236442513 node_paths=PackedStringArray("health_component", "actor")]
-collision_layer = 66
-collision_mask = 0
-script = ExtResource("5_55yfw")
-health_component = NodePath("../HealthComponent")
-actor = NodePath("..")
-inmunity_time = 0.5
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent2D" unique_id=304227575]
-position = Vector2(0, -12)
-shape = SubResource("RectangleShape2D_obaep")
-debug_color = Color(0.8294658, 0.3909105, 0.14149457, 0.41960785)
-
-[node name="Collision" type="CollisionShape2D" parent="." unique_id=1053479339]
-position = Vector2(0, -4)
-shape = SubResource("CircleShape2D_obaep")
-
 [node name="InventoryComponent" type="Node" parent="." unique_id=600584459]
 script = ExtResource("6_r5tfu")
 
@@ -90,6 +144,30 @@ script = ExtResource("7_t2p4e")
 spaces = 4
 _items = Array[ExtResource("7_g15rv")]([null, null, null, null])
 metadata/_custom_type_script = "uid://bbmbnjuagm1l4"
+
+[node name="Areas" type="Node2D" parent="." unique_id=40561696]
+
+[node name="HurtboxComponent2D" type="Area2D" parent="Areas" unique_id=1236442513 node_paths=PackedStringArray("health_component", "actor")]
+collision_layer = 66
+collision_mask = 0
+script = ExtResource("5_55yfw")
+health_component = NodePath("../../HealthComponent")
+actor = NodePath("../..")
+inmunity_time = 0.5
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Areas/HurtboxComponent2D" unique_id=304227575]
+position = Vector2(0, -12)
+shape = SubResource("RectangleShape2D_obaep")
+debug_color = Color(0.8294658, 0.3909105, 0.14149457, 0.41960785)
+
+[node name="InteractArea" type="Area2D" parent="Areas" unique_id=1364199099]
+collision_layer = 0
+collision_mask = 256
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Areas/InteractArea" unique_id=1476750933]
+position = Vector2(0, -4)
+shape = SubResource("RectangleShape2D_g1atm")
+debug_color = Color(0.5855257, 0.6578363, 0, 0.41960785)
 
 [node name="Inputs" type="Node" parent="." unique_id=209227326]
 script = ExtResource("10_twvcw")
@@ -120,24 +198,27 @@ actor = NodePath("../..")
 ignore_manager = true
 metadata/_custom_type_script = "uid://bl4331iyoi3u2"
 
-[node name="InteractWorldInput" type="Node" parent="Inputs" unique_id=725035905 node_paths=PackedStringArray("interact_component")]
+[node name="InteractWorldInput" type="Node" parent="Inputs" unique_id=725035905 node_paths=PackedStringArray("interact_component", "actor")]
 script = ExtResource("19_2m54q")
 interact_component = NodePath("../../InteractComponent2D")
+actor = NodePath("../..")
 metadata/_custom_type_script = "uid://bo0xfdfx62t0i"
 
-[node name="InteractComponent2D" type="Node2D" parent="." unique_id=1404492988 node_paths=PackedStringArray("interact_area")]
+[node name="DebugGodInput" type="Node" parent="Inputs" unique_id=806090452 node_paths=PackedStringArray("collisions", "actor")]
+script = ExtResource("21_msox1")
+collisions = [NodePath("../../Collision")]
+actor = NodePath("../..")
+metadata/_custom_type_script = "uid://d3uryx80exwr"
+
+[node name="DashInput" type="Node" parent="Inputs" unique_id=2008142601]
+script = ExtResource("22_hp5df")
+metadata/_custom_type_script = "uid://bh0h2gblnqadb"
+
+[node name="InteractComponent2D" type="Node2D" parent="." unique_id=1404492988 node_paths=PackedStringArray("actor", "interact_area")]
 script = ExtResource("19_h0d63")
-interact_area = NodePath("Area2D")
+actor = NodePath("..")
+interact_area = NodePath("../Areas/InteractArea")
 metadata/_custom_type_script = "uid://c3dkm3li8244q"
-
-[node name="Area2D" type="Area2D" parent="InteractComponent2D" unique_id=1364199099]
-collision_layer = 0
-collision_mask = 256
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractComponent2D/Area2D" unique_id=1476750933]
-position = Vector2(0, -12)
-shape = SubResource("CircleShape2D_g04yl")
-debug_color = Color(0.5855257, 0.6578363, 0, 0.41960785)
 
 [node name="Label" type="Label" parent="InteractComponent2D" unique_id=2043128201 node_paths=PackedStringArray("interact_component")]
 visible = false
@@ -148,3 +229,90 @@ offset_bottom = -50.0
 text = "Hola Lol"
 script = ExtResource("21_awhl2")
 interact_component = NodePath("..")
+
+[node name="States" type="Node" parent="." unique_id=1220933562]
+
+[node name="StateMachine" type="LimboHSM" parent="States" unique_id=1871033156 node_paths=PackedStringArray("actor", "default_state")]
+script = ExtResource("24_xorka")
+actor = NodePath("../..")
+default_state = NodePath("Normal")
+metadata/_custom_type_script = "uid://b0ofjfg8urw8o"
+
+[node name="Normal" type="LimboHSM" parent="States/StateMachine" unique_id=901959481 node_paths=PackedStringArray("actor", "default_state")]
+script = ExtResource("24_xorka")
+actor = NodePath("../../..")
+default_state = NodePath("Idle")
+start_automatically = false
+metadata/_custom_type_script = "uid://b0ofjfg8urw8o"
+
+[node name="Idle" type="LimboState" parent="States/StateMachine/Normal" unique_id=613331369 node_paths=PackedStringArray("move_input", "transition")]
+script = ExtResource("25_qbe7t")
+move_input = NodePath("../../../../Inputs/MoveInputComponent2D")
+transition = NodePath("../../../Transitions/MoveStopTransition")
+
+[node name="Moving" type="LimboState" parent="States/StateMachine/Normal" unique_id=534378920 node_paths=PackedStringArray("move_input", "dash_input", "stop_transition", "dash_transition")]
+script = ExtResource("26_k0eji")
+move_input = NodePath("../../../../Inputs/MoveInputComponent2D")
+dash_input = NodePath("../../../../Inputs/DashInput")
+stop_transition = NodePath("../../../Transitions/MoveStopTransition")
+dash_transition = NodePath("../../../Transitions/DashUndashTransition")
+
+[node name="Dashing" type="LimboState" parent="States/StateMachine/Normal" unique_id=479541923 node_paths=PackedStringArray("move_component", "idle_transition", "move_transition", "move_input")]
+script = ExtResource("28_8l5bx")
+move_component = NodePath("../../../../MoveComponent2D")
+idle_transition = NodePath("../../../Transitions/UndashIdleTransition")
+move_transition = NodePath("../../../Transitions/DashUndashTransition")
+move_input = NodePath("../../../../Inputs/MoveInputComponent2D")
+dash_time = 0.1
+operator = "*"
+speed_value = 5.0
+cooldown = 0.5
+
+[node name="Falling" type="LimboState" parent="States/StateMachine" unique_id=1513118912 node_paths=PackedStringArray("animation_player", "move_component", "flip_component", "unfall_transition")]
+script = ExtResource("29_2ux3l")
+animation_player = NodePath("../../../AnimationPlayer")
+animation_name = &"falling"
+move_component = NodePath("../../../MoveComponent2D")
+flip_component = NodePath("../../../FlipComponent2D")
+unfall_transition = NodePath("../../Transitions/FallIdleTransition")
+
+[node name="Transitions" type="Node" parent="States" unique_id=734629214]
+
+[node name="MoveStopTransition" type="Node" parent="States/Transitions" unique_id=119242373 node_paths=PackedStringArray("state_machine", "from_state", "to_state")]
+script = ExtResource("28_hp5df")
+_reverse_transition_name = &"stop"
+state_machine = NodePath("../../StateMachine/Normal")
+custom_transition_name = true
+_transition_name = &"move"
+from_state = NodePath("../../StateMachine/Normal/Idle")
+to_state = NodePath("../../StateMachine/Normal/Moving")
+metadata/_custom_type_script = "uid://bxxh2ah2yyi43"
+
+[node name="DashUndashTransition" type="Node" parent="States/Transitions" unique_id=1704606668 node_paths=PackedStringArray("state_machine", "from_state", "to_state")]
+script = ExtResource("28_hp5df")
+_reverse_transition_name = &"undash"
+state_machine = NodePath("../../StateMachine/Normal")
+custom_transition_name = true
+_transition_name = &"dash"
+from_state = NodePath("../../StateMachine/Normal/Moving")
+to_state = NodePath("../../StateMachine/Normal/Dashing")
+metadata/_custom_type_script = "uid://bxxh2ah2yyi43"
+
+[node name="UndashIdleTransition" type="Node" parent="States/Transitions" unique_id=1148949896 node_paths=PackedStringArray("state_machine", "from_state", "to_state")]
+script = ExtResource("26_qbe7t")
+state_machine = NodePath("../../StateMachine/Normal")
+custom_transition_name = true
+_transition_name = &"undash_idle"
+from_state = NodePath("../../StateMachine/Normal/Dashing")
+to_state = NodePath("../../StateMachine/Normal/Idle")
+metadata/_custom_type_script = "uid://do6g2i4d6kbhj"
+
+[node name="FallIdleTransition" type="Node" parent="States/Transitions" unique_id=1131060474 node_paths=PackedStringArray("state_machine", "from_state", "to_state")]
+script = ExtResource("28_hp5df")
+_reverse_transition_name = &"ground"
+state_machine = NodePath("../../StateMachine")
+custom_transition_name = true
+_transition_name = &"falling"
+from_state = NodePath("../../StateMachine/Normal")
+to_state = NodePath("../../StateMachine/Falling")
+metadata/_custom_type_script = "uid://bxxh2ah2yyi43"

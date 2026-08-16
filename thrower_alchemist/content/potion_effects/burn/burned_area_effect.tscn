@@ -10,6 +10,8 @@
 radius = 40.012497
 
 [sub_resource type="Gradient" id="Gradient_5cgax"]
+offsets = PackedFloat32Array(0, 0.6506024)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_obaep"]
 gradient = SubResource("Gradient_5cgax")
@@ -49,6 +51,7 @@ metadata/_custom_type_script = "uid://76hfggre2bev"
 
 [node name="PointLight2D" type="PointLight2D" parent="." unique_id=2070410470]
 color = Color(1, 0.32099015, 0.072526634, 1)
+energy = 0.5
 texture = SubResource("GradientTexture2D_obaep")
 
 [node name="FireParticles" parent="." unique_id=514629607 instance=ExtResource("5_6nqlh")]

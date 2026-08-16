@@ -1,0 +1,54 @@
+[gd_scene format=3 uid="uid://cw15qbdetysw0"]
+
+[ext_resource type="Script" uid="uid://csownupd7lbcp" path="res://components/animation_system/tweener_trigger.gd" id="2_dmk8j"]
+[ext_resource type="Script" uid="uid://cy3gb1u028y4j" path="res://components/animation_system/tweener_action.gd" id="3_rc5eb"]
+
+[node name="RotableButtonAnimated" type="Button" unique_id=380966570]
+custom_maximum_size = Vector2(-1, 12)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(9, 6)
+size_flags_horizontal = 6
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 5
+text = "
+"
+
+[node name="MouseEntered" type="Node" parent="." unique_id=1277781303 node_paths=PackedStringArray("animator", "node")]
+script = ExtResource("2_dmk8j")
+animator = NodePath("../Rotate")
+node = NodePath("..")
+signal_to_connect = &"mouse_entered"
+metadata/_custom_type_script = "uid://csownupd7lbcp"
+
+[node name="Rotate" type="Node" parent="." unique_id=955285906 node_paths=PackedStringArray("node")]
+script = ExtResource("3_rc5eb")
+from = 0.0
+duration = 0.1
+add_ease = false
+add_transition = false
+node = NodePath("..")
+property_to_change = "rotation_degrees"
+to = 7.5
+metadata/_custom_type_script = "uid://cy3gb1u028y4j"
+
+[node name="MouseExited" type="Node" parent="." unique_id=759725227 node_paths=PackedStringArray("animator", "node")]
+script = ExtResource("2_dmk8j")
+animator = NodePath("../Unrotate")
+node = NodePath("..")
+signal_to_connect = &"mouse_exited"
+metadata/_custom_type_script = "uid://csownupd7lbcp"
+
+[node name="Unrotate" type="Node" parent="." unique_id=2125115892 node_paths=PackedStringArray("node")]
+script = ExtResource("3_rc5eb")
+from = 0.0
+duration = 0.1
+add_ease = false
+add_transition = false
+node = NodePath("..")
+property_to_change = "rotation_degrees"
+to = 0.0
+metadata/_custom_type_script = "uid://cy3gb1u028y4j"

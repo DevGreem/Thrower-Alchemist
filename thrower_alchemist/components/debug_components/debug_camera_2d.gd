@@ -8,7 +8,6 @@ class_name DebugCamera2D
 func _ready() -> void:
 	if OS.is_debug_build():
 		self.enabled = _is_owner_scene()
-		editor_draw_screen = enabled
 	else:
 		self.enabled = false
 		self.queue_free()

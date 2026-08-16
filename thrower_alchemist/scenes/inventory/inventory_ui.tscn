@@ -32,17 +32,21 @@ layout_mode = 2
 [node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/VBoxContainer" unique_id=1338733097]
 layout_mode = 2
 
-[node name="Hotbar" type="HBoxContainer" parent="." unique_id=1822549158]
-process_mode = 3
-custom_minimum_size = Vector2(48, 12)
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1414729011]
 layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
+anchors_preset = 12
 anchor_top = 1.0
-anchor_right = 0.5
+anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 0
+theme_override_constants/margin_bottom = 2
+
+[node name="Hotbar" type="HBoxContainer" parent="MarginContainer" unique_id=1822549158]
+process_mode = 3
+custom_minimum_size = Vector2(48, 12)
+layout_mode = 2
+size_flags_horizontal = 4
 alignment = 1
 script = ExtResource("2_3yj3k")
 default_slot_scene = ExtResource("2_8ojme")

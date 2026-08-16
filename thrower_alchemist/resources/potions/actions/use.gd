@@ -18,5 +18,5 @@ func execute(executer: Object, actor: Object) -> void:
 		potion.global_position = actor.global_position
 		GameDebugger.debug_log(PotionUseAction, "New potion throwed = " + str(potion))
 		
-		EventBus.spawn_node(potion, ContainerType.Enum.PROJECTILES_CONTAINER)
+		EventBus.spawn_node_in_group(potion, ContainerType.Enum.PROJECTILES_CONTAINER)
 		potion.throw.call_deferred(actor.get_global_mouse_position() as Vector2)

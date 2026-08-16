@@ -6,22 +6,14 @@ class_name TweenerAnimator
 
 signal finished
 
-@export var node: CanvasItem:
-	set(value):
-		node = value
-		notify_property_list_changed()
-		update_configuration_warnings()
+
 
 @export var await_animators: Array[TweenerAnimator] = []
 
-var state: TweenerState.Enum = TweenerState.Enum.IDLE
+@warning_ignore("unused_private_class_variable")
+@export_tool_button("Preview animation") var _preview: Callable = preview_animation
 
-func _ready() -> void:
-	if Engine.is_editor_hint():
-		return
-	
-	if not node:
-		node = get_parent()
+var state: TweenerState.Enum = TweenerState.Enum.IDLE
 
 func wait_finished() -> void:
 	
@@ -31,15 +23,18 @@ func wait_finished() -> void:
 	await finished
 
 func await_tweeners() -> void:
-	for animation: TweenerComponent in await_animators:
+	
+	for animation: TweenerAnimator in await_animators:
 		if animation:
 			await animation.wait_finished()
 
-func _get_configuration_warnings() -> PackedStringArray:
-	
-	var warnings: PackedStringArray = []
-	
-	if not node:
-		warnings.append("You must assign a node")
-	
-	return warnings
+@abstract
+func preview_animation() -> void
+
+func finish() -> void:
+	state = TweenerState.Enum.FINISHED
+	finished.emit()
+	GameDebugger.debug_log(TweenerAnimator, 'Animation "' + str(self.name) + '" finished')
+
+@abstract
+func make_animation(...parameters: Array) -> void

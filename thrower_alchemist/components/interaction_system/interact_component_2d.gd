@@ -8,6 +8,8 @@ signal interaction_removed(area: InteractArea2D)
 signal interacted(area: InteractArea2D)
 signal focused_interactable_changed(area: InteractArea2D)
 
+@export var actor: Node2D
+
 @export var interact_area: Area2D:
 	set(value):
 		interact_area = value
@@ -49,6 +51,10 @@ func _process(_delta: float) -> void:
 	
 	for area: InteractArea2D in detected_areas:
 		
+		if not is_instance_valid(area):
+			unregister_area(area)
+			continue
+		
 		if not area.active:
 			detected_areas[area] = false
 			
@@ -76,8 +82,8 @@ func register_area(area: InteractArea2D) -> bool:
 
 func unregister_area(area: InteractArea2D) -> bool:
 	
-	if area == focused_interactable and not can_interact:
-		pass
+	if area == focused_interactable:
+		focused_interactable = null
 	
 	var status: bool = detected_areas.erase(area)
 	
@@ -91,12 +97,8 @@ func interact() -> bool:
 	if not can_interact or not focused_interactable:
 		return false
 	
-	can_interact = false
-	
 	interacted.emit(focused_interactable)
-	await focused_interactable.interact.call()
-	
-	can_interact = true
+	focused_interactable.interact(self)
 	
 	return true
 

@@ -3,51 +3,60 @@ extends TweenerAnimator
 
 class_name TweenerTree
 
-@export var on_execute_signal: StringName:
-	set(value):
-		on_execute_signal = value
-		notify_property_list_changed()
+var _running_children: int = 0
+var animations: Array[TweenerAnimator]
 
 func _ready() -> void:
+	update_childrens()
+
+func preview_animation() -> void:
 	
-	if Engine.is_editor_hint():
-		
-		if not child_order_changed.is_connected(_on_order_changed):
-			child_order_changed.connect(_on_order_changed)
-		
+	if not Engine.is_editor_hint():
 		return
 	
-	super._ready()
-	
-	if not node.is_connected(on_execute_signal, _execute_actions):
-		node.connect(on_execute_signal, _execute_actions)
+	for child: Node in get_children():
+		if child is TweenerAnimator:
+			child.preview_animation()
 
-func _execute_actions(..._parameters: Array) -> void:
+func make_animation(..._parameters: Array) -> void:
+	
+	if state == TweenerState.Enum.PLAYING:
+		return
 	
 	await await_tweeners()
+	state = TweenerState.Enum.PLAYING
+	_running_children = animations.size()
+	
+	if _running_children == 0:
+		_finish_animation()
+		return
+	
+	for animation: TweenerAnimator in animations:
+		play_child(animation)
+
+func update_childrens() -> void:
+	
+	animations.clear()
 	
 	for child: Node in get_children():
-		if child is PropertyTweenerAnimator:
-			child.make_animation()
+		if child is TweenerAnimator:
+			animations.append(child)
 
-func _on_order_changed() -> void:
+func play_child(
+	child: TweenerAnimator,
+	parameters: Array = []
+) -> void:
+	@warning_ignore("redundant_await")
+	await child.make_animation(parameters)
 	
-	for child: Node in get_children():
-		if child is PropertyTweenerAnimator:
-			if child.node:
-				continue
-			
-			child.node = self.node
+	_running_children -= 1
+	
+	if _running_children == 0:
+		_finish_animation()
 
-func _validate_property(property: Dictionary) -> void:
+func _finish_animation() -> void:
 	
-	if node:
-		if property.name == "on_execute_signal":
-			
-			var signals: Array = node.get_signal_list().map(
-				func(prop: Dictionary) -> StringName:
-					return prop.name
-			)
-			
-			property.hint = PROPERTY_HINT_ENUM
-			property.hint_string = ",".join(signals)
+	for animation: TweenerAnimator in animations:
+		animation.state = TweenerState.Enum.IDLE
+	
+	finish()

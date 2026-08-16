@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://68xbebrslfyp"]
+
+[ext_resource type="Script" uid="uid://2v4axu8ap6um" path="res://components/spawn_system/data_scene_spawner_2d.gd" id="1_4lgjc"]
+[ext_resource type="PackedScene" uid="uid://b80uiyq60v0kn" path="res://content/potions/pickable_potion.tscn" id="3_33qtu"]
+[ext_resource type="Script" uid="uid://b4b27isfuwpp6" path="res://components/spawn_system/spawn_trigger.gd" id="4_f6bfq"]
+
+[node name="PotionSpawner" type="Marker2D" unique_id=1880383520]
+script = ExtResource("1_4lgjc")
+property_name = &"data"
+scene = ExtResource("3_33qtu")
+metadata/_custom_type_script = "uid://2v4axu8ap6um"
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="." unique_id=829130706]
+rect = Rect2(-13, -14, 26, 28)
+metadata/_edit_lock_ = true
+
+[node name="OnVisible" type="Node" parent="." unique_id=2081681163 node_paths=PackedStringArray("spawner", "node")]
+script = ExtResource("4_f6bfq")
+spawner = NodePath("..")
+node = NodePath("../VisibleOnScreenNotifier2D")
+signal_to_connect = &"screen_entered"
+metadata/_custom_type_script = "uid://b4b27isfuwpp6"

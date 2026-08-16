@@ -1,0 +1,112 @@
+[gd_scene format=3 uid="uid://ce7q32878qtvu"]
+
+[ext_resource type="Texture2D" uid="uid://o5rib67dxxm0" path="res://content/entities/tutorial_dummy/tutorial_dummy.png" id="1_u070d"]
+[ext_resource type="Script" uid="uid://b6nujstkyoydy" path="res://content/entities/tutorial_dummy/tutorial_dummy.gd" id="1_wbk67"]
+[ext_resource type="Script" uid="uid://ditbeykj0vfd4" path="res://components/hit_system/health_component.gd" id="2_im0wv"]
+[ext_resource type="Script" uid="uid://bqx8hyj121gcl" path="res://components/hit_system/hurtbox_component_2d.gd" id="3_k08vs"]
+[ext_resource type="Script" uid="uid://citt3bcswolbo" path="res://components/animation_system/tweener_tree.gd" id="6_u2pnx"]
+[ext_resource type="Script" uid="uid://cy3gb1u028y4j" path="res://components/animation_system/tweener_action.gd" id="7_jvifw"]
+[ext_resource type="Script" uid="uid://csownupd7lbcp" path="res://components/animation_system/tweener_trigger.gd" id="7_u2pnx"]
+[ext_resource type="Script" uid="uid://xqeyliosun8n" path="res://components/follow_system/follow_flip_component_2d.gd" id="8_jvifw"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g04yl"]
+size = Vector2(8, 10)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_syjmg"]
+size = Vector2(12, 14)
+
+[node name="TutorialDummy" type="Node2D" unique_id=1223026451 node_paths=PackedStringArray("follow_flip_component")]
+y_sort_enabled = true
+script = ExtResource("1_wbk67")
+follow_flip_component = NodePath("FollowFlipComponent2d")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=141246718]
+texture = ExtResource("1_u070d")
+offset = Vector2(0, -8)
+
+[node name="HealthComponent" type="Node" parent="." unique_id=1292650634]
+script = ExtResource("2_im0wv")
+metadata/_custom_type_script = "uid://ditbeykj0vfd4"
+
+[node name="HurtboxComponent2D" type="Area2D" parent="." unique_id=1618844333 node_paths=PackedStringArray("health_component", "actor")]
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("3_k08vs")
+health_component = NodePath("../HealthComponent")
+actor = NodePath("..")
+invincible = true
+emit_damage_on_invicible = true
+metadata/_custom_type_script = "uid://bqx8hyj121gcl"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent2D" unique_id=1143222310]
+position = Vector2(0, -5)
+shape = SubResource("RectangleShape2D_g04yl")
+debug_color = Color(0.70196074, 0.22661354, 0, 0.41960785)
+
+[node name="BodyDetector" type="Area2D" parent="." unique_id=411211464]
+collision_layer = 0
+collision_mask = 74
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BodyDetector" unique_id=1398323759]
+position = Vector2(0, -5)
+shape = SubResource("RectangleShape2D_syjmg")
+
+[node name="FollowFlipComponent2d" type="Node" parent="." unique_id=1359494722 node_paths=PackedStringArray("node")]
+script = ExtResource("8_jvifw")
+node = NodePath("../Sprite2D")
+metadata/_custom_type_script = "uid://xqeyliosun8n"
+
+[node name="Animations" type="Node" parent="." unique_id=1445535113]
+
+[node name="OnDetectSomething" type="Node" parent="Animations" unique_id=49992492]
+script = ExtResource("6_u2pnx")
+metadata/_custom_type_script = "uid://citt3bcswolbo"
+
+[node name="RotateLeft" type="Node" parent="Animations/OnDetectSomething" unique_id=717410907 node_paths=PackedStringArray("node")]
+script = ExtResource("7_jvifw")
+from = 0.0
+duration = 0.1
+ease_type = 1
+add_transition = false
+node = NodePath("../../../Sprite2D")
+property_to_change = "global_rotation_degrees"
+to = -20.0
+metadata/_custom_type_script = "uid://cy3gb1u028y4j"
+
+[node name="RotateRight" type="Node" parent="Animations/OnDetectSomething" unique_id=953955312 node_paths=PackedStringArray("node", "await_animators")]
+script = ExtResource("7_jvifw")
+from = 0.0
+duration = 0.2
+ease_type = 2
+add_transition = false
+node = NodePath("../../../Sprite2D")
+property_to_change = "global_rotation_degrees"
+to = 20.0
+await_animators = [NodePath("../RotateLeft")]
+metadata/_custom_type_script = "uid://cy3gb1u028y4j"
+
+[node name="ReturnToCenter" type="Node" parent="Animations/OnDetectSomething" unique_id=1774112233 node_paths=PackedStringArray("node", "await_animators")]
+script = ExtResource("7_jvifw")
+from = 0.0
+duration = 0.1
+ease_type = 2
+add_transition = false
+node = NodePath("../../../Sprite2D")
+property_to_change = "global_rotation_degrees"
+to = 0.0
+await_animators = [NodePath("../RotateRight")]
+metadata/_custom_type_script = "uid://cy3gb1u028y4j"
+
+[node name="DetectBody" type="Node" parent="Animations" unique_id=913055220 node_paths=PackedStringArray("animator", "node")]
+script = ExtResource("7_u2pnx")
+animator = NodePath("../OnDetectSomething")
+signal_to_connect = &"body_entered"
+node = NodePath("../../BodyDetector")
+metadata/_custom_type_script = "uid://csownupd7lbcp"
+
+[node name="DetectDamage" type="Node" parent="Animations" unique_id=1915119 node_paths=PackedStringArray("animator", "node")]
+script = ExtResource("7_u2pnx")
+animator = NodePath("../OnDetectSomething")
+signal_to_connect = &"damage_received"
+node = NodePath("../../HurtboxComponent2D")
+metadata/_custom_type_script = "uid://csownupd7lbcp"

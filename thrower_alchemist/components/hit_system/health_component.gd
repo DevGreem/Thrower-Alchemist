@@ -9,9 +9,14 @@ signal died
 @export var actor: Node
 @export var only_int: bool
 @export var free_actor_on_die: bool = false
+@export var can_change_max_health: bool = true
+@export var can_change_health: bool = true
 
 @export var max_health: float:
 	set(value):
+		
+		if not can_change_max_health:
+			return
 		
 		if only_int:
 			value = round(value)
@@ -29,6 +34,9 @@ signal died
 
 var health: float:
 	set(value):
+		
+		if not can_change_health:
+			return
 		
 		if only_int:
 			value = round(value)

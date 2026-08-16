@@ -128,6 +128,10 @@ func set_item(pos: int, new_value: InventoryItemInstance) -> bool:
 	if get_item(pos) == new_value:
 		return false
 	
+	if new_value:
+		if new_value.data.start_without_cooldown:
+			new_value.remaining_cooldown = 0.0
+		
 	_items.set(pos, new_value)
 	item_setted.emit(pos, new_value)
 	

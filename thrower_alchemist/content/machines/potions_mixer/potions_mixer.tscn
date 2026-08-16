@@ -14,7 +14,7 @@ size = Vector2(35, 12)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_syjmg"]
 resource_local_to_scene = true
-size = Vector2(36, 4)
+size = Vector2(36, 6)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_o21ci"]
 resource_local_to_scene = true
@@ -22,6 +22,7 @@ radius = 23.0
 
 [node name="PotionsMixer" type="StaticBody2D" unique_id=1111890572 node_paths=PackedStringArray("input_potions", "output_potion", "interaction_area")]
 y_sort_enabled = true
+collision_layer = 5
 collision_mask = 0
 script = ExtResource("1_afgo1")
 input_potions = [NodePath("Potions/StaticPotion"), NodePath("Potions/StaticPotion3")]

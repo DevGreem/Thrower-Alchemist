@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://b80uiyq60v0kn"]
+
+[ext_resource type="PackedScene" uid="uid://bp0q1lig48ynw" path="res://content/potions/static_potion.tscn" id="1_6nrby"]
+[ext_resource type="Script" uid="uid://bfr4uswi4ij6j" path="res://content/potions/pickable_potion.gd" id="2_nlj1i"]
+[ext_resource type="Script" uid="uid://dk0pi828tayhh" path="res://components/interaction_system/interact_area_2d.gd" id="3_15ek2"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_obaep"]
+radius = 5.0990195
+
+[node name="PickablePotion" unique_id=802257725 node_paths=PackedStringArray("interact_area") instance=ExtResource("1_6nrby")]
+script = ExtResource("2_nlj1i")
+interact_area = NodePath("InteractArea2D")
+
+[node name="InteractArea2D" type="Area2D" parent="." index="2" unique_id=1860730759]
+collision_layer = 256
+collision_mask = 0
+script = ExtResource("3_15ek2")
+interact_name = "pick potion"
+metadata/_custom_type_script = "uid://dk0pi828tayhh"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractArea2D" index="0" unique_id=786113001]
+position = Vector2(0, -4)
+shape = SubResource("CircleShape2D_obaep")
+debug_color = Color(0.70196074, 0.6038967, 0, 0.41960785)

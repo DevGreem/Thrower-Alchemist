@@ -9,9 +9,11 @@ class_name BurnEffect
 var cooldown: float:
 	get: return time_alive/times
 
-func _init() -> void:
-	_ID = "burn_effect"
-	_COLOR = Color.ORANGE_RED
+func get_definition() -> PotionEffectDefinition:
+	return PotionEffectDefinition.new(
+		"burn_effect",
+		Color.ORANGE_RED
+	)
 
 func drink_effect(actor: Node2D) -> void:
 	
@@ -34,4 +36,4 @@ func throw_effect(actor: Node2D, potion: PotionNode) -> void:
 	var burn_area: BurnedAreaEffect = BurnedAreaEffect.generate(actor, cooldown, time_alive, damage)
 	burn_area.global_position = potion.global_position
 	
-	EventBus.spawn_node.call_deferred(burn_area, ContainerType.Enum.EFFECTS_CONTAINER)
+	EventBus.spawn_node_in_group.call_deferred(burn_area, ContainerType.Enum.EFFECTS_CONTAINER)
