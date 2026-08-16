@@ -19,6 +19,10 @@ func _ready() -> void:
 
 func change_scene(path: String) -> void:
 	
+	if not path:
+		GameDebugger.debug_warning_string("ScenesManager", "Scene not proportioned", true)
+		return
+	
 	if path == current_scene:
 		return
 	
@@ -30,6 +34,7 @@ func change_scene(path: String) -> void:
 		GameDebugger.debug_error_string("Scene Manager", "An error ocurred while loading a new scene", true)
 		return
 	
+	get_tree().paused = true
 	previous_scene = current_scene
 	current_scene = path
 

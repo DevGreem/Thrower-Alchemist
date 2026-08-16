@@ -1,5 +1,8 @@
 [gd_scene format=3 uid="uid://bpfe5dk34pv1t"]
 
+[ext_resource type="Script" uid="uid://cj66dsilgm53v" path="res://scripts/change_scene_node.gd" id="1_oeh0t"]
+[ext_resource type="Script" uid="uid://8h3fajc76w20" path="res://components/triggers_system/execute_trigger.gd" id="2_ae20m"]
+
 [node name="Start" type="Control" unique_id=949455248]
 layout_mode = 3
 anchors_preset = 15
@@ -20,15 +23,31 @@ grow_vertical = 2
 layout_mode = 2
 
 [node name="TutorialButton" type="Button" parent="CenterContainer/VBoxContainer" unique_id=1710044682]
+z_index = 1
 layout_mode = 2
 text = "Tutorial"
 
+[node name="ChangeSceneNode" type="Node" parent="CenterContainer/VBoxContainer/TutorialButton" unique_id=43851291]
+script = ExtResource("1_oeh0t")
+scene_file = "uid://d0efybbjr5lxn"
+metadata/_custom_type_script = "uid://cj66dsilgm53v"
+
+[node name="ExecuteTrigger" type="Node" parent="CenterContainer/VBoxContainer/TutorialButton" unique_id=274747435 node_paths=PackedStringArray("target", "node")]
+script = ExtResource("2_ae20m")
+target = NodePath("../ChangeSceneNode")
+method = &"change"
+signal_to_connect = &"pressed"
+node = NodePath("..")
+metadata/_custom_type_script = "uid://8h3fajc76w20"
+
 [node name="EndlessModeButton" type="Button" parent="CenterContainer/VBoxContainer" unique_id=157713829]
+z_index = 1
 layout_mode = 2
 tooltip_text = "Incoming!"
 disabled = true
 text = "Endless Mode"
 
 [node name="CloseGameButton" type="Button" parent="CenterContainer/VBoxContainer" unique_id=1311553485]
+z_index = 1
 layout_mode = 2
 text = "Close Game"
