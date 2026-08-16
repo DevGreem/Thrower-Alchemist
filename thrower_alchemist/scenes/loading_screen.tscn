@@ -1,0 +1,47 @@
+[gd_scene format=3 uid="uid://bkp2qtsmur7eq"]
+
+[ext_resource type="Shader" uid="uid://8v3uym8lgftj" path="res://shaders/animation_shader.tres" id="1_hprjd"]
+[ext_resource type="Texture2D" uid="uid://crtslwda00502" path="res://assets/images/loading_circle/jumping_potion0010.png" id="2_ku3bi"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_g04yl"]
+shader = ExtResource("1_hprjd")
+shader_parameter/Columns = 35
+shader_parameter/Rows = 1
+shader_parameter/FPS = 35
+
+[node name="Control" type="Control" unique_id=810352294]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1596769586]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=584295348]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -40.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer" unique_id=1206554068]
+material = SubResource("ShaderMaterial_g04yl")
+layout_mode = 2
+offset_transform_enabled = true
+texture = ExtResource("2_ku3bi")
