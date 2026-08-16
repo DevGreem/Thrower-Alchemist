@@ -2,11 +2,7 @@
 extends Node
 
 signal change_requested
-@warning_ignore("unused_signal")
 signal scene_changed
-
-const GROUP_SETTING: String = "scene_manager"
-const LOAD_SCREEN_SETTING: String = "load_screen"
 
 var current_scene: String = ""
 var previous_scene: String = ""
@@ -16,6 +12,8 @@ func _ready() -> void:
 	if Engine.is_editor_hint():
 		_setup_manager()
 		return
+	
+	current_scene = ProjectSettings.get_setting("application/run/main_scene")
 
 func change_scene(path: String) -> void:
 	
@@ -31,27 +29,34 @@ func change_scene(path: String) -> void:
 	var error: Error = ResourceLoader.load_threaded_request(path)
 	
 	if error != OK:
-		GameDebugger.debug_error_string("Scene Manager", "An error ocurred while loading a new scene", true)
+		GameDebugger.debug_error_string("ScenesManager", "An error ocurred while loading a new scene", true)
 		return
 	
 	get_tree().paused = true
 	previous_scene = current_scene
 	current_scene = path
 
-func open_load_screen() -> void:
+func open_load_screen() -> bool:
+	GameDebugger.debug_log_string("ScenesManager", "Changing scene to load screen")
 	
-	get_tree().change_scene_to_file(
-		ProjectSettings.get_setting(
-			_get_setting(GROUP_SETTING, LOAD_SCREEN_SETTING)
-		) as String
-	)
+	var scene: String = ProjectSettings.get_setting(
+		"scene_manager/load_screen"
+	) as String
+	
+	if not scene:
+		GameDebugger.debug_error_string("ScenesManager", "Load screen not founded", true)
+		scene_changed.emit()
+		return false
+	
+	get_tree().change_scene_to_file(scene)
+	return true
 
 func _setup_manager() -> void:
 	
-	if ProjectSettings.has_setting("scene_manager/load_screen"):
-		return
+	const load_screen_path: String = "scene_manager/load_screen"
 	
-	var load_screen_path: String = _get_setting(GROUP_SETTING, LOAD_SCREEN_SETTING)
+	if ProjectSettings.has_setting(load_screen_path):
+		return
 	
 	ProjectSettings.set_setting(
 		load_screen_path,
@@ -75,7 +80,7 @@ func _setup_manager() -> void:
 			"*.tscn"
 		)
 	)
-	GameDebugger.debug_log_string("SceneManager", "Added new project setting called scene_manager/load_screen")
+	GameDebugger.debug_log_string("ScenesManager", "Added new project setting called scene_manager/load_screen")
 
 func _get_setting(...parameters: Array) -> String:
 	return "/".join(parameters)
