@@ -65,6 +65,11 @@ effects_container=""
 entities_container=""
 machines_container=""
 
+[gui]
+
+theme/custom="uid://b2nh772g2kcw"
+theme/custom_font="uid://bsbkmqeodchje"
+
 [input]
 
 left={
