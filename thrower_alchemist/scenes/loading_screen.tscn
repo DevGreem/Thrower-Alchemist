@@ -1,14 +1,5 @@
 [gd_scene format=3 uid="uid://bkp2qtsmur7eq"]
 
-[ext_resource type="Shader" uid="uid://8v3uym8lgftj" path="res://shaders/animation_shader.tres" id="1_hprjd"]
-[ext_resource type="Texture2D" uid="uid://crtslwda00502" path="res://assets/images/loading_circle/jumping_potion0010.png" id="2_ku3bi"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_g04yl"]
-shader = ExtResource("1_hprjd")
-shader_parameter/Columns = 35
-shader_parameter/Rows = 1
-shader_parameter/FPS = 35
-
 [node name="Control" type="Control" unique_id=810352294]
 layout_mode = 3
 anchors_preset = 15
@@ -40,8 +31,5 @@ grow_vertical = 0
 theme_override_constants/margin_right = 4
 theme_override_constants/margin_bottom = 4
 
-[node name="TextureRect" type="TextureRect" parent="MarginContainer" unique_id=1206554068]
-material = SubResource("ShaderMaterial_g04yl")
+[node name="TextureRect" type="TextureRect" parent="MarginContainer" unique_id=1038355144]
 layout_mode = 2
-offset_transform_enabled = true
-texture = ExtResource("2_ku3bi")
