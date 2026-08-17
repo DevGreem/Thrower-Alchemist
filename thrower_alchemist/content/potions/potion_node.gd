@@ -2,6 +2,8 @@ extends CharacterBody2D
 
 class_name PotionNode
 
+signal brokened
+
 @export var move_component: MoveComponent2D
 @export var reach_distance_component: ReachDistanceComponent2D
 @export var hurtbox_detector: HurtboxDetectorComponent2D
@@ -42,7 +44,7 @@ func _on_reach() -> void:
 	for effect: PotionEffect in data.effects:
 		_make_effect(effect)
 	
-	self.queue_free()
+	break_glass()
 
 func _make_effect(effect: PotionEffect) -> void:
 	effect.throw_effect(actor, self)
@@ -58,6 +60,10 @@ func _make_collision_effect(collider: Node2D) -> void:
 	for effect: PotionEffect in data.effects:
 		effect.collision_effect(actor, self, collider)
 	
+	break_glass()
+
+func break_glass() -> void:
+	brokened.emit()
 	self.queue_free()
 
 func throw(direction: Vector2) -> void:
