@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://crtslwda00502"
-path="res://.godot/imported/jumping_potion0010.png-744ba1e2d3bdfba9b03534f23d356ea5.ctex"
+uid="uid://b26hrl077pg4b"
+path="res://.godot/imported/arrow.png-ccf0f6e5333696a58b23fb67fef55866.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/images/loading_circle/jumping_potion0010.png"
-dest_files=["res://.godot/imported/jumping_potion0010.png-744ba1e2d3bdfba9b03534f23d356ea5.ctex"]
+source_file="res://assets/images/arrow.png"
+dest_files=["res://.godot/imported/arrow.png-ccf0f6e5333696a58b23fb67fef55866.ctex"]
 
 [params]
 
