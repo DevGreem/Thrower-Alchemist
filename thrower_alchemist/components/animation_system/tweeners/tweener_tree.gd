@@ -1,13 +1,9 @@
 @tool
-extends TweenerAnimator
+extends BaseTweenerTreeAnimator
 
 class_name TweenerTree
 
 var _running_children: int = 0
-var animations: Array[TweenerAnimator]
-
-func _ready() -> void:
-	update_childrens()
 
 func preview_animation() -> void:
 	
@@ -33,14 +29,6 @@ func make_animation(..._parameters: Array) -> void:
 	
 	for animation: TweenerAnimator in animations:
 		play_child(animation)
-
-func update_childrens() -> void:
-	
-	animations.clear()
-	
-	for child: Node in get_children():
-		if child is TweenerAnimator:
-			animations.append(child)
 
 func play_child(
 	child: TweenerAnimator,

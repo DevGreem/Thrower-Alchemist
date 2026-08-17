@@ -26,6 +26,13 @@ func _ready() -> void:
 	
 	current_scene = ProjectSettings.get_setting("application/run/main_scene")
 
+func close_game(make_transition: bool = true) -> void:
+	
+	if make_transition:
+		change_requested.emit()
+	
+	get_tree().quit()
+
 func go_to_previous_scene() -> void:
 	change_scene(previous_scene)
 

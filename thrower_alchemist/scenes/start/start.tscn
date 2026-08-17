@@ -1,19 +1,18 @@
 [gd_scene format=3 uid="uid://bpfe5dk34pv1t"]
 
+[ext_resource type="Script" uid="uid://btu7r865mi7rd" path="res://components/animation_system/animation_container.gd" id="1_0stv2"]
 [ext_resource type="Script" uid="uid://cj66dsilgm53v" path="res://scripts/change_scene_node.gd" id="1_oeh0t"]
+[ext_resource type="PackedScene" uid="uid://b76wglrkjq08a" path="res://scenes/animations/scare_button_animation.tscn" id="2_1eg8k"]
 [ext_resource type="Script" uid="uid://8h3fajc76w20" path="res://components/triggers_system/execute_trigger.gd" id="2_ae20m"]
-[ext_resource type="Texture2D" uid="uid://b26hrl077pg4b" path="res://assets/images/arrow.png" id="3_1eg8k"]
-[ext_resource type="Script" uid="uid://dkjntefk5xfvu" path="res://components/ui_system/components/static_texture_arrow.gd" id="3_ae20m"]
 
 [node name="Start" type="Control" unique_id=949455248]
+process_mode = 3
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-metadata/_edit_horizontal_guides_ = [42.0]
-metadata/_edit_vertical_guides_ = [101.0]
 
 [node name="CenterContainer" type="CenterContainer" parent="." unique_id=1714637629]
 layout_mode = 1
@@ -26,23 +25,71 @@ grow_vertical = 2
 [node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer" unique_id=1076574483]
 layout_mode = 2
 
-[node name="TutorialButton" type="Button" parent="CenterContainer/VBoxContainer" unique_id=1710044682]
-z_index = 1
+[node name="AnimationContainer" type="Control" parent="CenterContainer/VBoxContainer" unique_id=1961015998]
 layout_mode = 2
-offset_transform_pivot = Vector2(1, 1)
+script = ExtResource("1_0stv2")
+metadata/_custom_type_script = "uid://btu7r865mi7rd"
+
+[node name="TutorialButton" type="Button" parent="CenterContainer/VBoxContainer/AnimationContainer" unique_id=1710044682]
+z_index = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset_ratio = Vector2(0.5, 0.5)
 text = "Tutorial"
 
-[node name="ChangeSceneNode" type="Node" parent="CenterContainer/VBoxContainer/TutorialButton" unique_id=43851291]
+[node name="Animation" parent="CenterContainer/VBoxContainer/AnimationContainer/TutorialButton" unique_id=1262204884 instance=ExtResource("2_1eg8k")]
+
+[node name="AddScale" parent="CenterContainer/VBoxContainer/AnimationContainer/TutorialButton/Animation/Tweeners" parent_id_path=PackedInt32Array(1262204884, 13601531) index="0" unique_id=1511299314 node_paths=PackedStringArray("node")]
+node = NodePath("../../..")
+
+[node name="RemoveScale" parent="CenterContainer/VBoxContainer/AnimationContainer/TutorialButton/Animation/Tweeners" parent_id_path=PackedInt32Array(1262204884, 13601531) index="1" unique_id=1483970941 node_paths=PackedStringArray("node")]
+node = NodePath("../../..")
+
+[node name="AddScale" parent="CenterContainer/VBoxContainer/AnimationContainer/TutorialButton/Animation/Tweeners/ButtonPressed" parent_id_path=PackedInt32Array(1262204884, 114772161) index="0" unique_id=751885009 node_paths=PackedStringArray("node")]
+node = NodePath("../../../..")
+
+[node name="RemoveScale" parent="CenterContainer/VBoxContainer/AnimationContainer/TutorialButton/Animation/Tweeners/ButtonPressed" parent_id_path=PackedInt32Array(1262204884, 114772161) index="1" unique_id=1608300259 node_paths=PackedStringArray("node")]
+node = NodePath("../../../..")
+
+[node name="AddRotation" parent="CenterContainer/VBoxContainer/AnimationContainer/TutorialButton/Animation/Tweeners/ButtonPressed/RandomTweenerSelector/AddRemoveRotation" parent_id_path=PackedInt32Array(1262204884, 1278570709) index="0" unique_id=879589513 node_paths=PackedStringArray("node")]
+node = NodePath("../../../../../..")
+
+[node name="NegativeRotation" parent="CenterContainer/VBoxContainer/AnimationContainer/TutorialButton/Animation/Tweeners/ButtonPressed/RandomTweenerSelector/AddRemoveRotation" parent_id_path=PackedInt32Array(1262204884, 1278570709) index="1" unique_id=2113302735 node_paths=PackedStringArray("node")]
+node = NodePath("../../../../../..")
+
+[node name="NegativeRotation" parent="CenterContainer/VBoxContainer/AnimationContainer/TutorialButton/Animation/Tweeners/ButtonPressed/RandomTweenerSelector/RemoveAddRotation" parent_id_path=PackedInt32Array(1262204884, 208167455) index="0" unique_id=138908998 node_paths=PackedStringArray("node")]
+node = NodePath("../../../../../..")
+
+[node name="AddRotation" parent="CenterContainer/VBoxContainer/AnimationContainer/TutorialButton/Animation/Tweeners/ButtonPressed/RandomTweenerSelector/RemoveAddRotation" parent_id_path=PackedInt32Array(1262204884, 208167455) index="1" unique_id=329663951 node_paths=PackedStringArray("node")]
+node = NodePath("../../../../../..")
+
+[node name="RemoveRotation" parent="CenterContainer/VBoxContainer/AnimationContainer/TutorialButton/Animation/Tweeners/ButtonPressed" parent_id_path=PackedInt32Array(1262204884, 114772161) index="3" unique_id=42378963 node_paths=PackedStringArray("node")]
+node = NodePath("../../../..")
+
+[node name="OnMouseEntered" parent="CenterContainer/VBoxContainer/AnimationContainer/TutorialButton/Animation/Triggers" parent_id_path=PackedInt32Array(1262204884, 491049015) index="0" unique_id=691375042 node_paths=PackedStringArray("node")]
+node = NodePath("../../..")
+
+[node name="OnMouseExited" parent="CenterContainer/VBoxContainer/AnimationContainer/TutorialButton/Animation/Triggers" parent_id_path=PackedInt32Array(1262204884, 491049015) index="1" unique_id=1302020605 node_paths=PackedStringArray("node")]
+node = NodePath("../../..")
+
+[node name="OnPressed" parent="CenterContainer/VBoxContainer/AnimationContainer/TutorialButton/Animation/Triggers" parent_id_path=PackedInt32Array(1262204884, 491049015) index="2" unique_id=1998438023 node_paths=PackedStringArray("node")]
+node = NodePath("../../..")
+
+[node name="ChangeSceneNode" type="Node" parent="CenterContainer/VBoxContainer/AnimationContainer/TutorialButton" unique_id=43851291]
 script = ExtResource("1_oeh0t")
 scene_file = "uid://d0efybbjr5lxn"
 metadata/_custom_type_script = "uid://cj66dsilgm53v"
 
-[node name="ExecuteTrigger" type="Node" parent="CenterContainer/VBoxContainer/TutorialButton" unique_id=274747435 node_paths=PackedStringArray("target", "node")]
+[node name="OnPressed" type="Node" parent="CenterContainer/VBoxContainer/AnimationContainer/TutorialButton" unique_id=274747435 node_paths=PackedStringArray("target", "node")]
 script = ExtResource("2_ae20m")
 target = NodePath("../ChangeSceneNode")
 method = &"change"
-signal_to_connect = &"pressed"
-node = NodePath("..")
+signal_to_connect = &"finished"
+node = NodePath("../Animation/Tweeners/ButtonPressed")
 metadata/_custom_type_script = "uid://8h3fajc76w20"
 
 [node name="EndlessModeButton" type="Button" parent="CenterContainer/VBoxContainer" unique_id=157713829]
@@ -52,23 +99,74 @@ tooltip_text = "Incoming!"
 disabled = true
 text = "Endless Mode"
 
-[node name="CloseGameButton" type="Button" parent="CenterContainer/VBoxContainer" unique_id=1311553485]
-z_index = 1
+[node name="AnimationContainer2" type="Control" parent="CenterContainer/VBoxContainer" unique_id=1288073800]
 layout_mode = 2
+script = ExtResource("1_0stv2")
+metadata/_custom_type_script = "uid://btu7r865mi7rd"
+
+[node name="CloseGameButton" type="Button" parent="CenterContainer/VBoxContainer/AnimationContainer2" unique_id=1311553485]
+z_index = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset_ratio = Vector2(0.5, 0.5)
 text = "Close Game"
 
-[node name="ArrowNode" type="TextureRect" parent="." unique_id=1750488297 node_paths=PackedStringArray("target")]
-layout_mode = 0
-offset_left = 83.0
-offset_top = 43.000004
-offset_right = 95.0
-offset_bottom = 51.000004
-pivot_offset_ratio = Vector2(0.5, 0.5)
-offset_transform_enabled = true
-texture = ExtResource("3_1eg8k")
-stretch_mode = 2
-script = ExtResource("3_ae20m")
-active = false
-target = NodePath("../CenterContainer/VBoxContainer/TutorialButton")
-can_rotate = false
-metadata/_custom_type_script = "uid://dkjntefk5xfvu"
+[node name="Animation" parent="CenterContainer/VBoxContainer/AnimationContainer2/CloseGameButton" unique_id=1309109886 instance=ExtResource("2_1eg8k")]
+
+[node name="AddScale" parent="CenterContainer/VBoxContainer/AnimationContainer2/CloseGameButton/Animation/Tweeners" parent_id_path=PackedInt32Array(1309109886, 13601531) index="0" unique_id=1511299314 node_paths=PackedStringArray("node")]
+node = NodePath("../../..")
+
+[node name="RemoveScale" parent="CenterContainer/VBoxContainer/AnimationContainer2/CloseGameButton/Animation/Tweeners" parent_id_path=PackedInt32Array(1309109886, 13601531) index="1" unique_id=1483970941 node_paths=PackedStringArray("node")]
+node = NodePath("../../..")
+
+[node name="AddScale" parent="CenterContainer/VBoxContainer/AnimationContainer2/CloseGameButton/Animation/Tweeners/ButtonPressed" parent_id_path=PackedInt32Array(1309109886, 114772161) index="0" unique_id=751885009 node_paths=PackedStringArray("node")]
+node = NodePath("../../../..")
+
+[node name="RemoveScale" parent="CenterContainer/VBoxContainer/AnimationContainer2/CloseGameButton/Animation/Tweeners/ButtonPressed" parent_id_path=PackedInt32Array(1309109886, 114772161) index="1" unique_id=1608300259 node_paths=PackedStringArray("node")]
+node = NodePath("../../../..")
+
+[node name="AddRotation" parent="CenterContainer/VBoxContainer/AnimationContainer2/CloseGameButton/Animation/Tweeners/ButtonPressed/RandomTweenerSelector/AddRemoveRotation" parent_id_path=PackedInt32Array(1309109886, 1278570709) index="0" unique_id=879589513 node_paths=PackedStringArray("node")]
+node = NodePath("../../../../../..")
+
+[node name="NegativeRotation" parent="CenterContainer/VBoxContainer/AnimationContainer2/CloseGameButton/Animation/Tweeners/ButtonPressed/RandomTweenerSelector/AddRemoveRotation" parent_id_path=PackedInt32Array(1309109886, 1278570709) index="1" unique_id=2113302735 node_paths=PackedStringArray("node")]
+node = NodePath("../../../../../..")
+
+[node name="NegativeRotation" parent="CenterContainer/VBoxContainer/AnimationContainer2/CloseGameButton/Animation/Tweeners/ButtonPressed/RandomTweenerSelector/RemoveAddRotation" parent_id_path=PackedInt32Array(1309109886, 208167455) index="0" unique_id=138908998 node_paths=PackedStringArray("node")]
+node = NodePath("../../../../../..")
+
+[node name="AddRotation" parent="CenterContainer/VBoxContainer/AnimationContainer2/CloseGameButton/Animation/Tweeners/ButtonPressed/RandomTweenerSelector/RemoveAddRotation" parent_id_path=PackedInt32Array(1309109886, 208167455) index="1" unique_id=329663951 node_paths=PackedStringArray("node")]
+node = NodePath("../../../../../..")
+
+[node name="RemoveRotation" parent="CenterContainer/VBoxContainer/AnimationContainer2/CloseGameButton/Animation/Tweeners/ButtonPressed" parent_id_path=PackedInt32Array(1309109886, 114772161) index="3" unique_id=42378963 node_paths=PackedStringArray("node")]
+node = NodePath("../../../..")
+
+[node name="OnMouseEntered" parent="CenterContainer/VBoxContainer/AnimationContainer2/CloseGameButton/Animation/Triggers" parent_id_path=PackedInt32Array(1309109886, 491049015) index="0" unique_id=691375042 node_paths=PackedStringArray("node")]
+node = NodePath("../../..")
+
+[node name="OnMouseExited" parent="CenterContainer/VBoxContainer/AnimationContainer2/CloseGameButton/Animation/Triggers" parent_id_path=PackedInt32Array(1309109886, 491049015) index="1" unique_id=1302020605 node_paths=PackedStringArray("node")]
+node = NodePath("../../..")
+
+[node name="OnPressed" parent="CenterContainer/VBoxContainer/AnimationContainer2/CloseGameButton/Animation/Triggers" parent_id_path=PackedInt32Array(1309109886, 491049015) index="2" unique_id=1998438023 node_paths=PackedStringArray("node")]
+node = NodePath("../../..")
+
+[node name="ChangeSceneNode" type="Node" parent="CenterContainer/VBoxContainer/AnimationContainer2/CloseGameButton" unique_id=1534600579]
+script = ExtResource("1_oeh0t")
+quit_game = true
+metadata/_custom_type_script = "uid://cj66dsilgm53v"
+
+[node name="ExecuteTrigger" type="Node" parent="CenterContainer/VBoxContainer/AnimationContainer2/CloseGameButton" unique_id=195235972 node_paths=PackedStringArray("target", "node")]
+script = ExtResource("2_ae20m")
+target = NodePath("../ChangeSceneNode")
+method = &"change"
+signal_to_connect = &"finished"
+node = NodePath("../Animation/Tweeners/ButtonPressed")
+metadata/_custom_type_script = "uid://8h3fajc76w20"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=1149890935]
+
+[editable path="CenterContainer/VBoxContainer/AnimationContainer/TutorialButton/Animation"]
+[editable path="CenterContainer/VBoxContainer/AnimationContainer2/CloseGameButton/Animation"]
