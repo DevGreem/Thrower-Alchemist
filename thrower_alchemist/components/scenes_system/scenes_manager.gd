@@ -4,8 +4,19 @@ extends Node
 signal change_requested
 signal scene_changed
 
-var current_scene: String = ""
-var previous_scene: String = ""
+var _previous_scene: String = ""
+var previous_scene: String:
+	get: return _previous_scene
+	set(value): return
+
+var current_scene: String = "":
+	set(value):
+		
+		if value == current_scene:
+			return
+		
+		_previous_scene = current_scene
+		current_scene = value
 
 func _ready() -> void:
 	
@@ -14,6 +25,9 @@ func _ready() -> void:
 		return
 	
 	current_scene = ProjectSettings.get_setting("application/run/main_scene")
+
+func go_to_previous_scene() -> void:
+	change_scene(previous_scene)
 
 func change_scene(path: String) -> void:
 	
@@ -35,8 +49,14 @@ func change_scene(path: String) -> void:
 	GameDebugger.debug_log_string("ScenesManager", "Loading new scene...")
 	
 	get_tree().paused = true
-	previous_scene = current_scene
 	current_scene = path
+
+func change_to_packed_scene(scene: PackedScene) -> void:
+	
+	scene_changed.emit()
+	get_tree().change_scene_to_packed(scene)
+	
+	get_tree().paused = false
 
 func open_load_screen() -> bool:
 	GameDebugger.debug_log_string("ScenesManager", "Changing scene to load screen")

@@ -2,10 +2,11 @@
 
 [ext_resource type="Script" uid="uid://ctuohpxwkuuuo" path="res://components/animation_system/texture_rect_animator.gd" id="2_hprjd"]
 [ext_resource type="Texture2D" uid="uid://crtslwda00502" path="res://assets/images/loading_circle/jumping_potion0010.png" id="2_ku3bi"]
+[ext_resource type="Script" uid="uid://dr6mr56bwmbh4" path="res://components/scenes_system/scene_load_verifier_node.gd" id="3_ku3bi"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_g04yl"]
 atlas = ExtResource("2_ku3bi")
-region = Rect2(352, 0, 16, 32)
+region = Rect2(80, 0, 16, 32)
 
 [sub_resource type="Animation" id="Animation_hprjd"]
 length = 0.001
@@ -54,7 +55,18 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ColorRect" type="ColorRect" parent="." unique_id=1596769586]
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1944187672]
+layer = 101
+
+[node name="Control" type="Control" parent="CanvasLayer" unique_id=1531435350]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/Control" unique_id=1596769586]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -63,7 +75,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 1)
 
-[node name="CenterContainer" type="CenterContainer" parent="." unique_id=331474758]
+[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer/Control" unique_id=331474758]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -71,37 +83,41 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer" unique_id=209959092]
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/CenterContainer" unique_id=209959092]
 layout_mode = 2
 
-[node name="TextureRect" type="TextureRect" parent="CenterContainer/VBoxContainer" unique_id=1038355144]
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Control/CenterContainer/VBoxContainer" unique_id=1038355144]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 texture = SubResource("AtlasTexture_g04yl")
 
-[node name="TextureRectAnimator" type="Node" parent="CenterContainer/VBoxContainer/TextureRect" unique_id=1861178297 node_paths=PackedStringArray("target")]
+[node name="TextureRectAnimator" type="Node" parent="CanvasLayer/Control/CenterContainer/VBoxContainer/TextureRect" unique_id=1861178297 node_paths=PackedStringArray("target")]
 script = ExtResource("2_hprjd")
 target = NodePath("..")
 columns = 35
 fps = 35.0
 metadata/_custom_type_script = "uid://ctuohpxwkuuuo"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/VBoxContainer" unique_id=371056719]
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Control/CenterContainer/VBoxContainer" unique_id=371056719]
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="Label" type="Label" parent="CenterContainer/VBoxContainer/HBoxContainer" unique_id=661766745]
+[node name="Label" type="Label" parent="CanvasLayer/Control/CenterContainer/VBoxContainer/HBoxContainer" unique_id=661766745]
 layout_mode = 2
 text = "Loading"
 
-[node name="Label2" type="Label" parent="CenterContainer/VBoxContainer/HBoxContainer" unique_id=1535807392]
+[node name="Label2" type="Label" parent="CanvasLayer/Control/CenterContainer/VBoxContainer/HBoxContainer" unique_id=1535807392]
 layout_mode = 2
 text = "..."
 visible_characters = 0
 visible_characters_behavior = 1
 visible_ratio = 0.0
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="CenterContainer/VBoxContainer/HBoxContainer/Label2" unique_id=1281656114]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer/Control/CenterContainer/VBoxContainer/HBoxContainer/Label2" unique_id=1281656114]
 libraries/ = SubResource("AnimationLibrary_5phy8")
 autoplay = &"pointing"
+
+[node name="SceneLoadVerifierNode" type="Node" parent="." unique_id=1877596909]
+script = ExtResource("3_ku3bi")
+metadata/_custom_type_script = "uid://dr6mr56bwmbh4"
