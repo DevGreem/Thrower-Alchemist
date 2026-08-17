@@ -5,8 +5,8 @@ class_name RandomModulateColorGenerator
 
 @export var target: CanvasItem
 @export var self_modulate: bool = true
-@export var min_values: Color
-@export var max_values: Color
+@export var min_values: Color = Color.BLACK
+@export var max_values: Color = Color.WHITE
 
 @export_tool_button("Change preview color") var change_preview_color: Callable = change_color
 

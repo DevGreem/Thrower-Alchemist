@@ -3,6 +3,7 @@ extends Node
 
 signal change_requested
 signal scene_changed
+signal close_requested
 
 var _previous_scene: String = ""
 var previous_scene: String:
@@ -26,12 +27,10 @@ func _ready() -> void:
 	
 	current_scene = ProjectSettings.get_setting("application/run/main_scene")
 
-func close_game(make_transition: bool = true) -> void:
-	
-	if make_transition:
-		change_requested.emit()
+func close_game() -> void:
 	
 	get_tree().quit()
+	close_requested.emit()
 
 func go_to_previous_scene() -> void:
 	change_scene(previous_scene)
