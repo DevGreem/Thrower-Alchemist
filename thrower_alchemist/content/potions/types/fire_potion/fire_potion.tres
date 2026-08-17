@@ -38,5 +38,6 @@ effects = Array[ExtResource("1_yf3ll")]([SubResource("Resource_g1atm")])
 _ID = "fire_potion"
 icon = ExtResource("3_e2n8g")
 name = "Potion"
+cooldown = 1.0
 actions = SubResource("Resource_8w73p")
 metadata/_custom_type_script = "uid://sc48cbyclvc1"

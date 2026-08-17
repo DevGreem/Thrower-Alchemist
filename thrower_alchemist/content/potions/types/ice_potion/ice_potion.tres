@@ -25,7 +25,7 @@ script = ExtResource("5_xfde8")
 
 [sub_resource type="Resource" id="Resource_44e06"]
 script = ExtResource("5_vaywa")
-freeze_time = 3.0
+freeze_time = 2.0
 definition = null
 metadata/_custom_type_script = "uid://mwbdvayb2afl"
 
@@ -36,6 +36,6 @@ effects = Array[ExtResource("4_q11pc")]([SubResource("Resource_44e06")])
 _ID = "ice_potion"
 icon = ExtResource("5_am726")
 name = "Potion"
-cooldown = 1.0
+cooldown = 3.0
 actions = SubResource("Resource_m7rxj")
 metadata/_custom_type_script = "uid://sc48cbyclvc1"

@@ -3,11 +3,16 @@
 [ext_resource type="Texture2D" uid="uid://o5rib67dxxm0" path="res://content/entities/tutorial_dummy/tutorial_dummy.png" id="1_u070d"]
 [ext_resource type="Script" uid="uid://b6nujstkyoydy" path="res://content/entities/tutorial_dummy/tutorial_dummy.gd" id="1_wbk67"]
 [ext_resource type="Script" uid="uid://ditbeykj0vfd4" path="res://components/hit_system/health_component.gd" id="2_im0wv"]
+[ext_resource type="Shader" uid="uid://dkec71qmxktfv" path="res://shaders/effects_shader.tres" id="2_wbk67"]
 [ext_resource type="Script" uid="uid://bqx8hyj121gcl" path="res://components/hit_system/hurtbox_component_2d.gd" id="3_k08vs"]
 [ext_resource type="Script" uid="uid://citt3bcswolbo" path="res://components/animation_system/tweeners/tweener_tree.gd" id="6_u2pnx"]
 [ext_resource type="Script" uid="uid://cy3gb1u028y4j" path="res://components/animation_system/tweeners/tweener_action.gd" id="7_jvifw"]
 [ext_resource type="Script" uid="uid://csownupd7lbcp" path="res://components/animation_system/tweeners/tweener_trigger.gd" id="7_u2pnx"]
 [ext_resource type="Script" uid="uid://xqeyliosun8n" path="res://components/follow_system/follow_flip_component_2d.gd" id="8_jvifw"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_g1atm"]
+shader = ExtResource("2_wbk67")
+shader_parameter/EffectColor = Color(1, 1, 1, 1)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g04yl"]
 size = Vector2(8, 10)
@@ -21,6 +26,7 @@ script = ExtResource("1_wbk67")
 follow_flip_component = NodePath("FollowFlipComponent2d")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=141246718]
+material = SubResource("ShaderMaterial_g1atm")
 texture = ExtResource("1_u070d")
 offset = Vector2(0, -8)
 
