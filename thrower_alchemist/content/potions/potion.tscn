@@ -46,6 +46,7 @@ script = ExtResource("5_63a6k")
 actor = NodePath("..")
 move_component = NodePath("../MoveComponent2D")
 reach_distance = 150.0
+free_actor_on_reach = false
 
 [node name="PotionIconComponent" type="Node" parent="." unique_id=1308127113 node_paths=PackedStringArray("icon_node")]
 script = ExtResource("6_p4w1y")

@@ -59,8 +59,6 @@ func _make_collision_effect(collider: Node2D) -> void:
 	
 	for effect: PotionEffect in data.effects:
 		effect.collision_effect(actor, self, collider)
-	
-	break_glass()
 
 func break_glass() -> void:
 	brokened.emit()
