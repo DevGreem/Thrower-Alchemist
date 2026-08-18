@@ -311,7 +311,7 @@ player = NodePath("..")
 rand_range = Vector2(0.15, 0.15)
 metadata/_custom_type_script = "uid://cn0ikfe5ek4jc"
 
-[node name="ExecuteTrigger" type="Node" parent="SlimeJump" unique_id=1221552762 node_paths=PackedStringArray("target", "node")]
+[node name="OnFinishPlay" type="Node" parent="SlimeJump" unique_id=1221552762 node_paths=PackedStringArray("target", "node")]
 script = ExtResource("9_kclqt")
 target = NodePath("../RandomPitchSetter")
 method = &"randomize_pitch"
@@ -329,7 +329,7 @@ player = NodePath("..")
 rand_range = Vector2(0.2, 0.2)
 metadata/_custom_type_script = "uid://cn0ikfe5ek4jc"
 
-[node name="ExecuteTrigger" type="Node" parent="SlimeDie" unique_id=142929329 node_paths=PackedStringArray("target", "node")]
+[node name="OnDie" type="Node" parent="SlimeDie" unique_id=142929329 node_paths=PackedStringArray("target", "node")]
 script = ExtResource("9_kclqt")
 target = NodePath("../AudioPlayerRequester")
 method = &"request_play"

@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://bp0q1lig48ynw" path="res://content/potions/static_potion.tscn" id="2_g867q"]
 [ext_resource type="Script" uid="uid://ditbeykj0vfd4" path="res://components/hit_system/health_component.gd" id="2_wiryu"]
 [ext_resource type="Script" uid="uid://bqx8hyj121gcl" path="res://components/hit_system/hurtbox_component_2d.gd" id="3_o21ci"]
+[ext_resource type="Script" uid="uid://cn34pf7jgm5w6" path="res://components/spawn_system/scene_spawner_2d.gd" id="8_n7ck1"]
 [ext_resource type="Script" uid="uid://cxehsl4at72q" path="res://components/debug_components/debug_camera_2d.gd" id="12_uacgq"]
 [ext_resource type="Script" uid="uid://dk0pi828tayhh" path="res://components/interaction_system/interact_area_2d.gd" id="13_343vw"]
 
@@ -87,3 +88,7 @@ interact_name = "Mix Potions"
 position = Vector2(0, -9)
 shape = SubResource("CircleShape2D_o21ci")
 debug_color = Color(0.6841424, 0.5206158, 0, 0.41960785)
+
+[node name="SceneSpawner2D" type="Marker2D" parent="." unique_id=1621487503]
+script = ExtResource("8_n7ck1")
+metadata/_custom_type_script = "uid://cn34pf7jgm5w6"

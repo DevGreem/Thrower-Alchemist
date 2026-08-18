@@ -6,8 +6,6 @@ class_name TweenerAnimator
 
 signal finished
 
-
-
 @export var await_animators: Array[TweenerAnimator] = []
 
 @warning_ignore("unused_private_class_variable")

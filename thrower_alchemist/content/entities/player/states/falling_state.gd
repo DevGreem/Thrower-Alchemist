@@ -3,6 +3,7 @@ extends LimboState
 
 class_name FallingState
 
+@export var fall_audio_requester: AudioRequester
 @export var animation_player: AnimationPlayer
 @export var animation_name: StringName
 @export var move_component: MoveComponent2D
@@ -15,6 +16,9 @@ func _ready() -> void:
 		animation_player.animation_finished.connect(_on_finish_animation)
 
 func _enter() -> void:
+	
+	if fall_audio_requester:
+		fall_audio_requester.request_play()
 	
 	if move_component:
 		move_component.can_move = false
