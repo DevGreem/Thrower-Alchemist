@@ -6,7 +6,6 @@
 [ext_resource type="TileSet" uid="uid://dx716qc06ufca" path="res://assets/tilesets/doors/doors.tres" id="3_ex4x4"]
 [ext_resource type="Script" uid="uid://cxehsl4at72q" path="res://components/debug_components/debug_camera_2d.gd" id="5_57ggm"]
 [ext_resource type="Resource" uid="uid://cbndbhn3tf5bt" path="res://content/potions/types/fire_potion/fire_potion.tres" id="7_m62tc"]
-[ext_resource type="Script" uid="uid://cn34pf7jgm5w6" path="res://components/spawn_system/spawners/scene_spawner_2d.gd" id="8_j5r57"]
 [ext_resource type="PackedScene" uid="uid://b80uiyq60v0kn" path="res://content/potions/pickable_potion.tscn" id="8_rbpbn"]
 [ext_resource type="Script" uid="uid://b4b27isfuwpp6" path="res://components/spawn_system/utilities/spawn_trigger.gd" id="8_w3yyd"]
 [ext_resource type="PackedScene" uid="uid://ce7q32878qtvu" path="res://content/entities/tutorial_dummy/tutorial_dummy.tscn" id="9_0752k"]
@@ -16,6 +15,8 @@
 [ext_resource type="PackedScene" uid="uid://c5kx2wadtgqlu" path="res://content/objects/block_door/block_door.tscn" id="12_w3yyd"]
 [ext_resource type="Script" uid="uid://8h3fajc76w20" path="res://components/triggers_system/execute_trigger.gd" id="14_rbpbn"]
 [ext_resource type="PackedScene" uid="uid://b255yq4r07svj" path="res://scenes/rooms/tutorial_combat_room.tscn" id="15_hp4bx"]
+[ext_resource type="Script" uid="uid://cq4u0kj57rcvr" path="res://components/spawn_system/spawners/global_spawner_2d.gd" id="15_jt61u"]
+[ext_resource type="PackedScene" uid="uid://b2spclcrcu1hs" path="res://content/entities/player/player.tscn" id="16_ov6hw"]
 [ext_resource type="Resource" uid="uid://cf0cql6uoc4or" path="res://content/potions/types/disable_heal_potion/disable_heal_potion.tres" id="17_5wtir"]
 [ext_resource type="Script" uid="uid://cj6sxw65oyt7u" path="res://components/fall_system/fall_hole_area_2d.gd" id="18_5kl0j"]
 [ext_resource type="Script" uid="uid://cy3gb1u028y4j" path="res://components/animation_system/tweeners/tweener_action.gd" id="19_uoqrq"]
@@ -28,10 +29,9 @@ size = Vector2(16, 24)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g04yl"]
 size = Vector2(15, 5)
 
-[node name="Tutorial" type="Node2D" unique_id=123151583 node_paths=PackedStringArray("player_spawner")]
+[node name="Tutorial" type="Node2D" unique_id=123151583]
 y_sort_enabled = true
 script = ExtResource("1_hrhc8")
-player_spawner = NodePath("Spawners/PlayerSpawner")
 metadata/_edit_lock_ = true
 metadata/_edit_vertical_guides_ = [588.0]
 metadata/_edit_horizontal_guides_ = [-792.0, -616.0, -704.0]
@@ -103,7 +103,7 @@ z_as_relative = false
 tile_map_data = PackedByteArray("AAADAP3/AQAAAAAAAAADAP7/AQAAAAEAAAADAP//AQAAAAIAAAAEAP3/AQABAAAAAAAEAP7/AQABAAEAAAAEAP//AQABAAIAAABkAJ//AQACAAAAAABkAKD/AQACAAEAAABkAKH/AQACAAIAAABlAJ//AQADAAAAAABlAKD/AQADAAEAAABlAKH/AQADAAIAAAA=")
 tile_set = ExtResource("3_ex4x4")
 
-[node name="Machines" type="Node2D" parent="." unique_id=191629329 groups=["machines_container"]]
+[node name="Machines" type="Node2D" parent="." unique_id=191629329]
 y_sort_enabled = true
 metadata/_edit_lock_ = true
 
@@ -143,16 +143,25 @@ data = ExtResource("17_5wtir")
 [node name="Spawners" type="Node2D" parent="." unique_id=405870049]
 metadata/_edit_lock_ = true
 
-[node name="PlayerSpawner" type="Marker2D" parent="Spawners" unique_id=1692652672]
+[node name="GlobalPlayerSpawner" type="Marker2D" parent="Spawners" unique_id=357273675]
 position = Vector2(32, 5)
+script = ExtResource("15_jt61u")
+scene = ExtResource("16_ov6hw")
+metadata/_custom_type_script = "uid://cq4u0kj57rcvr"
 
-[node name="DummySpawner" type="Marker2D" parent="Spawners" unique_id=1924667296 node_paths=PackedStringArray("spawn_container")]
+[node name="TriggerSpawner" type="Node" parent="Spawners/GlobalPlayerSpawner" unique_id=665129643 node_paths=PackedStringArray("spawner", "node")]
+script = ExtResource("8_w3yyd")
+spawner = NodePath("..")
+signal_to_connect = &"ready"
+node = NodePath("../../..")
+metadata/_custom_type_script = "uid://b4b27isfuwpp6"
+
+[node name="DummySpawner" type="Marker2D" parent="Spawners" unique_id=1175354056]
 position = Vector2(540, 3)
-script = ExtResource("8_j5r57")
+script = ExtResource("15_jt61u")
 scene = ExtResource("9_0752k")
 spawn_type = 1
-spawn_container = NodePath("../../Entities")
-metadata/_custom_type_script = "uid://cn34pf7jgm5w6"
+metadata/_custom_type_script = "uid://cq4u0kj57rcvr"
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="Spawners/DummySpawner" unique_id=1068193517]
 metadata/_edit_lock_ = true

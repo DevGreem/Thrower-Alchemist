@@ -23,11 +23,6 @@ enum SpawnType {
 		update_configuration_warnings()
 		notify_property_list_changed()
 
-@export var spawn_container: Node:
-	set(value):
-		spawn_container = value
-		update_configuration_warnings()
-
 @export var spawn_deferred: bool = false
 
 @export_tool_button("Preview Spawn") var preview_button: Callable = _preview_spawn
@@ -40,11 +35,6 @@ var spawned_node: CanvasItem:
 		
 		if not spawned and spawned_node:
 			has_spawned = true
-
-func _ready() -> void:
-	
-	if Engine.is_editor_hint():
-		return
 
 func despawn() -> void:
 	
@@ -61,7 +51,6 @@ func try_spawn(..._parameters: Array) -> void:
 	
 	spawn()
 	spawned.emit()
-	has_spawned = true
 
 @abstract
 func _preview_spawn() -> void
@@ -75,12 +64,3 @@ static func is_valid_spawner(spawner: BaseSpawner) -> bool:
 		return false
 	
 	return true
-
-func _get_configuration_warnings() -> PackedStringArray:
-	
-	var warnings: PackedStringArray = []
-	
-	if not spawn_container:
-		warnings.append("No spawn container assigned")
-	
-	return warnings

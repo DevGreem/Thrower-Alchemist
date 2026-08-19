@@ -7,10 +7,11 @@
 [ext_resource type="PackedScene" uid="uid://c5kx2wadtgqlu" path="res://content/objects/block_door/block_door.tscn" id="4_e1fpc"]
 [ext_resource type="Script" uid="uid://wrej1f5pwr14" path="res://scripts/rooms_system/objectives/objectives_container.gd" id="4_m2o8m"]
 [ext_resource type="Script" uid="uid://c3c6pnk3a4sqx" path="res://scripts/rooms_system/objectives/defaults/kill_all_enemies_objective.gd" id="5_qtepd"]
-[ext_resource type="Script" uid="uid://cn34pf7jgm5w6" path="res://components/spawn_system/spawners/scene_spawner_2d.gd" id="6_hk00n"]
 [ext_resource type="Script" uid="uid://b7rbgqsgnx5pu" path="res://components/spawn_system/spawners/spawners_tree.gd" id="6_yon70"]
 [ext_resource type="Script" uid="uid://d4a80wtjg4cq7" path="res://scripts/doors_container.gd" id="7_qtepd"]
 [ext_resource type="PackedScene" uid="uid://bxwnq63ta4kfx" path="res://content/entities/slime/slime.tscn" id="8_54gvk"]
+[ext_resource type="Script" uid="uid://j0t2gl4xq550" path="res://components/spawn_system/containers/local_spawn_container_2d.gd" id="9_2gpiv"]
+[ext_resource type="Script" uid="uid://tf5ctt1xe7sp" path="res://components/spawn_system/spawners/local_spawner_2d.gd" id="11_5ls4d"]
 [ext_resource type="Script" uid="uid://dcufdc1p80h0j" path="res://components/triggers_system/trigger_execute_action.gd" id="13_2gpiv"]
 [ext_resource type="Script" uid="uid://8h3fajc76w20" path="res://components/triggers_system/execute_trigger.gd" id="13_ldm8d"]
 [ext_resource type="Script" uid="uid://chr8x08prhqt2" path="res://components/triggers_system/trigger_tree.gd" id="14_ox8py"]
@@ -79,8 +80,9 @@ metadata/_custom_type_script = "uid://d4a80wtjg4cq7"
 [node name="BlockDoor2" parent="Doors/OpenableDoors" unique_id=1417687045 instance=ExtResource("4_e1fpc")]
 position = Vector2(4, -80)
 
-[node name="Enemies" type="Node2D" parent="." unique_id=650368380 groups=["entities_container"]]
-metadata/_edit_lock_ = true
+[node name="Enemies" type="Node2D" parent="." unique_id=1854570769]
+script = ExtResource("9_2gpiv")
+metadata/_custom_type_script = "uid://j0t2gl4xq550"
 
 [node name="Spawners" type="Node" parent="." unique_id=1923619974]
 
@@ -89,37 +91,21 @@ script = ExtResource("6_yon70")
 metadata/_custom_type_script = "uid://b7rbgqsgnx5pu"
 metadata/_edit_lock_ = true
 
-[node name="SceneSpawner2D" type="Marker2D" parent="Spawners/SpawnersTree" unique_id=1029722844 node_paths=PackedStringArray("spawn_container")]
-position = Vector2(-75, -57)
-script = ExtResource("6_hk00n")
-scene = ExtResource("8_54gvk")
+[node name="LocalSlime" type="Marker2D" parent="Spawners/SpawnersTree" unique_id=2070516822 node_paths=PackedStringArray("spawn_container")]
+position = Vector2(-75, 0)
+script = ExtResource("11_5ls4d")
 spawn_container = NodePath("../../../Enemies")
+scene = ExtResource("8_54gvk")
 spawn_deferred = true
-metadata/_custom_type_script = "uid://cn34pf7jgm5w6"
+metadata/_custom_type_script = "uid://tf5ctt1xe7sp"
 
-[node name="SceneSpawner2D2" type="Marker2D" parent="Spawners/SpawnersTree" unique_id=1543021808 node_paths=PackedStringArray("spawn_container")]
-position = Vector2(83, -57)
-script = ExtResource("6_hk00n")
-scene = ExtResource("8_54gvk")
+[node name="LocalSlime2" type="Marker2D" parent="Spawners/SpawnersTree" unique_id=1964527521 node_paths=PackedStringArray("spawn_container")]
+position = Vector2(83, 0)
+script = ExtResource("11_5ls4d")
 spawn_container = NodePath("../../../Enemies")
-spawn_deferred = true
-metadata/_custom_type_script = "uid://cn34pf7jgm5w6"
-
-[node name="SceneSpawner2D3" type="Marker2D" parent="Spawners/SpawnersTree" unique_id=1237207165 node_paths=PackedStringArray("spawn_container")]
-position = Vector2(-75, 65)
-script = ExtResource("6_hk00n")
 scene = ExtResource("8_54gvk")
-spawn_container = NodePath("../../../Enemies")
 spawn_deferred = true
-metadata/_custom_type_script = "uid://cn34pf7jgm5w6"
-
-[node name="SceneSpawner2D4" type="Marker2D" parent="Spawners/SpawnersTree" unique_id=1806999748 node_paths=PackedStringArray("spawn_container")]
-position = Vector2(83, 65)
-script = ExtResource("6_hk00n")
-scene = ExtResource("8_54gvk")
-spawn_container = NodePath("../../../Enemies")
-spawn_deferred = true
-metadata/_custom_type_script = "uid://cn34pf7jgm5w6"
+metadata/_custom_type_script = "uid://tf5ctt1xe7sp"
 
 [node name="Triggers" type="Node" parent="." unique_id=2073652159]
 

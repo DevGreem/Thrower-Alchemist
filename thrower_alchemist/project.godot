@@ -64,14 +64,6 @@ window/stretch/aspect="expand"
 
 enabled=PackedStringArray("res://addons/godot_super-wakatime/plugin.cfg", "res://addons/yard/plugin.cfg")
 
-[global_group]
-
-container="All Node Containers Have This"
-projectiles_container=""
-effects_container=""
-entities_container=""
-machines_container=""
-
 [gui]
 
 theme/custom="uid://b2nh772g2kcw"

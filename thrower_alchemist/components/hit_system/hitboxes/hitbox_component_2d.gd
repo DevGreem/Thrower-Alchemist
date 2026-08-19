@@ -2,7 +2,7 @@ extends Area2D
 
 class_name HitboxComponent2D
 
-signal damage_dealed
+signal damage_dealed(target: HurtboxComponent2D)
 
 @export var actor: Node2D
 @export var can_damage_actor: bool = false
@@ -44,4 +44,5 @@ func _make_damage(area: HurtboxComponent2D) -> void:
 	var hitted: bool = area.receive_damage(damage, activate_inmunity, ignore_inmunity)
 	
 	if hitted:
-		damage_dealed.emit()
+		GameDebugger.debug_log(HitboxComponent2D, str(damage) + " of damage dealed to " + area.name)
+		damage_dealed.emit(area)
