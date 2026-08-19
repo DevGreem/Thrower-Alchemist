@@ -6,9 +6,9 @@
 [ext_resource type="TileSet" uid="uid://dx716qc06ufca" path="res://assets/tilesets/doors/doors.tres" id="3_ex4x4"]
 [ext_resource type="Script" uid="uid://cxehsl4at72q" path="res://components/debug_components/debug_camera_2d.gd" id="5_57ggm"]
 [ext_resource type="Resource" uid="uid://cbndbhn3tf5bt" path="res://content/potions/types/fire_potion/fire_potion.tres" id="7_m62tc"]
-[ext_resource type="Script" uid="uid://cn34pf7jgm5w6" path="res://components/spawn_system/scene_spawner_2d.gd" id="8_j5r57"]
+[ext_resource type="Script" uid="uid://cn34pf7jgm5w6" path="res://components/spawn_system/spawners/scene_spawner_2d.gd" id="8_j5r57"]
 [ext_resource type="PackedScene" uid="uid://b80uiyq60v0kn" path="res://content/potions/pickable_potion.tscn" id="8_rbpbn"]
-[ext_resource type="Script" uid="uid://b4b27isfuwpp6" path="res://components/spawn_system/spawn_trigger.gd" id="8_w3yyd"]
+[ext_resource type="Script" uid="uid://b4b27isfuwpp6" path="res://components/spawn_system/utilities/spawn_trigger.gd" id="8_w3yyd"]
 [ext_resource type="PackedScene" uid="uid://ce7q32878qtvu" path="res://content/entities/tutorial_dummy/tutorial_dummy.tscn" id="9_0752k"]
 [ext_resource type="Resource" uid="uid://1e8vvxipf2fv" path="res://content/potions/types/ice_potion/ice_potion.tres" id="10_0752k"]
 [ext_resource type="Resource" uid="uid://daso5bglu5xto" path="res://content/potions/types/heal_potion/heal_potion.tres" id="11_2wg8v"]
@@ -160,7 +160,6 @@ metadata/_edit_lock_ = true
 [node name="OnVisible" type="Node" parent="Spawners/DummySpawner" unique_id=313256654 node_paths=PackedStringArray("spawner", "node")]
 script = ExtResource("8_w3yyd")
 spawner = NodePath("..")
-active = null
 signal_to_connect = &"screen_entered"
 node = NodePath("../VisibleOnScreenNotifier2D")
 metadata/_custom_type_script = "uid://b4b27isfuwpp6"
@@ -169,7 +168,6 @@ metadata/_custom_type_script = "uid://b4b27isfuwpp6"
 script = ExtResource("8_w3yyd")
 spawner = NodePath("..")
 spawn = false
-active = null
 signal_to_connect = &"screen_exited"
 node = NodePath("../VisibleOnScreenNotifier2D")
 metadata/_custom_type_script = "uid://b4b27isfuwpp6"
@@ -187,7 +185,6 @@ position = Vector2(584, -448)
 script = ExtResource("14_rbpbn")
 target = NodePath("../../Doors/BlockDoor")
 method = &"open"
-active = null
 signal_to_connect = &"mixed"
 node = NodePath("../../Machines/PotionsMixer")
 metadata/_custom_type_script = "uid://8h3fajc76w20"
@@ -211,7 +208,6 @@ shape = SubResource("RectangleShape2D_g04yl")
 script = ExtResource("14_rbpbn")
 target = NodePath("../EndFloorNode")
 method = &"end_floor"
-active = null
 signal_to_connect = &"interacted"
 node = NodePath("..")
 metadata/_custom_type_script = "uid://8h3fajc76w20"

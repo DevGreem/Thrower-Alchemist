@@ -4,10 +4,8 @@
 [ext_resource type="Script" uid="uid://dj37bo78y6jpp" path="res://resources/potions/potion_effect.gd" id="1_yf3ll"]
 [ext_resource type="Script" uid="uid://0y56gtmy1e3h" path="res://components/inventory_system/resources/item_actions.gd" id="2_0cie3"]
 [ext_resource type="Script" uid="uid://sc48cbyclvc1" path="res://resources/potions/potion_data.gd" id="2_bqqku"]
-[ext_resource type="Script" uid="uid://bqo6ldsmwtpak" path="res://content/potion_effects/burn/burn_effect.gd" id="2_e2n8g"]
 [ext_resource type="Texture2D" uid="uid://dfgj4org13j6b" path="res://content/potions/potion.png" id="3_e2n8g"]
 [ext_resource type="Script" uid="uid://bljs478apt4sc" path="res://resources/potions/actions/use.gd" id="3_j037k"]
-[ext_resource type="Script" uid="uid://dba3j1pn1w36w" path="res://resources/potions/potion_effect_definition.gd" id="5_e2k1y"]
 
 [sub_resource type="Resource" id="Resource_pae1y"]
 script = ExtResource("1_wv11j")
@@ -20,21 +18,9 @@ script = ExtResource("2_0cie3")
 use = SubResource("Resource_iijxw")
 interact = SubResource("Resource_pae1y")
 
-[sub_resource type="Resource" id="Resource_e2k1y"]
-script = ExtResource("5_e2k1y")
-
-[sub_resource type="Resource" id="Resource_g1atm"]
-script = ExtResource("2_e2n8g")
-damage = 3.0
-times = 5
-time_alive = 5.0
-definition = null
-metadata/_custom_type_script = "uid://bqo6ldsmwtpak"
-
 [resource]
 script = ExtResource("2_bqqku")
 weight = 1.5
-effects = Array[ExtResource("1_yf3ll")]([SubResource("Resource_g1atm")])
 _ID = "fire_potion"
 icon = ExtResource("3_e2n8g")
 name = "Potion"

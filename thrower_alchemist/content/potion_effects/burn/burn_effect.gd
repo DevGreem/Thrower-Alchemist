@@ -36,4 +36,5 @@ func throw_effect(actor: Node2D, potion: PotionNode) -> void:
 	var burn_area: BurnedAreaEffect = BurnedAreaEffect.generate(actor, cooldown, time_alive, damage)
 	burn_area.global_position = potion.global_position
 	
-	EventBus.spawn_node_in_group.call_deferred(burn_area, ContainerType.Enum.EFFECTS_CONTAINER)
+	var container: GlobalSpawnContainer2D = SpawnManager2D.get_container(ContainerType.Enum.EFFECTS)
+	container.spawn_node(burn_area, true)

@@ -3,10 +3,10 @@ extends RefCounted
 class_name ContainerType
 
 enum Enum {
-	PROJECTILES_CONTAINER,
-	EFFECTS_CONTAINER,
-	ENTITIES_CONTAINER,
-	MACHINES_CONTAINER
+	ENTITIES,
+	PROJECTILES,
+	EFFECTS,
+	STATIC
 }
 
 static func as_string(value: Enum) -> String:

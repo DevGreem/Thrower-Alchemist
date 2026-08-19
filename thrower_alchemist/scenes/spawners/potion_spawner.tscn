@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://68xbebrslfyp"]
 
-[ext_resource type="Script" uid="uid://2v4axu8ap6um" path="res://components/spawn_system/data_scene_spawner_2d.gd" id="1_4lgjc"]
+[ext_resource type="Script" path="res://components/spawn_system/data_scene_spawner_2d.gd" id="1_4lgjc"]
 [ext_resource type="PackedScene" uid="uid://b80uiyq60v0kn" path="res://content/potions/pickable_potion.tscn" id="3_33qtu"]
-[ext_resource type="Script" uid="uid://b4b27isfuwpp6" path="res://components/spawn_system/spawn_trigger.gd" id="4_f6bfq"]
+[ext_resource type="Script" uid="uid://b4b27isfuwpp6" path="res://components/spawn_system/utilities/spawn_trigger.gd" id="4_f6bfq"]
 
 [node name="PotionSpawner" type="Marker2D" unique_id=1880383520]
 script = ExtResource("1_4lgjc")

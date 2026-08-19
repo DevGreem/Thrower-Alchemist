@@ -55,10 +55,8 @@ func generate_map() -> void:
 	if predefined_map:
 		_load_map()
 		
-		EventBus.spawn_node_in_group(
-			PlayerManager.current_player,
-			ContainerType.Enum.ENTITIES_CONTAINER
-		)
+		var container: GlobalSpawnContainer2D = SpawnManager2D.get_container(ContainerType.Enum.ENTITIES)
+		container.spawn_node(PlayerManager.current_player)
 		
 		PlayerManager.current_player.global_position = loaded_zone.player_spawner.global_position
 
