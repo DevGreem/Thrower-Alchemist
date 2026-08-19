@@ -9,6 +9,7 @@ class_name ChangeSceneNode
 		notify_property_list_changed()
 
 @export_file("*.tscn") var scene_file: String
+@export var min_wait_time: float = -1.0
 
 func change() -> void:
 	if Engine.is_editor_hint():
@@ -18,7 +19,7 @@ func change() -> void:
 		ScenesManager.close_game()
 		return
 	
-	ScenesManager.change_scene(scene_file)
+	ScenesManager.change_scene(scene_file, min_wait_time)
 
 func _validate_property(property: Dictionary) -> void:
 	

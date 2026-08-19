@@ -4,6 +4,9 @@ class_name SceneLoadVerifierNode
 
 @export var await_time: float = 1.0
 
+func _ready() -> void:
+	await_time = ScenesManager.load_min_wait_time
+
 func _process(delta: float) -> void:
 	
 	if await_time >= 0.0:

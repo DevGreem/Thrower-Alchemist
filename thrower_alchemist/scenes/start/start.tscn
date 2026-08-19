@@ -103,6 +103,7 @@ node = NodePath("../../..")
 [node name="ChangeSceneNode" type="Node" parent="CenterContainer/VBoxContainer/AnimationContainer/TutorialButton" unique_id=43851291]
 script = ExtResource("1_oeh0t")
 scene_file = "uid://d0efybbjr5lxn"
+min_wait_time = 1.0
 metadata/_custom_type_script = "uid://cj66dsilgm53v"
 
 [node name="PressedAudio" type="AudioStreamPlayer" parent="CenterContainer/VBoxContainer/AnimationContainer/TutorialButton" unique_id=1360639546]

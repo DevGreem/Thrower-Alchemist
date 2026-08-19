@@ -19,13 +19,18 @@ var current_scene: String = "":
 		_previous_scene = current_scene
 		current_scene = value
 
+var _load_min_wait_time: float = -1.0
+var load_min_wait_time: float:
+	get: return _load_min_wait_time
+	set(value): return
+
 func _ready() -> void:
 	
 	if Engine.is_editor_hint():
 		_setup_manager()
 		return
 	
-	current_scene = ProjectSettings.get_setting("application/run/main_scene")
+	current_scene = get_tree().current_scene.scene_file_path
 
 func close_game() -> void:
 	
@@ -35,7 +40,7 @@ func close_game() -> void:
 func go_to_previous_scene() -> void:
 	change_scene(previous_scene)
 
-func change_scene(path: String) -> void:
+func change_scene(path: String, min_wait_time: float = -1.0) -> void:
 	
 	if not path:
 		GameDebugger.debug_warning_string("ScenesManager", "Scene not proportioned", true)
@@ -51,6 +56,7 @@ func change_scene(path: String) -> void:
 		return
 	
 	change_requested.emit()
+	_load_min_wait_time = min_wait_time
 	
 	GameDebugger.debug_log_string("ScenesManager", "Loading new scene...")
 	
