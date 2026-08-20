@@ -4,11 +4,10 @@
 [ext_resource type="Script" uid="uid://bsnws7adi6mm8" path="res://components/scenes_system/loading_screen.gd" id="1_djmwj"]
 [ext_resource type="Script" uid="uid://ctuohpxwkuuuo" path="res://components/animation_system/texture_rect_animator.gd" id="2_hprjd"]
 [ext_resource type="Script" uid="uid://bvrof3dhklvwm" path="res://scripts/random_modulate_color_generator.gd" id="3_5phy8"]
-[ext_resource type="Script" uid="uid://dr6mr56bwmbh4" path="res://components/scenes_system/scene_load_verifier_node.gd" id="3_ku3bi"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_g04yl"]
 atlas = ExtResource("1_5phy8")
-region = Rect2(120, 0, 24, 32)
+region = Rect2(624, 0, 24, 32)
 
 [sub_resource type="Animation" id="Animation_hprjd"]
 length = 0.001
@@ -125,7 +124,3 @@ visible_ratio = 0.0
 [node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer/Control/CenterContainer/VBoxContainer/HBoxContainer/Label2" unique_id=1281656114]
 libraries/ = SubResource("AnimationLibrary_5phy8")
 autoplay = &"pointing"
-
-[node name="SceneLoadVerifierNode" type="Node" parent="." unique_id=1877596909]
-script = ExtResource("3_ku3bi")
-metadata/_custom_type_script = "uid://dr6mr56bwmbh4"

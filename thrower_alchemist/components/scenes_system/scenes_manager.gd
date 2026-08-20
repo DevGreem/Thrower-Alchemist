@@ -1,7 +1,7 @@
 @tool
 extends Node
 
-signal change_requested
+signal load_requested(path: String, min_wait_time: float)
 signal scene_changed
 signal close_requested
 
@@ -19,12 +19,8 @@ var current_scene: String = "":
 		_previous_scene = current_scene
 		current_scene = value
 
-var _load_min_wait_time: float = -1.0
-var load_min_wait_time: float:
-	get: return _load_min_wait_time
-	set(value): return
-
 func _ready() -> void:
+	process_mode = Node.PROCESS_MODE_ALWAYS
 	
 	if Engine.is_editor_hint():
 		_setup_manager()
@@ -38,12 +34,12 @@ func close_game() -> void:
 	close_requested.emit()
 
 func go_to_previous_scene() -> void:
-	change_scene(previous_scene)
+	load_scene(previous_scene)
 
-func change_scene(path: String, min_wait_time: float = -1.0) -> void:
+func load_scene(path: String, min_wait_time: float = -1.0) -> void:
 	
 	if not path:
-		GameDebugger.debug_warning_string("ScenesManager", "Scene not proportioned", true)
+		GameDebugger.debug_warning_string("ScenesManager", "Scene not provided", true)
 		return
 	
 	if path == current_scene:
@@ -55,35 +51,44 @@ func change_scene(path: String, min_wait_time: float = -1.0) -> void:
 		GameDebugger.debug_error_string("ScenesManager", "An error ocurred while loading a new scene", true)
 		return
 	
-	change_requested.emit()
-	_load_min_wait_time = min_wait_time
+	load_requested.emit(path, min_wait_time)
 	
 	GameDebugger.debug_log_string("ScenesManager", "Loading new scene...")
 	
 	get_tree().paused = true
-	current_scene = path
 
 func change_to_packed_scene(scene: PackedScene) -> void:
 	
-	scene_changed.emit()
+	current_scene = scene.resource_path
 	get_tree().change_scene_to_packed(scene)
+	scene_changed.emit()
 	
 	get_tree().paused = false
 
-func open_load_screen() -> bool:
+func change_to_file(path: String) -> void:
+	
+	var scene: PackedScene = load(path)
+	
+	if not scene:
+		GameDebugger.debug_error_string("ScenesManager", "File " + path + " not founded")
+		return
+	
+	change_to_packed_scene(scene)
+
+func open_load_screen() -> void:
 	GameDebugger.debug_log_string("ScenesManager", "Changing scene to load screen")
 	
 	var scene: String = ProjectSettings.get_setting(
 		"scene_manager/load_screen"
 	) as String
 	
+	GameDebugger.debug_log_string("ScenesManager", "Opening load screen")
+	
 	if not scene:
-		GameDebugger.debug_error_string("ScenesManager", "Load screen not founded", true)
-		scene_changed.emit()
-		return false
+		GameDebugger.debug_error_string("ScenesManager", "Load Screen not founded")
+		return
 	
 	get_tree().change_scene_to_file(scene)
-	return true
 
 func _setup_manager() -> void:
 	

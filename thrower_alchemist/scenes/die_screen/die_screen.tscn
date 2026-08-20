@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://ilcx0iexvjm6" path="res://scenes/die_screen/light.png" id="1_8fb23"]
 [ext_resource type="Texture2D" uid="uid://dk6qmq7v3mhet" path="res://scenes/die_screen/skull_joined.png" id="2_3slha"]
 [ext_resource type="Texture2D" uid="uid://mu4c1x3o1umw" path="res://scenes/die_screen/light_circle.png" id="2_tutyy"]
-[ext_resource type="Script" uid="uid://cj66dsilgm53v" path="res://scripts/change_scene_node.gd" id="4_8u3lj"]
+[ext_resource type="Script" uid="uid://cj66dsilgm53v" path="res://components/scenes_system/change_scene_node.gd" id="4_8u3lj"]
 [ext_resource type="Script" uid="uid://8h3fajc76w20" path="res://components/triggers_system/execute_trigger.gd" id="5_368iq"]
 
 [sub_resource type="Animation" id="Animation_3slha"]

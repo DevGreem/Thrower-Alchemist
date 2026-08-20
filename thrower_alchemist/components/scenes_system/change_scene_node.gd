@@ -19,7 +19,7 @@ func change() -> void:
 		ScenesManager.close_game()
 		return
 	
-	ScenesManager.change_scene(scene_file, min_wait_time)
+	ScenesManager.load_scene(scene_file, min_wait_time)
 
 func _validate_property(property: Dictionary) -> void:
 	

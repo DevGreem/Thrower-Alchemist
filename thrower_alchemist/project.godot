@@ -32,6 +32,7 @@ PropertiesUtilities="*uid://bx15j0x1na5xp"
 ScenesManager="*uid://ca53wqrhnvgrt"
 AudioManager="*uid://dsxatc6se2tjn"
 SpawnManager2D="*uid://cr4qenjqvoih4"
+ScenesLoaderManager="*uid://55u2mtah3yas"
 
 [debug]
 

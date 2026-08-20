@@ -90,7 +90,7 @@ libraries/ = SubResource("AnimationLibrary_amhtf")
 script = ExtResource("2_ao0rk")
 animation_player = NodePath("../AnimationPlayer")
 animation_name = &"fading_out"
-signal_to_connect = &"change_requested"
+signal_to_connect = &"load_requested"
 node = NodePath("../../..")
 metadata/_custom_type_script = "uid://6c5smnsbmg0h"
 
