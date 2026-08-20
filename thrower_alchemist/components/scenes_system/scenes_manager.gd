@@ -1,7 +1,7 @@
 @tool
 extends Node
 
-signal load_requested(path: String, min_wait_time: float)
+signal load_requested
 signal scene_changed
 signal close_requested
 
@@ -18,6 +18,13 @@ var current_scene: String = "":
 		
 		_previous_scene = current_scene
 		current_scene = value
+
+var _path_to_load: String
+var path_to_load: String:
+	get: return _path_to_load
+	set(value): return
+
+var requested_time: float = -1.0
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
@@ -36,6 +43,11 @@ func close_game() -> void:
 func go_to_previous_scene() -> void:
 	load_scene(previous_scene)
 
+func _set_load_request(path: String, min_wait_time: float = -1.0) -> void:
+	_path_to_load = path
+	requested_time = min_wait_time
+	load_requested.emit()
+
 func load_scene(path: String, min_wait_time: float = -1.0) -> void:
 	
 	if not path:
@@ -45,13 +57,17 @@ func load_scene(path: String, min_wait_time: float = -1.0) -> void:
 	if path == current_scene:
 		return
 	
+	if min_wait_time <= 0.0:
+		_set_load_request(path)
+		return
+	
 	var error: Error = ResourceLoader.load_threaded_request(path)
 	
 	if error != OK:
 		GameDebugger.debug_error_string("ScenesManager", "An error ocurred while loading a new scene", true)
 		return
 	
-	load_requested.emit(path, min_wait_time)
+	_set_load_request(path, min_wait_time)
 	
 	GameDebugger.debug_log_string("ScenesManager", "Loading new scene...")
 	
@@ -76,6 +92,13 @@ func change_to_file(path: String) -> void:
 	change_to_packed_scene(scene)
 
 func open_load_screen() -> void:
+	
+	if requested_time <= 0.0:
+		change_to_file(path_to_load)
+		finish_load()
+		GameDebugger.debug_log_string("ScenesManager", "Loaded directly file " + path_to_load)
+		return
+	
 	GameDebugger.debug_log_string("ScenesManager", "Changing scene to load screen")
 	
 	var scene: String = ProjectSettings.get_setting(
@@ -88,7 +111,15 @@ func open_load_screen() -> void:
 		GameDebugger.debug_error_string("ScenesManager", "Load Screen not founded")
 		return
 	
-	get_tree().change_scene_to_file(scene)
+	var instance: LoadingScreen = load(scene).instantiate()
+	instance.load_verifier.await_time = requested_time
+	
+	get_tree().change_scene_to_node(instance)
+	finish_load()
+
+func finish_load() -> void:
+	path_to_load = ""
+	requested_time = -1.0
 
 func _setup_manager() -> void:
 	

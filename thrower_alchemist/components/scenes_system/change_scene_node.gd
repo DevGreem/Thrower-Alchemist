@@ -19,6 +19,7 @@ func change() -> void:
 		ScenesManager.close_game()
 		return
 	
+	GameDebugger.debug_log(ChangeSceneNode, "Trying to load scene " + scene_file)
 	ScenesManager.load_scene(scene_file, min_wait_time)
 
 func _validate_property(property: Dictionary) -> void:

@@ -4,10 +4,11 @@
 [ext_resource type="Script" uid="uid://bsnws7adi6mm8" path="res://components/scenes_system/loading_screen.gd" id="1_djmwj"]
 [ext_resource type="Script" uid="uid://ctuohpxwkuuuo" path="res://components/animation_system/texture_rect_animator.gd" id="2_hprjd"]
 [ext_resource type="Script" uid="uid://bvrof3dhklvwm" path="res://scripts/random_modulate_color_generator.gd" id="3_5phy8"]
+[ext_resource type="Script" uid="uid://csxxcxu74eptf" path="res://components/scenes_system/scene_load_verifier.gd" id="5_djmwj"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_g04yl"]
 atlas = ExtResource("1_5phy8")
-region = Rect2(624, 0, 24, 32)
+region = Rect2(528, 0, 24, 32)
 
 [sub_resource type="Animation" id="Animation_hprjd"]
 length = 0.001
@@ -47,7 +48,7 @@ _data = {
 &"pointing": SubResource("Animation_ku3bi")
 }
 
-[node name="Control" type="Control" unique_id=810352294]
+[node name="Control" type="Control" unique_id=810352294 node_paths=PackedStringArray("load_verifier")]
 process_mode = 3
 layout_mode = 3
 anchors_preset = 15
@@ -56,6 +57,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_djmwj")
+load_verifier = NodePath("SceneLoadVerifier")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1944187672]
 layer = 101
@@ -124,3 +126,7 @@ visible_ratio = 0.0
 [node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer/Control/CenterContainer/VBoxContainer/HBoxContainer/Label2" unique_id=1281656114]
 libraries/ = SubResource("AnimationLibrary_5phy8")
 autoplay = &"pointing"
+
+[node name="SceneLoadVerifier" type="Node" parent="." unique_id=1472232950]
+script = ExtResource("5_djmwj")
+metadata/_custom_type_script = "uid://csxxcxu74eptf"

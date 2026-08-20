@@ -1,0 +1,69 @@
+[gd_scene format=3 uid="uid://c2w27es4n48he"]
+
+[ext_resource type="Texture2D" uid="uid://cx0tw2scd40yo" path="res://assets/images/health_bar/health_background.png" id="1_7xv5e"]
+[ext_resource type="Script" uid="uid://22015ewsl61y" path="res://assets/images/health_bar/health_bar.gd" id="1_t1a18"]
+[ext_resource type="Texture2D" uid="uid://cio4cld0ojy6y" path="res://assets/images/health_bar/health_border.png" id="2_t1a18"]
+[ext_resource type="Texture2D" uid="uid://jk4wovevpk0q" path="res://assets/images/health_bar/health_fill.png" id="3_y37gu"]
+[ext_resource type="Script" uid="uid://bfh7xyri3k4oq" path="res://assets/images/health_bar/range_size_increaser_component.gd" id="5_y37gu"]
+[ext_resource type="Script" uid="uid://dijs7id425oso" path="res://assets/images/health_bar/property_writer.gd" id="6_po673"]
+[ext_resource type="Script" uid="uid://8h3fajc76w20" path="res://components/triggers_system/execute_trigger.gd" id="7_1t7mf"]
+
+[node name="HealthBar" type="Control" unique_id=336389707 node_paths=PackedStringArray("progress_bar")]
+custom_minimum_size = Vector2(100, 8)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 100.0
+offset_bottom = 8.0
+script = ExtResource("1_t1a18")
+progress_bar = NodePath("TextureProgressBar")
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="." unique_id=1789717572]
+custom_minimum_size = Vector2(100, 8)
+layout_mode = 0
+offset_right = 100.0
+offset_bottom = 8.0
+max_value = 90.0
+step = 0.5
+value = 75.0
+nine_patch_stretch = true
+stretch_margin_left = 1
+stretch_margin_top = 1
+stretch_margin_right = 1
+stretch_margin_bottom = 1
+texture_under = ExtResource("1_7xv5e")
+texture_over = ExtResource("2_t1a18")
+texture_progress = ExtResource("3_y37gu")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="TextureProgressBar" unique_id=514742763]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+offset_transform_enabled = true
+offset_transform_position = Vector2(0, -1)
+bbcode_enabled = true
+text = "100"
+fit_content = true
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="RangeSizeIncreaser" type="Node" parent="TextureProgressBar" unique_id=1617557814 node_paths=PackedStringArray("target")]
+script = ExtResource("5_y37gu")
+target = NodePath("..")
+
+[node name="PropertyWriter" type="Node" parent="TextureProgressBar" unique_id=683959600 node_paths=PackedStringArray("target", "label")]
+script = ExtResource("6_po673")
+target = NodePath("..")
+property_to_write = &"value"
+label = NodePath("../RichTextLabel")
+
+[node name="ExecuteTrigger" type="Node" parent="TextureProgressBar" unique_id=1542800254 node_paths=PackedStringArray("target", "node")]
+script = ExtResource("7_1t7mf")
+target = NodePath("../PropertyWriter")
+method = &"update_text"
+signal_to_connect = &"value_changed"
+node = NodePath("..")
+metadata/_custom_type_script = "uid://8h3fajc76w20"

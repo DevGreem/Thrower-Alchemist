@@ -7,6 +7,7 @@ var load_screen_ready: bool = false
 var await_time: float = -1.0
 
 func _ready() -> void:
+	return
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	
 	if not ScenesManager.load_requested.is_connected(_on_load_requested):
