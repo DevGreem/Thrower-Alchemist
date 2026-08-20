@@ -62,9 +62,10 @@ func _update_progress_bar() -> void:
 	if not is_instance_valid(progress_bar):
 		return
 	
-	if not target:
-		progress_bar.hide()
-		return
+	if not Engine.is_editor_hint():
+		if not target:
+			progress_bar.hide()
+			return
 	
 	progress_bar.max_value = target.max_health
 	progress_bar.value = target.health
