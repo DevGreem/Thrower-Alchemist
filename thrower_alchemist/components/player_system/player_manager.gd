@@ -2,7 +2,7 @@ extends Node
 
 signal player_spawned(player: Node)
 signal player_died(player: Node)
-signal player_changed(old: Node, new: Node)
+signal player_changed(new: Node)
 
 var current_player: Node2D = null:
 	set(value):
@@ -10,11 +10,7 @@ var current_player: Node2D = null:
 		if current_player == value:
 			return
 		
-		if is_instance_valid(current_player):
-			player_changed.emit(current_player, value)
-		else:
-			player_changed.emit(null, value)
-		
+		player_changed.emit(value)
 		current_player = value
 
 func _ready() -> void:

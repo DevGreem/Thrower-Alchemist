@@ -5,6 +5,8 @@
 [ext_resource type="PackedScene" uid="uid://i762gem8h1rt" path="res://scenes/inventory/inventory_ui.tscn" id="2_fdevw"]
 [ext_resource type="Script" uid="uid://5eysrwqfki0n" path="res://components/ui_system/ui_root.gd" id="3_ewj4s"]
 [ext_resource type="Script" uid="uid://cogvbxdxnk8ca" path="res://components/follow_system/follow_player_component_2d.gd" id="3_uv5ep"]
+[ext_resource type="PackedScene" uid="uid://c2w27es4n48he" path="res://assets/images/health_bar/health_bar.tscn" id="4_6p6g3"]
+[ext_resource type="Script" uid="uid://o58rvo2k3k2y" path="res://components/player_system/player_spawned_trigger.gd" id="5_1mlh3"]
 [ext_resource type="PackedScene" uid="uid://ddbou0m40ya24" path="res://scenes/die_screen/die_screen.tscn" id="6_6p6g3"]
 [ext_resource type="Script" uid="uid://bhncvuypd75t2" path="res://components/spawn_system/containers/global_spawn_container_2d.gd" id="6_x0tpe"]
 
@@ -26,7 +28,19 @@ metadata/_custom_type_script = "uid://cogvbxdxnk8ca"
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=743349263]
 
-[node name="InventoryUI" parent="CanvasLayer" unique_id=1800205673 instance=ExtResource("2_fdevw")]
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer" unique_id=340561987]
+offset_right = 100.0
+offset_bottom = 8.0
+theme_override_constants/margin_left = 2
+theme_override_constants/margin_top = 2
+
+[node name="HealthBar" parent="CanvasLayer/MarginContainer" unique_id=336389707 instance=ExtResource("4_6p6g3")]
+layout_mode = 2
+
+[node name="OnSpawnPlayer" type="Node" parent="CanvasLayer/MarginContainer/HealthBar" unique_id=1664951108 node_paths=PackedStringArray("target")]
+script = ExtResource("5_1mlh3")
+target = NodePath("..")
+method = &"set_target_node"
 
 [node name="UIRoot" type="Control" parent="CanvasLayer" unique_id=1963380954]
 layout_mode = 3
@@ -37,6 +51,9 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("3_ewj4s")
 metadata/_custom_type_script = "uid://5eysrwqfki0n"
+
+[node name="InventoryUI" parent="CanvasLayer/UIRoot" unique_id=1800205673 instance=ExtResource("2_fdevw")]
+layout_mode = 1
 
 [node name="DieMenu" parent="CanvasLayer" unique_id=1245053035 instance=ExtResource("6_6p6g3")]
 visible = false

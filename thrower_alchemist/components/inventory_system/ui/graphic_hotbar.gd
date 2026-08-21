@@ -25,9 +25,9 @@ func _ready() -> void:
 		PlayerManager.player_changed.connect(_on_player_changed)
 	
 	if is_instance_valid(PlayerManager.current_player):
-		_on_player_changed(null, PlayerManager.current_player)
+		_on_player_changed(PlayerManager.current_player)
 
-func _on_player_changed(_old: Node, new: Node) -> void:
+func _on_player_changed(new: Node) -> void:
 	
 	if not new:
 		return

@@ -4,130 +4,65 @@
 [ext_resource type="Script" uid="uid://22015ewsl61y" path="res://assets/images/health_bar/health_bar.gd" id="1_t1a18"]
 [ext_resource type="Texture2D" uid="uid://cio4cld0ojy6y" path="res://assets/images/health_bar/health_border.png" id="2_t1a18"]
 [ext_resource type="Texture2D" uid="uid://jk4wovevpk0q" path="res://assets/images/health_bar/health_fill.png" id="3_y37gu"]
-[ext_resource type="Script" uid="uid://bfh7xyri3k4oq" path="res://assets/images/health_bar/range_size_increaser_component.gd" id="5_y37gu"]
-[ext_resource type="Script" uid="uid://dijs7id425oso" path="res://assets/images/health_bar/property_writer.gd" id="6_po673"]
-[ext_resource type="Script" uid="uid://8h3fajc76w20" path="res://components/triggers_system/execute_trigger.gd" id="7_1t7mf"]
+[ext_resource type="Script" uid="uid://cy3gb1u028y4j" path="res://components/animation_system/tweeners/tweener_action.gd" id="5_po673"]
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_bhjjj"]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_g1atm"]
 texture = ExtResource("1_7xv5e")
-texture_margin_left = 1.0
-texture_margin_top = 1.0
-texture_margin_right = 1.0
-texture_margin_bottom = 1.0
-expand_margin_left = 1.0
-expand_margin_top = 1.0
-expand_margin_right = 1.0
-expand_margin_bottom = 1.0
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_syjmg"]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_g04yl"]
 texture = ExtResource("3_y37gu")
-texture_margin_left = 1.0
-texture_margin_top = 1.0
-texture_margin_bottom = 1.0
 axis_stretch_horizontal = 1
 
-[sub_resource type="Theme" id="Theme_po673"]
-Button/font_sizes/font_size = 7
-Label/font_sizes/font_size = 7
-RichTextLabel/font_sizes/bold_font_size = 7
-RichTextLabel/font_sizes/bold_italics_font_size = 7
-RichTextLabel/font_sizes/italics_font_size = 7
-RichTextLabel/font_sizes/mono_font_size = 7
-RichTextLabel/font_sizes/normal_font_size = 7
-
-[node name="HealthBar" type="Control" unique_id=336389707 node_paths=PackedStringArray("progress_bar")]
+[node name="HealthBar" type="Control" unique_id=336389707 node_paths=PackedStringArray("progress_bar", "change_heal_animation")]
 custom_minimum_size = Vector2(100, 8)
 layout_mode = 3
 anchors_preset = 0
 offset_right = 100.0
 offset_bottom = 8.0
 script = ExtResource("1_t1a18")
-progress_bar = NodePath("HBoxContainer/TextureProgressBar")
+progress_bar = NodePath("NinePatchRect/MarginContainer/ProgressBar")
+change_heal_animation = NodePath("ChangeHealth")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=2098496186]
+[node name="NinePatchRect" type="NinePatchRect" parent="." unique_id=799814584]
 layout_mode = 1
-offset_right = 113.0
-offset_bottom = 9.0
-theme_override_constants/separation = 2
-
-[node name="ProgressBar" type="ProgressBar" parent="HBoxContainer" unique_id=378971303]
-custom_minimum_size = Vector2(100, 8)
-custom_maximum_size = Vector2(-1, 8)
-layout_mode = 2
-theme_override_styles/background = SubResource("StyleBoxTexture_bhjjj")
-theme_override_styles/fill = SubResource("StyleBoxTexture_syjmg")
-value = 50.0
-rounded = true
-show_percentage = false
-
-[node name="TextureProgressBar" type="TextureProgressBar" parent="HBoxContainer" unique_id=1789717572]
-visible = false
-custom_minimum_size = Vector2(100, 8)
-layout_mode = 2
-size_flags_vertical = 0
-theme = SubResource("Theme_po673")
-max_value = 25.0
-step = 0.5
-value = 25.0
-rounded = true
-stretch_margin_left = 2
-stretch_margin_top = 1
-stretch_margin_bottom = 1
-texture_under = ExtResource("1_7xv5e")
-texture_over = ExtResource("2_t1a18")
-texture_progress = ExtResource("3_y37gu")
-
-[node name="RichTextLabel" type="RichTextLabel" parent="HBoxContainer/TextureProgressBar" unique_id=514742763]
-layout_mode = 1
-anchors_preset = 14
-anchor_top = 0.5
+anchors_preset = 15
 anchor_right = 1.0
-anchor_bottom = 0.5
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-offset_transform_enabled = true
-offset_transform_position = Vector2(0, -1)
-bbcode_enabled = true
-text = "75.0"
-fit_content = true
-horizontal_alignment = 1
-vertical_alignment = 1
+texture = ExtResource("2_t1a18")
+patch_margin_left = 2
+patch_margin_top = 2
+patch_margin_right = 2
+patch_margin_bottom = 2
 
-[node name="RangeSizeIncreaser" type="Node" parent="HBoxContainer/TextureProgressBar" unique_id=1617557814 node_paths=PackedStringArray("target")]
-script = ExtResource("5_y37gu")
-target = NodePath("..")
+[node name="MarginContainer" type="MarginContainer" parent="NinePatchRect" unique_id=86489552]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 1
+theme_override_constants/margin_top = 1
+theme_override_constants/margin_right = 1
+theme_override_constants/margin_bottom = 1
 
-[node name="PropertyWriter" type="Node" parent="HBoxContainer/TextureProgressBar" unique_id=683959600 node_paths=PackedStringArray("target", "label")]
-script = ExtResource("6_po673")
-target = NodePath("..")
-property_to_write = &"value"
-label = NodePath("../RichTextLabel")
-
-[node name="ExecuteTrigger" type="Node" parent="HBoxContainer/TextureProgressBar" unique_id=1542800254 node_paths=PackedStringArray("target", "node")]
-script = ExtResource("7_1t7mf")
-target = NodePath("../PropertyWriter")
-method = &"update_text"
-signal_to_connect = &"value_changed"
-node = NodePath("..")
-metadata/_custom_type_script = "uid://8h3fajc76w20"
-
-[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer" unique_id=1206821719]
+[node name="ProgressBar" type="ProgressBar" parent="NinePatchRect/MarginContainer" unique_id=2100939613]
 layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 0
-theme_override_constants/separation = 2
+size_flags_vertical = 1
+theme_override_styles/background = SubResource("StyleBoxTexture_g1atm")
+theme_override_styles/fill = SubResource("StyleBoxTexture_g04yl")
+value = 75.0
+show_percentage = false
 
-[node name="CurrentHealth" type="RichTextLabel" parent="HBoxContainer/HBoxContainer" unique_id=1458859601]
-layout_mode = 2
-size_flags_vertical = 0
-text = "0"
-fit_content = true
-autowrap_mode = 0
-
-[node name="Separator" type="Label" parent="HBoxContainer/HBoxContainer" unique_id=635899134]
-layout_mode = 2
-size_flags_vertical = 0
-text = "/"
-
-[node name="MaxHealth" type="RichTextLabel" parent="HBoxContainer/HBoxContainer" unique_id=47417894]
-layout_mode = 2
+[node name="ChangeHealth" type="Node" parent="." unique_id=56460685 node_paths=PackedStringArray("node")]
+script = ExtResource("5_po673")
+from = 0.0
+ease_type = 2
+add_transition = false
+node = NodePath("../NinePatchRect/MarginContainer/ProgressBar")
+property_to_change = "value"
+to = 0.0
+metadata/_custom_type_script = "uid://cy3gb1u028y4j"

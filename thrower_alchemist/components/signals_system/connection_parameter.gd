@@ -25,4 +25,5 @@ static func convert_callable_array(arr: Array[Callable]) -> Array[ConnectionPara
 	for val: Callable in arr:
 		new_arr.append(convert_callable(val))
 	
+	GameDebugger.debug_log(ConnectionParameter, "New callable array: " + str(new_arr))
 	return new_arr

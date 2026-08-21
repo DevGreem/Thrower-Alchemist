@@ -84,7 +84,7 @@ script = ExtResource("9_2m54q")
 metadata/_custom_type_script = "uid://54lkyexoh7xb"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_obaep"]
-size = Vector2(12, 24)
+size = Vector2(12, 8)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g1atm"]
 size = Vector2(20, 12)
@@ -158,7 +158,7 @@ actor = NodePath("../..")
 inmunity_time = 0.5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Areas/HurtboxComponent2D" unique_id=304227575]
-position = Vector2(0, -12)
+position = Vector2(0, -4)
 shape = SubResource("RectangleShape2D_obaep")
 debug_color = Color(0.8294658, 0.3909105, 0.14149457, 0.41960785)
 

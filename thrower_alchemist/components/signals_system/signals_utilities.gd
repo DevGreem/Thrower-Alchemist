@@ -7,7 +7,7 @@ static func connect_signal(target: Signal, callable: Callable, flags: ConnectFla
 	if target.is_connected(callable):
 		return false
 	
-	target.connect(callable)
+	target.connect(callable, flags)
 	return true
 
 static func disconnect_signal(target: Signal, callable: Callable) -> bool:
@@ -46,9 +46,16 @@ static func connect_signals_persist(connections: Dictionary[Signal, Array]) -> D
 	var results: Dictionary[Signal, Array] = {}
 	
 	for sig: Signal in connections:
-		results[sig] = connect_callables(
-			sig, ConnectionParameter.convert_callable_array(connections[sig])
+		results[sig] = []
+		
+		var params: Array[Callable] = []
+		params.assign(connections[sig])
+		
+		var arr: Array[bool] = connect_callables(
+			sig,
+			ConnectionParameter.convert_callable_array(params)
 		)
+		results[sig].assign(arr)
 	
 	return results
 
