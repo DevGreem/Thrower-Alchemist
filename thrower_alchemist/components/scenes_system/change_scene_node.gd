@@ -3,9 +3,15 @@ extends Node
 
 class_name ChangeSceneNode
 
-@export var quit_game: bool = false:
+enum Method {
+	CHANGE,
+	REPEAT,
+	QUIT
+}
+
+@export var method: Method = Method.CHANGE:
 	set(value):
-		quit_game = value
+		method = value
 		notify_property_list_changed()
 
 @export_file("*.tscn") var scene_file: String
@@ -15,8 +21,12 @@ func change() -> void:
 	if Engine.is_editor_hint():
 		return
 	
-	if quit_game:
+	if method == Method.QUIT:
 		ScenesManager.close_game()
+		return
+	
+	if method == Method.REPEAT:
+		ScenesManager.reload_current_scene(min_wait_time)
 		return
 	
 	GameDebugger.debug_log(ChangeSceneNode, "Trying to load scene " + scene_file)
@@ -25,5 +35,5 @@ func change() -> void:
 func _validate_property(property: Dictionary) -> void:
 	
 	if property.name == "scene_file":
-		if quit_game:
+		if method != Method.CHANGE:
 			property.usage = PROPERTY_USAGE_NO_EDITOR

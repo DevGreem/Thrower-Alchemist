@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://ddbou0m40ya24"]
 
 [ext_resource type="Texture2D" uid="uid://ilcx0iexvjm6" path="res://scenes/die_screen/light.png" id="1_8fb23"]
+[ext_resource type="Script" uid="uid://b73guqc5s4us6" path="res://scenes/die_screen/die_screen.gd" id="1_368iq"]
 [ext_resource type="Texture2D" uid="uid://dk6qmq7v3mhet" path="res://scenes/die_screen/skull_joined.png" id="2_3slha"]
 [ext_resource type="Texture2D" uid="uid://mu4c1x3o1umw" path="res://scenes/die_screen/light_circle.png" id="2_tutyy"]
 [ext_resource type="Script" uid="uid://cj66dsilgm53v" path="res://components/scenes_system/change_scene_node.gd" id="4_8u3lj"]
@@ -119,7 +120,7 @@ _data = {
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
-tracks/0/enabled = true
+tracks/0/enabled = false
 tracks/0/path = NodePath(".:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
@@ -162,13 +163,16 @@ _data = {
 &"show": SubResource("Animation_368iq")
 }
 
-[node name="DieMenu" type="Control" unique_id=1245053035]
+[node name="DieMenu" type="Control" unique_id=1245053035 node_paths=PackedStringArray("animation")]
+modulate = Color(1, 1, 1, 0)
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_368iq")
+animation = NodePath("AnimationPlayer")
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=411099601]
 layout_mode = 1
@@ -263,12 +267,26 @@ layout_mode = 2
 layout_mode = 2
 text = "Try Again"
 
+[node name="ChangeSceneNode" type="Node" parent="MarginContainer/VBoxContainer/HBoxContainer/TryAgainButton" unique_id=1269185772]
+script = ExtResource("4_8u3lj")
+method = 1
+metadata/_custom_type_script = "uid://cj66dsilgm53v"
+
+[node name="ExecuteTrigger" type="Node" parent="MarginContainer/VBoxContainer/HBoxContainer/TryAgainButton" unique_id=1585895919 node_paths=PackedStringArray("target", "node")]
+script = ExtResource("5_368iq")
+target = NodePath("../ChangeSceneNode")
+method = &"change"
+signal_to_connect = &"pressed"
+node = NodePath("..")
+metadata/_custom_type_script = "uid://8h3fajc76w20"
+
 [node name="SurrenderButton" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=1336218723]
 layout_mode = 2
 text = "Surrender"
 
 [node name="ChangeSceneNode" type="Node" parent="MarginContainer/VBoxContainer/HBoxContainer/SurrenderButton" unique_id=503469965]
 script = ExtResource("4_8u3lj")
+method = null
 scene_file = "uid://bpfe5dk34pv1t"
 metadata/_custom_type_script = "uid://cj66dsilgm53v"
 
@@ -282,4 +300,3 @@ metadata/_custom_type_script = "uid://8h3fajc76w20"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1280964786]
 libraries/ = SubResource("AnimationLibrary_78yu1")
-autoplay = &"show"

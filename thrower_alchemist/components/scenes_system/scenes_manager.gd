@@ -43,6 +43,12 @@ func close_game() -> void:
 func go_to_previous_scene() -> void:
 	load_scene(previous_scene)
 
+func reload_current_scene(min_wait_time: float = -1.0) -> void:
+	
+	requested_time = min_wait_time
+	load_requested.emit()
+	get_tree().reload_current_scene()
+
 func _set_load_request(path: String, min_wait_time: float = -1.0) -> void:
 	_path_to_load = path
 	requested_time = min_wait_time

@@ -10,7 +10,11 @@ var current_player: Node2D = null:
 		if current_player == value:
 			return
 		
-		player_changed.emit(current_player, value)
+		if is_instance_valid(current_player):
+			player_changed.emit(current_player, value)
+		else:
+			player_changed.emit(null, value)
+		
 		current_player = value
 
 func _ready() -> void:
