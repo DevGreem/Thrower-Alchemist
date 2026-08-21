@@ -6,12 +6,12 @@ var load_screen_ready: bool = false
 @export var default_wait_time: float = -1.0
 var await_time: float = -1.0
 
-func _ready() -> void:
-	return
-	process_mode = Node.PROCESS_MODE_ALWAYS
-	
-	if not ScenesManager.load_requested.is_connected(_on_load_requested):
-		ScenesManager.load_requested.connect(_on_load_requested)
+#func _ready() -> void:
+	#return
+	#process_mode = Node.PROCESS_MODE_ALWAYS
+	#
+	#if not ScenesManager.load_requested.is_connected(_on_load_requested):
+		#ScenesManager.load_requested.connect(_on_load_requested)
 
 func _process(delta: float) -> void:
 	

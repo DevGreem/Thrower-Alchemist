@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://bsnws7adi6mm8" path="res://components/scenes_system/loading_screen.gd" id="1_djmwj"]
 [ext_resource type="Script" uid="uid://ctuohpxwkuuuo" path="res://components/animation_system/texture_rect_animator.gd" id="2_hprjd"]
 [ext_resource type="Script" uid="uid://bvrof3dhklvwm" path="res://scripts/random_modulate_color_generator.gd" id="3_5phy8"]
-[ext_resource type="Script" uid="uid://csxxcxu74eptf" path="res://components/scenes_system/scene_load_verifier.gd" id="5_djmwj"]
+[ext_resource type="Script" uid="uid://csxxcxu74eptf" path="res://components/scenes_system/nodes/scene_load_verifier.gd" id="5_djmwj"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_g04yl"]
 atlas = ExtResource("1_5phy8")

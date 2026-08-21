@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://b73guqc5s4us6" path="res://scenes/die_screen/die_screen.gd" id="1_368iq"]
 [ext_resource type="Texture2D" uid="uid://dk6qmq7v3mhet" path="res://scenes/die_screen/skull_joined.png" id="2_3slha"]
 [ext_resource type="Texture2D" uid="uid://mu4c1x3o1umw" path="res://scenes/die_screen/light_circle.png" id="2_tutyy"]
-[ext_resource type="Script" uid="uid://cj66dsilgm53v" path="res://components/scenes_system/change_scene_node.gd" id="4_8u3lj"]
+[ext_resource type="Script" uid="uid://cj66dsilgm53v" path="res://components/scenes_system/nodes/change_scene_node.gd" id="4_8u3lj"]
 [ext_resource type="Script" uid="uid://8h3fajc76w20" path="res://components/triggers_system/execute_trigger.gd" id="5_368iq"]
 
 [sub_resource type="Animation" id="Animation_3slha"]
@@ -286,7 +286,6 @@ text = "Surrender"
 
 [node name="ChangeSceneNode" type="Node" parent="MarginContainer/VBoxContainer/HBoxContainer/SurrenderButton" unique_id=503469965]
 script = ExtResource("4_8u3lj")
-method = null
 scene_file = "uid://bpfe5dk34pv1t"
 metadata/_custom_type_script = "uid://cj66dsilgm53v"
 

@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://bpfe5dk34pv1t"]
 
 [ext_resource type="Script" uid="uid://btu7r865mi7rd" path="res://components/animation_system/animation_container.gd" id="1_0stv2"]
-[ext_resource type="Script" uid="uid://cj66dsilgm53v" path="res://components/scenes_system/change_scene_node.gd" id="1_oeh0t"]
+[ext_resource type="Script" uid="uid://cj66dsilgm53v" path="res://components/scenes_system/nodes/change_scene_node.gd" id="1_oeh0t"]
 [ext_resource type="PackedScene" uid="uid://b76wglrkjq08a" path="res://scenes/animations/scare_button_animation.tscn" id="2_1eg8k"]
 [ext_resource type="Script" uid="uid://8h3fajc76w20" path="res://components/triggers_system/execute_trigger.gd" id="2_ae20m"]
 [ext_resource type="AudioStream" uid="uid://dc7stoul8rucp" path="res://assets/audio/sounds/start_tutorial.wav" id="4_6lo54"]
@@ -193,7 +193,7 @@ stream = ExtResource("7_xfmk5")
 
 [node name="ChangeSceneNode" type="Node" parent="CenterContainer/VBoxContainer/AnimationContainer2/CloseGameButton" unique_id=1534600579]
 script = ExtResource("1_oeh0t")
-quit_game = true
+method = 2
 min_wait_time = 1.0
 metadata/_custom_type_script = "uid://cj66dsilgm53v"
 

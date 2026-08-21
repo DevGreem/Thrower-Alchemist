@@ -8,7 +8,7 @@ func end_floor() -> void:
 	
 	if end_run:
 		# Temporal end game
-		ScenesManager.change_to_file(ProjectSettings.get_setting("application/run/main_scene") as String)
+		ScenesManager.load_scene(ProjectSettings.get_setting("application/run/main_scene") as String)
 		return
 	
 	

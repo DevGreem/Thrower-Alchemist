@@ -1,4 +1,5 @@
 @tool
+@icon("res://addons/at-icons/control/heart.svg")
 extends Control
 
 class_name HealthBar
@@ -16,6 +17,8 @@ class_name HealthBar
 		_update_progress_bar()
 
 @export var change_heal_animation: TweenerAction
+
+@export var auto_hide: bool = true
 
 func _ready() -> void:
 	progress_bar.min_value = 0
@@ -71,7 +74,7 @@ func _update_progress_bar() -> void:
 		GameDebugger.debug_warning(HealthBar, "The progress bar not is valid", true)
 		return
 	
-	if not target:
+	if not target and auto_hide:
 		
 		if Engine.is_editor_hint():
 			return
@@ -87,7 +90,6 @@ func _update_progress_bar() -> void:
 
 func _on_health_changed(before: float, after: float) -> void:
 	change_heal_animation.to = after
-	change_heal_animation.duration = after/before
 	change_heal_animation.make_animation()
 
 func _on_max_health_changed(_before: float, after: float) -> void:

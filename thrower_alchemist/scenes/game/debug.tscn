@@ -36,6 +36,7 @@ theme_override_constants/margin_top = 2
 
 [node name="HealthBar" parent="CanvasLayer/MarginContainer" unique_id=336389707 instance=ExtResource("4_6p6g3")]
 layout_mode = 2
+auto_hide = false
 
 [node name="OnSpawnPlayer" type="Node" parent="CanvasLayer/MarginContainer/HealthBar" unique_id=1664951108 node_paths=PackedStringArray("target")]
 script = ExtResource("5_1mlh3")

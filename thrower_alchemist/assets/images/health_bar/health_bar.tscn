@@ -22,6 +22,7 @@ offset_bottom = 8.0
 script = ExtResource("1_t1a18")
 progress_bar = NodePath("NinePatchRect/MarginContainer/ProgressBar")
 change_heal_animation = NodePath("ChangeHealth")
+auto_hide = null
 
 [node name="NinePatchRect" type="NinePatchRect" parent="." unique_id=799814584]
 layout_mode = 1
@@ -60,6 +61,7 @@ show_percentage = false
 [node name="ChangeHealth" type="Node" parent="." unique_id=56460685 node_paths=PackedStringArray("node")]
 script = ExtResource("5_po673")
 from = 0.0
+duration = 0.33
 ease_type = 2
 add_transition = false
 node = NodePath("../NinePatchRect/MarginContainer/ProgressBar")
