@@ -5,6 +5,9 @@
 [ext_resource type="PackedScene" uid="uid://bp0q1lig48ynw" path="res://content/potions/static_potion.tscn" id="2_g867q"]
 [ext_resource type="Script" uid="uid://ditbeykj0vfd4" path="res://components/hit_system/health_component.gd" id="2_wiryu"]
 [ext_resource type="Script" uid="uid://bqx8hyj121gcl" path="res://components/hit_system/hurtbox_component_2d.gd" id="3_o21ci"]
+[ext_resource type="Script" uid="uid://cq4u0kj57rcvr" path="res://components/spawn_system/spawners/global_spawner_2d.gd" id="8_uxllm"]
+[ext_resource type="PackedScene" uid="uid://b4gs14da58uhq" path="res://content/machines/potions_mixer/explosion/potions_mixer_explosion.tscn" id="9_uxllm"]
+[ext_resource type="Script" uid="uid://b4b27isfuwpp6" path="res://components/spawn_system/utilities/spawn_trigger.gd" id="10_i5cb4"]
 [ext_resource type="Script" uid="uid://cxehsl4at72q" path="res://components/debug_components/debug_camera_2d.gd" id="12_uacgq"]
 [ext_resource type="Script" uid="uid://dk0pi828tayhh" path="res://components/interaction_system/interact_area_2d.gd" id="13_343vw"]
 
@@ -87,3 +90,18 @@ interact_name = "Mix Potions"
 position = Vector2(0, -9)
 shape = SubResource("CircleShape2D_o21ci")
 debug_color = Color(0.6841424, 0.5206158, 0, 0.41960785)
+
+[node name="GlobalSpawner2D" type="Marker2D" parent="." unique_id=674755748]
+position = Vector2(2, -11)
+script = ExtResource("8_uxllm")
+container_type = 2
+scene = ExtResource("9_uxllm")
+spawn_deferred = true
+metadata/_custom_type_script = "uid://cq4u0kj57rcvr"
+
+[node name="TriggerSpawner" type="Node" parent="GlobalSpawner2D" unique_id=753739396 node_paths=PackedStringArray("spawner", "node")]
+script = ExtResource("10_i5cb4")
+spawner = NodePath("..")
+signal_to_connect = &"exploded"
+node = NodePath("../..")
+metadata/_custom_type_script = "uid://b4b27isfuwpp6"

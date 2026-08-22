@@ -1,0 +1,132 @@
+[gd_scene format=3 uid="uid://bkp2qtsmur7eq"]
+
+[ext_resource type="Texture2D" uid="uid://cxsjc3u3uq4bx" path="res://assets/images/loading_circle/jumping_potion0.png" id="1_5phy8"]
+[ext_resource type="Script" uid="uid://bsnws7adi6mm8" path="res://components/scenes_system/loading_screen.gd" id="1_djmwj"]
+[ext_resource type="Script" uid="uid://ctuohpxwkuuuo" path="res://components/animation_system/texture_rect_animator.gd" id="2_hprjd"]
+[ext_resource type="Script" uid="uid://bvrof3dhklvwm" path="res://scripts/random_modulate_color_generator.gd" id="3_5phy8"]
+[ext_resource type="Script" uid="uid://csxxcxu74eptf" path="res://components/scenes_system/nodes/scene_load_verifier.gd" id="5_djmwj"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g04yl"]
+atlas = ExtResource("1_5phy8")
+region = Rect2(528, 0, 24, 32)
+
+[sub_resource type="Animation" id="Animation_hprjd"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:visible_ratio")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_ku3bi"]
+resource_name = "pointing"
+length = 1.33
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:visible_ratio")
+tracks/0/interp = 1
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 1.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_5phy8"]
+_data = {
+&"RESET": SubResource("Animation_hprjd"),
+&"pointing": SubResource("Animation_ku3bi")
+}
+
+[node name="Control" type="Control" unique_id=810352294 node_paths=PackedStringArray("load_verifier")]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_djmwj")
+load_verifier = NodePath("SceneLoadVerifier")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1944187672]
+layer = 101
+
+[node name="Control" type="Control" parent="CanvasLayer" unique_id=1531435350]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/Control" unique_id=1596769586]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer/Control" unique_id=331474758]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/CenterContainer" unique_id=209959092]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Control/CenterContainer/VBoxContainer" unique_id=1038355144]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = SubResource("AtlasTexture_g04yl")
+
+[node name="TextureRectAnimator" type="Node" parent="CanvasLayer/Control/CenterContainer/VBoxContainer/TextureRect" unique_id=1861178297 node_paths=PackedStringArray("target")]
+script = ExtResource("2_hprjd")
+target = NodePath("..")
+columns = 35
+fps = 35.0
+metadata/_custom_type_script = "uid://ctuohpxwkuuuo"
+
+[node name="RandomModulateColorGenerator" type="Node" parent="CanvasLayer/Control/CenterContainer/VBoxContainer/TextureRect" unique_id=1218899363 node_paths=PackedStringArray("target")]
+script = ExtResource("3_5phy8")
+target = NodePath("..")
+metadata/_custom_type_script = "uid://bvrof3dhklvwm"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Control/CenterContainer/VBoxContainer" unique_id=371056719]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Label" type="Label" parent="CanvasLayer/Control/CenterContainer/VBoxContainer/HBoxContainer" unique_id=661766745]
+layout_mode = 2
+text = "Loading"
+
+[node name="Label2" type="Label" parent="CanvasLayer/Control/CenterContainer/VBoxContainer/HBoxContainer" unique_id=1535807392]
+layout_mode = 2
+text = "..."
+visible_characters = 0
+visible_characters_behavior = 1
+visible_ratio = 0.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer/Control/CenterContainer/VBoxContainer/HBoxContainer/Label2" unique_id=1281656114]
+libraries/ = SubResource("AnimationLibrary_5phy8")
+autoplay = &"pointing"
+
+[node name="SceneLoadVerifier" type="Node" parent="." unique_id=1472232950]
+script = ExtResource("5_djmwj")
+metadata/_custom_type_script = "uid://csxxcxu74eptf"

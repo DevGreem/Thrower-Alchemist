@@ -1,0 +1,140 @@
+[gd_scene format=3 uid="uid://b76wglrkjq08a"]
+
+[ext_resource type="Script" uid="uid://cy3gb1u028y4j" path="res://components/animation_system/tweeners/tweener_action.gd" id="1_dxt7h"]
+[ext_resource type="Script" uid="uid://citt3bcswolbo" path="res://components/animation_system/tweeners/tweener_tree.gd" id="2_b858r"]
+[ext_resource type="Script" uid="uid://bqbb8gn2ck5cv" path="res://components/animation_system/tweeners/random_tweener_selector.gd" id="3_b858r"]
+[ext_resource type="Script" uid="uid://csownupd7lbcp" path="res://components/animation_system/tweeners/tweener_trigger.gd" id="3_sc2sw"]
+
+[node name="Animation" type="Node" unique_id=1262204884]
+
+[node name="Tweeners" type="Node" parent="." unique_id=13601531]
+
+[node name="AddScale" type="Node" parent="Tweeners" unique_id=1511299314]
+script = ExtResource("1_dxt7h")
+from = Vector2(0, 0)
+duration = 0.15
+ease_type = 2
+add_transition = false
+property_to_change = "scale"
+to = Vector2(1.05, 1.05)
+metadata/_custom_type_script = "uid://cy3gb1u028y4j"
+
+[node name="RemoveScale" type="Node" parent="Tweeners" unique_id=1483970941]
+script = ExtResource("1_dxt7h")
+from = Vector2(0, 0)
+duration = 0.15
+ease_type = 2
+add_transition = false
+property_to_change = "scale"
+to = Vector2(1, 1)
+metadata/_custom_type_script = "uid://cy3gb1u028y4j"
+
+[node name="ButtonPressed" type="Node" parent="Tweeners" unique_id=114772161]
+script = ExtResource("2_b858r")
+metadata/_custom_type_script = "uid://citt3bcswolbo"
+
+[node name="AddScale" type="Node" parent="Tweeners/ButtonPressed" unique_id=751885009]
+script = ExtResource("1_dxt7h")
+from = Vector2(0, 0)
+duration = 0.2
+ease_type = 2
+add_transition = false
+property_to_change = "scale"
+to = Vector2(1.2, 1.2)
+metadata/_custom_type_script = "uid://cy3gb1u028y4j"
+
+[node name="RemoveScale" type="Node" parent="Tweeners/ButtonPressed" unique_id=1608300259 node_paths=PackedStringArray("await_animators")]
+script = ExtResource("1_dxt7h")
+from = Vector2(0, 0)
+duration = 0.2
+ease_type = 2
+add_transition = false
+property_to_change = "scale"
+to = Vector2(1, 1)
+await_animators = [NodePath("../AddScale")]
+metadata/_custom_type_script = "uid://cy3gb1u028y4j"
+
+[node name="RandomTweenerSelector" type="Node" parent="Tweeners/ButtonPressed" unique_id=387492630]
+script = ExtResource("3_b858r")
+metadata/_custom_type_script = "uid://bqbb8gn2ck5cv"
+
+[node name="AddRemoveRotation" type="Node" parent="Tweeners/ButtonPressed/RandomTweenerSelector" unique_id=1278570709]
+script = ExtResource("2_b858r")
+metadata/_custom_type_script = "uid://citt3bcswolbo"
+
+[node name="AddRotation" type="Node" parent="Tweeners/ButtonPressed/RandomTweenerSelector/AddRemoveRotation" unique_id=879589513]
+script = ExtResource("1_dxt7h")
+from = 0.0
+duration = 0.1
+ease_type = 2
+add_transition = false
+property_to_change = "rotation_degrees"
+to = 7.5
+metadata/_custom_type_script = "uid://cy3gb1u028y4j"
+
+[node name="NegativeRotation" type="Node" parent="Tweeners/ButtonPressed/RandomTweenerSelector/AddRemoveRotation" unique_id=2113302735 node_paths=PackedStringArray("await_animators")]
+script = ExtResource("1_dxt7h")
+from = 0.0
+duration = 0.1
+ease_type = 2
+add_transition = false
+property_to_change = "rotation_degrees"
+to = -7.5
+await_animators = [NodePath("../AddRotation")]
+metadata/_custom_type_script = "uid://cy3gb1u028y4j"
+
+[node name="RemoveAddRotation" type="Node" parent="Tweeners/ButtonPressed/RandomTweenerSelector" unique_id=208167455]
+script = ExtResource("2_b858r")
+metadata/_custom_type_script = "uid://citt3bcswolbo"
+
+[node name="NegativeRotation" type="Node" parent="Tweeners/ButtonPressed/RandomTweenerSelector/RemoveAddRotation" unique_id=138908998]
+script = ExtResource("1_dxt7h")
+from = 0.0
+duration = 0.1
+ease_type = 2
+add_transition = false
+property_to_change = "rotation_degrees"
+to = -7.5
+metadata/_custom_type_script = "uid://cy3gb1u028y4j"
+
+[node name="AddRotation" type="Node" parent="Tweeners/ButtonPressed/RandomTweenerSelector/RemoveAddRotation" unique_id=329663951 node_paths=PackedStringArray("await_animators")]
+script = ExtResource("1_dxt7h")
+from = 0.0
+duration = 0.1
+ease_type = 2
+add_transition = false
+property_to_change = "rotation_degrees"
+to = 7.5
+await_animators = [NodePath("../NegativeRotation")]
+metadata/_custom_type_script = "uid://cy3gb1u028y4j"
+
+[node name="RemoveRotation" type="Node" parent="Tweeners/ButtonPressed" unique_id=42378963 node_paths=PackedStringArray("await_animators")]
+script = ExtResource("1_dxt7h")
+from = 0.0
+duration = 0.1
+ease_type = 2
+add_transition = false
+property_to_change = "rotation_degrees"
+to = 0.0
+await_animators = [NodePath("../RandomTweenerSelector")]
+metadata/_custom_type_script = "uid://cy3gb1u028y4j"
+
+[node name="Triggers" type="Node" parent="." unique_id=491049015]
+
+[node name="OnMouseEntered" type="Node" parent="Triggers" unique_id=691375042 node_paths=PackedStringArray("animator")]
+script = ExtResource("3_sc2sw")
+animator = NodePath("../../Tweeners/AddScale")
+signal_to_connect = &"mouse_entered"
+metadata/_custom_type_script = "uid://csownupd7lbcp"
+
+[node name="OnMouseExited" type="Node" parent="Triggers" unique_id=1302020605 node_paths=PackedStringArray("animator")]
+script = ExtResource("3_sc2sw")
+animator = NodePath("../../Tweeners/RemoveScale")
+signal_to_connect = &"mouse_exited"
+metadata/_custom_type_script = "uid://csownupd7lbcp"
+
+[node name="OnPressed" type="Node" parent="Triggers" unique_id=1998438023 node_paths=PackedStringArray("animator")]
+script = ExtResource("3_sc2sw")
+animator = NodePath("../../Tweeners/ButtonPressed")
+signal_to_connect = &"pressed"
+metadata/_custom_type_script = "uid://csownupd7lbcp"

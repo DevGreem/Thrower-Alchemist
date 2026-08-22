@@ -1,4 +1,20 @@
 [gd_resource type="Theme" format=3 uid="uid://b2nh772g2kcw"]
 
+[ext_resource type="Texture2D" uid="uid://jk4wovevpk0q" path="res://assets/images/health_bar/health_fill.png" id="1_mlkpy"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_w4d2j"]
+texture = ExtResource("1_mlkpy")
+texture_margin_left = 1.0
+texture_margin_top = 1.0
+texture_margin_bottom = 1.0
+axis_stretch_horizontal = 1
+
 [resource]
 Button/font_sizes/font_size = 7
+Label/font_sizes/font_size = 7
+ProgressBar/styles/fill = SubResource("StyleBoxTexture_w4d2j")
+RichTextLabel/font_sizes/bold_font_size = 7
+RichTextLabel/font_sizes/bold_italics_font_size = 7
+RichTextLabel/font_sizes/italics_font_size = 7
+RichTextLabel/font_sizes/mono_font_size = 7
+RichTextLabel/font_sizes/normal_font_size = 7

@@ -4,6 +4,8 @@ extends ITrigger
 
 class_name TriggerNode
 
+@export var active: bool = true
+
 @export var signal_to_connect: StringName:
 	set(value):
 		signal_to_connect = value
@@ -20,11 +22,18 @@ func _ready() -> void:
 		#GameDebugger.debug_warning(TriggerNode, 'Signal no exists in the node"' + str(node.name))
 		#return
 	
-	if not node.is_connected(signal_to_connect, execute):
-		node.connect(signal_to_connect, execute)
+	if not node.is_connected(signal_to_connect, try_execute):
+		node.connect(signal_to_connect, try_execute)
 
 @abstract
 func execute(..._parameters: Array) -> void
+
+func try_execute(...parameters: Array) -> void:
+	
+	if not active:
+		return
+	
+	execute.callv(parameters)
 
 func _validate_property(property: Dictionary) -> void:
 	

@@ -4,8 +4,13 @@
 [ext_resource type="PackedScene" uid="uid://ctim88ddanme6" path="res://scenes/maps/tutorial.tscn" id="2_ewj4s"]
 [ext_resource type="PackedScene" uid="uid://i762gem8h1rt" path="res://scenes/inventory/inventory_ui.tscn" id="2_fdevw"]
 [ext_resource type="Script" uid="uid://5eysrwqfki0n" path="res://components/ui_system/ui_root.gd" id="3_ewj4s"]
-[ext_resource type="Script" uid="uid://c81ue6bvggjb2" path="res://components/follow_system/follow_node_component_2d.gd" id="3_uv5ep"]
-[ext_resource type="PackedScene" uid="uid://b2spclcrcu1hs" path="res://content/entities/player/player.tscn" id="5_ewj4s"]
+[ext_resource type="Script" uid="uid://cogvbxdxnk8ca" path="res://components/follow_system/follow_player_component_2d.gd" id="3_uv5ep"]
+[ext_resource type="PackedScene" uid="uid://c2w27es4n48he" path="res://assets/images/health_bar/health_bar.tscn" id="4_6p6g3"]
+[ext_resource type="Script" uid="uid://o58rvo2k3k2y" path="res://components/player_system/player_spawned_trigger.gd" id="5_1mlh3"]
+[ext_resource type="PackedScene" uid="uid://ddbou0m40ya24" path="res://scenes/die_screen/die_screen.tscn" id="6_6p6g3"]
+[ext_resource type="Script" uid="uid://bhncvuypd75t2" path="res://components/spawn_system/containers/global_spawn_container_2d.gd" id="6_x0tpe"]
+[ext_resource type="PackedScene" uid="uid://cfcdglmkolgl5" path="res://scenes/pause_menu/pause_menu.tscn" id="9_lm0j3"]
+[ext_resource type="Script" uid="uid://b5x6yn5q3epjd" path="res://components/scenes_system/inputs/pause_game_input.gd" id="10_5sd3n"]
 
 [node name="GameMap" type="Node2D" unique_id=724420841 node_paths=PackedStringArray("world_container")]
 y_sort_enabled = true
@@ -16,17 +21,29 @@ metadata/_edit_horizontal_guides_ = [-792.0, -616.0, -704.0]
 metadata/_edit_vertical_guides_ = [588.0]
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=562425778]
-metadata/_edit_lock_ = true
+position = Vector2(32, 5)
 
-[node name="FollowNodeComponent2D" type="Node" parent="Camera2D" unique_id=1906229816 node_paths=PackedStringArray("actor", "target")]
+[node name="FollowPlayerComponent2D" type="Node" parent="Camera2D" unique_id=543405368 node_paths=PackedStringArray("actor")]
 script = ExtResource("3_uv5ep")
 actor = NodePath("..")
-target = NodePath("../../YSort/Entities/Player")
-metadata/_custom_type_script = "uid://c81ue6bvggjb2"
+metadata/_custom_type_script = "uid://cogvbxdxnk8ca"
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=743349263]
 
-[node name="InventoryUI" parent="CanvasLayer" unique_id=1800205673 instance=ExtResource("2_fdevw")]
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer" unique_id=340561987]
+offset_right = 100.0
+offset_bottom = 8.0
+theme_override_constants/margin_left = 2
+theme_override_constants/margin_top = 2
+
+[node name="HealthBar" parent="CanvasLayer/MarginContainer" unique_id=336389707 instance=ExtResource("4_6p6g3")]
+layout_mode = 2
+auto_hide = false
+
+[node name="OnSpawnPlayer" type="Node" parent="CanvasLayer/MarginContainer/HealthBar" unique_id=1664951108 node_paths=PackedStringArray("target")]
+script = ExtResource("5_1mlh3")
+target = NodePath("..")
+method = &"set_target_node"
 
 [node name="UIRoot" type="Control" parent="CanvasLayer" unique_id=1963380954]
 layout_mode = 3
@@ -38,24 +55,47 @@ grow_vertical = 2
 script = ExtResource("3_ewj4s")
 metadata/_custom_type_script = "uid://5eysrwqfki0n"
 
+[node name="InventoryUI" parent="CanvasLayer/UIRoot" unique_id=1800205673 instance=ExtResource("2_fdevw")]
+layout_mode = 1
+
+[node name="DieMenu" parent="CanvasLayer" unique_id=1245053035 instance=ExtResource("6_6p6g3")]
+visible = false
+
+[node name="PauseMenu" parent="CanvasLayer" unique_id=1615410445 instance=ExtResource("9_lm0j3")]
+visible = false
+
+[node name="PauseGameInput" type="Node" parent="CanvasLayer/PauseMenu" unique_id=1306330233 node_paths=PackedStringArray("menu")]
+process_mode = 1
+script = ExtResource("10_5sd3n")
+menu_option = 1
+menu = NodePath("..")
+
 [node name="YSort" type="Node2D" parent="." unique_id=1291027061]
 y_sort_enabled = true
 metadata/_edit_lock_ = true
 
-[node name="Projectiles" type="Node2D" parent="YSort" unique_id=2135532405 groups=["container", "projectiles_container"]]
+[node name="Projectiles" type="Node2D" parent="YSort" unique_id=415870867]
+script = ExtResource("6_x0tpe")
+type = 1
+metadata/_custom_type_script = "uid://bhncvuypd75t2"
 
-[node name="Effects" type="Node2D" parent="YSort" unique_id=197708295 groups=["container", "effects_container"]]
+[node name="Effects" type="Node2D" parent="YSort" unique_id=265221232]
 z_index = -2
 z_as_relative = false
+script = ExtResource("6_x0tpe")
+type = 2
+metadata/_custom_type_script = "uid://bhncvuypd75t2"
 
-[node name="Entities" type="Node2D" parent="YSort" unique_id=1997927869 groups=["entities_container"]]
+[node name="Entities" type="Node2D" parent="YSort" unique_id=1207014775]
 y_sort_enabled = true
+script = ExtResource("6_x0tpe")
+metadata/_custom_type_script = "uid://bhncvuypd75t2"
 
-[node name="Player" parent="YSort/Entities" unique_id=1606296388 instance=ExtResource("5_ewj4s")]
-z_as_relative = false
-
-[node name="Machines" type="Node2D" parent="YSort" unique_id=894768521 groups=["machines_container"]]
+[node name="Machines" type="Node2D" parent="YSort" unique_id=1357661046]
 y_sort_enabled = true
+script = ExtResource("6_x0tpe")
+type = 3
+metadata/_custom_type_script = "uid://bhncvuypd75t2"
 
 [node name="WorldContainer" type="Node2D" parent="." unique_id=236857337]
 y_sort_enabled = true

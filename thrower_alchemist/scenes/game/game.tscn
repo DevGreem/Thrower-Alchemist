@@ -25,16 +25,16 @@ metadata/_custom_type_script = "uid://5eysrwqfki0n"
 [node name="YSort" type="Node2D" parent="." unique_id=1291027061]
 y_sort_enabled = true
 
-[node name="Projectiles" type="Node2D" parent="YSort" unique_id=2135532405 groups=["container", "projectiles_container"]]
+[node name="Projectiles" type="Node2D" parent="YSort" unique_id=2135532405]
 
-[node name="Effects" type="Node2D" parent="YSort" unique_id=197708295 groups=["container", "effects_container"]]
+[node name="Effects" type="Node2D" parent="YSort" unique_id=197708295]
 z_index = -2
 z_as_relative = false
 
-[node name="Entities" type="Node2D" parent="YSort" unique_id=1997927869 groups=["entities_container"]]
+[node name="Entities" type="Node2D" parent="YSort" unique_id=1997927869]
 y_sort_enabled = true
 
-[node name="Machines" type="Node2D" parent="YSort" unique_id=1704196033 groups=["machines_container"]]
+[node name="Machines" type="Node2D" parent="YSort" unique_id=1704196033]
 y_sort_enabled = true
 
 [node name="WorldContainer" type="Node2D" parent="." unique_id=236857337]

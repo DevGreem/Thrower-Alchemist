@@ -3,9 +3,9 @@
 [ext_resource type="Script" uid="uid://b03i6gk6y3sq1" path="res://content/machines/potions_mixer/ui/mixer_slot.gd" id="1_mbxn4"]
 [ext_resource type="Texture2D" uid="uid://dpphmkh2rnqvp" path="res://content/potions/empty_potion.png" id="2_tkyll"]
 [ext_resource type="Script" uid="uid://d10ll63pv3u3p" path="res://content/potions/potion_icon_component.gd" id="3_isycf"]
-[ext_resource type="Script" uid="uid://csownupd7lbcp" path="res://components/animation_system/tweener_trigger.gd" id="4_fr462"]
-[ext_resource type="Script" uid="uid://citt3bcswolbo" path="res://components/animation_system/tweener_tree.gd" id="5_fr462"]
-[ext_resource type="Script" uid="uid://cy3gb1u028y4j" path="res://components/animation_system/tweener_action.gd" id="6_a5wpn"]
+[ext_resource type="Script" uid="uid://csownupd7lbcp" path="res://components/animation_system/tweeners/tweener_trigger.gd" id="4_fr462"]
+[ext_resource type="Script" uid="uid://citt3bcswolbo" path="res://components/animation_system/tweeners/tweener_tree.gd" id="5_fr462"]
+[ext_resource type="Script" uid="uid://cy3gb1u028y4j" path="res://components/animation_system/tweeners/tweener_action.gd" id="6_a5wpn"]
 
 [node name="MixerSlot" type="Panel" unique_id=1896267683 node_paths=PackedStringArray("potion_icon")]
 pivot_offset_ratio = Vector2(0.5, 0.5)

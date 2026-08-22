@@ -1,0 +1,70 @@
+[gd_scene format=3 uid="uid://c2w27es4n48he"]
+
+[ext_resource type="Texture2D" uid="uid://cx0tw2scd40yo" path="res://assets/images/health_bar/health_background.png" id="1_7xv5e"]
+[ext_resource type="Script" uid="uid://22015ewsl61y" path="res://assets/images/health_bar/health_bar.gd" id="1_t1a18"]
+[ext_resource type="Texture2D" uid="uid://cio4cld0ojy6y" path="res://assets/images/health_bar/health_border.png" id="2_t1a18"]
+[ext_resource type="Texture2D" uid="uid://jk4wovevpk0q" path="res://assets/images/health_bar/health_fill.png" id="3_y37gu"]
+[ext_resource type="Script" uid="uid://cy3gb1u028y4j" path="res://components/animation_system/tweeners/tweener_action.gd" id="5_po673"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_g1atm"]
+texture = ExtResource("1_7xv5e")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_g04yl"]
+texture = ExtResource("3_y37gu")
+axis_stretch_horizontal = 1
+
+[node name="HealthBar" type="Control" unique_id=336389707 node_paths=PackedStringArray("progress_bar", "change_heal_animation")]
+custom_minimum_size = Vector2(100, 8)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 100.0
+offset_bottom = 8.0
+script = ExtResource("1_t1a18")
+progress_bar = NodePath("NinePatchRect/MarginContainer/ProgressBar")
+change_heal_animation = NodePath("ChangeHealth")
+auto_hide = null
+
+[node name="NinePatchRect" type="NinePatchRect" parent="." unique_id=799814584]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_t1a18")
+patch_margin_left = 2
+patch_margin_top = 2
+patch_margin_right = 2
+patch_margin_bottom = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="NinePatchRect" unique_id=86489552]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 1
+theme_override_constants/margin_top = 1
+theme_override_constants/margin_right = 1
+theme_override_constants/margin_bottom = 1
+
+[node name="ProgressBar" type="ProgressBar" parent="NinePatchRect/MarginContainer" unique_id=2100939613]
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_styles/background = SubResource("StyleBoxTexture_g1atm")
+theme_override_styles/fill = SubResource("StyleBoxTexture_g04yl")
+value = 75.0
+show_percentage = false
+
+[node name="ChangeHealth" type="Node" parent="." unique_id=56460685 node_paths=PackedStringArray("node")]
+script = ExtResource("5_po673")
+from = 0.0
+duration = 0.33
+ease_type = 2
+add_transition = false
+node = NodePath("../NinePatchRect/MarginContainer/ProgressBar")
+property_to_change = "value"
+to = 0.0
+metadata/_custom_type_script = "uid://cy3gb1u028y4j"

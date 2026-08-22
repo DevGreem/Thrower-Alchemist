@@ -3,6 +3,8 @@ extends Node2D
 
 class_name GameMap
 
+signal map_loaded
+
 @export var predefined_map: PackedScene = null:
 	set(value):
 		predefined_map = value
@@ -54,13 +56,8 @@ func generate_map() -> void:
 	
 	if predefined_map:
 		_load_map()
-		
-		EventBus.spawn_node_in_group(
-			PlayerManager.current_player,
-			ContainerType.Enum.ENTITIES_CONTAINER
-		)
-		
-		PlayerManager.current_player.global_position = loaded_zone.player_spawner.global_position
+	
+	map_loaded.emit()
 
 func _show_map_in_editor() -> void:
 	

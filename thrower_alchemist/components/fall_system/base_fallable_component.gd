@@ -1,3 +1,4 @@
+@icon("res://addons/at-icons/node2d/golf_hole.svg")
 @abstract
 extends Node
 

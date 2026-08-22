@@ -1,12 +1,39 @@
 [gd_scene format=3 uid="uid://bpfe5dk34pv1t"]
 
+[ext_resource type="Script" uid="uid://btu7r865mi7rd" path="res://components/animation_system/animation_container.gd" id="1_0stv2"]
+[ext_resource type="Script" uid="uid://cj66dsilgm53v" path="res://components/scenes_system/nodes/change_scene_node.gd" id="1_oeh0t"]
+[ext_resource type="PackedScene" uid="uid://b76wglrkjq08a" path="res://scenes/animations/scare_button_animation.tscn" id="2_1eg8k"]
+[ext_resource type="Script" uid="uid://8h3fajc76w20" path="res://components/triggers_system/execute_trigger.gd" id="2_ae20m"]
+[ext_resource type="AudioStream" uid="uid://dc7stoul8rucp" path="res://assets/audio/sounds/start_tutorial.wav" id="4_6lo54"]
+[ext_resource type="Script" uid="uid://chr8x08prhqt2" path="res://components/triggers_system/trigger_tree.gd" id="4_i0jvh"]
+[ext_resource type="Script" uid="uid://dcufdc1p80h0j" path="res://components/triggers_system/trigger_execute_action.gd" id="5_6lo54"]
+[ext_resource type="Texture2D" uid="uid://dgmqt3xglwbau" path="res://assets/images/presentation/logo.png" id="5_stwfd"]
+[ext_resource type="FontFile" uid="uid://4ewbah3yppjg" path="res://assets/fonts/Aseprite/AsepriteFont.ttf" id="6_pmgyj"]
+[ext_resource type="Texture2D" uid="uid://dtbgxm3sjs5qy" path="res://assets/images/presentation/title_potion.png" id="7_3xo6f"]
+[ext_resource type="AudioStream" uid="uid://53veqhbp3cuu" path="res://assets/audio/sounds/exit_game.wav" id="7_xfmk5"]
+[ext_resource type="Texture2D" uid="uid://dl3ecs68fatpn" path="res://assets/images/presentation/background_title_potion.png" id="8_38s45"]
+[ext_resource type="Script" uid="uid://bvrof3dhklvwm" path="res://scripts/random_modulate_color_generator.gd" id="8_vjlbs"]
+[ext_resource type="Script" uid="uid://c8b8k30dfgwag" path="res://components/ui_system/components/gui_pressed_detector.gd" id="9_3xo6f"]
+
 [node name="Start" type="Control" unique_id=949455248]
+process_mode = 3
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+metadata/_edit_horizontal_guides_ = [30.0]
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1972498953]
+z_index = -100
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.23137255, 0.09019608, 0.14509805, 1)
 
 [node name="CenterContainer" type="CenterContainer" parent="." unique_id=1714637629]
 layout_mode = 1
@@ -16,6 +43,258 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Button" type="Button" parent="CenterContainer" unique_id=1710044682]
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer" unique_id=1076574483]
 layout_mode = 2
-text = "Hola"
+
+[node name="AnimationContainer" type="Control" parent="CenterContainer/VBoxContainer" unique_id=1961015998]
+layout_mode = 2
+script = ExtResource("1_0stv2")
+metadata/_custom_type_script = "uid://btu7r865mi7rd"
+
+[node name="TutorialButton" type="Button" parent="CenterContainer/VBoxContainer/AnimationContainer" unique_id=1710044682]
+z_index = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset_ratio = Vector2(0.5, 0.5)
+text = "Tutorial"
+
+[node name="Animation" parent="CenterContainer/VBoxContainer/AnimationContainer/TutorialButton" unique_id=1262204884 instance=ExtResource("2_1eg8k")]
+
+[node name="AddScale" parent="CenterContainer/VBoxContainer/AnimationContainer/TutorialButton/Animation/Tweeners" parent_id_path=PackedInt32Array(1262204884, 13601531) index="0" unique_id=1511299314 node_paths=PackedStringArray("node")]
+node = NodePath("../../..")
+
+[node name="RemoveScale" parent="CenterContainer/VBoxContainer/AnimationContainer/TutorialButton/Animation/Tweeners" parent_id_path=PackedInt32Array(1262204884, 13601531) index="1" unique_id=1483970941 node_paths=PackedStringArray("node")]
+node = NodePath("../../..")
+
+[node name="AddScale" parent="CenterContainer/VBoxContainer/AnimationContainer/TutorialButton/Animation/Tweeners/ButtonPressed" parent_id_path=PackedInt32Array(1262204884, 114772161) index="0" unique_id=751885009 node_paths=PackedStringArray("node")]
+node = NodePath("../../../..")
+
+[node name="RemoveScale" parent="CenterContainer/VBoxContainer/AnimationContainer/TutorialButton/Animation/Tweeners/ButtonPressed" parent_id_path=PackedInt32Array(1262204884, 114772161) index="1" unique_id=1608300259 node_paths=PackedStringArray("node")]
+node = NodePath("../../../..")
+
+[node name="AddRotation" parent="CenterContainer/VBoxContainer/AnimationContainer/TutorialButton/Animation/Tweeners/ButtonPressed/RandomTweenerSelector/AddRemoveRotation" parent_id_path=PackedInt32Array(1262204884, 1278570709) index="0" unique_id=879589513 node_paths=PackedStringArray("node")]
+node = NodePath("../../../../../..")
+
+[node name="NegativeRotation" parent="CenterContainer/VBoxContainer/AnimationContainer/TutorialButton/Animation/Tweeners/ButtonPressed/RandomTweenerSelector/AddRemoveRotation" parent_id_path=PackedInt32Array(1262204884, 1278570709) index="1" unique_id=2113302735 node_paths=PackedStringArray("node")]
+node = NodePath("../../../../../..")
+
+[node name="NegativeRotation" parent="CenterContainer/VBoxContainer/AnimationContainer/TutorialButton/Animation/Tweeners/ButtonPressed/RandomTweenerSelector/RemoveAddRotation" parent_id_path=PackedInt32Array(1262204884, 208167455) index="0" unique_id=138908998 node_paths=PackedStringArray("node")]
+node = NodePath("../../../../../..")
+
+[node name="AddRotation" parent="CenterContainer/VBoxContainer/AnimationContainer/TutorialButton/Animation/Tweeners/ButtonPressed/RandomTweenerSelector/RemoveAddRotation" parent_id_path=PackedInt32Array(1262204884, 208167455) index="1" unique_id=329663951 node_paths=PackedStringArray("node")]
+node = NodePath("../../../../../..")
+
+[node name="RemoveRotation" parent="CenterContainer/VBoxContainer/AnimationContainer/TutorialButton/Animation/Tweeners/ButtonPressed" parent_id_path=PackedInt32Array(1262204884, 114772161) index="3" unique_id=42378963 node_paths=PackedStringArray("node")]
+node = NodePath("../../../..")
+
+[node name="OnMouseEntered" parent="CenterContainer/VBoxContainer/AnimationContainer/TutorialButton/Animation/Triggers" parent_id_path=PackedInt32Array(1262204884, 491049015) index="0" unique_id=691375042 node_paths=PackedStringArray("node")]
+node = NodePath("../../..")
+
+[node name="OnMouseExited" parent="CenterContainer/VBoxContainer/AnimationContainer/TutorialButton/Animation/Triggers" parent_id_path=PackedInt32Array(1262204884, 491049015) index="1" unique_id=1302020605 node_paths=PackedStringArray("node")]
+node = NodePath("../../..")
+
+[node name="OnPressed" parent="CenterContainer/VBoxContainer/AnimationContainer/TutorialButton/Animation/Triggers" parent_id_path=PackedInt32Array(1262204884, 491049015) index="2" unique_id=1998438023 node_paths=PackedStringArray("node")]
+node = NodePath("../../..")
+
+[node name="ChangeSceneNode" type="Node" parent="CenterContainer/VBoxContainer/AnimationContainer/TutorialButton" unique_id=43851291]
+script = ExtResource("1_oeh0t")
+scene_file = "uid://d0efybbjr5lxn"
+min_wait_time = 1.0
+metadata/_custom_type_script = "uid://cj66dsilgm53v"
+
+[node name="PressedAudio" type="AudioStreamPlayer" parent="CenterContainer/VBoxContainer/AnimationContainer/TutorialButton" unique_id=1360639546]
+stream = ExtResource("4_6lo54")
+
+[node name="OnPressedTree" type="Node" parent="CenterContainer/VBoxContainer/AnimationContainer/TutorialButton" unique_id=991396152 node_paths=PackedStringArray("node")]
+script = ExtResource("4_i0jvh")
+signal_to_connect = &"finished"
+node = NodePath("../Animation/Tweeners/ButtonPressed")
+metadata/_custom_type_script = "uid://chr8x08prhqt2"
+
+[node name="PlaySound" type="Node" parent="CenterContainer/VBoxContainer/AnimationContainer/TutorialButton/OnPressedTree" unique_id=1506189843 node_paths=PackedStringArray("node")]
+script = ExtResource("5_6lo54")
+method = &"play"
+node = NodePath("../../PressedAudio")
+metadata/_custom_type_script = "uid://dcufdc1p80h0j"
+
+[node name="ChangeScene" type="Node" parent="CenterContainer/VBoxContainer/AnimationContainer/TutorialButton/OnPressedTree" unique_id=335075552 node_paths=PackedStringArray("node")]
+script = ExtResource("5_6lo54")
+method = &"change"
+node = NodePath("../../ChangeSceneNode")
+metadata/_custom_type_script = "uid://dcufdc1p80h0j"
+
+[node name="EndlessModeButton" type="Button" parent="CenterContainer/VBoxContainer" unique_id=157713829]
+z_index = 1
+layout_mode = 2
+tooltip_text = "Incoming!"
+disabled = true
+text = "Endless Mode"
+
+[node name="AnimationContainer2" type="Control" parent="CenterContainer/VBoxContainer" unique_id=1288073800]
+layout_mode = 2
+script = ExtResource("1_0stv2")
+metadata/_custom_type_script = "uid://btu7r865mi7rd"
+
+[node name="CloseGameButton" type="Button" parent="CenterContainer/VBoxContainer/AnimationContainer2" unique_id=1311553485]
+z_index = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset_ratio = Vector2(0.5, 0.5)
+text = "Close Game"
+
+[node name="Animation" parent="CenterContainer/VBoxContainer/AnimationContainer2/CloseGameButton" unique_id=1309109886 instance=ExtResource("2_1eg8k")]
+
+[node name="AddScale" parent="CenterContainer/VBoxContainer/AnimationContainer2/CloseGameButton/Animation/Tweeners" parent_id_path=PackedInt32Array(1309109886, 13601531) index="0" unique_id=1511299314 node_paths=PackedStringArray("node")]
+node = NodePath("../../..")
+
+[node name="RemoveScale" parent="CenterContainer/VBoxContainer/AnimationContainer2/CloseGameButton/Animation/Tweeners" parent_id_path=PackedInt32Array(1309109886, 13601531) index="1" unique_id=1483970941 node_paths=PackedStringArray("node")]
+node = NodePath("../../..")
+
+[node name="AddScale" parent="CenterContainer/VBoxContainer/AnimationContainer2/CloseGameButton/Animation/Tweeners/ButtonPressed" parent_id_path=PackedInt32Array(1309109886, 114772161) index="0" unique_id=751885009 node_paths=PackedStringArray("node")]
+node = NodePath("../../../..")
+
+[node name="RemoveScale" parent="CenterContainer/VBoxContainer/AnimationContainer2/CloseGameButton/Animation/Tweeners/ButtonPressed" parent_id_path=PackedInt32Array(1309109886, 114772161) index="1" unique_id=1608300259 node_paths=PackedStringArray("node")]
+node = NodePath("../../../..")
+
+[node name="AddRotation" parent="CenterContainer/VBoxContainer/AnimationContainer2/CloseGameButton/Animation/Tweeners/ButtonPressed/RandomTweenerSelector/AddRemoveRotation" parent_id_path=PackedInt32Array(1309109886, 1278570709) index="0" unique_id=879589513 node_paths=PackedStringArray("node")]
+node = NodePath("../../../../../..")
+
+[node name="NegativeRotation" parent="CenterContainer/VBoxContainer/AnimationContainer2/CloseGameButton/Animation/Tweeners/ButtonPressed/RandomTweenerSelector/AddRemoveRotation" parent_id_path=PackedInt32Array(1309109886, 1278570709) index="1" unique_id=2113302735 node_paths=PackedStringArray("node")]
+node = NodePath("../../../../../..")
+
+[node name="NegativeRotation" parent="CenterContainer/VBoxContainer/AnimationContainer2/CloseGameButton/Animation/Tweeners/ButtonPressed/RandomTweenerSelector/RemoveAddRotation" parent_id_path=PackedInt32Array(1309109886, 208167455) index="0" unique_id=138908998 node_paths=PackedStringArray("node")]
+node = NodePath("../../../../../..")
+
+[node name="AddRotation" parent="CenterContainer/VBoxContainer/AnimationContainer2/CloseGameButton/Animation/Tweeners/ButtonPressed/RandomTweenerSelector/RemoveAddRotation" parent_id_path=PackedInt32Array(1309109886, 208167455) index="1" unique_id=329663951 node_paths=PackedStringArray("node")]
+node = NodePath("../../../../../..")
+
+[node name="RemoveRotation" parent="CenterContainer/VBoxContainer/AnimationContainer2/CloseGameButton/Animation/Tweeners/ButtonPressed" parent_id_path=PackedInt32Array(1309109886, 114772161) index="3" unique_id=42378963 node_paths=PackedStringArray("node")]
+node = NodePath("../../../..")
+
+[node name="OnMouseEntered" parent="CenterContainer/VBoxContainer/AnimationContainer2/CloseGameButton/Animation/Triggers" parent_id_path=PackedInt32Array(1309109886, 491049015) index="0" unique_id=691375042 node_paths=PackedStringArray("node")]
+node = NodePath("../../..")
+
+[node name="OnMouseExited" parent="CenterContainer/VBoxContainer/AnimationContainer2/CloseGameButton/Animation/Triggers" parent_id_path=PackedInt32Array(1309109886, 491049015) index="1" unique_id=1302020605 node_paths=PackedStringArray("node")]
+node = NodePath("../../..")
+
+[node name="OnPressed" parent="CenterContainer/VBoxContainer/AnimationContainer2/CloseGameButton/Animation/Triggers" parent_id_path=PackedInt32Array(1309109886, 491049015) index="2" unique_id=1998438023 node_paths=PackedStringArray("node")]
+node = NodePath("../../..")
+
+[node name="PressedAudio" type="AudioStreamPlayer" parent="CenterContainer/VBoxContainer/AnimationContainer2/CloseGameButton" unique_id=374067003]
+stream = ExtResource("7_xfmk5")
+
+[node name="ChangeSceneNode" type="Node" parent="CenterContainer/VBoxContainer/AnimationContainer2/CloseGameButton" unique_id=1534600579]
+script = ExtResource("1_oeh0t")
+method = 2
+min_wait_time = 1.0
+metadata/_custom_type_script = "uid://cj66dsilgm53v"
+
+[node name="OnPressedTree" type="Node" parent="CenterContainer/VBoxContainer/AnimationContainer2/CloseGameButton" unique_id=850568286 node_paths=PackedStringArray("node")]
+script = ExtResource("4_i0jvh")
+signal_to_connect = &"finished"
+node = NodePath("../Animation/Tweeners/ButtonPressed")
+metadata/_custom_type_script = "uid://chr8x08prhqt2"
+
+[node name="PlaySound" type="Node" parent="CenterContainer/VBoxContainer/AnimationContainer2/CloseGameButton/OnPressedTree" unique_id=1984030825 node_paths=PackedStringArray("node")]
+script = ExtResource("5_6lo54")
+method = &"play"
+node = NodePath("../../PressedAudio")
+metadata/_custom_type_script = "uid://dcufdc1p80h0j"
+
+[node name="ChangeScene" type="Node" parent="CenterContainer/VBoxContainer/AnimationContainer2/CloseGameButton/OnPressedTree" unique_id=292818279 node_paths=PackedStringArray("node")]
+script = ExtResource("5_6lo54")
+method = &"change"
+node = NodePath("../../ChangeSceneNode")
+metadata/_custom_type_script = "uid://dcufdc1p80h0j"
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=177913399]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -77.0
+offset_right = 77.0
+offset_bottom = 40.0
+grow_horizontal = 2
+
+[node name="Logo" type="TextureRect" parent="MarginContainer" unique_id=635381348]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("5_stwfd")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer" unique_id=803803901]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/separation = 10
+
+[node name="Label" type="Label" parent="MarginContainer/HBoxContainer" unique_id=2086808993]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.4745098, 0.2627451, 0.29803923, 1)
+theme_override_fonts/font = ExtResource("6_pmgyj")
+theme_override_font_sizes/font_size = 32
+text = "Thrower"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/HBoxContainer" unique_id=2034647580]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="PotionOutline" type="TextureRect" parent="MarginContainer/HBoxContainer/HBoxContainer" unique_id=520222192]
+layout_mode = 2
+size_flags_vertical = 4
+offset_transform_enabled = true
+offset_transform_position = Vector2(0, 2)
+offset_transform_scale = Vector2(2, 2)
+texture = ExtResource("7_3xo6f")
+
+[node name="Background" type="TextureRect" parent="MarginContainer/HBoxContainer/HBoxContainer/PotionOutline" unique_id=121841186]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("8_38s45")
+
+[node name="RandomModulateColorGenerator" type="Node" parent="MarginContainer/HBoxContainer/HBoxContainer/PotionOutline" unique_id=1701587600 node_paths=PackedStringArray("target")]
+script = ExtResource("8_vjlbs")
+target = NodePath("../Background")
+metadata/_custom_type_script = "uid://bvrof3dhklvwm"
+
+[node name="GUIPressedDetector" type="Control" parent="MarginContainer/HBoxContainer/HBoxContainer/PotionOutline" unique_id=548572916]
+custom_minimum_size = Vector2(16, 20)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("9_3xo6f")
+
+[node name="ExecuteTrigger" type="Node" parent="MarginContainer/HBoxContainer/HBoxContainer/PotionOutline" unique_id=400885193 node_paths=PackedStringArray("target", "node")]
+script = ExtResource("2_ae20m")
+target = NodePath("../RandomModulateColorGenerator")
+method = &"change_color"
+signal_to_connect = &"pressed"
+node = NodePath("../GUIPressedDetector")
+metadata/_custom_type_script = "uid://8h3fajc76w20"
+
+[node name="Label" type="Label" parent="MarginContainer/HBoxContainer/HBoxContainer" unique_id=178517357]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.4745098, 0.2627451, 0.29803923, 1)
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = ExtResource("6_pmgyj")
+theme_override_font_sizes/font_size = 32
+text = "lchemist"
+
+[editable path="CenterContainer/VBoxContainer/AnimationContainer/TutorialButton/Animation"]
+[editable path="CenterContainer/VBoxContainer/AnimationContainer2/CloseGameButton/Animation"]

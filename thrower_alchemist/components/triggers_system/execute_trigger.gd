@@ -3,6 +3,8 @@ extends TriggerNode
 
 class_name ExecuteTrigger
 
+const METHOD_STRING: String = 'Executing the method "%s" of the node %s (%s)'
+
 @export var target: Node:
 	set(value):
 		target = value
@@ -21,10 +23,11 @@ func execute(...parameters: Array) -> void:
 		
 		GameDebugger.debug_warning(
 			ExecuteTrigger,
-			'Executing the method "' + method + '" of the node ' + target.name + " (" + str(target) + ") " + "with less parameters than the required\n" +
+			METHOD_STRING % [method, target.name, str(target)] + "with less parameters than the required\n" +
 			"The method need " + str(params) + " parameters but " + str(parameters.size()) + " was given"
 		)
 	
+	GameDebugger.debug_log(ExecuteTrigger, METHOD_STRING % [method, target.name, str(target)])
 	if params == 0:
 		target.call(method)
 	else:

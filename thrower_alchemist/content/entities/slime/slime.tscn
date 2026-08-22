@@ -9,6 +9,10 @@
 [ext_resource type="Script" uid="uid://ds58twerpuwx3" path="res://components/vision_component_2d.gd" id="5_sc8da"]
 [ext_resource type="BehaviorTree" uid="uid://b1oxj1nxmxgb0" path="res://content/entities/slime/slime_behavior.tres" id="7_jqiev"]
 [ext_resource type="Script" uid="uid://8h3fajc76w20" path="res://components/triggers_system/execute_trigger.gd" id="9_kclqt"]
+[ext_resource type="Script" uid="uid://cn0ikfe5ek4jc" path="res://components/audio_system/random_pitch_setter.gd" id="10_0dw0y"]
+[ext_resource type="AudioStream" uid="uid://dcstyx3inw20u" path="res://content/entities/slime/sounds/slime_jump.mp3" id="10_t1e5s"]
+[ext_resource type="AudioStream" uid="uid://ciotbn2rljj2m" path="res://content/entities/slime/sounds/killed_slime.mp3" id="12_54bki"]
+[ext_resource type="Script" uid="uid://cbra1tdafuy15" path="res://components/audio_system/audio_requesters/audio_player_requester.gd" id="13_56h0w"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_obaep"]
 radius = 3.0
@@ -182,6 +186,20 @@ tracks/5/keys = {
 "update": 1,
 "values": [0, 2]
 }
+tracks/6/type = "method"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("SlimeJump")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [0.0],
+"method": &"play"
+}]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_t1e5s"]
 _data = {
@@ -280,3 +298,46 @@ method = &"_set_attack_entities"
 signal_to_connect = &"entity_exited"
 node = NodePath("../VisionComponent2D")
 metadata/_custom_type_script = "uid://8h3fajc76w20"
+
+[node name="SlimeJump" type="AudioStreamPlayer2D" parent="." unique_id=433758914]
+stream = ExtResource("10_t1e5s")
+volume_db = -10.0
+max_distance = 200.0
+bus = &"SFX"
+
+[node name="RandomPitchSetter" type="Node" parent="SlimeJump" unique_id=871019757 node_paths=PackedStringArray("player")]
+script = ExtResource("10_0dw0y")
+player = NodePath("..")
+rand_range = Vector2(0.15, 0.15)
+metadata/_custom_type_script = "uid://cn0ikfe5ek4jc"
+
+[node name="OnFinishPlay" type="Node" parent="SlimeJump" unique_id=1221552762 node_paths=PackedStringArray("target", "node")]
+script = ExtResource("9_kclqt")
+target = NodePath("../RandomPitchSetter")
+method = &"randomize_pitch"
+signal_to_connect = &"finished"
+node = NodePath("..")
+metadata/_custom_type_script = "uid://8h3fajc76w20"
+
+[node name="SlimeDie" type="AudioStreamPlayer" parent="." unique_id=352739451]
+stream = ExtResource("12_54bki")
+volume_db = -20.0
+
+[node name="RandomPitchSetter" type="Node" parent="SlimeDie" unique_id=478181175 node_paths=PackedStringArray("player")]
+script = ExtResource("10_0dw0y")
+player = NodePath("..")
+rand_range = Vector2(0.2, 0.2)
+metadata/_custom_type_script = "uid://cn0ikfe5ek4jc"
+
+[node name="OnDie" type="Node" parent="SlimeDie" unique_id=142929329 node_paths=PackedStringArray("target", "node")]
+script = ExtResource("9_kclqt")
+target = NodePath("../AudioPlayerRequester")
+method = &"request_play"
+signal_to_connect = &"died"
+node = NodePath("../../HealthComponent")
+metadata/_custom_type_script = "uid://8h3fajc76w20"
+
+[node name="AudioPlayerRequester" type="Node" parent="SlimeDie" unique_id=18426989 node_paths=PackedStringArray("player")]
+script = ExtResource("13_56h0w")
+player = NodePath("..")
+metadata/_custom_type_script = "uid://cbra1tdafuy15"

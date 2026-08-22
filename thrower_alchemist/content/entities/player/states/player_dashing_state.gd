@@ -22,8 +22,6 @@ var character: CharacterBody2D:
 
 var original_change_direction: bool
 var original_speed: float
-var original_layer: int
-var original_mask_layer: int
 
 var timer: Timer
 
@@ -40,11 +38,10 @@ func can_dash() -> bool:
 
 # TODO: Add falling holes like enter the gungeon and add a new Falling state
 func _enter() -> void:
+	blackboard.set_var(&"was_dashing", true)
 	
 	original_change_direction = move_component.can_change_direction
 	original_speed = move_component.speed
-	original_layer = character.collision_layer
-	original_mask_layer = character.collision_mask
 
 	var expression: Expression = Expression.new()
 	expression.parse("original " + operator + " speed", ["original", "speed"])
@@ -57,9 +54,6 @@ func _enter() -> void:
 	
 	move_component.can_change_direction = directionable
 	move_component.speed = value
-	
-	character.collision_mask ^= GROUND_LAYER
-	character.collision_layer ^= GROUND_LAYER
 	GameDebugger.debug_log(PlayerDashingState, "New Character layers = " + str(character.collision_layer))
 	
 	get_tree().create_timer(dash_time).timeout.connect(_choose_transition)
@@ -68,8 +62,7 @@ func _exit() -> void:
 	timer.start()
 	move_component.speed = original_speed
 	move_component.can_change_direction = original_change_direction
-	character.collision_mask = original_mask_layer
-	character.collision_layer = original_layer
+	blackboard.set_var(&"was_dashing", false)
 
 func _choose_transition() -> void:
 	

@@ -8,6 +8,9 @@
 [ext_resource type="Script" uid="uid://cixn3eduqvftn" path="res://components/move_component_2d.gd" id="6_s3gvr"]
 [ext_resource type="Script" uid="uid://dbayy5n8t67ol" path="res://components/area_detection_system/collision_detector_component_2d.gd" id="7_p4w1y"]
 [ext_resource type="Script" uid="uid://8h3fajc76w20" path="res://components/triggers_system/execute_trigger.gd" id="8_gb8pu"]
+[ext_resource type="AudioStream" uid="uid://c7ws828hpuic3" path="res://assets/audio/sounds/glass_broken.mp3" id="9_5juia"]
+[ext_resource type="Script" uid="uid://cbra1tdafuy15" path="res://components/audio_system/audio_requesters/audio_player_requester.gd" id="10_4onub"]
+[ext_resource type="Script" uid="uid://cn0ikfe5ek4jc" path="res://components/audio_system/random_pitch_setter.gd" id="11_3prlj"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_s3gvr"]
 radius = 2.0
@@ -43,6 +46,7 @@ script = ExtResource("5_63a6k")
 actor = NodePath("..")
 move_component = NodePath("../MoveComponent2D")
 reach_distance = 150.0
+free_actor_on_reach = false
 
 [node name="PotionIconComponent" type="Node" parent="." unique_id=1308127113 node_paths=PackedStringArray("icon_node")]
 script = ExtResource("6_p4w1y")
@@ -89,3 +93,35 @@ method = &"_on_reach"
 signal_to_connect = &"reached"
 node = NodePath("../../ReachDistanceComponent2D")
 metadata/_custom_type_script = "uid://8h3fajc76w20"
+
+[node name="OnBroken" type="Node" parent="Triggers" unique_id=435653933 node_paths=PackedStringArray("target", "node")]
+script = ExtResource("8_gb8pu")
+target = NodePath("../../BrokenSound")
+method = &"play"
+signal_to_connect = &"brokened"
+node = NodePath("../..")
+metadata/_custom_type_script = "uid://8h3fajc76w20"
+
+[node name="BrokenSound" type="AudioStreamPlayer" parent="." unique_id=1492464825]
+stream = ExtResource("9_5juia")
+volume_db = -25.0
+bus = &"SFX"
+
+[node name="OnBrokened" type="Node" parent="BrokenSound" unique_id=323709665 node_paths=PackedStringArray("target", "node")]
+script = ExtResource("8_gb8pu")
+target = NodePath("../AudioPlayerRequester")
+method = &"request_play"
+signal_to_connect = &"brokened"
+node = NodePath("../..")
+metadata/_custom_type_script = "uid://8h3fajc76w20"
+
+[node name="AudioPlayerRequester" type="Node" parent="BrokenSound" unique_id=194152393 node_paths=PackedStringArray("player")]
+script = ExtResource("10_4onub")
+player = NodePath("..")
+metadata/_custom_type_script = "uid://cbra1tdafuy15"
+
+[node name="RandomPitchSetter" type="Node" parent="BrokenSound" unique_id=1158707228 node_paths=PackedStringArray("player")]
+script = ExtResource("11_3prlj")
+player = NodePath("..")
+rand_range = Vector2(0.1, 0.1)
+metadata/_custom_type_script = "uid://cn0ikfe5ek4jc"

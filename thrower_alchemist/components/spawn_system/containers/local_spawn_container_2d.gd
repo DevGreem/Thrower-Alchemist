@@ -1,0 +1,3 @@
+extends BaseSpawnContainer2D
+
+class_name LocalSpawnContainer2D

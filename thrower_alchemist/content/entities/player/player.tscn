@@ -32,6 +32,8 @@
 [ext_resource type="Script" uid="uid://d0kc0cjwq0k7w" path="res://content/entities/player/states/player_dashing_state.gd" id="28_8l5bx"]
 [ext_resource type="Script" uid="uid://bxxh2ah2yyi43" path="res://components/limbo_ai/hsm_bidirectional_transition_adder.gd" id="28_hp5df"]
 [ext_resource type="Script" uid="uid://tde4f3qhw3et" path="res://content/entities/player/states/falling_state.gd" id="29_2ux3l"]
+[ext_resource type="AudioStream" uid="uid://b3plgpsc5i654" path="res://content/entities/player/sounds/fall.wav" id="33_70y76"]
+[ext_resource type="Script" uid="uid://cbra1tdafuy15" path="res://components/audio_system/audio_requesters/audio_player_requester.gd" id="34_bhue8"]
 
 [sub_resource type="Animation" id="Animation_2ux3l"]
 length = 0.001
@@ -82,7 +84,7 @@ script = ExtResource("9_2m54q")
 metadata/_custom_type_script = "uid://54lkyexoh7xb"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_obaep"]
-size = Vector2(12, 24)
+size = Vector2(12, 8)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g1atm"]
 size = Vector2(20, 12)
@@ -156,7 +158,7 @@ actor = NodePath("../..")
 inmunity_time = 0.5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Areas/HurtboxComponent2D" unique_id=304227575]
-position = Vector2(0, -12)
+position = Vector2(0, -4)
 shape = SubResource("RectangleShape2D_obaep")
 debug_color = Color(0.8294658, 0.3909105, 0.14149457, 0.41960785)
 
@@ -268,13 +270,25 @@ operator = "*"
 speed_value = 5.0
 cooldown = 0.5
 
-[node name="Falling" type="LimboState" parent="States/StateMachine" unique_id=1513118912 node_paths=PackedStringArray("animation_player", "move_component", "flip_component", "unfall_transition")]
+[node name="Falling" type="LimboState" parent="States/StateMachine" unique_id=1513118912 node_paths=PackedStringArray("fall_audio_requester", "animation_player", "move_component", "flip_component", "unfall_transition")]
 script = ExtResource("29_2ux3l")
+fall_audio_requester = NodePath("FallAudio/AudioPlayerRequester")
 animation_player = NodePath("../../../AnimationPlayer")
 animation_name = &"falling"
+reset_animation_name = &"RESET"
 move_component = NodePath("../../../MoveComponent2D")
 flip_component = NodePath("../../../FlipComponent2D")
 unfall_transition = NodePath("../../Transitions/FallIdleTransition")
+
+[node name="FallAudio" type="AudioStreamPlayer" parent="States/StateMachine/Falling" unique_id=1073161051]
+stream = ExtResource("33_70y76")
+volume_db = -5.0
+bus = &"SFX"
+
+[node name="AudioPlayerRequester" type="Node" parent="States/StateMachine/Falling/FallAudio" unique_id=448614169 node_paths=PackedStringArray("player")]
+script = ExtResource("34_bhue8")
+player = NodePath("..")
+metadata/_custom_type_script = "uid://cbra1tdafuy15"
 
 [node name="Transitions" type="Node" parent="States" unique_id=734629214]
 

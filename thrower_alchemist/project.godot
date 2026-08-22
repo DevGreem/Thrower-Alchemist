@@ -11,9 +11,13 @@ config_version=5
 [application]
 
 config/name="Thrower Alchemist"
-run/main_scene="uid://d0efybbjr5lxn"
+run/main_scene="uid://bpfe5dk34pv1t"
 config/features=PackedStringArray("4.7", "Forward Plus")
 config/icon="res://icon.svg"
+
+[audio]
+
+buses/default_bus_layout="uid://dv05b4px8te3o"
 
 [autoload]
 
@@ -25,6 +29,11 @@ PlayerManager="*uid://dst27tilrrgpj"
 TagsManager="*uid://cg7tvcqghivrn"
 UIManager="*uid://dby5u3bvyp14j"
 PropertiesUtilities="*uid://bx15j0x1na5xp"
+TransitionManager="*uid://5kx0b54b2qr7"
+ScenesManager="*uid://ca53wqrhnvgrt"
+AudioManager="*uid://dsxatc6se2tjn"
+SpawnManager2D="*uid://cr4qenjqvoih4"
+ScenesLoaderManager="uid://55u2mtah3yas"
 
 [debug]
 
@@ -56,14 +65,6 @@ window/stretch/aspect="expand"
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/godot_super-wakatime/plugin.cfg", "res://addons/yard/plugin.cfg")
-
-[global_group]
-
-container="All Node Containers Have This"
-projectiles_container=""
-effects_container=""
-entities_container=""
-machines_container=""
 
 [gui]
 
@@ -122,6 +123,11 @@ dash={
 "events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":4194325,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
 ]
 }
+pause={
+"deadzone": 0.2,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":4194305,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
+]
+}
 
 [layer_names]
 
@@ -148,3 +154,7 @@ common/physics_ticks_per_second=120
 
 textures/canvas_textures/default_texture_filter=0
 rendering_device/driver.windows="d3d12"
+
+[scene_manager]
+
+load_screen="uid://bkp2qtsmur7eq"

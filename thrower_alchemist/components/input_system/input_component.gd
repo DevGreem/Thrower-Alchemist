@@ -3,6 +3,9 @@ extends Node
 
 class_name InputComponent
 
+@warning_ignore("unused_signal")
+signal input_detected
+
 @export var original_process: Node.ProcessMode
 @export var actor: Node2D
 var is_active: bool:
