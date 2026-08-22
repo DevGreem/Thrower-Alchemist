@@ -22,6 +22,7 @@
 [ext_resource type="Script" uid="uid://cy3gb1u028y4j" path="res://components/animation_system/tweeners/tweener_action.gd" id="19_uoqrq"]
 [ext_resource type="Script" uid="uid://dk0pi828tayhh" path="res://components/interaction_system/interact_area_2d.gd" id="20_7fbcs"]
 [ext_resource type="Script" uid="uid://b8f7jg5whb2pb" path="res://scripts/end_floor_node.gd" id="21_jt61u"]
+[ext_resource type="PackedScene" uid="uid://banyi6k2ww0y" path="res://assets/images/keys/animated_e_key_button.tscn" id="23_x3o8d"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_obaep"]
 size = Vector2(16, 16)
@@ -34,7 +35,7 @@ y_sort_enabled = true
 script = ExtResource("1_hrhc8")
 metadata/_edit_lock_ = true
 metadata/_edit_vertical_guides_ = [588.0]
-metadata/_edit_horizontal_guides_ = [-792.0, -616.0, -704.0]
+metadata/_edit_horizontal_guides_ = [-616.0, -704.0]
 
 [node name="Debug" type="Node" parent="." unique_id=447466529]
 
@@ -207,7 +208,6 @@ collision_mask = 0
 script = ExtResource("20_7fbcs")
 interact_name = "End tutorial"
 metadata/_custom_type_script = "uid://dk0pi828tayhh"
-metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Interactables/InteractArea2D" unique_id=857662600]
 position = Vector2(0.5, 1.5)
@@ -224,3 +224,20 @@ metadata/_custom_type_script = "uid://8h3fajc76w20"
 [node name="EndFloorNode" type="Node" parent="Interactables/InteractArea2D" unique_id=1461751768]
 script = ExtResource("21_jt61u")
 end_run = true
+
+[node name="AnimatedEKeyButton" parent="Interactables/InteractArea2D" unique_id=160337217 instance=ExtResource("23_x3o8d")]
+self_modulate = Color(1, 1, 1, 0)
+offset_left = -5.0
+offset_top = -34.0
+offset_right = 7.0
+offset_bottom = -22.0
+
+[node name="ShowKey" parent="Interactables/InteractArea2D/AnimatedEKeyButton" index="1" unique_id=1583972311 node_paths=PackedStringArray("node")]
+signal_to_connect = &"focused"
+node = NodePath("../..")
+
+[node name="HideKey" parent="Interactables/InteractArea2D/AnimatedEKeyButton" index="2" unique_id=1625200141 node_paths=PackedStringArray("node")]
+signal_to_connect = &"unfocused"
+node = NodePath("../..")
+
+[editable path="Interactables/InteractArea2D/AnimatedEKeyButton"]
