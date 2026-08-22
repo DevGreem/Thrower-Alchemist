@@ -53,3 +53,7 @@ Here is how I organized the process:
 - Lastly, I designed the game's logo and cover art for itch.io.
 
 That’s all for the current development of Thrower Alchemist; I plan to update it in the future!
+
+## How to start the development environment
+
+Since it's a Godot project, it's as simple as downloading Godot Engine 4.7 and importing the project folder into Godot!
