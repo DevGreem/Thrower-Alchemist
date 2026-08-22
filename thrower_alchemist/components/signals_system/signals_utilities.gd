@@ -2,7 +2,7 @@ extends RefCounted
 
 class_name SignalsUtilities
 
-static func connect_signal(target: Signal, callable: Callable, flags: ConnectFlags = ConnectFlags.CONNECT_ONE_SHOT) -> bool:
+static func connect_signal(target: Signal, callable: Callable, flags: ConnectFlags = ConnectFlags.CONNECT_PERSIST) -> bool:
 	
 	if target.is_connected(callable):
 		return false

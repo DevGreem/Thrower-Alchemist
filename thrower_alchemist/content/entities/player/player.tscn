@@ -275,6 +275,7 @@ script = ExtResource("29_2ux3l")
 fall_audio_requester = NodePath("FallAudio/AudioPlayerRequester")
 animation_player = NodePath("../../../AnimationPlayer")
 animation_name = &"falling"
+reset_animation_name = &"RESET"
 move_component = NodePath("../../../MoveComponent2D")
 flip_component = NodePath("../../../FlipComponent2D")
 unfall_transition = NodePath("../../Transitions/FallIdleTransition")

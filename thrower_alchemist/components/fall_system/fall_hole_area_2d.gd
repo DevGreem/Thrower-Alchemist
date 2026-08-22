@@ -6,10 +6,10 @@ class_name FallHoleArea2D
 @export var tweener: TweenerAction
 var shape: CollisionShape2D
 
+
 func _ready() -> void:
 	
-	if not body_entered.is_connected(_on_body_entered):
-		body_entered.connect(_on_body_entered)
+	SignalsUtilities.connect_signal(body_entered, _on_body_entered)
 	
 	shape = ComponentManager.get_component(self, CollisionShape2D)
 
@@ -59,14 +59,10 @@ func _rectangle_nearest_point_method(pos: Vector2, offset: Vector2, rectangle: R
 			close_distance = distances[side]
 			close_side = side
 	
-	var pos_sign: float
+	var pos_sign: Vector2 = close_side.sign()
 	if close_side.x != 0.0:
-		pos_sign = signf(close_side.x)
-		local_pos.x = half.x * pos_sign
-		local_pos.x += offset.x * pos_sign
+		local_pos.x = (half.x + offset.x) * pos_sign.x
 	else:
-		pos_sign = signf(close_side.y)
-		local_pos.y = half.y * pos_sign
-		local_pos.y += offset.y * pos_sign
+		local_pos.y = (half.y + offset.y) * pos_sign.y
 	
 	return shape.to_global(local_pos)
