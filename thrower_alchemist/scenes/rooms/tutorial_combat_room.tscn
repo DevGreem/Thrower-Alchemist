@@ -74,6 +74,7 @@ position = Vector2(4, 135)
 start_open = true
 
 [node name="OpenableDoors" type="Node2D" parent="Doors" unique_id=1997805832]
+y_sort_enabled = true
 script = ExtResource("7_qtepd")
 metadata/_custom_type_script = "uid://d4a80wtjg4cq7"
 
