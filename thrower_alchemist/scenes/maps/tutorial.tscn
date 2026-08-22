@@ -24,7 +24,7 @@
 [ext_resource type="Script" uid="uid://b8f7jg5whb2pb" path="res://scripts/end_floor_node.gd" id="21_jt61u"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_obaep"]
-size = Vector2(16, 24)
+size = Vector2(16, 16)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g04yl"]
 size = Vector2(15, 5)
