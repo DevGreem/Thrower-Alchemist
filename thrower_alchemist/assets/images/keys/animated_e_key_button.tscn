@@ -1,0 +1,117 @@
+[gd_scene format=3 uid="uid://banyi6k2ww0y"]
+
+[ext_resource type="Texture2D" uid="uid://cicxb1ydxitdj" path="res://assets/images/keys/e_key.png" id="1_bxs55"]
+[ext_resource type="Script" uid="uid://6c5smnsbmg0h" path="res://components/triggers_system/animation_trigger.gd" id="2_4uqyw"]
+
+[sub_resource type="Animation" id="Animation_p2g01"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = false
+tracks/0/path = NodePath(".:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:offset_transform_position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_c35wt"]
+resource_name = "hide"
+length = 0.33
+capture_included = true
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.33),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:offset_transform_position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.33),
+"transitions": PackedFloat32Array(1),
+"update": 2,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_esfqx"]
+resource_name = "show"
+length = 0.33
+capture_included = true
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.33),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:offset_transform_position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.33),
+"transitions": PackedFloat32Array(1),
+"update": 2,
+"values": [Vector2(0, -6)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_hvj66"]
+_data = {
+&"RESET": SubResource("Animation_p2g01"),
+&"hide": SubResource("Animation_c35wt"),
+&"show": SubResource("Animation_esfqx")
+}
+
+[node name="AnimatedEKeyButton" type="TextureRect" unique_id=160337217]
+offset_right = 12.0
+offset_bottom = 12.0
+offset_transform_enabled = true
+texture = ExtResource("1_bxs55")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1559060361]
+libraries/ = SubResource("AnimationLibrary_hvj66")
+
+[node name="ShowKey" type="Node" parent="." unique_id=1583972311 node_paths=PackedStringArray("animation_player")]
+script = ExtResource("2_4uqyw")
+animation_player = NodePath("../AnimationPlayer")
+animation_name = &"show"
+metadata/_custom_type_script = "uid://6c5smnsbmg0h"
+
+[node name="HideKey" type="Node" parent="." unique_id=1625200141 node_paths=PackedStringArray("animation_player")]
+script = ExtResource("2_4uqyw")
+animation_player = NodePath("../AnimationPlayer")
+animation_name = &"hide"
+metadata/_custom_type_script = "uid://6c5smnsbmg0h"

@@ -26,8 +26,15 @@ var focused_interactable: InteractArea2D:
 		if focused_interactable == value:
 			return
 		
+		if focused_interactable:
+			focused_interactable.unfocus()
+		
 		focused_interactable = value
 		focused_interactable_changed.emit(focused_interactable)
+		
+		if focused_interactable:
+			focused_interactable.focus()
+		
 		GameDebugger.debug_log(InteractComponent2D, "Change focus to interactable = " + str(focused_interactable))
 
 func _ready() -> void:

@@ -22,7 +22,6 @@
 [ext_resource type="Script" uid="uid://bl4331iyoi3u2" path="res://components/inventory_system/inputs/select_item_input.gd" id="11_piw5s"]
 [ext_resource type="Script" uid="uid://bo0xfdfx62t0i" path="res://components/interaction_system/inputs/interact_world_input.gd" id="19_2m54q"]
 [ext_resource type="Script" uid="uid://c3dkm3li8244q" path="res://components/interaction_system/interact_component_2d.gd" id="19_h0d63"]
-[ext_resource type="Script" uid="uid://4ttfqf8y1fon" path="res://components/interaction_system/interact_ui.gd" id="21_awhl2"]
 [ext_resource type="Script" uid="uid://d3uryx80exwr" path="res://components/debug_components/inputs/debug_god_input.gd" id="21_msox1"]
 [ext_resource type="Script" uid="uid://bh0h2gblnqadb" path="res://scripts/inputs/dash_input.gd" id="22_hp5df"]
 [ext_resource type="Script" uid="uid://b0ofjfg8urw8o" path="res://components/limbo_ai/limbo_state_machine.gd" id="24_xorka"]
@@ -221,16 +220,6 @@ script = ExtResource("19_h0d63")
 actor = NodePath("..")
 interact_area = NodePath("../Areas/InteractArea")
 metadata/_custom_type_script = "uid://c3dkm3li8244q"
-
-[node name="Label" type="Label" parent="InteractComponent2D" unique_id=2043128201 node_paths=PackedStringArray("interact_component")]
-visible = false
-offset_left = -31.0
-offset_top = -73.0
-offset_right = 32.0
-offset_bottom = -50.0
-text = "Hola Lol"
-script = ExtResource("21_awhl2")
-interact_component = NodePath("..")
 
 [node name="States" type="Node" parent="." unique_id=1220933562]
 

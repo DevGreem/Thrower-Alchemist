@@ -3,6 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://bp0q1lig48ynw" path="res://content/potions/static_potion.tscn" id="1_6nrby"]
 [ext_resource type="Script" uid="uid://bfr4uswi4ij6j" path="res://content/potions/pickable_potion.gd" id="2_nlj1i"]
 [ext_resource type="Script" uid="uid://dk0pi828tayhh" path="res://components/interaction_system/interact_area_2d.gd" id="3_15ek2"]
+[ext_resource type="PackedScene" uid="uid://banyi6k2ww0y" path="res://assets/images/keys/animated_e_key_button.tscn" id="4_nlj1i"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_obaep"]
 radius = 5.0990195
@@ -22,3 +23,20 @@ metadata/_custom_type_script = "uid://dk0pi828tayhh"
 position = Vector2(0, -4)
 shape = SubResource("CircleShape2D_obaep")
 debug_color = Color(0.70196074, 0.6038967, 0, 0.41960785)
+
+[node name="AnimatedEKeyButton" parent="InteractArea2D" index="1" unique_id=160337217 instance=ExtResource("4_nlj1i")]
+self_modulate = Color(1, 1, 1, 0)
+offset_left = -6.0
+offset_top = -23.0
+offset_right = 6.0
+offset_bottom = -11.0
+
+[node name="ShowKey" parent="InteractArea2D/AnimatedEKeyButton" index="1" unique_id=1583972311 node_paths=PackedStringArray("node")]
+signal_to_connect = &"focused"
+node = NodePath("../..")
+
+[node name="HideKey" parent="InteractArea2D/AnimatedEKeyButton" index="2" unique_id=1625200141 node_paths=PackedStringArray("node")]
+signal_to_connect = &"unfocused"
+node = NodePath("../..")
+
+[editable path="InteractArea2D/AnimatedEKeyButton"]
