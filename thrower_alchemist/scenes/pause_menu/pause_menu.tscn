@@ -1,0 +1,119 @@
+[gd_scene format=3 uid="uid://cfcdglmkolgl5"]
+
+[ext_resource type="Script" uid="uid://rc6ha30vj0li" path="res://components/scenes_system/nodes/toggle_pause_node.gd" id="1_10tpt"]
+[ext_resource type="Script" uid="uid://cj66dsilgm53v" path="res://components/scenes_system/nodes/change_scene_node.gd" id="1_qcmsd"]
+[ext_resource type="Script" uid="uid://8h3fajc76w20" path="res://components/triggers_system/execute_trigger.gd" id="2_10tpt"]
+[ext_resource type="Script" uid="uid://fsc8utpogkdm" path="res://components/ui_system/components/change_visibility_ui_node.gd" id="2_j7hes"]
+[ext_resource type="Script" uid="uid://chr8x08prhqt2" path="res://components/triggers_system/trigger_tree.gd" id="3_xv10j"]
+[ext_resource type="Script" uid="uid://dcufdc1p80h0j" path="res://components/triggers_system/trigger_execute_action.gd" id="4_ocp6o"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0a7io"]
+content_margin_left = 2.0
+content_margin_top = 2.0
+content_margin_right = 2.0
+content_margin_bottom = 2.0
+bg_color = Color(0.1, 0.1, 0.1, 0.6)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[node name="PauseMenu" type="Control" unique_id=1615410445]
+process_mode = 2
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="." unique_id=1327420902]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="CenterContainer" unique_id=2072341872]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_0a7io")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/PanelContainer" unique_id=894432454]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CenterContainer/PanelContainer/VBoxContainer" unique_id=161386195]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Game Paused	"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/PanelContainer/VBoxContainer" unique_id=1469973767]
+layout_mode = 2
+
+[node name="Resume" type="Button" parent="CenterContainer/PanelContainer/VBoxContainer/HBoxContainer" unique_id=390441917]
+layout_mode = 2
+text = "Resume"
+
+[node name="TogglePauseNode" type="Node" parent="CenterContainer/PanelContainer/VBoxContainer/HBoxContainer/Resume" unique_id=388377250]
+script = ExtResource("1_10tpt")
+pause = 1
+metadata/_custom_type_script = "uid://rc6ha30vj0li"
+
+[node name="ChangeVisibilityUINode" type="Node" parent="CenterContainer/PanelContainer/VBoxContainer/HBoxContainer/Resume" unique_id=508328780 node_paths=PackedStringArray("node")]
+script = ExtResource("2_j7hes")
+node = NodePath("../../../../../..")
+type = 1
+metadata/_custom_type_script = "uid://fsc8utpogkdm"
+
+[node name="TriggersTree" type="Node" parent="CenterContainer/PanelContainer/VBoxContainer/HBoxContainer/Resume" unique_id=1344446124 node_paths=PackedStringArray("node")]
+script = ExtResource("3_xv10j")
+signal_to_connect = &"pressed"
+node = NodePath("..")
+metadata/_custom_type_script = "uid://chr8x08prhqt2"
+
+[node name="TriggerExecuteAction" type="Node" parent="CenterContainer/PanelContainer/VBoxContainer/HBoxContainer/Resume/TriggersTree" unique_id=1883943197 node_paths=PackedStringArray("node")]
+script = ExtResource("4_ocp6o")
+method = &"change_visibility"
+node = NodePath("../../ChangeVisibilityUINode")
+metadata/_custom_type_script = "uid://dcufdc1p80h0j"
+
+[node name="TriggerExecuteAction2" type="Node" parent="CenterContainer/PanelContainer/VBoxContainer/HBoxContainer/Resume/TriggersTree" unique_id=1877560749 node_paths=PackedStringArray("node")]
+script = ExtResource("4_ocp6o")
+method = &"toggle_pause"
+node = NodePath("../../TogglePauseNode")
+metadata/_custom_type_script = "uid://dcufdc1p80h0j"
+
+[node name="Restart" type="Button" parent="CenterContainer/PanelContainer/VBoxContainer/HBoxContainer" unique_id=1184321755]
+layout_mode = 2
+text = "Restart"
+
+[node name="ChangeSceneNode" type="Node" parent="CenterContainer/PanelContainer/VBoxContainer/HBoxContainer/Restart" unique_id=121657698]
+script = ExtResource("1_qcmsd")
+method = 1
+metadata/_custom_type_script = "uid://cj66dsilgm53v"
+
+[node name="ExecuteTrigger" type="Node" parent="CenterContainer/PanelContainer/VBoxContainer/HBoxContainer/Restart" unique_id=570044024 node_paths=PackedStringArray("target", "node")]
+script = ExtResource("2_10tpt")
+target = NodePath("../ChangeSceneNode")
+method = &"change"
+signal_to_connect = &"pressed"
+node = NodePath("..")
+metadata/_custom_type_script = "uid://8h3fajc76w20"
+
+[node name="Surrender" type="Button" parent="CenterContainer/PanelContainer/VBoxContainer/HBoxContainer" unique_id=144160152]
+layout_mode = 2
+text = "Surrender"
+
+[node name="ChangeSceneNode" type="Node" parent="CenterContainer/PanelContainer/VBoxContainer/HBoxContainer/Surrender" unique_id=614940200]
+script = ExtResource("1_qcmsd")
+scene_file = "uid://bpfe5dk34pv1t"
+metadata/_custom_type_script = "uid://cj66dsilgm53v"
+
+[node name="ExecuteTrigger" type="Node" parent="CenterContainer/PanelContainer/VBoxContainer/HBoxContainer/Surrender" unique_id=668488287 node_paths=PackedStringArray("target", "node")]
+script = ExtResource("2_10tpt")
+target = NodePath("../ChangeSceneNode")
+method = &"change"
+signal_to_connect = &"pressed"
+node = NodePath("..")
+metadata/_custom_type_script = "uid://8h3fajc76w20"

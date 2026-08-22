@@ -9,6 +9,8 @@
 [ext_resource type="Script" uid="uid://o58rvo2k3k2y" path="res://components/player_system/player_spawned_trigger.gd" id="5_1mlh3"]
 [ext_resource type="PackedScene" uid="uid://ddbou0m40ya24" path="res://scenes/die_screen/die_screen.tscn" id="6_6p6g3"]
 [ext_resource type="Script" uid="uid://bhncvuypd75t2" path="res://components/spawn_system/containers/global_spawn_container_2d.gd" id="6_x0tpe"]
+[ext_resource type="PackedScene" uid="uid://cfcdglmkolgl5" path="res://scenes/pause_menu/pause_menu.tscn" id="9_lm0j3"]
+[ext_resource type="Script" uid="uid://b5x6yn5q3epjd" path="res://components/scenes_system/inputs/pause_game_input.gd" id="10_5sd3n"]
 
 [node name="GameMap" type="Node2D" unique_id=724420841 node_paths=PackedStringArray("world_container")]
 y_sort_enabled = true
@@ -58,6 +60,15 @@ layout_mode = 1
 
 [node name="DieMenu" parent="CanvasLayer" unique_id=1245053035 instance=ExtResource("6_6p6g3")]
 visible = false
+
+[node name="PauseMenu" parent="CanvasLayer" unique_id=1615410445 instance=ExtResource("9_lm0j3")]
+visible = false
+
+[node name="PauseGameInput" type="Node" parent="CanvasLayer/PauseMenu" unique_id=1306330233 node_paths=PackedStringArray("menu")]
+process_mode = 1
+script = ExtResource("10_5sd3n")
+menu_option = 1
+menu = NodePath("..")
 
 [node name="YSort" type="Node2D" parent="." unique_id=1291027061]
 y_sort_enabled = true
